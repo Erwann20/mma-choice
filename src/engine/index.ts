@@ -1,5 +1,20 @@
-// Cœur fonctionnel (AD-1) : logique de jeu PURE et déterministe.
-// N'importe RIEN de React, du store, de l'UI ou des routes.
-// Le `reduce(state, action)`, le PRNG à graine et la sélection d'événements
-// arrivent en Story 1.2+.
-export {}
+// Cœur fonctionnel (AD-1) : API publique du moteur pur.
+export type {
+  GameState,
+  Fighter,
+  Stats,
+  Meta,
+  Sex,
+  Style,
+  Phase,
+  FighterSetup,
+} from './state'
+export { createInitialState } from './state'
+
+export type { Action } from './actions'
+export { reduce } from './reducer'
+
+export type { RngState } from './rng'
+export { initRng, nextInt } from './rng'
+
+export * from './config'
