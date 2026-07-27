@@ -9,7 +9,22 @@ const STYLES: { id: Style; label: string }[] = [
   { id: 'grappler', label: 'Grappler' },
   { id: 'allrounder', label: 'Polyvalent' },
 ]
-const COUNTRIES = ['France', 'États-Unis', 'Brésil', 'Russie', 'Nigéria', 'Irlande', 'Japon']
+const COUNTRIES: { name: string; flag: string }[] = [
+  { name: 'France', flag: '🇫🇷' },
+  { name: 'États-Unis', flag: '🇺🇸' },
+  { name: 'Brésil', flag: '🇧🇷' },
+  { name: 'Russie', flag: '🇷🇺' },
+  { name: 'Nigéria', flag: '🇳🇬' },
+  { name: 'Irlande', flag: '🇮🇪' },
+  { name: 'Japon', flag: '🇯🇵' },
+  { name: 'Mexique', flag: '🇲🇽' },
+  { name: 'Canada', flag: '🇨🇦' },
+  { name: 'Royaume-Uni', flag: '🇬🇧' },
+  { name: 'Pologne', flag: '🇵🇱' },
+  { name: 'Thaïlande', flag: '🇹🇭' },
+]
+const MIN_AGE = 16
+const MAX_AGE = 22
 const STEPS = ['Sexe', 'Origine géo.', 'Origine', 'Style', 'Entourage', 'Division']
 
 export function CreationScreen({
@@ -24,7 +39,7 @@ export function CreationScreen({
 
   const [step, setStep] = useState(0)
   const [sex, setSex] = useState<Sex | null>(null)
-  const [country, setCountry] = useState(COUNTRIES[0])
+  const [country, setCountry] = useState(COUNTRIES[0].name)
   const [age, setAge] = useState(18)
   const [originId, setOriginId] = useState<string | null>(null)
   const [style, setStyle] = useState<Style | null>(null)
@@ -91,25 +106,50 @@ export function CreationScreen({
       {step === 1 && (
         <>
           <div className="field">
-            <label htmlFor="country">Pays</label>
-            <select id="country" value={country} onChange={(e) => setCountry(e.target.value)}>
+            <label>Pays d’origine</label>
+            <div className="flag-grid" role="group" aria-label="Pays d’origine">
               {COUNTRIES.map((c) => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
+                <button
+                  key={c.name}
+                  type="button"
+                  className={`flag-option ${country === c.name ? 'selected' : ''}`}
+                  onClick={() => setCountry(c.name)}
+                  aria-pressed={country === c.name}
+                >
+                  <span className="flag-emoji" aria-hidden="true">
+                    {c.flag}
+                  </span>
+                  <span className="flag-name">{c.name}</span>
+                </button>
               ))}
-            </select>
+            </div>
           </div>
           <div className="field">
-            <label htmlFor="age">Âge de départ : {age} ans</label>
-            <input
-              id="age"
-              type="range"
-              min={16}
-              max={22}
-              value={age}
-              onChange={(e) => setAge(Number(e.target.value))}
-            />
+            <label htmlFor="age-value">Âge de départ</label>
+            <div className="stepper" role="group" aria-label="Âge de départ">
+              <button
+                type="button"
+                className="stepper-btn"
+                onClick={() => setAge((a) => Math.max(MIN_AGE, a - 1))}
+                disabled={age <= MIN_AGE}
+                aria-label="Diminuer l’âge"
+              >
+                −
+              </button>
+              <div className="stepper-value" id="age-value" aria-live="polite">
+                <span className="stepper-num">{age}</span>
+                <span className="stepper-unit">ans</span>
+              </div>
+              <button
+                type="button"
+                className="stepper-btn"
+                onClick={() => setAge((a) => Math.min(MAX_AGE, a + 1))}
+                disabled={age >= MAX_AGE}
+                aria-label="Augmenter l’âge"
+              >
+                +
+              </button>
+            </div>
           </div>
         </>
       )}

@@ -335,6 +335,85 @@
   flex-direction: column;
   gap: var(--space-2);
 }
+
+/* Sélecteur de pays avec drapeaux (création) */
+.flag-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2);
+}
+.flag-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: var(--space-3) var(--space-2);
+  min-height: 78px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+  font: inherit;
+}
+.flag-option.selected {
+  border-color: var(--color-accent-line);
+  background: var(--color-accent-wash);
+}
+.flag-emoji {
+  font-size: 30px;
+  line-height: 1;
+}
+.flag-name {
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.15;
+}
+
+/* Sélecteur numérique (âge) */
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.stepper-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-strong);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: 28px;
+  font-weight: 800;
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+}
+.stepper-btn:hover:not(:disabled) {
+  border-color: var(--color-accent-line);
+}
+.stepper-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.stepper-value {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.stepper-num {
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.stepper-unit {
+  font-size: var(--fs-meta);
+  color: var(--color-text-muted);
+}
 .field label {
   font-size: var(--fs-meta);
   color: var(--color-text-muted);
