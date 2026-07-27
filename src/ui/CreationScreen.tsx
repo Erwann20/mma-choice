@@ -3,11 +3,11 @@ import type { Sex, Style } from '../engine'
 import { divisionsForSex, loadDivisions, loadStartingCriteria } from '../schema'
 import type { CreationChoices } from '../store/session'
 
-const STYLES: { id: Style; label: string }[] = [
-  { id: 'striker', label: 'Puncheur' },
-  { id: 'wrestler', label: 'Lutteur' },
-  { id: 'grappler', label: 'Grappler' },
-  { id: 'allrounder', label: 'Polyvalent' },
+const STYLES: { id: Style; label: string; desc: string }[] = [
+  { id: 'striker', label: 'Puncheur', desc: 'Le combat debout est ton royaume : frappe, distance, KO. Bonus quand tu boxes.' },
+  { id: 'wrestler', label: 'Lutteur', desc: 'Tu imposes le corps-à-corps : projections et contrôle. Bonus en lutte.' },
+  { id: 'grappler', label: 'Grappler', desc: 'Le sol est ton piège : soumissions et jiu-jitsu. Bonus au sol.' },
+  { id: 'allrounder', label: 'Polyvalent', desc: 'Aucune faille, aucune spécialité : complet partout, sans bonus dédié.' },
 ]
 const COUNTRIES: { name: string; flag: string }[] = [
   { name: 'France', flag: '🇫🇷' },
@@ -180,6 +180,7 @@ export function CreationScreen({
               onClick={() => setStyle(s.id)}
             >
               <span className="option-label">{s.label}</span>
+              <span className="option-desc">{s.desc}</span>
             </button>
           ))}
         </div>
