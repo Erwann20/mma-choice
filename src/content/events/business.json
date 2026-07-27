@@ -1,218 +1,868 @@
 [
   {
     "id": "biz-manager-offre",
-    "weight": 2, "repeatable": true, "cooldown": 4,
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 4,
     "overline": "MANAGEMENT",
     "text": "Un manager reconnu veut te représenter contre 20 % de tes bourses. Il promet de gros combats.",
-    "conditions": [{ "kind": "stat", "on": "reputation", "cmp": "gte", "value": 20 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "reputation",
+        "cmp": "gte",
+        "value": 20
+      }
+    ],
     "choices": [
-      { "label": "Signer avec lui", "effects": [{ "target": "reputation", "op": "add", "value": 4 }, { "target": "money", "op": "add", "value": 2000 }], "setFlags": { "a_un_manager": true } },
-      { "label": "Rester indépendant", "effects": [{ "target": "money", "op": "add", "value": 500 }, { "target": "mental", "op": "add", "value": 2 }] }
-    ]
+      {
+        "label": "Signer avec lui",
+        "effects": [
+          {
+            "target": "reputation",
+            "op": "add",
+            "value": 4
+          },
+          {
+            "target": "money",
+            "op": "add",
+            "value": 2000
+          }
+        ],
+        "setFlags": {
+          "a_un_manager": true
+        }
+      },
+      {
+        "label": "Rester indépendant",
+        "effects": [
+          {
+            "target": "money",
+            "op": "add",
+            "value": 500
+          },
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 2
+          }
+        ]
+      }
+    ],
+    "category": "money"
   },
   {
     "id": "biz-sponsor-boisson",
-    "weight": 2, "repeatable": true, "cooldown": 3,
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 3,
     "overline": "CONTRAT ÉNERGIE",
     "text": "Une marque de boisson énergisante veut son logo sur ton short.",
-    "conditions": [{ "kind": "stat", "on": "followers", "cmp": "gte", "value": 2000 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "followers",
+        "cmp": "gte",
+        "value": 2000
+      }
+    ],
     "choices": [
-      { "label": "Accepter le chèque", "effects": [{ "target": "money", "op": "add", "value": 3000 }] },
-      { "label": "Refuser, tu n'y crois pas", "effects": [{ "target": "reputation", "op": "add", "value": 3 }] }
-    ]
+      {
+        "label": "Accepter le chèque",
+        "effects": [
+          {
+            "target": "money",
+            "op": "add",
+            "value": 3000
+          }
+        ]
+      },
+      {
+        "label": "Refuser, tu n'y crois pas",
+        "effects": [
+          {
+            "target": "reputation",
+            "op": "add",
+            "value": 3
+          }
+        ]
+      }
+    ],
+    "category": "money"
   },
   {
     "id": "biz-boutique",
-    "weight": 1, "repeatable": true, "cooldown": 5,
+    "weight": 1,
+    "repeatable": true,
+    "cooldown": 5,
     "overline": "MERCHANDISING",
     "text": "Tu pourrais lancer ta propre ligne de t-shirts. Investissement de départ nécessaire.",
-    "conditions": [{ "kind": "stat", "on": "followers", "cmp": "gte", "value": 10000 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "followers",
+        "cmp": "gte",
+        "value": 10000
+      }
+    ],
     "choices": [
-      { "label": "Lancer la marque", "effects": [{ "target": "money", "op": "sub", "value": 4000 }, { "target": "followers", "op": "add", "value": 3000 }], "armFlags": [{ "flag": "revenus_merch", "value": true, "inYears": 1 }] },
-      { "label": "Pas le moment", "effects": [{ "target": "mental", "op": "add", "value": 1 }] }
-    ]
+      {
+        "label": "Lancer la marque",
+        "effects": [
+          {
+            "target": "money",
+            "op": "sub",
+            "value": 4000
+          },
+          {
+            "target": "followers",
+            "op": "add",
+            "value": 3000
+          }
+        ],
+        "armFlags": [
+          {
+            "flag": "revenus_merch",
+            "value": true,
+            "inYears": 1
+          }
+        ]
+      },
+      {
+        "label": "Pas le moment",
+        "effects": [
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "category": "money"
   },
   {
     "id": "biz-merch-retour",
-    "weight": 3, "repeatable": true,
+    "weight": 3,
+    "repeatable": true,
     "overline": "TES VENTES",
     "text": "Ta ligne de vêtements commence à rapporter. Les commandes tombent.",
-    "conditions": [{ "kind": "flag", "flag": "revenus_merch", "eq": true }],
+    "conditions": [
+      {
+        "kind": "flag",
+        "flag": "revenus_merch",
+        "eq": true
+      }
+    ],
     "choices": [
-      { "label": "Encaisser et réinvestir", "effects": [{ "target": "money", "op": "add", "value": 6000 }] }
-    ]
+      {
+        "label": "Encaisser et réinvestir",
+        "effects": [
+          {
+            "target": "money",
+            "op": "add",
+            "value": 6000
+          }
+        ]
+      }
+    ],
+    "category": "money"
   },
   {
     "id": "biz-arnaque-invest",
-    "weight": 1, "repeatable": true, "cooldown": 5,
+    "weight": 1,
+    "repeatable": true,
+    "cooldown": 5,
     "overline": "PLACEMENT DOUTEUX",
     "text": "Un « ami » te vend un investissement miracle. Rendement garanti, soi-disant.",
-    "conditions": [{ "kind": "stat", "on": "money", "cmp": "gte", "value": 8000 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "money",
+        "cmp": "gte",
+        "value": 8000
+      }
+    ],
     "choices": [
-      { "label": "Mettre une grosse somme", "effects": [{ "target": "money", "op": "sub", "value": 6000 }], "armFlags": [{ "flag": "arnaque_revelee", "value": true, "inYears": 1 }] },
-      { "label": "Flairer l'arnaque", "effects": [{ "target": "mental", "op": "add", "value": 3 }] }
-    ]
+      {
+        "label": "Mettre une grosse somme",
+        "effects": [
+          {
+            "target": "money",
+            "op": "sub",
+            "value": 6000
+          }
+        ],
+        "armFlags": [
+          {
+            "flag": "arnaque_revelee",
+            "value": true,
+            "inYears": 1
+          }
+        ]
+      },
+      {
+        "label": "Flairer l'arnaque",
+        "effects": [
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 3
+          }
+        ]
+      }
+    ],
+    "category": "money"
   },
   {
     "id": "biz-arnaque-fin",
-    "weight": 4, "repeatable": true,
+    "weight": 4,
+    "repeatable": true,
     "overline": "MAUVAISE SURPRISE",
     "text": "Le placement miracle s'est évaporé. L'ami a disparu avec l'argent.",
-    "conditions": [{ "kind": "flag", "flag": "arnaque_revelee", "eq": true }],
+    "conditions": [
+      {
+        "kind": "flag",
+        "flag": "arnaque_revelee",
+        "eq": true
+      }
+    ],
     "choices": [
-      { "label": "Encaisser la leçon", "effects": [{ "target": "mental", "op": "sub", "value": 5 }], "setFlags": { "arnaque_revelee": false } }
-    ]
+      {
+        "label": "Encaisser la leçon",
+        "effects": [
+          {
+            "target": "mental",
+            "op": "sub",
+            "value": 5
+          }
+        ],
+        "setFlags": {
+          "arnaque_revelee": false
+        }
+      }
+    ],
+    "category": "money"
   },
   {
     "id": "biz-podcast",
-    "weight": 2, "repeatable": true, "cooldown": 3,
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 3,
     "overline": "PODCAST",
     "text": "Un podcast MMA populaire t'invite pour une longue interview.",
-    "conditions": [{ "kind": "stat", "on": "reputation", "cmp": "gte", "value": 25 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "reputation",
+        "cmp": "gte",
+        "value": 25
+      }
+    ],
     "choices": [
-      { "label": "Te raconter sans langue de bois", "effects": [{ "target": "followers", "op": "add", "value": 4000 }, { "target": "reputation", "op": "add", "value": 2 }] },
-      { "label": "Rester prudent dans tes propos", "effects": [{ "target": "followers", "op": "add", "value": 1500 }] }
-    ]
+      {
+        "label": "Te raconter sans langue de bois",
+        "effects": [
+          {
+            "target": "followers",
+            "op": "add",
+            "value": 4000
+          },
+          {
+            "target": "reputation",
+            "op": "add",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "label": "Rester prudent dans tes propos",
+        "effects": [
+          {
+            "target": "followers",
+            "op": "add",
+            "value": 1500
+          }
+        ]
+      }
+    ],
+    "category": "money"
   },
   {
     "id": "biz-bonus-soiree",
-    "weight": 2, "repeatable": true, "cooldown": 3,
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 3,
     "overline": "BONUS DE LA SOIRÉE",
     "text": "Ta prestation pourrait décrocher un bonus « combat de la soirée » si tu mets le feu.",
-    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "tier",
+        "cmp": "gte",
+        "value": 1
+      }
+    ],
     "choices": [
-      { "label": "Jouer le spectacle à tout prix", "effects": [{ "target": "money", "op": "add", "value": 8000 }, { "target": "health", "op": "sub", "value": 5 }, { "target": "followers", "op": "add", "value": 2000 }] },
-      { "label": "Combattre malin, sans risque", "effects": [{ "target": "reputation", "op": "add", "value": 3 }] }
-    ]
+      {
+        "label": "Jouer le spectacle à tout prix",
+        "effects": [
+          {
+            "target": "money",
+            "op": "add",
+            "value": 8000
+          },
+          {
+            "target": "health",
+            "op": "sub",
+            "value": 5
+          },
+          {
+            "target": "followers",
+            "op": "add",
+            "value": 2000
+          }
+        ]
+      },
+      {
+        "label": "Combattre malin, sans risque",
+        "effects": [
+          {
+            "target": "reputation",
+            "op": "add",
+            "value": 3
+          }
+        ]
+      }
+    ],
+    "category": "money"
   },
   {
     "id": "biz-negociation-bourse",
-    "weight": 2, "repeatable": true, "cooldown": 3,
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 3,
     "overline": "NÉGOCIATION",
     "text": "Avant de signer ton prochain combat, tu peux négocier ta bourse plus dur.",
-    "conditions": [{ "kind": "stat", "on": "reputation", "cmp": "gte", "value": 35 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "reputation",
+        "cmp": "gte",
+        "value": 35
+      }
+    ],
     "choices": [
-      { "label": "Taper du poing sur la table", "effects": [{ "target": "money", "op": "add", "value": 5000 }, { "target": "reputation", "op": "sub", "value": 2 }] },
-      { "label": "Accepter pour préserver la relation", "effects": [{ "target": "reputation", "op": "add", "value": 3 }, { "target": "money", "op": "add", "value": 1000 }] }
-    ]
+      {
+        "label": "Taper du poing sur la table",
+        "effects": [
+          {
+            "target": "money",
+            "op": "add",
+            "value": 5000
+          },
+          {
+            "target": "reputation",
+            "op": "sub",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "label": "Accepter pour préserver la relation",
+        "effects": [
+          {
+            "target": "reputation",
+            "op": "add",
+            "value": 3
+          },
+          {
+            "target": "money",
+            "op": "add",
+            "value": 1000
+          }
+        ]
+      }
+    ],
+    "category": "money"
   },
   {
     "id": "biz-fisc",
-    "weight": 1, "repeatable": true, "cooldown": 5,
+    "weight": 1,
+    "repeatable": true,
+    "cooldown": 5,
     "overline": "IMPÔTS",
     "text": "Le fisc s'intéresse à tes revenus de combattant. Il faut mettre de l'ordre.",
-    "conditions": [{ "kind": "stat", "on": "money", "cmp": "gte", "value": 15000 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "money",
+        "cmp": "gte",
+        "value": 15000
+      }
+    ],
     "choices": [
-      { "label": "Prendre un bon comptable", "effects": [{ "target": "money", "op": "sub", "value": 3000 }, { "target": "mental", "op": "add", "value": 3 }] },
-      { "label": "Bricoler toi-même", "effects": [{ "target": "money", "op": "sub", "value": 1000 }, { "target": "mental", "op": "sub", "value": 3 }] }
-    ]
+      {
+        "label": "Prendre un bon comptable",
+        "effects": [
+          {
+            "target": "money",
+            "op": "sub",
+            "value": 3000
+          },
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "label": "Bricoler toi-même",
+        "effects": [
+          {
+            "target": "money",
+            "op": "sub",
+            "value": 1000
+          },
+          {
+            "target": "mental",
+            "op": "sub",
+            "value": 3
+          }
+        ]
+      }
+    ],
+    "category": "money"
   },
   {
     "id": "biz-pub-tournage",
-    "weight": 1, "repeatable": true, "cooldown": 4,
+    "weight": 1,
+    "repeatable": true,
+    "cooldown": 4,
     "overline": "SPOT PUBLICITAIRE",
     "text": "Une grande enseigne veut te faire tourner une pub. Une journée de tournage.",
-    "conditions": [{ "kind": "stat", "on": "followers", "cmp": "gte", "value": 30000 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "followers",
+        "cmp": "gte",
+        "value": 30000
+      }
+    ],
     "choices": [
-      { "label": "Accepter, gros cachet", "effects": [{ "target": "money", "op": "add", "value": 25000 }, { "target": "cardio", "op": "sub", "value": 1 }] },
-      { "label": "Refuser, focus combat", "effects": [{ "target": "striking", "op": "add", "value": 2 }, { "target": "grappling", "op": "add", "value": 2 }] }
-    ]
+      {
+        "label": "Accepter, gros cachet",
+        "effects": [
+          {
+            "target": "money",
+            "op": "add",
+            "value": 25000
+          },
+          {
+            "target": "cardio",
+            "op": "sub",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "label": "Refuser, focus combat",
+        "effects": [
+          {
+            "target": "striking",
+            "op": "add",
+            "value": 2
+          },
+          {
+            "target": "grappling",
+            "op": "add",
+            "value": 2
+          }
+        ]
+      }
+    ],
+    "category": "money"
   },
   {
     "id": "biz-gym-ownership",
-    "weight": 1, "repeatable": true, "cooldown": 6,
+    "weight": 1,
+    "repeatable": true,
+    "cooldown": 6,
     "overline": "TA PROPRE SALLE",
     "text": "Tu rêves d'ouvrir ta salle pour l'après-carrière. L'occasion se présente tôt.",
-    "conditions": [{ "kind": "stat", "on": "money", "cmp": "gte", "value": 25000 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "money",
+        "cmp": "gte",
+        "value": 25000
+      }
+    ],
     "choices": [
-      { "label": "Investir dans le local", "effects": [{ "target": "money", "op": "sub", "value": 20000 }, { "target": "reputation", "op": "add", "value": 5 }], "armFlags": [{ "flag": "revenus_salle", "value": true, "inYears": 1 }] },
-      { "label": "Attendre la fin de carrière", "effects": [{ "target": "mental", "op": "add", "value": 2 }] }
-    ]
+      {
+        "label": "Investir dans le local",
+        "effects": [
+          {
+            "target": "money",
+            "op": "sub",
+            "value": 20000
+          },
+          {
+            "target": "reputation",
+            "op": "add",
+            "value": 5
+          }
+        ],
+        "armFlags": [
+          {
+            "flag": "revenus_salle",
+            "value": true,
+            "inYears": 1
+          }
+        ]
+      },
+      {
+        "label": "Attendre la fin de carrière",
+        "effects": [
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 2
+          }
+        ]
+      }
+    ],
+    "category": "money"
   },
   {
     "id": "biz-salle-retour",
-    "weight": 2, "repeatable": true,
+    "weight": 2,
+    "repeatable": true,
     "overline": "TA SALLE TOURNE",
     "text": "Ta salle attire des adhérents. Revenus réguliers en vue.",
-    "conditions": [{ "kind": "flag", "flag": "revenus_salle", "eq": true }],
+    "conditions": [
+      {
+        "kind": "flag",
+        "flag": "revenus_salle",
+        "eq": true
+      }
+    ],
     "choices": [
-      { "label": "Toucher les bénéfices", "effects": [{ "target": "money", "op": "add", "value": 5000 }] }
-    ]
+      {
+        "label": "Toucher les bénéfices",
+        "effects": [
+          {
+            "target": "money",
+            "op": "add",
+            "value": 5000
+          }
+        ]
+      }
+    ],
+    "category": "money"
   },
   {
     "id": "biz-clause-exclusivite",
-    "weight": 1, "repeatable": true, "cooldown": 5,
+    "weight": 1,
+    "repeatable": true,
+    "cooldown": 5,
     "overline": "EXCLUSIVITÉ",
     "text": "Une organisation te propose un contrat d'exclusivité juteux mais qui te lie longtemps.",
-    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 2 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "tier",
+        "cmp": "gte",
+        "value": 2
+      }
+    ],
     "choices": [
-      { "label": "Signer la sécurité", "effects": [{ "target": "money", "op": "add", "value": 40000 }, { "target": "reputation", "op": "add", "value": 3 }] },
-      { "label": "Garder ta liberté", "effects": [{ "target": "reputation", "op": "add", "value": 6 }] }
-    ]
+      {
+        "label": "Signer la sécurité",
+        "effects": [
+          {
+            "target": "money",
+            "op": "add",
+            "value": 40000
+          },
+          {
+            "target": "reputation",
+            "op": "add",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "label": "Garder ta liberté",
+        "effects": [
+          {
+            "target": "reputation",
+            "op": "add",
+            "value": 6
+          }
+        ]
+      }
+    ],
+    "category": "money"
   },
   {
     "id": "biz-agent-social",
-    "weight": 2, "repeatable": true, "cooldown": 3,
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 3,
     "overline": "COMMUNITY MANAGER",
     "text": "Tu pourrais déléguer tes réseaux à un pro pour booster ta présence.",
-    "conditions": [{ "kind": "stat", "on": "money", "cmp": "gte", "value": 3000 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "money",
+        "cmp": "gte",
+        "value": 3000
+      }
+    ],
     "choices": [
-      { "label": "Embaucher quelqu'un", "effects": [{ "target": "money", "op": "sub", "value": 2000 }, { "target": "followers", "op": "add", "value": 4000 }] },
-      { "label": "Gérer toi-même", "effects": [{ "target": "followers", "op": "add", "value": 800 }, { "target": "mental", "op": "sub", "value": 1 }] }
-    ]
+      {
+        "label": "Embaucher quelqu'un",
+        "effects": [
+          {
+            "target": "money",
+            "op": "sub",
+            "value": 2000
+          },
+          {
+            "target": "followers",
+            "op": "add",
+            "value": 4000
+          }
+        ]
+      },
+      {
+        "label": "Gérer toi-même",
+        "effects": [
+          {
+            "target": "followers",
+            "op": "add",
+            "value": 800
+          },
+          {
+            "target": "mental",
+            "op": "sub",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "category": "money"
   },
   {
     "id": "biz-don-materiel",
-    "weight": 1, "repeatable": true, "cooldown": 4,
+    "weight": 1,
+    "repeatable": true,
+    "cooldown": 4,
     "overline": "ÉQUIPEMENTIER LOCAL",
     "text": "Un fabricant local t'offre gants et protections gratuits contre un peu de visibilité.",
-    "conditions": [{ "kind": "stat", "on": "reputation", "cmp": "gte", "value": 12 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "reputation",
+        "cmp": "gte",
+        "value": 12
+      }
+    ],
     "choices": [
-      { "label": "Accepter le partenariat", "effects": [{ "target": "money", "op": "add", "value": 600 }, { "target": "followers", "op": "add", "value": 300 }] },
-      { "label": "Décliner", "effects": [{ "target": "mental", "op": "add", "value": 1 }] }
-    ]
+      {
+        "label": "Accepter le partenariat",
+        "effects": [
+          {
+            "target": "money",
+            "op": "add",
+            "value": 600
+          },
+          {
+            "target": "followers",
+            "op": "add",
+            "value": 300
+          }
+        ]
+      },
+      {
+        "label": "Décliner",
+        "effects": [
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "category": "money"
   },
   {
     "id": "biz-cachet-seminaire",
-    "weight": 2, "repeatable": true, "cooldown": 3,
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 3,
     "overline": "SÉMINAIRE",
     "text": "On te propose d'animer un séminaire technique dans un club voisin.",
-    "conditions": [{ "kind": "stat", "on": "reputation", "cmp": "gte", "value": 30 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "reputation",
+        "cmp": "gte",
+        "value": 30
+      }
+    ],
     "choices": [
-      { "label": "Partager ton savoir", "effects": [{ "target": "money", "op": "add", "value": 1500 }, { "target": "reputation", "op": "add", "value": 2 }] },
-      { "label": "Rester concentré sur ta prépa", "effects": [{ "target": "cardio", "op": "add", "value": 2 }] }
-    ]
+      {
+        "label": "Partager ton savoir",
+        "effects": [
+          {
+            "target": "money",
+            "op": "add",
+            "value": 1500
+          },
+          {
+            "target": "reputation",
+            "op": "add",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "label": "Rester concentré sur ta prépa",
+        "effects": [
+          {
+            "target": "cardio",
+            "op": "add",
+            "value": 2
+          }
+        ]
+      }
+    ],
+    "category": "money"
   },
   {
     "id": "biz-crypto-influence",
-    "weight": 1, "repeatable": true, "cooldown": 5,
+    "weight": 1,
+    "repeatable": true,
+    "cooldown": 5,
     "overline": "PROMO DOUTEUSE",
     "text": "Une plateforme te paie gros pour promouvoir un jeton crypto à ta communauté.",
-    "conditions": [{ "kind": "stat", "on": "followers", "cmp": "gte", "value": 15000 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "followers",
+        "cmp": "gte",
+        "value": 15000
+      }
+    ],
     "choices": [
-      { "label": "Prendre l'argent", "effects": [{ "target": "money", "op": "add", "value": 12000 }, { "target": "reputation", "op": "sub", "value": 6 }] },
-      { "label": "Protéger ta communauté", "effects": [{ "target": "reputation", "op": "add", "value": 5 }, { "target": "followers", "op": "add", "value": 1000 }] }
-    ]
+      {
+        "label": "Prendre l'argent",
+        "effects": [
+          {
+            "target": "money",
+            "op": "add",
+            "value": 12000
+          },
+          {
+            "target": "reputation",
+            "op": "sub",
+            "value": 6
+          }
+        ]
+      },
+      {
+        "label": "Protéger ta communauté",
+        "effects": [
+          {
+            "target": "reputation",
+            "op": "add",
+            "value": 5
+          },
+          {
+            "target": "followers",
+            "op": "add",
+            "value": 1000
+          }
+        ]
+      }
+    ],
+    "category": "money"
   },
   {
     "id": "biz-prime-fidelite",
-    "weight": 1, "repeatable": true, "cooldown": 4,
+    "weight": 1,
+    "repeatable": true,
+    "cooldown": 4,
     "overline": "FIDÉLITÉ RÉCOMPENSÉE",
     "text": "Ton organisation te verse une prime pour tes années de bons et loyaux services.",
-    "conditions": [{ "kind": "stat", "on": "wins", "cmp": "gte", "value": 6 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "wins",
+        "cmp": "gte",
+        "value": 6
+      }
+    ],
     "choices": [
-      { "label": "Remercier et empocher", "effects": [{ "target": "money", "op": "add", "value": 7000 }, { "target": "mental", "op": "add", "value": 2 }] }
-    ]
+      {
+        "label": "Remercier et empocher",
+        "effects": [
+          {
+            "target": "money",
+            "op": "add",
+            "value": 7000
+          },
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 2
+          }
+        ]
+      }
+    ],
+    "category": "money"
   },
   {
     "id": "biz-collab-influenceur",
-    "weight": 2, "repeatable": true, "cooldown": 3,
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 3,
     "overline": "COLLAB RÉSEAUX",
     "text": "Un influenceur fitness te propose une vidéo commune. Public différent du tien.",
-    "conditions": [{ "kind": "stat", "on": "followers", "cmp": "gte", "value": 5000 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "followers",
+        "cmp": "gte",
+        "value": 5000
+      }
+    ],
     "choices": [
-      { "label": "Tourner ensemble", "effects": [{ "target": "followers", "op": "add", "value": 6000 }] },
-      { "label": "Pas ton univers", "effects": [{ "target": "mental", "op": "add", "value": 2 }] }
-    ]
+      {
+        "label": "Tourner ensemble",
+        "effects": [
+          {
+            "target": "followers",
+            "op": "add",
+            "value": 6000
+          }
+        ]
+      },
+      {
+        "label": "Pas ton univers",
+        "effects": [
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 2
+          }
+        ]
+      }
+    ],
+    "category": "money"
   }
 ]

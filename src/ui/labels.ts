@@ -1,7 +1,24 @@
 // Libellés FR et formatage des effets pour l'affichage (voix sobre).
-import type { Channel, Effect } from '../schema'
+import type { Channel, Effect, EventCategory, EventDef } from '../schema'
 import { loadOrganizations } from '../schema'
 import type { Tier, Style, GameState } from '../engine'
+
+/** Catégorie effective d'un événement (les combats priment). */
+export function eventCategory(event: EventDef): EventCategory {
+  if (event.fight) return 'combat'
+  return event.category ?? 'general'
+}
+
+/** Icône + libellé par catégorie (couleur portée par la classe CSS `cat-*`). */
+export const CATEGORY_META: Record<EventCategory, { icon: string; label: string }> = {
+  combat: { icon: '🥊', label: 'Combat' },
+  training: { icon: '🏋️', label: 'Entraînement' },
+  money: { icon: '💰', label: 'Business' },
+  social: { icon: '📱', label: 'Réseaux' },
+  health: { icon: '🩹', label: 'Santé' },
+  career: { icon: '📈', label: 'Carrière' },
+  general: { icon: '📋', label: 'Vie de combattant' },
+}
 
 export const TIER_LABEL: Record<Tier, string> = {
   immaf: 'Circuit amateur (IMMAF)',

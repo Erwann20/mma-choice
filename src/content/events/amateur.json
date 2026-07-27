@@ -4,23 +4,51 @@
     "weight": 5,
     "overline": "L'APPEL DU COACH",
     "text": "Ton coach veut t'inscrire à ton premier tournoi IMMAF. Trois combats en une soirée, zéro bourse, mais c'est là qu'on se fait remarquer.",
-    "conditions": [{ "kind": "stat", "on": "age", "cmp": "lte", "value": 24 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "age",
+        "cmp": "lte",
+        "value": 24
+      }
+    ],
     "choices": [
       {
         "label": "S'inscrire et tout donner",
         "hint": "Fatigue, mais de l'expérience",
         "effects": [
-          { "target": "reputation", "op": "add", "value": 8 },
-          { "target": "cardio", "op": "add", "value": 3 },
-          { "target": "health", "op": "sub", "value": 5 }
+          {
+            "target": "reputation",
+            "op": "add",
+            "value": 8
+          },
+          {
+            "target": "cardio",
+            "op": "add",
+            "value": 3
+          },
+          {
+            "target": "health",
+            "op": "sub",
+            "value": 5
+          }
         ],
-        "setFlags": { "a_combattu_immaf": true }
+        "setFlags": {
+          "a_combattu_immaf": true
+        }
       },
       {
         "label": "Refuser, tu ne te sens pas prêt",
-        "effects": [{ "target": "mental", "op": "sub", "value": 3 }]
+        "effects": [
+          {
+            "target": "mental",
+            "op": "sub",
+            "value": 3
+          }
+        ]
       }
-    ]
+    ],
+    "category": "career"
   },
   {
     "id": "evt-salle-de-quartier",
@@ -32,17 +60,36 @@
     "choices": [
       {
         "label": "Travailler la frappe",
-        "effects": [{ "target": "striking", "op": "add", "value": 4 }]
+        "effects": [
+          {
+            "target": "striking",
+            "op": "add",
+            "value": 4
+          }
+        ]
       },
       {
         "label": "Travailler le sol",
-        "effects": [{ "target": "ground", "op": "add", "value": 4 }]
+        "effects": [
+          {
+            "target": "ground",
+            "op": "add",
+            "value": 4
+          }
+        ]
       },
       {
         "label": "Travailler la lutte",
-        "effects": [{ "target": "grappling", "op": "add", "value": 4 }]
+        "effects": [
+          {
+            "target": "grappling",
+            "op": "add",
+            "value": 4
+          }
+        ]
       }
-    ]
+    ],
+    "category": "training"
   },
   {
     "id": "fight-amateur-carte-locale",
@@ -52,7 +99,14 @@
     "overline": "JOUR DE COMBAT",
     "text": "La cage t'attend sur une carte locale amateur. En face, un adversaire qui ne compte pas te faire de cadeau. Comment abordes-tu ce combat ?",
     "fight": {},
-    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "tier",
+        "cmp": "lte",
+        "value": 0
+      }
+    ],
     "choices": [
       {
         "label": "Boxer à distance",
@@ -78,15 +132,30 @@
     "cooldown": 4,
     "overline": "CHANGER DE CAMP",
     "text": "Un camp réputé t'ouvre ses portes pour une préparation longue. Tu peux réorienter en profondeur ta manière de combattre.",
-    "conditions": [{ "kind": "stat", "on": "age", "cmp": "gte", "value": 20 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "age",
+        "cmp": "gte",
+        "value": 20
+      }
+    ],
     "choices": [
       {
         "label": "Devenir un puncheur",
         "hint": "Tout pour la frappe debout",
         "setStyle": "striker",
         "effects": [
-          { "target": "striking", "op": "add", "value": 8 },
-          { "target": "health", "op": "sub", "value": 4 }
+          {
+            "target": "striking",
+            "op": "add",
+            "value": 8
+          },
+          {
+            "target": "health",
+            "op": "sub",
+            "value": 4
+          }
         ]
       },
       {
@@ -94,8 +163,16 @@
         "hint": "Imposer le corps-à-corps",
         "setStyle": "wrestler",
         "effects": [
-          { "target": "grappling", "op": "add", "value": 8 },
-          { "target": "health", "op": "sub", "value": 4 }
+          {
+            "target": "grappling",
+            "op": "add",
+            "value": 8
+          },
+          {
+            "target": "health",
+            "op": "sub",
+            "value": 4
+          }
         ]
       },
       {
@@ -103,8 +180,16 @@
         "hint": "Régner au sol",
         "setStyle": "grappler",
         "effects": [
-          { "target": "ground", "op": "add", "value": 8 },
-          { "target": "health", "op": "sub", "value": 4 }
+          {
+            "target": "ground",
+            "op": "add",
+            "value": 8
+          },
+          {
+            "target": "health",
+            "op": "sub",
+            "value": 4
+          }
         ]
       },
       {
@@ -112,11 +197,20 @@
         "hint": "Ne rien sacrifier",
         "setStyle": "allrounder",
         "effects": [
-          { "target": "striking", "op": "add", "value": 3 },
-          { "target": "grappling", "op": "add", "value": 3 }
+          {
+            "target": "striking",
+            "op": "add",
+            "value": 3
+          },
+          {
+            "target": "grappling",
+            "op": "add",
+            "value": 3
+          }
         ]
       }
-    ]
+    ],
+    "category": "training"
   },
   {
     "id": "fight-regional-main-card",
@@ -126,11 +220,30 @@
     "overline": "CARTE RÉGIONALE",
     "text": "Tu es désormais sur le circuit régional, sous les projecteurs d'une vraie promotion. Ton adversaire a du métier. Ton plan de match ?",
     "fight": {},
-    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "tier",
+        "cmp": "gte",
+        "value": 1
+      }
+    ],
     "choices": [
-      { "label": "Le noyer sous les frappes", "hint": "Ta frappe décide", "tactic": "striking" },
-      { "label": "Le coller au grillage", "hint": "Ta lutte décide", "tactic": "grappling" },
-      { "label": "L'étouffer au sol", "hint": "Ton jeu au sol décide", "tactic": "ground" }
+      {
+        "label": "Le noyer sous les frappes",
+        "hint": "Ta frappe décide",
+        "tactic": "striking"
+      },
+      {
+        "label": "Le coller au grillage",
+        "hint": "Ta lutte décide",
+        "tactic": "grappling"
+      },
+      {
+        "label": "L'étouffer au sol",
+        "hint": "Ton jeu au sol décide",
+        "tactic": "ground"
+      }
     ]
   },
   {
@@ -141,11 +254,30 @@
     "overline": "GRAND SHOW",
     "text": "L'organisation majeure t'a offert un contrat. Ce soir, l'octogone est à toi — et le monde regarde.",
     "fight": {},
-    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 2 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "tier",
+        "cmp": "gte",
+        "value": 2
+      }
+    ],
     "choices": [
-      { "label": "Assumer le duel debout", "hint": "Ta frappe décide", "tactic": "striking" },
-      { "label": "Dicter au corps-à-corps", "hint": "Ta lutte décide", "tactic": "grappling" },
-      { "label": "Chercher la finition au sol", "hint": "Ton jeu au sol décide", "tactic": "ground" }
+      {
+        "label": "Assumer le duel debout",
+        "hint": "Ta frappe décide",
+        "tactic": "striking"
+      },
+      {
+        "label": "Dicter au corps-à-corps",
+        "hint": "Ta lutte décide",
+        "tactic": "grappling"
+      },
+      {
+        "label": "Chercher la finition au sol",
+        "hint": "Ton jeu au sol décide",
+        "tactic": "ground"
+      }
     ]
   },
   {
@@ -155,15 +287,39 @@
     "cooldown": 2,
     "overline": "COMBAT DE TITRE",
     "text": "La ceinture est en jeu. Champion ou prétendant, ce soir tout se décide sous les projecteurs. La légende s'écrit maintenant.",
-    "fight": { "titleFight": true },
+    "fight": {
+      "titleFight": true
+    },
     "conditions": [
-      { "kind": "stat", "on": "tier", "cmp": "gte", "value": 2 },
-      { "kind": "stat", "on": "reputation", "cmp": "gte", "value": 60 }
+      {
+        "kind": "stat",
+        "on": "tier",
+        "cmp": "gte",
+        "value": 2
+      },
+      {
+        "kind": "stat",
+        "on": "reputation",
+        "cmp": "gte",
+        "value": 60
+      }
     ],
     "choices": [
-      { "label": "Tout miser sur ta frappe", "hint": "Ta frappe décide", "tactic": "striking" },
-      { "label": "Imposer ta lutte", "hint": "Ta lutte décide", "tactic": "grappling" },
-      { "label": "Dominer au sol", "hint": "Ton jeu au sol décide", "tactic": "ground" }
+      {
+        "label": "Tout miser sur ta frappe",
+        "hint": "Ta frappe décide",
+        "tactic": "striking"
+      },
+      {
+        "label": "Imposer ta lutte",
+        "hint": "Ta lutte décide",
+        "tactic": "grappling"
+      },
+      {
+        "label": "Dominer au sol",
+        "hint": "Ton jeu au sol décide",
+        "tactic": "ground"
+      }
     ]
   },
   {
@@ -171,16 +327,36 @@
     "weight": 2,
     "overline": "UNE PROPOSITION",
     "text": "Une petite boutique de sport locale te propose 200 € pour porter leur logo sur ton short au prochain combat.",
-    "conditions": [{ "kind": "stat", "on": "reputation", "cmp": "gte", "value": 10 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "reputation",
+        "cmp": "gte",
+        "value": 10
+      }
+    ],
     "choices": [
       {
         "label": "Accepter — chaque euro compte",
-        "effects": [{ "target": "money", "op": "add", "value": 200 }]
+        "effects": [
+          {
+            "target": "money",
+            "op": "add",
+            "value": 200
+          }
+        ]
       },
       {
         "label": "Refuser — tu vises plus haut",
-        "effects": [{ "target": "reputation", "op": "add", "value": 2 }]
+        "effects": [
+          {
+            "target": "reputation",
+            "op": "add",
+            "value": 2
+          }
+        ]
       }
-    ]
+    ],
+    "category": "money"
   }
 ]

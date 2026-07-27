@@ -8,10 +8,14 @@ export function ChoiceReveal({ changes }: { changes: FightChange[] }) {
     <section className="reveal-card" role="status" aria-live="polite">
       <p className="overline">Conséquences</p>
       <div className="deltas">
-        {changes.map((c) => {
+        {changes.map((c, i) => {
           const chip = changeChip(c.target, c.value)
           return (
-            <span key={c.target} className={`delta ${chip.dir}`}>
+            <span
+              key={c.target}
+              className={`delta delta-pop ${chip.dir}`}
+              style={{ animationDelay: `${120 + i * 90}ms` }}
+            >
               {chip.label}
             </span>
           )
