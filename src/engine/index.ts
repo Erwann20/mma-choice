@@ -8,8 +8,18 @@ export type {
   Style,
   Phase,
   FighterSetup,
+  PendingFlag,
 } from './state'
 export { createInitialState } from './state'
+
+export { readChannel } from './channels'
+export {
+  evalCondition,
+  isEligible,
+  buildPool,
+  selectEvent,
+  markEventConsumed,
+} from './events'
 
 export type { Action } from './actions'
 export { reduce } from './reducer'

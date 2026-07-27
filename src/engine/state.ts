@@ -29,6 +29,13 @@ export interface Meta {
   money: number
 }
 
+/** Flag différé : devient actif quand le combattant atteint `atAge` (FR-9). */
+export interface PendingFlag {
+  flag: string
+  value: number | boolean
+  atAge: number
+}
+
 export interface GameState {
   saveVersion: number
   seed: number
@@ -40,6 +47,7 @@ export interface GameState {
   stats: Stats
   meta: Meta
   flags: Record<string, number | boolean>
+  pending: PendingFlag[]
 }
 
 /** Données de création (l'écran réel arrive en Story 1.8). */
@@ -70,5 +78,6 @@ export function createInitialState(seed: number, setup: FighterSetup = {}): Game
     stats: { striking: 40, grappling: 40, ground: 40, cardio: 50 },
     meta: { health: 100, mental: 60, reputation: 0, followers: 0, money: 0 },
     flags: {},
+    pending: [],
   }
 }

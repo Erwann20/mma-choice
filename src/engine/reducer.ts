@@ -9,10 +9,18 @@ export function reduce(state: GameState, action: Action): GameState {
     case 'ADVANCE_YEAR': {
       const age = state.fighter.age + 1
       const phase = age >= RETIREMENT_AGE ? 'retired' : state.phase
+      // Active les flags différés dus à ce nouvel âge (FR-9).
+      const due = state.pending.filter((p) => p.atAge <= age)
+      const pending = state.pending.filter((p) => p.atAge > age)
+      const flags = due.length
+        ? { ...state.flags, ...Object.fromEntries(due.map((p) => [p.flag, p.value])) }
+        : state.flags
       return {
         ...state,
         phase,
         fighter: { ...state.fighter, age },
+        flags,
+        pending,
       }
     }
     default:
