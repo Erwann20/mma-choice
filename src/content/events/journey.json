@@ -1,230 +1,952 @@
 [
   {
     "id": "jrn-remplacant",
-    "weight": 3, "repeatable": true, "cooldown": 2,
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 2,
     "overline": "COMBAT AU PIED LEVÉ",
     "text": "Un combattant se blesse : on te propose de le remplacer dans une semaine. Peu de préparation.",
-    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "tier",
+        "cmp": "gte",
+        "value": 1
+      }
+    ],
     "choices": [
-      { "label": "Saisir l'occasion", "effects": [{ "target": "reputation", "op": "add", "value": 4 }, { "target": "health", "op": "sub", "value": 4 }, { "target": "money", "op": "add", "value": 2000 }] },
-      { "label": "Refuser, pas prêt", "effects": [{ "target": "mental", "op": "add", "value": 2 }] }
-    ]
+      {
+        "label": "Saisir l'occasion",
+        "effects": [
+          {
+            "target": "reputation",
+            "op": "add",
+            "value": 4
+          },
+          {
+            "target": "health",
+            "op": "sub",
+            "value": 4
+          },
+          {
+            "target": "money",
+            "op": "add",
+            "value": 2000
+          }
+        ]
+      },
+      {
+        "label": "Refuser, pas prêt",
+        "effects": [
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 2
+          }
+        ]
+      }
+    ],
+    "category": "career"
   },
   {
     "id": "jrn-etranger",
-    "weight": 2, "repeatable": true, "cooldown": 3,
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 3,
     "overline": "COMBAT À L'ÉTRANGER",
     "text": "Une organisation étrangère t'invite. Décalage horaire, public hostile, gros cachet.",
-    "conditions": [{ "kind": "stat", "on": "reputation", "cmp": "gte", "value": 25 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "reputation",
+        "cmp": "gte",
+        "value": 25
+      }
+    ],
     "choices": [
-      { "label": "Partir à l'aventure", "effects": [{ "target": "money", "op": "add", "value": 6000 }, { "target": "reputation", "op": "add", "value": 3 }, { "target": "cardio", "op": "sub", "value": 2 }] },
-      { "label": "Rester sur tes terres", "effects": [{ "target": "mental", "op": "add", "value": 2 }] }
-    ]
+      {
+        "label": "Partir à l'aventure",
+        "effects": [
+          {
+            "target": "money",
+            "op": "add",
+            "value": 6000
+          },
+          {
+            "target": "reputation",
+            "op": "add",
+            "value": 3
+          },
+          {
+            "target": "cardio",
+            "op": "sub",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "label": "Rester sur tes terres",
+        "effects": [
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 2
+          }
+        ]
+      }
+    ],
+    "category": "career"
   },
   {
     "id": "jrn-annulation",
-    "weight": 2, "repeatable": true, "cooldown": 2,
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 2,
     "overline": "COMBAT ANNULÉ",
     "text": "Ton combat tombe à l'eau à la dernière minute. Toute la coupe pour rien.",
     "choices": [
-      { "label": "Rester affûté malgré tout", "effects": [{ "target": "mental", "op": "add", "value": 3 }, { "target": "cardio", "op": "add", "value": 1 }] },
-      { "label": "Lâcher prise, décompresser", "effects": [{ "target": "health", "op": "add", "value": 4 }, { "target": "mental", "op": "sub", "value": 1 }] }
-    ]
+      {
+        "label": "Rester affûté malgré tout",
+        "effects": [
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 3
+          },
+          {
+            "target": "cardio",
+            "op": "add",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "label": "Lâcher prise, décompresser",
+        "effects": [
+          {
+            "target": "health",
+            "op": "add",
+            "value": 4
+          },
+          {
+            "target": "mental",
+            "op": "sub",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "category": "career"
   },
   {
     "id": "jrn-doute-existentiel",
-    "weight": 2, "repeatable": true, "cooldown": 3,
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 3,
     "overline": "POURQUOI JE FAIS ÇA ?",
     "text": "Une nuit d'insomnie, tu te demandes si tout ce sacrifice en vaut la peine.",
     "choices": [
-      { "label": "Te reconnecter à ta passion", "effects": [{ "target": "mental", "op": "add", "value": 6 }] },
-      { "label": "Noyer le doute dans le travail", "effects": [{ "target": "striking", "op": "add", "value": 2 }, { "target": "grappling", "op": "add", "value": 2 }, { "target": "health", "op": "sub", "value": 2 }] }
-    ]
+      {
+        "label": "Te reconnecter à ta passion",
+        "effects": [
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 6
+          }
+        ]
+      },
+      {
+        "label": "Noyer le doute dans le travail",
+        "effects": [
+          {
+            "target": "striking",
+            "op": "add",
+            "value": 2
+          },
+          {
+            "target": "grappling",
+            "op": "add",
+            "value": 2
+          },
+          {
+            "target": "health",
+            "op": "sub",
+            "value": 2
+          }
+        ]
+      }
+    ],
+    "category": "career"
   },
   {
     "id": "jrn-invaincu-pression",
-    "weight": 2, "repeatable": true, "cooldown": 3,
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 3,
     "overline": "POIDS DE L'INVINCIBILITÉ",
     "text": "Ton invincibilité devient un fardeau : tout le monde attend ta première défaite.",
     "conditions": [
-      { "kind": "stat", "on": "wins", "cmp": "gte", "value": 5 },
-      { "kind": "stat", "on": "losses", "cmp": "lte", "value": 0 }
+      {
+        "kind": "stat",
+        "on": "wins",
+        "cmp": "gte",
+        "value": 5
+      },
+      {
+        "kind": "stat",
+        "on": "losses",
+        "cmp": "lte",
+        "value": 0
+      }
     ],
     "choices": [
-      { "label": "Embrasser la pression", "effects": [{ "target": "mental", "op": "add", "value": 5 }, { "target": "reputation", "op": "add", "value": 2 }] },
-      { "label": "Faire comme si de rien n'était", "effects": [{ "target": "mental", "op": "sub", "value": 2 }, { "target": "striking", "op": "add", "value": 2 }] }
-    ]
+      {
+        "label": "Embrasser la pression",
+        "effects": [
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 5
+          },
+          {
+            "target": "reputation",
+            "op": "add",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "label": "Faire comme si de rien n'était",
+        "effects": [
+          {
+            "target": "mental",
+            "op": "sub",
+            "value": 2
+          },
+          {
+            "target": "striking",
+            "op": "add",
+            "value": 2
+          }
+        ]
+      }
+    ],
+    "category": "career"
   },
   {
     "id": "jrn-comeback",
-    "weight": 2, "repeatable": true, "cooldown": 3,
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 3,
     "overline": "REBOND",
     "text": "Après un revers, la presse t'enterre déjà. Le retour se prépare dans le silence.",
-    "conditions": [{ "kind": "stat", "on": "losses", "cmp": "gte", "value": 2 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "losses",
+        "cmp": "gte",
+        "value": 2
+      }
+    ],
     "choices": [
-      { "label": "Transformer la rage en travail", "effects": [{ "target": "striking", "op": "add", "value": 3 }, { "target": "grappling", "op": "add", "value": 3 }, { "target": "mental", "op": "add", "value": 2 }] },
-      { "label": "Douter et te chercher", "effects": [{ "target": "mental", "op": "sub", "value": 3 }, { "target": "ground", "op": "add", "value": 2 }] }
-    ]
+      {
+        "label": "Transformer la rage en travail",
+        "effects": [
+          {
+            "target": "striking",
+            "op": "add",
+            "value": 3
+          },
+          {
+            "target": "grappling",
+            "op": "add",
+            "value": 3
+          },
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "label": "Douter et te chercher",
+        "effects": [
+          {
+            "target": "mental",
+            "op": "sub",
+            "value": 3
+          },
+          {
+            "target": "ground",
+            "op": "add",
+            "value": 2
+          }
+        ]
+      }
+    ],
+    "category": "career"
   },
   {
     "id": "jrn-changer-coach",
-    "weight": 1, "repeatable": true, "cooldown": 5,
+    "weight": 1,
+    "repeatable": true,
+    "cooldown": 5,
     "overline": "NOUVEAU DÉPART",
     "text": "Tu sens que tu stagnes. Changer d'équipe, c'est un pari risqué mais parfois salvateur.",
-    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "tier",
+        "cmp": "gte",
+        "value": 1
+      }
+    ],
     "choices": [
-      { "label": "Rejoindre une équipe d'élite", "effects": [{ "target": "striking", "op": "add", "value": 4 }, { "target": "grappling", "op": "add", "value": 4 }, { "target": "mental", "op": "sub", "value": 3 }] },
-      { "label": "Rester loyal à tes racines", "effects": [{ "target": "mental", "op": "add", "value": 5 }] }
-    ]
+      {
+        "label": "Rejoindre une équipe d'élite",
+        "effects": [
+          {
+            "target": "striking",
+            "op": "add",
+            "value": 4
+          },
+          {
+            "target": "grappling",
+            "op": "add",
+            "value": 4
+          },
+          {
+            "target": "mental",
+            "op": "sub",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "label": "Rester loyal à tes racines",
+        "effects": [
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 5
+          }
+        ]
+      }
+    ],
+    "category": "career"
   },
   {
     "id": "jrn-poids-rate",
-    "weight": 2, "repeatable": true, "cooldown": 3,
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 3,
     "overline": "RATÉ À LA BALANCE",
     "text": "Tu ne fais pas le poids à la pesée. Amende, honte, combat en péril.",
-    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "tier",
+        "cmp": "gte",
+        "value": 1
+      }
+    ],
     "choices": [
-      { "label": "Assumer et t'excuser", "effects": [{ "target": "money", "op": "sub", "value": 3000 }, { "target": "reputation", "op": "sub", "value": 4 }] },
-      { "label": "Suer les derniers grammes en catastrophe", "effects": [{ "target": "health", "op": "sub", "value": 10 }] }
-    ]
+      {
+        "label": "Assumer et t'excuser",
+        "effects": [
+          {
+            "target": "money",
+            "op": "sub",
+            "value": 3000
+          },
+          {
+            "target": "reputation",
+            "op": "sub",
+            "value": 4
+          }
+        ]
+      },
+      {
+        "label": "Suer les derniers grammes en catastrophe",
+        "effects": [
+          {
+            "target": "health",
+            "op": "sub",
+            "value": 10
+          }
+        ]
+      }
+    ],
+    "category": "career"
   },
   {
     "id": "jrn-style-evolue-wrestler",
-    "weight": 1, "repeatable": true, "cooldown": 5,
+    "weight": 1,
+    "repeatable": true,
+    "cooldown": 5,
     "overline": "MUE TACTIQUE",
     "text": "Ton corps et ton jeu ont changé. Le corps-à-corps est devenu ton terrain.",
-    "conditions": [{ "kind": "stat", "on": "grappling", "cmp": "gte", "value": 60 }, { "kind": "style", "eq": "allrounder" }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "grappling",
+        "cmp": "gte",
+        "value": 60
+      },
+      {
+        "kind": "style",
+        "eq": "allrounder"
+      }
+    ],
     "choices": [
-      { "label": "Devenir un vrai lutteur", "effects": [{ "target": "grappling", "op": "add", "value": 5 }], "setStyle": "wrestler" },
-      { "label": "Garder ta polyvalence", "effects": [{ "target": "cardio", "op": "add", "value": 3 }] }
-    ]
+      {
+        "label": "Devenir un vrai lutteur",
+        "effects": [
+          {
+            "target": "grappling",
+            "op": "add",
+            "value": 5
+          }
+        ],
+        "setStyle": "wrestler"
+      },
+      {
+        "label": "Garder ta polyvalence",
+        "effects": [
+          {
+            "target": "cardio",
+            "op": "add",
+            "value": 3
+          }
+        ]
+      }
+    ],
+    "category": "career"
   },
   {
     "id": "jrn-style-evolue-grappler",
-    "weight": 1, "repeatable": true, "cooldown": 5,
+    "weight": 1,
+    "repeatable": true,
+    "cooldown": 5,
     "overline": "MUE TACTIQUE",
     "text": "Au sol, tu domines tout le monde. C'est là que se joue ton avenir.",
-    "conditions": [{ "kind": "stat", "on": "ground", "cmp": "gte", "value": 60 }, { "kind": "style", "eq": "allrounder" }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "ground",
+        "cmp": "gte",
+        "value": 60
+      },
+      {
+        "kind": "style",
+        "eq": "allrounder"
+      }
+    ],
     "choices": [
-      { "label": "Embrasser le jeu de grappler", "effects": [{ "target": "ground", "op": "add", "value": 5 }], "setStyle": "grappler" },
-      { "label": "Rester complet", "effects": [{ "target": "striking", "op": "add", "value": 3 }] }
-    ]
+      {
+        "label": "Embrasser le jeu de grappler",
+        "effects": [
+          {
+            "target": "ground",
+            "op": "add",
+            "value": 5
+          }
+        ],
+        "setStyle": "grappler"
+      },
+      {
+        "label": "Rester complet",
+        "effects": [
+          {
+            "target": "striking",
+            "op": "add",
+            "value": 3
+          }
+        ]
+      }
+    ],
+    "category": "career"
   },
   {
     "id": "jrn-retraite-tentation",
-    "weight": 2, "repeatable": true, "cooldown": 3,
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 3,
     "overline": "L'APPEL DE LA RETRAITE",
     "text": "Le corps fatigue, la motivation vacille. Une petite voix parle d'arrêter.",
-    "conditions": [{ "kind": "stat", "on": "age", "cmp": "gte", "value": 34 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "age",
+        "cmp": "gte",
+        "value": 34
+      }
+    ],
     "choices": [
-      { "label": "Repousser encore les limites", "effects": [{ "target": "mental", "op": "add", "value": 4 }, { "target": "health", "op": "sub", "value": 3 }] },
-      { "label": "Préparer ta sortie sereinement", "effects": [{ "target": "mental", "op": "add", "value": 5 }, { "target": "health", "op": "add", "value": 3 }] }
-    ]
+      {
+        "label": "Repousser encore les limites",
+        "effects": [
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 4
+          },
+          {
+            "target": "health",
+            "op": "sub",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "label": "Préparer ta sortie sereinement",
+        "effects": [
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 5
+          },
+          {
+            "target": "health",
+            "op": "add",
+            "value": 3
+          }
+        ]
+      }
+    ],
+    "category": "career"
   },
   {
     "id": "jrn-jeune-loup",
-    "weight": 2, "repeatable": true, "cooldown": 3,
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 3,
     "overline": "LA RELÈVE",
     "text": "Un jeune prodige monte vite et te vise ouvertement pour se faire un nom sur ton dos.",
-    "conditions": [{ "kind": "stat", "on": "age", "cmp": "gte", "value": 30 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "age",
+        "cmp": "gte",
+        "value": 30
+      }
+    ],
     "choices": [
-      { "label": "Lui rappeler qui est le patron", "effects": [{ "target": "mental", "op": "add", "value": 4 }, { "target": "striking", "op": "add", "value": 2 }] },
-      { "label": "Le prendre sous ton aile", "effects": [{ "target": "reputation", "op": "add", "value": 4 }] }
-    ]
+      {
+        "label": "Lui rappeler qui est le patron",
+        "effects": [
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 4
+          },
+          {
+            "target": "striking",
+            "op": "add",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "label": "Le prendre sous ton aile",
+        "effects": [
+          {
+            "target": "reputation",
+            "op": "add",
+            "value": 4
+          }
+        ]
+      }
+    ],
+    "category": "career"
   },
   {
     "id": "jrn-blessure-grave",
-    "weight": 1, "repeatable": true, "cooldown": 6,
+    "weight": 1,
+    "repeatable": true,
+    "cooldown": 6,
     "overline": "GROSSE ALERTE",
     "text": "Un choc à l'entraînement laisse craindre une blessure sérieuse. Examens en urgence.",
-    "conditions": [{ "kind": "stat", "on": "health", "cmp": "lt", "value": 55 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "health",
+        "cmp": "lt",
+        "value": 55
+      }
+    ],
     "choices": [
-      { "label": "Prendre le temps de guérir", "effects": [{ "target": "health", "op": "add", "value": 12 }, { "target": "reputation", "op": "sub", "value": 2 }] },
-      { "label": "Minimiser et continuer", "effects": [{ "target": "health", "op": "sub", "value": 8 }], "setFlags": { "blessure": true } }
-    ]
+      {
+        "label": "Prendre le temps de guérir",
+        "effects": [
+          {
+            "target": "health",
+            "op": "add",
+            "value": 12
+          },
+          {
+            "target": "reputation",
+            "op": "sub",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "label": "Minimiser et continuer",
+        "effects": [
+          {
+            "target": "health",
+            "op": "sub",
+            "value": 8
+          }
+        ],
+        "setFlags": {
+          "blessure": true
+        }
+      }
+    ],
+    "category": "career"
   },
   {
     "id": "jrn-hall-of-fame",
-    "weight": 1, "repeatable": true, "cooldown": 6,
+    "weight": 1,
+    "repeatable": true,
+    "cooldown": 6,
     "overline": "RECONNAISSANCE",
     "text": "On évoque déjà ton nom pour les livres d'histoire du sport.",
-    "conditions": [{ "kind": "stat", "on": "reputation", "cmp": "gte", "value": 70 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "reputation",
+        "cmp": "gte",
+        "value": 70
+      }
+    ],
     "choices": [
-      { "label": "Rester concentré, humble", "effects": [{ "target": "mental", "op": "add", "value": 5 }] },
-      { "label": "Savourer le moment", "effects": [{ "target": "reputation", "op": "add", "value": 3 }, { "target": "followers", "op": "add", "value": 4000 }] }
-    ]
+      {
+        "label": "Rester concentré, humble",
+        "effects": [
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 5
+          }
+        ]
+      },
+      {
+        "label": "Savourer le moment",
+        "effects": [
+          {
+            "target": "reputation",
+            "op": "add",
+            "value": 3
+          },
+          {
+            "target": "followers",
+            "op": "add",
+            "value": 4000
+          }
+        ]
+      }
+    ],
+    "category": "career"
   },
   {
     "id": "jrn-superstition",
-    "weight": 2, "repeatable": true, "cooldown": 3,
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 3,
     "overline": "RITUEL",
     "text": "Tes petites superstitions d'avant-combat rassurent. Mais l'une d'elles t'a lâché aujourd'hui.",
     "choices": [
-      { "label": "T'en libérer, mental d'acier", "effects": [{ "target": "mental", "op": "add", "value": 4 }] },
-      { "label": "T'accrocher à tes routines", "effects": [{ "target": "mental", "op": "add", "value": 2 }, { "target": "cardio", "op": "add", "value": 1 }] }
-    ]
+      {
+        "label": "T'en libérer, mental d'acier",
+        "effects": [
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 4
+          }
+        ]
+      },
+      {
+        "label": "T'accrocher à tes routines",
+        "effects": [
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 2
+          },
+          {
+            "target": "cardio",
+            "op": "add",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "category": "career"
   },
   {
     "id": "jrn-mediatique-clash-arbitre",
-    "weight": 1, "repeatable": true, "cooldown": 4,
+    "weight": 1,
+    "repeatable": true,
+    "cooldown": 4,
     "overline": "DÉCISION CONTESTÉE",
     "text": "Une décision d'arbitrage controversée lors d'un combat récent fait débat partout.",
-    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "tier",
+        "cmp": "gte",
+        "value": 1
+      }
+    ],
     "choices": [
-      { "label": "Réclamer une revanche publiquement", "effects": [{ "target": "followers", "op": "add", "value": 3000 }, { "target": "reputation", "op": "add", "value": 1 }] },
-      { "label": "Accepter la décision dignement", "effects": [{ "target": "reputation", "op": "add", "value": 4 }] }
-    ]
+      {
+        "label": "Réclamer une revanche publiquement",
+        "effects": [
+          {
+            "target": "followers",
+            "op": "add",
+            "value": 3000
+          },
+          {
+            "target": "reputation",
+            "op": "add",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "label": "Accepter la décision dignement",
+        "effects": [
+          {
+            "target": "reputation",
+            "op": "add",
+            "value": 4
+          }
+        ]
+      }
+    ],
+    "category": "career"
   },
   {
     "id": "jrn-fan-manque-respect",
-    "weight": 1, "repeatable": true, "cooldown": 4,
+    "weight": 1,
+    "repeatable": true,
+    "cooldown": 4,
     "overline": "INCIDENT",
     "text": "Un inconnu te provoque physiquement en soirée pour tester le combattant.",
     "choices": [
-      { "label": "Garder ton calme et partir", "effects": [{ "target": "mental", "op": "add", "value": 5 }, { "target": "reputation", "op": "add", "value": 3 }] },
-      { "label": "Te laisser emporter", "effects": [{ "target": "reputation", "op": "sub", "value": 6 }, { "target": "followers", "op": "add", "value": 1000 }] }
-    ]
+      {
+        "label": "Garder ton calme et partir",
+        "effects": [
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 5
+          },
+          {
+            "target": "reputation",
+            "op": "add",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "label": "Te laisser emporter",
+        "effects": [
+          {
+            "target": "reputation",
+            "op": "sub",
+            "value": 6
+          },
+          {
+            "target": "followers",
+            "op": "add",
+            "value": 1000
+          }
+        ]
+      }
+    ],
+    "category": "career"
   },
   {
     "id": "jrn-team-rassemble",
-    "weight": 2, "repeatable": true, "cooldown": 3,
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 3,
     "overline": "ESPRIT D'ÉQUIPE",
     "text": "Toute la team se serre les coudes avant une grosse soirée de combats.",
     "choices": [
-      { "label": "Souder le groupe", "effects": [{ "target": "mental", "op": "add", "value": 4 }, { "target": "reputation", "op": "add", "value": 1 }] },
-      { "label": "Rester dans ta bulle de concentration", "effects": [{ "target": "striking", "op": "add", "value": 2 }, { "target": "grappling", "op": "add", "value": 1 }] }
-    ]
+      {
+        "label": "Souder le groupe",
+        "effects": [
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 4
+          },
+          {
+            "target": "reputation",
+            "op": "add",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "label": "Rester dans ta bulle de concentration",
+        "effects": [
+          {
+            "target": "striking",
+            "op": "add",
+            "value": 2
+          },
+          {
+            "target": "grappling",
+            "op": "add",
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "category": "career"
   },
   {
     "id": "jrn-sacrifice-fete",
-    "weight": 2, "repeatable": true, "cooldown": 2,
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 2,
     "overline": "TENTATION",
     "text": "Tes amis t'invitent à une grosse fête. La prépa dit non, l'envie dit oui.",
     "choices": [
-      { "label": "Rester discipliné", "effects": [{ "target": "health", "op": "add", "value": 3 }, { "target": "mental", "op": "add", "value": 2 }] },
-      { "label": "Décompresser une soirée", "effects": [{ "target": "mental", "op": "add", "value": 3 }, { "target": "cardio", "op": "sub", "value": 3 }] }
-    ]
+      {
+        "label": "Rester discipliné",
+        "effects": [
+          {
+            "target": "health",
+            "op": "add",
+            "value": 3
+          },
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "label": "Décompresser une soirée",
+        "effects": [
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 3
+          },
+          {
+            "target": "cardio",
+            "op": "sub",
+            "value": 3
+          }
+        ]
+      }
+    ],
+    "category": "career"
   },
   {
     "id": "jrn-objectif-titre",
-    "weight": 2, "repeatable": true, "cooldown": 3,
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 3,
     "overline": "LIGNE DE MIRE",
     "text": "La ceinture n'a jamais été aussi proche. Chaque détail compte désormais.",
-    "conditions": [{ "kind": "stat", "on": "reputation", "cmp": "gte", "value": 50 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "reputation",
+        "cmp": "gte",
+        "value": 50
+      }
+    ],
     "choices": [
-      { "label": "Peaufiner chaque faille", "effects": [{ "target": "ground", "op": "add", "value": 3 }, { "target": "mental", "op": "add", "value": 3 }] },
-      { "label": "Tout miser sur ta force", "effects": [{ "target": "striking", "op": "add", "value": 4 }, { "target": "health", "op": "sub", "value": 2 }] }
-    ]
+      {
+        "label": "Peaufiner chaque faille",
+        "effects": [
+          {
+            "target": "ground",
+            "op": "add",
+            "value": 3
+          },
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "label": "Tout miser sur ta force",
+        "effects": [
+          {
+            "target": "striking",
+            "op": "add",
+            "value": 4
+          },
+          {
+            "target": "health",
+            "op": "sub",
+            "value": 2
+          }
+        ]
+      }
+    ],
+    "category": "career"
   },
   {
     "id": "jrn-premiere-defaite",
-    "weight": 1, "repeatable": true, "cooldown": 6,
+    "weight": 1,
+    "repeatable": true,
+    "cooldown": 6,
     "overline": "PREMIÈRE DÉSILLUSION",
     "text": "Ta première défaite est encore fraîche. Elle redéfinit qui tu es.",
-    "conditions": [{ "kind": "stat", "on": "losses", "cmp": "gte", "value": 1 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "losses",
+        "cmp": "gte",
+        "value": 1
+      }
+    ],
     "choices": [
-      { "label": "En faire une force", "effects": [{ "target": "mental", "op": "add", "value": 6 }] },
-      { "label": "Te renfermer un temps", "effects": [{ "target": "mental", "op": "sub", "value": 2 }, { "target": "ground", "op": "add", "value": 3 }] }
-    ]
+      {
+        "label": "En faire une force",
+        "effects": [
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 6
+          }
+        ]
+      },
+      {
+        "label": "Te renfermer un temps",
+        "effects": [
+          {
+            "target": "mental",
+            "op": "sub",
+            "value": 2
+          },
+          {
+            "target": "ground",
+            "op": "add",
+            "value": 3
+          }
+        ]
+      }
+    ],
+    "category": "career"
   }
 ]

@@ -9,6 +9,7 @@ import { OpponentCard } from './OpponentCard'
 import { ResultBanner } from './ResultBanner'
 import { ChoiceReveal } from './ChoiceReveal'
 import { describeStatChanges } from './a11y'
+import { eventCategory } from './labels'
 import { Skeleton } from './Skeleton'
 import type { GameState } from '../engine'
 
@@ -60,7 +61,7 @@ export function CareerScreen() {
   // Écran de conséquences d'un choix narratif : on découvre les effets (Destiny-like).
   if (lastReveal) {
     return (
-      <main className="screen">
+      <main className={`screen cat-${eventCategory(current)}`}>
         <FighterHeader game={game} />
         <DataChipRow game={game} onOpen={() => setStatsOpen(true)} />
         <EventCard event={current} />
@@ -75,14 +76,14 @@ export function CareerScreen() {
 
   const isFight = !!current.fight && !!opponent
   return (
-    <main className="screen">
+    <main className={`screen cat-${eventCategory(current)}`}>
       <FighterHeader game={game} />
       <DataChipRow game={game} onOpen={() => setStatsOpen(true)} />
-      {isFight && opponent ? <OpponentCard opponent={opponent} /> : null}
-      <EventCard event={current} />
+      {isFight && opponent ? <OpponentCard key={`opp-${current.id}`} opponent={opponent} /> : null}
+      <EventCard key={current.id} event={current} />
       <div className="choice-list">
         {current.choices.map((c, i) => (
-          <ChoiceCard key={i} choice={c} onClick={() => choose(i)} />
+          <ChoiceCard key={`${current.id}-${i}`} index={i} choice={c} onClick={() => choose(i)} />
         ))}
       </div>
       <p className="sr-only" role="status" aria-live="polite">

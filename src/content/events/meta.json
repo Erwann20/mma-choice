@@ -7,31 +7,64 @@
     "overline": "CONTRAT SPONSOR",
     "text": "Une marque de nutrition sportive a repéré ta progression et ta communauté. Elle te propose un contrat d'image.",
     "conditions": [
-      { "kind": "stat", "on": "reputation", "cmp": "gte", "value": 20 },
-      { "kind": "stat", "on": "followers", "cmp": "gte", "value": 500 }
+      {
+        "kind": "stat",
+        "on": "reputation",
+        "cmp": "gte",
+        "value": 20
+      },
+      {
+        "kind": "stat",
+        "on": "followers",
+        "cmp": "gte",
+        "value": 500
+      }
     ],
     "choices": [
       {
         "label": "Signer le contrat",
         "hint": "De l'argent et de la visibilité",
         "effects": [
-          { "target": "money", "op": "add", "value": 4000 },
-          { "target": "followers", "op": "add", "value": 300 }
+          {
+            "target": "money",
+            "op": "add",
+            "value": 4000
+          },
+          {
+            "target": "followers",
+            "op": "add",
+            "value": 300
+          }
         ]
       },
       {
         "label": "Négocier plus dur",
         "hint": "Quitte ou double",
         "effects": [
-          { "target": "money", "op": "add", "value": 7000 },
-          { "target": "reputation", "op": "sub", "value": 3 }
+          {
+            "target": "money",
+            "op": "add",
+            "value": 7000
+          },
+          {
+            "target": "reputation",
+            "op": "sub",
+            "value": 3
+          }
         ]
       },
       {
         "label": "Refuser — pas la bonne image",
-        "effects": [{ "target": "reputation", "op": "add", "value": 2 }]
+        "effects": [
+          {
+            "target": "reputation",
+            "op": "add",
+            "value": 2
+          }
+        ]
       }
-    ]
+    ],
+    "category": "money"
   },
   {
     "id": "evt-sponsor-major",
@@ -41,22 +74,47 @@
     "overline": "GROS CONTRAT",
     "text": "Un équipementier international veut faire de toi une tête d'affiche. Le chèque est conséquent, la pression aussi.",
     "conditions": [
-      { "kind": "stat", "on": "reputation", "cmp": "gte", "value": 55 },
-      { "kind": "stat", "on": "followers", "cmp": "gte", "value": 20000 }
+      {
+        "kind": "stat",
+        "on": "reputation",
+        "cmp": "gte",
+        "value": 55
+      },
+      {
+        "kind": "stat",
+        "on": "followers",
+        "cmp": "gte",
+        "value": 20000
+      }
     ],
     "choices": [
       {
         "label": "Signer — tu l'as mérité",
         "effects": [
-          { "target": "money", "op": "add", "value": 30000 },
-          { "target": "followers", "op": "add", "value": 2000 }
+          {
+            "target": "money",
+            "op": "add",
+            "value": 30000
+          },
+          {
+            "target": "followers",
+            "op": "add",
+            "value": 2000
+          }
         ]
       },
       {
         "label": "Rester indépendant",
-        "effects": [{ "target": "reputation", "op": "add", "value": 4 }]
+        "effects": [
+          {
+            "target": "reputation",
+            "op": "add",
+            "value": 4
+          }
+        ]
       }
-    ]
+    ],
+    "category": "money"
   },
   {
     "id": "evt-clash-conference",
@@ -65,31 +123,67 @@
     "cooldown": 2,
     "overline": "FACE-À-FACE",
     "text": "Micro tendu, caméras braquées : ton prochain adversaire te cherche en conférence de presse. La salle attend ta réaction.",
-    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "tier",
+        "cmp": "gte",
+        "value": 1
+      }
+    ],
     "choices": [
       {
         "label": "Le clasher sans filtre",
         "hint": "Gros buzz… mais ça peut se retourner",
         "effects": [
-          { "target": "followers", "op": "add", "value": 4000 },
-          { "target": "reputation", "op": "add", "value": 3 }
+          {
+            "target": "followers",
+            "op": "add",
+            "value": 4000
+          },
+          {
+            "target": "reputation",
+            "op": "add",
+            "value": 3
+          }
         ],
-        "armFlags": [{ "flag": "bad_buzz", "value": true, "inYears": 1 }]
+        "armFlags": [
+          {
+            "flag": "bad_buzz",
+            "value": true,
+            "inYears": 1
+          }
+        ]
       },
       {
         "label": "Rester pro et concentré",
         "hint": "Le respect du milieu",
         "effects": [
-          { "target": "reputation", "op": "add", "value": 5 },
-          { "target": "followers", "op": "add", "value": 400 }
+          {
+            "target": "reputation",
+            "op": "add",
+            "value": 5
+          },
+          {
+            "target": "followers",
+            "op": "add",
+            "value": 400
+          }
         ]
       },
       {
         "label": "Jouer la carte de l'humour",
         "hint": "Sympathie du public",
-        "effects": [{ "target": "followers", "op": "add", "value": 1500 }]
+        "effects": [
+          {
+            "target": "followers",
+            "op": "add",
+            "value": 1500
+          }
+        ]
       }
-    ]
+    ],
+    "category": "social"
   },
   {
     "id": "evt-bad-buzz",
@@ -97,28 +191,59 @@
     "repeatable": true,
     "overline": "BAD BUZZ",
     "text": "Tes propos ont dérapé et les réseaux s'enflamment contre toi. Sponsors nerveux, commentaires assassins. Comment gères-tu la crise ?",
-    "conditions": [{ "kind": "flag", "flag": "bad_buzz", "eq": true }],
+    "conditions": [
+      {
+        "kind": "flag",
+        "flag": "bad_buzz",
+        "eq": true
+      }
+    ],
     "choices": [
       {
         "label": "Assumer, ne rien lâcher",
         "hint": "Fidèle à toi-même, mais ça coûte",
         "effects": [
-          { "target": "mental", "op": "sub", "value": 8 },
-          { "target": "reputation", "op": "sub", "value": 6 }
+          {
+            "target": "mental",
+            "op": "sub",
+            "value": 8
+          },
+          {
+            "target": "reputation",
+            "op": "sub",
+            "value": 6
+          }
         ],
-        "setFlags": { "bad_buzz": false }
+        "setFlags": {
+          "bad_buzz": false
+        }
       },
       {
         "label": "Présenter des excuses",
         "hint": "Éteindre l'incendie",
         "effects": [
-          { "target": "reputation", "op": "sub", "value": 2 },
-          { "target": "followers", "op": "sub", "value": 1000 },
-          { "target": "mental", "op": "add", "value": 3 }
+          {
+            "target": "reputation",
+            "op": "sub",
+            "value": 2
+          },
+          {
+            "target": "followers",
+            "op": "sub",
+            "value": 1000
+          },
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 3
+          }
         ],
-        "setFlags": { "bad_buzz": false }
+        "setFlags": {
+          "bad_buzz": false
+        }
       }
-    ]
+    ],
+    "category": "social"
   },
   {
     "id": "evt-coupe-de-poids",
@@ -126,27 +251,54 @@
     "repeatable": true,
     "overline": "COUPE DE POIDS",
     "text": "Nouvelle catégorie, nouvelle bataille contre la balance. La semaine de coupe s'annonce brutale. Comment la gères-tu ?",
-    "conditions": [{ "kind": "flag", "flag": "coupe_de_poids", "eq": true }],
+    "conditions": [
+      {
+        "kind": "flag",
+        "flag": "coupe_de_poids",
+        "eq": true
+      }
+    ],
     "choices": [
       {
         "label": "Couper à l'arrache",
         "hint": "Rapide mais tu le paies",
         "effects": [
-          { "target": "health", "op": "sub", "value": 14 },
-          { "target": "cardio", "op": "sub", "value": 4 }
+          {
+            "target": "health",
+            "op": "sub",
+            "value": 14
+          },
+          {
+            "target": "cardio",
+            "op": "sub",
+            "value": 4
+          }
         ],
-        "setFlags": { "coupe_de_poids": false }
+        "setFlags": {
+          "coupe_de_poids": false
+        }
       },
       {
         "label": "Coupe encadrée par un nutritionniste (−2000 €)",
         "hint": "Plus sûr, plus cher",
         "effects": [
-          { "target": "money", "op": "sub", "value": 2000 },
-          { "target": "health", "op": "sub", "value": 5 }
+          {
+            "target": "money",
+            "op": "sub",
+            "value": 2000
+          },
+          {
+            "target": "health",
+            "op": "sub",
+            "value": 5
+          }
         ],
-        "setFlags": { "coupe_de_poids": false }
+        "setFlags": {
+          "coupe_de_poids": false
+        }
       }
-    ]
+    ],
+    "category": "health"
   },
   {
     "id": "evt-blessure",
@@ -154,27 +306,54 @@
     "repeatable": true,
     "overline": "BLESSURE",
     "text": "L'IRM est tombée : une blessure sérieuse te met sur la touche. Le corps réclame son dû.",
-    "conditions": [{ "kind": "flag", "flag": "blessure", "eq": true }],
+    "conditions": [
+      {
+        "kind": "flag",
+        "flag": "blessure",
+        "eq": true
+      }
+    ],
     "choices": [
       {
         "label": "Repos complet",
         "hint": "Guérir vraiment, quitte à rouiller",
         "effects": [
-          { "target": "health", "op": "add", "value": 25 },
-          { "target": "reputation", "op": "sub", "value": 3 }
+          {
+            "target": "health",
+            "op": "add",
+            "value": 25
+          },
+          {
+            "target": "reputation",
+            "op": "sub",
+            "value": 3
+          }
         ],
-        "setFlags": { "blessure": false }
+        "setFlags": {
+          "blessure": false
+        }
       },
       {
         "label": "Revenir trop vite",
         "hint": "Fragile, mais présent",
         "effects": [
-          { "target": "health", "op": "add", "value": 8 },
-          { "target": "mental", "op": "sub", "value": 4 }
+          {
+            "target": "health",
+            "op": "add",
+            "value": 8
+          },
+          {
+            "target": "mental",
+            "op": "sub",
+            "value": 4
+          }
         ],
-        "setFlags": { "blessure": false }
+        "setFlags": {
+          "blessure": false
+        }
       }
-    ]
+    ],
+    "category": "health"
   },
   {
     "id": "evt-pesee-limite",
@@ -183,19 +362,39 @@
     "cooldown": 2,
     "overline": "SEMAINE DE PESÉE",
     "text": "Tu arrives limite au poids. Le sauna ou la sagesse ?",
-    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "tier",
+        "cmp": "gte",
+        "value": 1
+      }
+    ],
     "choices": [
       {
         "label": "Forcer la coupe",
         "hint": "Tu fais le poids, mais vidé",
-        "effects": [{ "target": "health", "op": "sub", "value": 8 }]
+        "effects": [
+          {
+            "target": "health",
+            "op": "sub",
+            "value": 8
+          }
+        ]
       },
       {
         "label": "Monter sur la balance serein",
         "hint": "Discipline toute l'année",
-        "effects": [{ "target": "mental", "op": "add", "value": 2 }]
+        "effects": [
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 2
+          }
+        ]
       }
-    ]
+    ],
+    "category": "health"
   },
   {
     "id": "evt-changer-categorie-h",
@@ -205,21 +404,42 @@
     "overline": "CHANGER DE CATÉGORIE",
     "text": "Ton corps a changé. Certains te voient plus fort dans une catégorie supérieure. Tu tentes le grand saut ?",
     "conditions": [
-      { "kind": "sex", "eq": "M" },
-      { "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 }
+      {
+        "kind": "sex",
+        "eq": "M"
+      },
+      {
+        "kind": "stat",
+        "on": "tier",
+        "cmp": "gte",
+        "value": 1
+      }
     ],
     "choices": [
       {
         "label": "Monter chez les mi-moyens",
         "hint": "Plus lourd, coupe plus douce",
         "setDivision": "welterweight-m",
-        "effects": [{ "target": "health", "op": "add", "value": 5 }]
+        "effects": [
+          {
+            "target": "health",
+            "op": "add",
+            "value": 5
+          }
+        ]
       },
       {
         "label": "Rester dans ta catégorie",
-        "effects": [{ "target": "mental", "op": "add", "value": 2 }]
+        "effects": [
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 2
+          }
+        ]
       }
-    ]
+    ],
+    "category": "health"
   },
   {
     "id": "evt-changer-categorie-f",
@@ -229,21 +449,42 @@
     "overline": "CHANGER DE CATÉGORIE",
     "text": "Ton corps a changé. Certaines te voient plus performante dans une catégorie supérieure. Tu tentes le grand saut ?",
     "conditions": [
-      { "kind": "sex", "eq": "F" },
-      { "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 }
+      {
+        "kind": "sex",
+        "eq": "F"
+      },
+      {
+        "kind": "stat",
+        "on": "tier",
+        "cmp": "gte",
+        "value": 1
+      }
     ],
     "choices": [
       {
         "label": "Monter chez les poids coq",
         "hint": "Plus lourd, coupe plus douce",
         "setDivision": "bantamweight-f",
-        "effects": [{ "target": "health", "op": "add", "value": 5 }]
+        "effects": [
+          {
+            "target": "health",
+            "op": "add",
+            "value": 5
+          }
+        ]
       },
       {
         "label": "Rester dans ta catégorie",
-        "effects": [{ "target": "mental", "op": "add", "value": 2 }]
+        "effects": [
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 2
+          }
+        ]
       }
-    ]
+    ],
+    "category": "health"
   },
   {
     "id": "evt-camp-elite",
@@ -252,32 +493,78 @@
     "cooldown": 2,
     "overline": "INVESTIR DANS TON CAMP",
     "text": "Tu as de quoi t'offrir une préparation haut de gamme : sparring de niveau, préparateur physique, nutritionniste. Où mets-tu ton argent ?",
-    "conditions": [{ "kind": "stat", "on": "money", "cmp": "gte", "value": 3000 }],
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "money",
+        "cmp": "gte",
+        "value": 3000
+      }
+    ],
     "choices": [
       {
         "label": "Camp complet (−5000 €)",
         "hint": "Progrès sur tous les tableaux",
         "effects": [
-          { "target": "money", "op": "sub", "value": 5000 },
-          { "target": "striking", "op": "add", "value": 3 },
-          { "target": "grappling", "op": "add", "value": 3 },
-          { "target": "ground", "op": "add", "value": 3 },
-          { "target": "cardio", "op": "add", "value": 3 }
+          {
+            "target": "money",
+            "op": "sub",
+            "value": 5000
+          },
+          {
+            "target": "striking",
+            "op": "add",
+            "value": 3
+          },
+          {
+            "target": "grappling",
+            "op": "add",
+            "value": 3
+          },
+          {
+            "target": "ground",
+            "op": "add",
+            "value": 3
+          },
+          {
+            "target": "cardio",
+            "op": "add",
+            "value": 3
+          }
         ]
       },
       {
         "label": "Préparation physique (−3000 €)",
         "hint": "Cardio et forme",
         "effects": [
-          { "target": "money", "op": "sub", "value": 3000 },
-          { "target": "cardio", "op": "add", "value": 6 },
-          { "target": "health", "op": "add", "value": 6 }
+          {
+            "target": "money",
+            "op": "sub",
+            "value": 3000
+          },
+          {
+            "target": "cardio",
+            "op": "add",
+            "value": 6
+          },
+          {
+            "target": "health",
+            "op": "add",
+            "value": 6
+          }
         ]
       },
       {
         "label": "Économiser pour plus tard",
-        "effects": [{ "target": "mental", "op": "add", "value": 2 }]
+        "effects": [
+          {
+            "target": "mental",
+            "op": "add",
+            "value": 2
+          }
+        ]
       }
-    ]
+    ],
+    "category": "training"
   }
 ]

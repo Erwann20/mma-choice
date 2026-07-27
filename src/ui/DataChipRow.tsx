@@ -21,7 +21,10 @@ export function DataChipRow({ game, onOpen }: { game: GameState; onOpen?: () => 
       {chips(game).map((c) => (
         <span className="chip" key={c.label}>
           <span className="chip-label">{c.label}</span>
-          <span className="chip-value">{c.value}</span>
+          {/* key sur la valeur ⇒ re-montage + petite animation quand elle change */}
+          <span className="chip-value" key={c.value}>
+            {c.value}
+          </span>
         </span>
       ))}
     </button>

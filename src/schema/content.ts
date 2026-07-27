@@ -104,6 +104,12 @@ export const FightSchema = z.object({
   titleFight: z.boolean().default(false),
 })
 
+// Catégorie thématique d'un événement → couleur d'accent dans l'UI (les combats
+// sont déduits du champ `fight`, mais peuvent aussi être marqués explicitement).
+export const EVENT_CATEGORIES = ['combat', 'training', 'money', 'social', 'health', 'career', 'general'] as const
+export const EventCategorySchema = z.enum(EVENT_CATEGORIES)
+export type EventCategory = z.infer<typeof EventCategorySchema>
+
 export const EventSchema = z.object({
   id: z.string().min(1),
   weight: z.number().int().positive().default(1),
@@ -112,6 +118,7 @@ export const EventSchema = z.object({
   overline: z.string().optional(),
   text: z.string().min(1),
   fight: FightSchema.optional(),
+  category: EventCategorySchema.optional(),
   choices: z.array(ChoiceSchema).min(1).max(4),
   conditions: z.array(ConditionSchema).default([]),
 })
