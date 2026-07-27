@@ -14,10 +14,17 @@ import {
   generateOpponent,
   resolveFight,
   isEligible,
+  markEventConsumed,
   nextInt,
   fightsPerYear,
   STORY_EVENTS_PER_YEAR,
 } from '../engine'
+import {
+  createTournament,
+  advanceTournament,
+  roundNames,
+  type Tournament,
+} from './tournament'
 
 // Contenu statique chargé une fois (validé au chargement, AD-4).
 const OPPONENT_POOL: OpponentPool = loadOpponentPool()
@@ -73,16 +80,33 @@ function shuffle<T>(items: T[], rng: RngState): [T[], RngState] {
 }
 
 /**
- * Planifie l'année : N combats garantis (amateur 4 / pro 3) + les Événements
- * narratifs, plus un créneau TOURNOI si un tournoi est débloqué. Ordre mélangé
- * pour que les combats ne tombent pas toujours en début d'année.
+ * Planifie l'année : N combats garantis (amateur 4 / pro 3) + un créneau TOURNOI
+ * si débloqué, ENTRELACÉS avec des Événements narratifs — un récit entre chaque
+ * combat (jamais deux combats d'affilée). L'ordre des combats/tournoi est mélangé
+ * (le tournoi peut tomber n'importe quand dans l'année).
  */
 function planYear(game: GameState, events: EventDef[]): { plan: Slot[]; rng: RngState } {
-  const slots: Slot[] = []
-  for (let i = 0; i < fightsPerYear(game.pro); i++) slots.push('fight')
-  if (events.some((e) => isTournament(e) && isEligible(game, e))) slots.push('tournament')
-  for (let i = 0; i < STORY_EVENTS_PER_YEAR; i++) slots.push('story')
-  const [plan, rng] = shuffle(slots, game.rng)
+  const fights = fightsPerYear(game.pro)
+  const actions: Slot[] = []
+  for (let i = 0; i < fights; i++) actions.push('fight')
+  if (events.some((e) => isTournament(e) && isEligible(game, e))) actions.push('tournament')
+  const [shuffled, rng] = shuffle(actions, game.rng)
+
+  // Autant (+1) de récits que d'actions ⇒ un récit sépare chaque combat.
+  const stories = Math.max(STORY_EVENTS_PER_YEAR, fights + 1)
+  const plan: Slot[] = []
+  let ai = 0
+  let si = 0
+  while (ai < shuffled.length || si < stories) {
+    if (si < stories) {
+      plan.push('story')
+      si++
+    }
+    if (ai < shuffled.length) {
+      plan.push(shuffled[ai])
+      ai++
+    }
+  }
   return { plan, rng }
 }
 
@@ -169,6 +193,8 @@ export interface Session {
   lastReveal: ChoiceReveal | null
   /** Bilan de fin d'année à afficher (écran récap annuel), sinon null. */
   yearReview: YearReview | null
+  /** Tournoi en cours (tableau à élimination directe), sinon null. */
+  tournament: Tournament | null
   /** Plan de l'année en cours : suite ordonnée de créneaux (combat/tournoi/récit). */
   yearPlan: Slot[]
   /** Numéro de l'année de carrière en cours (1-based). */
@@ -186,6 +212,7 @@ export interface SavedSession {
   lastResult: FightResult | null
   lastReveal: ChoiceReveal | null
   yearReview: YearReview | null
+  tournament: Tournament | null
   yearPlan: Slot[]
   year: number
   yearSnapshot: YearSnapshot
@@ -200,6 +227,7 @@ export function serializeSession(s: Session): SavedSession {
     lastResult: s.lastResult,
     lastReveal: s.lastReveal,
     yearReview: s.yearReview,
+    tournament: s.tournament,
     yearPlan: s.yearPlan,
     year: s.year,
     yearSnapshot: s.yearSnapshot,
@@ -207,8 +235,24 @@ export function serializeSession(s: Session): SavedSession {
   }
 }
 
+/** Reconstruit l'Événement-combat synthétique du tour courant d'un tournoi. */
+function currentRoundEvent(t: Tournament, events: EventDef[]): EventDef | null {
+  const base = events.find((e) => e.id === t.eventId)
+  if (!base) return null
+  const names = roundNames(t.size)
+  return roundEvent(base, names[t.round], t.round === t.roundsTotal - 1)
+}
+
 export function deserializeSession(saved: SavedSession, events: EventDef[]): Session {
-  const current = saved.currentId ? (events.find((e) => e.id === saved.currentId) ?? null) : null
+  const tournament = saved.tournament ?? null
+  // En plein tournoi, l'Événement courant est synthétique (absent du catalogue) :
+  // on le reconstruit depuis l'état du tableau.
+  const current =
+    tournament && tournament.status === 'fighting'
+      ? currentRoundEvent(tournament, events)
+      : saved.currentId
+        ? (events.find((e) => e.id === saved.currentId) ?? null)
+        : null
   return {
     game: saved.game,
     events,
@@ -217,6 +261,7 @@ export function deserializeSession(saved: SavedSession, events: EventDef[]): Ses
     lastResult: saved.lastResult ?? null,
     lastReveal: saved.lastReveal ?? null,
     yearReview: saved.yearReview ?? null,
+    tournament,
     yearPlan: saved.yearPlan ?? [],
     year: saved.year ?? 1,
     yearSnapshot: saved.yearSnapshot ?? snapshot(saved.game),
@@ -244,6 +289,46 @@ function pickNext(game: GameState, events: EventDef[], slot: Slot): {
   return { game: g, current: event, opponent }
 }
 
+/** Construit l'Événement-combat synthétique d'un tour de tournoi (choix repris
+ *  de l'Événement source ; drapeau de titre seulement en finale). */
+function roundEvent(base: EventDef, roundName: string, isFinal: boolean): EventDef {
+  return {
+    ...base,
+    id: `${base.id}__round`,
+    repeatable: true,
+    cooldown: undefined,
+    overline: `${base.overline ?? 'TOURNOI'} · ${roundName.toUpperCase()}`,
+    fight: { titleFight: false, winFlag: isFinal ? base.fight?.winFlag : undefined },
+    conditions: [],
+  }
+}
+
+/** Résultat d'ouverture d'un créneau : Événement courant + éventuel tournoi. */
+interface Opening {
+  game: GameState
+  current: EventDef
+  opponent: Opponent | null
+  tournament: Tournament | null
+}
+
+/**
+ * Ouvre le créneau : tire l'Événement, et s'il s'agit d'un TOURNOI, initialise
+ * le tableau et renvoie le premier combat du joueur (Événement synthétique).
+ */
+function openSlot(game: GameState, events: EventDef[], slot: Slot): Opening {
+  const picked = pickNext(game, events, slot)
+  if (picked.current.fight?.winFlag && picked.current.fight?.bracket) {
+    const setup = createTournament(picked.game, picked.current, OPPONENT_POOL)
+    return {
+      game: setup.game,
+      current: roundEvent(picked.current, setup.roundName, setup.isFinal),
+      opponent: setup.opponent,
+      tournament: setup.tournament,
+    }
+  }
+  return { game: picked.game, current: picked.current, opponent: picked.opponent, tournament: null }
+}
+
 /** Nom de combattant aléatoire (seedé) tiré de la banque de noms, par sexe (FR-1). */
 function randomFighterName(sex: Sex, rng: RngState): [string, RngState] {
   const firsts = OPPONENT_POOL.firstNames[sex]
@@ -261,15 +346,16 @@ function beginCareer(game: GameState, events: EventDef[]): Session {
   }
   const { plan, rng } = planYear(game, events)
   const g: GameState = { ...game, rng }
-  const next = pickNext(g, events, plan[0])
+  const opening = openSlot(g, events, plan[0])
   return {
-    game: next.game,
+    game: opening.game,
     events,
-    current: next.current,
-    opponent: next.opponent,
+    current: opening.current,
+    opponent: opening.opponent,
     lastResult: null,
     lastReveal: null,
     yearReview: null,
+    tournament: opening.tournament,
     yearPlan: plan,
     year: 1,
     yearSnapshot: snapshot(g),
@@ -332,15 +418,16 @@ function advanceAfterEvent(session: Session, game: GameState): Session {
   const eventsThisYear = session.eventsThisYear + 1
 
   if (eventsThisYear < session.yearPlan.length) {
-    const next = pickNext(game, session.events, session.yearPlan[eventsThisYear])
+    const opening = openSlot(game, session.events, session.yearPlan[eventsThisYear])
     return {
       ...session,
-      game: next.game,
-      current: next.current,
-      opponent: next.opponent,
+      game: opening.game,
+      current: opening.current,
+      opponent: opening.opponent,
       lastResult: null,
       lastReveal: null,
       yearReview: null,
+      tournament: opening.tournament,
       eventsThisYear,
     }
   }
@@ -357,6 +444,7 @@ function advanceAfterEvent(session: Session, game: GameState): Session {
       lastResult: null,
       lastReveal: null,
       yearReview: null,
+      tournament: null,
       eventsThisYear: 0,
     }
   }
@@ -370,6 +458,7 @@ function advanceAfterEvent(session: Session, game: GameState): Session {
     lastResult: null,
     lastReveal: null,
     yearReview: review,
+    tournament: null,
     yearPlan: plan,
     year: session.year + 1,
     yearSnapshot: snapshot(g),
@@ -402,22 +491,69 @@ export function chooseInSession(session: Session, choiceIndex: number): Session 
   return { ...session, game, lastResult: null, lastReveal: { changes } }
 }
 
+/** Après un combat de tournoi : fait avancer le tableau (tour suivant ou fin). */
+function advanceTournamentInSession(session: Session): Session {
+  const t = session.tournament as Tournament
+  const step = advanceTournament(t, session.game, (session.lastResult as FightResult).win)
+  if (step.done) {
+    return {
+      ...session,
+      game: step.game,
+      tournament: step.tournament,
+      current: null,
+      opponent: null,
+      lastResult: null,
+      lastReveal: null,
+    }
+  }
+  const base = session.events.find((e) => e.id === t.eventId)
+  return {
+    ...session,
+    game: step.game,
+    tournament: step.tournament,
+    current: base ? roundEvent(base, step.roundName, step.isFinal) : null,
+    opponent: step.opponent,
+    lastResult: null,
+    lastReveal: null,
+  }
+}
+
+/** Clôt un tournoi terminé (le drapeau de titre est déjà posé par le dernier
+ *  combat) puis reprend le cours de l'année (créneau tournoi consommé). */
+function finalizeTournament(session: Session): Session {
+  const t = session.tournament as Tournament
+  const base = session.events.find((e) => e.id === t.eventId)
+  const game = base ? markEventConsumed(session.game, base) : session.game
+  return advanceAfterEvent({ ...session, tournament: null }, game)
+}
+
 /**
- * Reprend le cours après un écran de pause : conséquences de combat/choix
- * (on avance) OU bilan annuel (on démarre le 1er Événement de la nouvelle année).
+ * Reprend le cours après un écran de pause :
+ * - bilan annuel → ouvre le 1er créneau de la nouvelle année ;
+ * - tournoi en cours → tour suivant, ou clôture si le tableau est terminé ;
+ * - conséquences de combat/choix → avance dans l'année.
  */
 export function continueSession(session: Session): Session {
   if (session.yearReview) {
-    const next = pickNext(session.game, session.events, session.yearPlan[0])
+    const opening = openSlot(session.game, session.events, session.yearPlan[0])
     return {
       ...session,
-      game: next.game,
-      current: next.current,
-      opponent: next.opponent,
+      game: opening.game,
+      current: opening.current,
+      opponent: opening.opponent,
       lastResult: null,
       lastReveal: null,
       yearReview: null,
+      tournament: opening.tournament,
       eventsThisYear: 0,
+    }
+  }
+  if (session.tournament) {
+    if (session.tournament.status === 'fighting' && session.lastResult) {
+      return advanceTournamentInSession(session)
+    }
+    if (session.tournament.status !== 'fighting') {
+      return finalizeTournament(session)
     }
   }
   if (!session.lastResult && !session.lastReveal) return session

@@ -106,6 +106,8 @@ export const ChoiceSchema = z.object({
 export const FightSchema = z.object({
   titleFight: z.boolean().default(false),
   winFlag: z.string().min(1).optional(),
+  /** Taille du tableau si le combat est un TOURNOI (4 ou 8) ; sinon combat simple. */
+  bracket: z.union([z.literal(4), z.literal(8)]).optional(),
 })
 
 // Catégorie thématique d'un événement → couleur d'accent dans l'UI (les combats
