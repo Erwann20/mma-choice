@@ -1,6 +1,10 @@
+---
+baseline_commit: NO_VCS
+---
+
 # Story 1.2: Modèle d'état et moteur déterministe
 
-Status: ready-for-dev
+Status: review
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -18,23 +22,23 @@ so that mes choix produisent toujours le même résultat pour une même graine (
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1 — `GameState` + état initial** (AC: 1, 2)
-  - [ ] `src/engine/state.ts` : type `GameState` (combattant {nom, sexe, pays, âge}, `division`, `style`, `stats` {striking, grappling, ground, cardio}, `meta` {health, mental, reputation, followers, money}, `flags`, `rng` (état sérialisable), `seed`, `phase: 'career' | 'retired'`, `saveVersion`)
-  - [ ] Factory `createInitialState(seed, setup)` renvoyant un `GameState` valide. `GameState` doit être **100 % JSON-sérialisable** (AD-7) : que des types primitifs/objets/tableaux, aucune fonction ni instance de classe.
-- [ ] **Task 2 — PRNG à graine sérialisable** (AC: 2)
-  - [ ] `src/engine/rng.ts` : wrapper PUR autour de `pure-rand` (`xoroshiro128plus`). Exposer `initRng(seed): RngState` et `nextInt(rng: RngState, min, max): [value: number, next: RngState]` (voir Dev Notes → pure-rand)
-  - [ ] `RngState` = le tableau `number[]` renvoyé par `getState()` (sérialisable). Aucune closure/fonction stockée dans l'état.
-- [ ] **Task 3 — `Action` + `reduce` pur** (AC: 1, 3)
-  - [ ] `src/engine/actions.ts` : type `Action` (union fermée ; commence par `{ type: 'ADVANCE_YEAR' }`)
-  - [ ] `src/engine/reducer.ts` : `reduce(state, action): GameState` pur — ne mute jamais `state` (retour d'un nouvel objet). `ADVANCE_YEAR` → `age + 1` ; si `age >= RETIREMENT_AGE` → `phase: 'retired'`
-  - [ ] `src/engine/config.ts` : constantes de réglage (`RETIREMENT_AGE`, bornes de stats 0–100…)
-- [ ] **Task 4 — Baril d'exports** (AC: 1)
-  - [ ] `src/engine/index.ts` : ré-exporter `GameState`, `Action`, `reduce`, `createInitialState`, les helpers RNG (remplacer le `export {}` placeholder)
-- [ ] **Task 5 — Tests du moteur** (AC: 1, 2, 3)
-  - [ ] `src/engine/reducer.test.ts` : (a) `reduce` ne mute pas l'entrée (l'objet d'origine est inchangé) ; (b) déterminisme : deux `GameState` de même graine passés par la même séquence d'actions sont **strictement égaux** (`toEqual`) ; (c) âge-out : après assez d'`ADVANCE_YEAR`, `phase === 'retired'`
-  - [ ] `src/engine/rng.test.ts` : `nextInt` est déterministe pour un même état ; l'état renvoyé, ré-injecté, reproduit la même suite (round-trip sérialisation)
-- [ ] **Task 6 — Vérifs** (AC: all)
-  - [ ] `npm run test` (tous verts), `npm run lint` (0 erreur — le moteur reste pur, aucun import framework), `npm run build`
+- [x] **Task 1 — `GameState` + état initial** (AC: 1, 2)
+  - [x] `src/engine/state.ts` : type `GameState` (combattant {nom, sexe, pays, âge}, `division`, `style`, `stats` {striking, grappling, ground, cardio}, `meta` {health, mental, reputation, followers, money}, `flags`, `rng` (état sérialisable), `seed`, `phase: 'career' | 'retired'`, `saveVersion`)
+  - [x] Factory `createInitialState(seed, setup)` renvoyant un `GameState` valide. `GameState` doit être **100 % JSON-sérialisable** (AD-7) : que des types primitifs/objets/tableaux, aucune fonction ni instance de classe.
+- [x] **Task 2 — PRNG à graine sérialisable** (AC: 2)
+  - [x] `src/engine/rng.ts` : wrapper PUR autour de `pure-rand` (`xoroshiro128plus`). Exposer `initRng(seed): RngState` et `nextInt(rng: RngState, min, max): [value: number, next: RngState]` (voir Dev Notes → pure-rand)
+  - [x] `RngState` = le tableau `number[]` renvoyé par `getState()` (sérialisable). Aucune closure/fonction stockée dans l'état.
+- [x] **Task 3 — `Action` + `reduce` pur** (AC: 1, 3)
+  - [x] `src/engine/actions.ts` : type `Action` (union fermée ; commence par `{ type: 'ADVANCE_YEAR' }`)
+  - [x] `src/engine/reducer.ts` : `reduce(state, action): GameState` pur — ne mute jamais `state` (retour d'un nouvel objet). `ADVANCE_YEAR` → `age + 1` ; si `age >= RETIREMENT_AGE` → `phase: 'retired'`
+  - [x] `src/engine/config.ts` : constantes de réglage (`RETIREMENT_AGE`, bornes de stats 0–100…)
+- [x] **Task 4 — Baril d'exports** (AC: 1)
+  - [x] `src/engine/index.ts` : ré-exporter `GameState`, `Action`, `reduce`, `createInitialState`, les helpers RNG (remplacer le `export {}` placeholder)
+- [x] **Task 5 — Tests du moteur** (AC: 1, 2, 3)
+  - [x] `src/engine/reducer.test.ts` : (a) `reduce` ne mute pas l'entrée (l'objet d'origine est inchangé) ; (b) déterminisme : deux `GameState` de même graine passés par la même séquence d'actions sont **strictement égaux** (`toEqual`) ; (c) âge-out : après assez d'`ADVANCE_YEAR`, `phase === 'retired'`
+  - [x] `src/engine/rng.test.ts` : `nextInt` est déterministe pour un même état ; l'état renvoyé, ré-injecté, reproduit la même suite (round-trip sérialisation)
+- [x] **Task 6 — Vérifs** (AC: all)
+  - [x] `npm run test` (tous verts), `npm run lint` (0 erreur — le moteur reste pur, aucun import framework), `npm run build`
 
 ## Dev Notes
 
@@ -113,8 +117,37 @@ export interface GameState {
 
 ### Agent Model Used
 
+claude-opus-4-8 (Amelia / dev-story)
+
 ### Debug Log References
+
+- `npm run test` → 3 fichiers, **8 tests** passants (rng : non-mutation, round-trip sérialisation, divergence de graines ; reducer : non-mutation AD-2, incrément d'âge, déterminisme AD-3, âge-out FR-4).
+- `npm run lint` → 0 erreur (le moteur reste pur ; garde-fous AD-1/AD-3 respectés).
+- `npm run build` → succès.
+- API `pure-rand` vérifiée au runtime avant codage : imports subpath (`pure-rand/generator/xoroshiro128plus`, `pure-rand/distribution/uniformInt`), `getState()` → `readonly number[]` (longueur 4), `uniformInt(rng, min, max)` bornes incluses, déterminisme confirmé.
 
 ### Completion Notes List
 
+- Moteur pur implémenté dans `src/engine/` uniquement — testable sans navigateur (bénéfice d'AD-1).
+- **RNG (`rng.ts`)** : wrapper PUR autour de `pure-rand` v8 (API mutable) — `initRng(seed)` et `nextInt(state, min, max) → [valeur, étatSuivant]` sans muter l'état reçu. L'état est un `number[]` sérialisable (AD-7).
+- **`state.ts`** : `GameState` 100 % JSON-sérialisable (types unions de littéraux, pas d'`enum` — contrainte `erasableSyntaxOnly` de TS 6) + `createInitialState(seed, setup)`.
+- **`reducer.ts`** : `reduce(state, action)` pur, unique voie de mutation (AD-2), spread systématique. `ADVANCE_YEAR` → âge +1, âge-out à `RETIREMENT_AGE` (38) → `phase: 'retired'`.
+- **`config.ts`** : `START_AGE`, `RETIREMENT_AGE`, bornes de stats + `clampStat` (utile en Story 1.5).
+- Non-mutation vérifiée via `structuredClone` ; déterminisme via `toEqual` sur états complets ; sérialisation via `JSON.parse(JSON.stringify(...))`.
+- Périmètre respecté : aucune action autre qu'`ADVANCE_YEAR`, aucun store/UI/contenu. Le moteur n'est pas encore câblé à l'UI (Story 1.7) — il n'est donc pas dans le bundle (tree-shaké tant qu'inutilisé), le bundle reste à 275 ko.
+
 ### File List
+
+**Nouveaux**
+- `src/engine/config.ts`
+- `src/engine/rng.ts`, `src/engine/rng.test.ts`
+- `src/engine/state.ts`
+- `src/engine/actions.ts`
+- `src/engine/reducer.ts`, `src/engine/reducer.test.ts`
+
+**Modifiés**
+- `src/engine/index.ts` (remplace le placeholder `export {}` par l'API publique du moteur)
+
+## Change Log
+
+- 2026-07-27 — Story 1.2 implémentée : `GameState` + `createInitialState`, PRNG à graine sérialisable (pure-rand), `reduce` pur (AD-2) avec `ADVANCE_YEAR` + âge-out (FR-4), déterminisme (AD-3). 8 tests, `test`/`lint`/`build` verts. Statut → review.
