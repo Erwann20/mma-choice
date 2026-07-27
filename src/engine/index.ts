@@ -30,6 +30,8 @@ export {
 } from './events'
 export { applyEffect, applyChoice } from './effects'
 export { computeScore, allTimeRank } from './score'
+export type { Achievement, TitleTone } from './awards'
+export { careerTitle, careerAchievements } from './awards'
 
 export type { Action } from './actions'
 export { reduce } from './reducer'
