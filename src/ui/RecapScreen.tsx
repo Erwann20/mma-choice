@@ -1,32 +1,30 @@
 import { useState } from 'react'
 import type { GameState } from '../engine'
-import { computeScore, allTimeRank } from '../engine'
+import { computeScore, allTimeRank, careerTitle, careerAchievements } from '../engine'
 import { loadDivisions } from '../schema'
-import { STYLE_LABEL, TIER_LABEL, organizationLabel } from './labels'
+import { TIER_LABEL, organizationLabel } from './labels'
 import { shareScore } from './share'
 import { Toast } from './Toast'
 
-function highlights(game: GameState): string[] {
+interface Cell {
+  label: string
+  value: string
+}
+
+function palmares(game: GameState): Cell[] {
   const div = loadDivisions().find((d) => d.id === game.division)
-  const { record } = game
-  const lines: string[] = []
-  lines.push(`Combattant ${STYLE_LABEL[game.style]} de ${game.fighter.country}`)
-  if (div) lines.push(`Division : ${div.label} (${div.weight})`)
-  lines.push(`Palmarès : ${record.wins} victoires – ${record.losses} défaites`)
-  if (game.belt) {
-    lines.push(
-      game.titleDefenses > 0
-        ? `Champion (${game.titleDefenses} défense${game.titleDefenses > 1 ? 's' : ''} du titre)`
-        : 'A décroché la ceinture de sa division',
-    )
-  }
+  const { record, meta } = game
   const org = organizationLabel(game.organization)
-  if (org) lines.push(`A porté les couleurs de ${org}`)
-  else if (!game.pro) lines.push('N’a jamais quitté les rangs amateurs')
-  lines.push(`Plus haut palier atteint : ${TIER_LABEL[game.tier]}`)
-  if (game.meta.reputation >= 40) lines.push('Un nom respecté dans le milieu')
-  if (game.meta.followers >= 1000) lines.push(`${game.meta.followers} followers au compteur`)
-  return lines
+  return [
+    { label: 'Victoires', value: String(record.wins) },
+    { label: 'Défaites', value: String(record.losses) },
+    { label: 'Finitions', value: String(record.finishes) },
+    { label: 'Réputation', value: String(meta.reputation) },
+    { label: 'Followers', value: meta.followers.toLocaleString('fr-FR') },
+    { label: 'Gains', value: `${meta.money.toLocaleString('fr-FR')} €` },
+    { label: 'Division', value: div ? div.label : '—' },
+    { label: 'Organisation', value: org ?? TIER_LABEL[game.tier] },
+  ]
 }
 
 export function RecapScreen({
@@ -40,6 +38,8 @@ export function RecapScreen({
 }) {
   const score = computeScore(game)
   const rank = allTimeRank(score)
+  const title = careerTitle(score)
+  const trophies = careerAchievements(game)
   const [shareMsg, setShareMsg] = useState<string | null>(null)
 
   const onShare = async () => {
@@ -51,33 +51,72 @@ export function RecapScreen({
   }
 
   return (
-    <section className="center-screen recap">
+    <main className="screen recap">
       <p className="overline">Fin de carrière</p>
-      <div className="score-big">
-        {score}
-        <span className="score-max">/100</span>
-      </div>
-      <p className="rank-line">{rank}ᵉ meilleur combattant de tous les temps</p>
-      <ul className="highlights">
-        {highlights(game).map((h) => (
-          <li key={h}>{h}</li>
+
+      <section className={`recap-hero tone-${title.tone}`}>
+        <div className="recap-score">
+          <span className="score-big">{score}</span>
+          <span className="score-max">/100</span>
+        </div>
+        <p className="recap-title">
+          <span className="recap-title-icon" aria-hidden="true">
+            {title.icon}
+          </span>
+          {title.label}
+        </p>
+        <p className="rank-line">{rank}ᵉ meilleur combattant de tous les temps</p>
+      </section>
+
+      <h2 className="recap-section-title">Palmarès</h2>
+      <div className="palmares-grid">
+        {palmares(game).map((c) => (
+          <div className="palmares-cell" key={c.label}>
+            <span className="palmares-value">{c.value}</span>
+            <span className="palmares-label">{c.label}</span>
+          </div>
         ))}
-      </ul>
-      <p style={{ color: 'var(--color-text-muted)' }}>
+      </div>
+
+      <h2 className="recap-section-title">
+        Trophées {trophies.length > 0 ? <span className="recap-count">{trophies.length}</span> : null}
+      </h2>
+      {trophies.length > 0 ? (
+        <ul className="trophy-list">
+          {trophies.map((t) => (
+            <li className="trophy" key={t.id}>
+              <span className="trophy-icon" aria-hidden="true">
+                {t.icon}
+              </span>
+              <span className="trophy-text">
+                <span className="trophy-label">{t.label}</span>
+                <span className="trophy-desc">{t.desc}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="trophy-empty">Aucun trophée cette fois — la légende attendra la prochaine carrière.</p>
+      )}
+
+      <p className="recap-outro">
         {game.fighter.name} a raccroché les gants à {game.fighter.age} ans.
       </p>
-      <button className="btn-primary" type="button" onClick={onNew}>
-        Nouvelle carrière
-      </button>
-      <button className="btn-secondary" type="button" onClick={onShare}>
-        Partager mon score
-      </button>
-      {onHome ? (
-        <button className="btn-ghost" type="button" onClick={onHome}>
-          Retour à l'accueil
+
+      <div className="recap-actions">
+        <button className="btn-primary" type="button" onClick={onNew}>
+          Nouvelle carrière
         </button>
-      ) : null}
+        <button className="btn-secondary" type="button" onClick={onShare}>
+          Partager mon score
+        </button>
+        {onHome ? (
+          <button className="btn-ghost" type="button" onClick={onHome}>
+            Retour à l'accueil
+          </button>
+        ) : null}
+      </div>
       {shareMsg ? <Toast message={shareMsg} /> : null}
-    </section>
+    </main>
   )
 }

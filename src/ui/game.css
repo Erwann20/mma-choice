@@ -547,9 +547,34 @@
   flex-direction: column;
   gap: var(--space-3);
 }
-/* Récap de fin de carrière (Story 1.11) */
+/* Récap de fin de carrière — vue palmarès (Story 1.11 + refonte récompense) */
 .recap {
   gap: var(--space-3);
+  text-align: left;
+}
+
+/* Bandeau héros : score + titre de carrière */
+.recap-hero {
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5) 18px;
+  text-align: center;
+  background: linear-gradient(180deg, var(--color-surface), #101216);
+}
+.recap-hero.tone-goat,
+.recap-hero.tone-legend {
+  border-color: var(--color-warning);
+  background: linear-gradient(180deg, rgba(224, 182, 74, 0.14), transparent);
+}
+.recap-hero.tone-star {
+  border-color: var(--color-accent);
+  background: var(--color-accent-wash);
+}
+.recap-score {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 2px;
 }
 .score-big {
   font-size: 64px;
@@ -563,20 +588,127 @@
   color: var(--color-text-muted);
   margin-left: 4px;
 }
+.recap-title {
+  margin: var(--space-2) 0 4px;
+  font-size: var(--fs-title);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.tone-goat .recap-title,
+.tone-legend .recap-title {
+  color: var(--color-warning);
+}
+.tone-star .recap-title {
+  color: var(--color-accent);
+}
+.recap-title-icon {
+  font-size: 26px;
+}
 .rank-line {
   margin: 0;
-  color: var(--color-accent);
-  font-weight: 700;
+  color: var(--color-text-muted);
+  font-weight: 600;
+  font-size: var(--fs-meta);
 }
-.highlights {
-  list-style: none;
-  padding: 0;
-  margin: var(--space-2) 0;
+
+.recap-section-title {
+  margin: var(--space-3) 0 0;
+  font-size: var(--fs-stat);
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.recap-count {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--color-bg);
+  background: var(--color-accent);
+  border-radius: var(--radius-full);
+  padding: 1px 8px;
+}
+
+/* Grille de palmarès */
+.palmares-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-2);
+}
+.palmares-cell {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  color: var(--color-text-secondary);
+  gap: 2px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  padding: var(--space-3);
+}
+.palmares-value {
+  font-size: var(--fs-stat);
+  font-weight: 800;
+}
+.palmares-label {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* Trophées */
+.trophy-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.trophy {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  padding: var(--space-3);
+}
+.trophy-icon {
+  font-size: 26px;
+  line-height: 1;
+}
+.trophy-text {
+  display: flex;
+  flex-direction: column;
+}
+.trophy-label {
+  font-weight: 800;
+  font-size: var(--fs-stat);
+}
+.trophy-desc {
   font-size: var(--fs-meta);
+  color: var(--color-text-muted);
+}
+.trophy-empty {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--fs-meta);
+}
+
+.recap-outro {
+  margin: var(--space-3) 0 0;
+  color: var(--color-text-muted);
+  font-size: var(--fs-meta);
+  text-align: center;
+}
+.recap-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
 }
 
 /* Carte d'adversaire (Story 2.3) */
