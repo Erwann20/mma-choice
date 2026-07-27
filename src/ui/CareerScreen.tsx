@@ -7,6 +7,7 @@ import { ChoiceCard } from './ChoiceCard'
 import { StatsSheet } from './StatsSheet'
 import { OpponentCard } from './OpponentCard'
 import { ResultBanner } from './ResultBanner'
+import { ChoiceReveal } from './ChoiceReveal'
 import { describeStatChanges } from './a11y'
 import { Skeleton } from './Skeleton'
 import type { GameState } from '../engine'
@@ -14,7 +15,7 @@ import type { GameState } from '../engine'
 export function CareerScreen() {
   const session = useGameStore((s) => s.session)
   const choose = useGameStore((s) => s.choose)
-  const continueFight = useGameStore((s) => s.continueFight)
+  const advance = useGameStore((s) => s.advance)
   const [statsOpen, setStatsOpen] = useState(false)
   const [announce, setAnnounce] = useState('')
   const prevGame = useRef<GameState | null>(null)
@@ -30,11 +31,17 @@ export function CareerScreen() {
   }, [gameForEffect])
 
   // Repli : session en cours mais événement pas encore prêt (transition).
-  if (session && !session.current && !session.lastResult && session.game.phase === 'career') {
+  if (
+    session &&
+    !session.current &&
+    !session.lastResult &&
+    !session.lastReveal &&
+    session.game.phase === 'career'
+  ) {
     return <Skeleton />
   }
   if (!session || !session.current) return null
-  const { game, current, opponent, lastResult } = session
+  const { game, current, opponent, lastResult, lastReveal } = session
 
   // Écran de résultat de combat (UX-DR9).
   if (lastResult) {
@@ -42,7 +49,23 @@ export function CareerScreen() {
       <main className="screen">
         <FighterHeader game={game} />
         <ResultBanner result={lastResult} />
-        <button className="btn-primary" type="button" onClick={continueFight}>
+        <button className="btn-primary" type="button" onClick={advance}>
+          Continuer
+        </button>
+        {statsOpen ? <StatsSheet game={game} onClose={() => setStatsOpen(false)} /> : null}
+      </main>
+    )
+  }
+
+  // Écran de conséquences d'un choix narratif : on découvre les effets (Destiny-like).
+  if (lastReveal) {
+    return (
+      <main className="screen">
+        <FighterHeader game={game} />
+        <DataChipRow game={game} onOpen={() => setStatsOpen(true)} />
+        <EventCard event={current} />
+        <ChoiceReveal changes={lastReveal.changes} />
+        <button className="btn-primary" type="button" onClick={advance}>
           Continuer
         </button>
         {statsOpen ? <StatsSheet game={game} onClose={() => setStatsOpen(false)} /> : null}
