@@ -4,6 +4,11 @@ import { z } from 'zod'
 import amateurEvents from '../content/events/amateur.json'
 import metaEvents from '../content/events/meta.json'
 import lifeEvents from '../content/events/life.json'
+import trainingEvents from '../content/events/training.json'
+import businessEvents from '../content/events/business.json'
+import socialEvents from '../content/events/social.json'
+import journeyEvents from '../content/events/journey.json'
+import dailyEvents from '../content/events/daily.json'
 import divisionsData from '../content/divisions.json'
 import startingCriteriaData from '../content/starting-criteria.json'
 import opponentsData from '../content/opponents.json'
@@ -129,7 +134,16 @@ export function parseEvents(raw: unknown): EventDef[] {
 
 /** Charge et valide tout le contenu d'Événements du jeu (ids uniques globaux). */
 export function loadEvents(): EventDef[] {
-  return parseEvents([...amateurEvents, ...metaEvents, ...lifeEvents])
+  return parseEvents([
+    ...amateurEvents,
+    ...metaEvents,
+    ...lifeEvents,
+    ...trainingEvents,
+    ...businessEvents,
+    ...socialEvents,
+    ...journeyEvents,
+    ...dailyEvents,
+  ])
 }
 
 // --- Divisions de poids (grilles UFC) ---

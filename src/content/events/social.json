@@ -1,0 +1,216 @@
+[
+  {
+    "id": "soc-troll",
+    "weight": 3, "repeatable": true, "cooldown": 2,
+    "overline": "HATERS",
+    "text": "Un troll s'acharne sur toi en commentaires depuis des semaines.",
+    "choices": [
+      { "label": "Le clouer publiquement", "effects": [{ "target": "followers", "op": "add", "value": 1500 }, { "target": "mental", "op": "sub", "value": 2 }] },
+      { "label": "Bloquer et passer à autre chose", "effects": [{ "target": "mental", "op": "add", "value": 3 }] }
+    ]
+  },
+  {
+    "id": "soc-fan-tatouage",
+    "weight": 1, "repeatable": true, "cooldown": 4,
+    "overline": "FAN INCONDITIONNEL",
+    "text": "Un fan s'est fait tatouer ton surnom. Il te montre son bras, ému.",
+    "conditions": [{ "kind": "stat", "on": "followers", "cmp": "gte", "value": 8000 }],
+    "choices": [
+      { "label": "Prendre le temps, sincèrement touché", "effects": [{ "target": "mental", "op": "add", "value": 4 }, { "target": "followers", "op": "add", "value": 800 }] },
+      { "label": "Sourire et filer, gêné", "effects": [{ "target": "mental", "op": "add", "value": 1 }] }
+    ]
+  },
+  {
+    "id": "soc-callout",
+    "weight": 2, "repeatable": true, "cooldown": 3,
+    "overline": "CALL-OUT",
+    "text": "Après une victoire, le micro est à toi. Tu peux défier une star de ta catégorie.",
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 }],
+    "choices": [
+      { "label": "Interpeller la tête d'affiche", "effects": [{ "target": "followers", "op": "add", "value": 5000 }, { "target": "reputation", "op": "add", "value": 3 }], "armFlags": [{ "flag": "rivalite", "value": true, "inYears": 1 }] },
+      { "label": "Rester humble et remercier", "effects": [{ "target": "reputation", "op": "add", "value": 5 }] }
+    ]
+  },
+  {
+    "id": "soc-photo-compromettante",
+    "weight": 1, "repeatable": true, "cooldown": 5,
+    "overline": "SORTIE ARROSÉE",
+    "text": "Une photo de toi en pleine fête circule. Rien de grave, mais ça jase.",
+    "conditions": [{ "kind": "stat", "on": "followers", "cmp": "gte", "value": 10000 }],
+    "choices": [
+      { "label": "En rire ouvertement", "effects": [{ "target": "followers", "op": "add", "value": 2000 }, { "target": "reputation", "op": "sub", "value": 2 }] },
+      { "label": "Recadrer ton hygiène de vie", "effects": [{ "target": "health", "op": "add", "value": 5 }, { "target": "mental", "op": "add", "value": 2 }] }
+    ]
+  },
+  {
+    "id": "soc-vieil-ami",
+    "weight": 2, "repeatable": true, "cooldown": 4,
+    "overline": "AMITIÉ",
+    "text": "Un ami d'enfance réapparaît maintenant que tu perces. Sincère ou intéressé ?",
+    "choices": [
+      { "label": "Lui refaire confiance", "effects": [{ "target": "mental", "op": "add", "value": 4 }] },
+      { "label": "Garder tes distances", "effects": [{ "target": "mental", "op": "add", "value": 1 }, { "target": "reputation", "op": "add", "value": 1 }] }
+    ]
+  },
+  {
+    "id": "soc-parents-fiers",
+    "weight": 1, "repeatable": true, "cooldown": 5,
+    "overline": "LES TIENS",
+    "text": "Tes parents assistent pour la première fois à un de tes combats en salle.",
+    "choices": [
+      { "label": "Te battre pour eux", "effects": [{ "target": "mental", "op": "add", "value": 6 }, { "target": "striking", "op": "add", "value": 1 }] },
+      { "label": "Faire abstraction pour rester lucide", "effects": [{ "target": "mental", "op": "add", "value": 2 }] }
+    ]
+  },
+  {
+    "id": "soc-enfant",
+    "weight": 1, "repeatable": true, "cooldown": 6,
+    "overline": "VIE DE FAMILLE",
+    "text": "Tu deviens parent. Ta vision du risque et du temps change du tout au tout.",
+    "conditions": [{ "kind": "stat", "on": "age", "cmp": "gte", "value": 25 }],
+    "choices": [
+      { "label": "Te battre pour lui offrir mieux", "effects": [{ "target": "mental", "op": "add", "value": 7 }, { "target": "cardio", "op": "sub", "value": 2 }] },
+      { "label": "Envisager de lever le pied", "effects": [{ "target": "mental", "op": "add", "value": 3 }, { "target": "health", "op": "add", "value": 3 }] }
+    ]
+  },
+  {
+    "id": "soc-critique-legende",
+    "weight": 1, "repeatable": true, "cooldown": 4,
+    "overline": "ADOUBEMENT ?",
+    "text": "Une légende du sport te critique publiquement. La lumière est crue.",
+    "conditions": [{ "kind": "stat", "on": "reputation", "cmp": "gte", "value": 40 }],
+    "choices": [
+      { "label": "Répondre avec respect mais fermeté", "effects": [{ "target": "reputation", "op": "add", "value": 4 }, { "target": "followers", "op": "add", "value": 3000 }] },
+      { "label": "Prouver par tes combats", "effects": [{ "target": "mental", "op": "add", "value": 5 }] }
+    ]
+  },
+  {
+    "id": "soc-quartier",
+    "weight": 2, "repeatable": true, "cooldown": 3,
+    "overline": "RETOUR AU QUARTIER",
+    "text": "Dans ton quartier, tu es devenu une figure. Les jeunes te regardent.",
+    "choices": [
+      { "label": "Montrer l'exemple", "effects": [{ "target": "reputation", "op": "add", "value": 3 }, { "target": "mental", "op": "add", "value": 2 }] },
+      { "label": "Rester discret", "effects": [{ "target": "mental", "op": "add", "value": 2 }] }
+    ]
+  },
+  {
+    "id": "soc-love-story",
+    "weight": 1, "repeatable": true, "cooldown": 5,
+    "overline": "RENCONTRE",
+    "text": "Tu rencontres quelqu'un qui compte. L'équilibre perso peut te porter… ou te distraire.",
+    "choices": [
+      { "label": "T'ouvrir à cette relation", "effects": [{ "target": "mental", "op": "add", "value": 6 }, { "target": "cardio", "op": "sub", "value": 1 }] },
+      { "label": "Garder le cap solo", "effects": [{ "target": "striking", "op": "add", "value": 2 }, { "target": "grappling", "op": "add", "value": 2 }] }
+    ]
+  },
+  {
+    "id": "soc-rumeur",
+    "weight": 2, "repeatable": true, "cooldown": 3,
+    "overline": "RUMEUR",
+    "text": "Une rumeur infondée sur ton compte se répand dans le milieu.",
+    "conditions": [{ "kind": "stat", "on": "reputation", "cmp": "gte", "value": 20 }],
+    "choices": [
+      { "label": "Démentir calmement", "effects": [{ "target": "reputation", "op": "add", "value": 2 }] },
+      { "label": "Laisser courir, t'en moquer", "effects": [{ "target": "mental", "op": "add", "value": 3 }, { "target": "reputation", "op": "sub", "value": 1 }] }
+    ]
+  },
+  {
+    "id": "soc-charisme",
+    "weight": 2, "repeatable": true, "cooldown": 3,
+    "overline": "PERSONNAGE",
+    "text": "Le public adore ta personnalité. Tu peux pousser le curseur du show.",
+    "conditions": [{ "kind": "stat", "on": "followers", "cmp": "gte", "value": 6000 }],
+    "choices": [
+      { "label": "Assumer un rôle de vilain", "effects": [{ "target": "followers", "op": "add", "value": 5000 }, { "target": "reputation", "op": "sub", "value": 2 }] },
+      { "label": "Jouer le gentil bosseur", "effects": [{ "target": "followers", "op": "add", "value": 2500 }, { "target": "reputation", "op": "add", "value": 2 }] }
+    ]
+  },
+  {
+    "id": "soc-ancien-rival-respect",
+    "weight": 1, "repeatable": true, "cooldown": 5,
+    "overline": "APRÈS LA GUERRE",
+    "text": "Un adversaire que tu as battu vient te serrer la main et saluer ton parcours.",
+    "conditions": [{ "kind": "stat", "on": "wins", "cmp": "gte", "value": 4 }],
+    "choices": [
+      { "label": "Accepter avec classe", "effects": [{ "target": "reputation", "op": "add", "value": 4 }, { "target": "mental", "op": "add", "value": 2 }] },
+      { "label": "Rester méfiant", "effects": [{ "target": "mental", "op": "add", "value": 1 }] }
+    ]
+  },
+  {
+    "id": "soc-caritatif-visite",
+    "weight": 1, "repeatable": true, "cooldown": 4,
+    "overline": "HÔPITAL",
+    "text": "On te demande de rendre visite à des enfants malades, grands fans de MMA.",
+    "conditions": [{ "kind": "stat", "on": "reputation", "cmp": "gte", "value": 25 }],
+    "choices": [
+      { "label": "Y aller avec le cœur", "effects": [{ "target": "mental", "op": "add", "value": 5 }, { "target": "reputation", "op": "add", "value": 3 }, { "target": "followers", "op": "add", "value": 1000 }] },
+      { "label": "Manque de temps, décliner", "effects": [{ "target": "cardio", "op": "add", "value": 1 }] }
+    ]
+  },
+  {
+    "id": "soc-doc-tele",
+    "weight": 1, "repeatable": true, "cooldown": 5,
+    "overline": "DOCUMENTAIRE",
+    "text": "Une équipe veut filmer un documentaire sur ta préparation. Caméras dans l'intimité.",
+    "conditions": [{ "kind": "stat", "on": "reputation", "cmp": "gte", "value": 45 }],
+    "choices": [
+      { "label": "Ouvrir les portes", "effects": [{ "target": "followers", "op": "add", "value": 12000 }, { "target": "mental", "op": "sub", "value": 2 }] },
+      { "label": "Préserver ton intimité", "effects": [{ "target": "mental", "op": "add", "value": 4 }] }
+    ]
+  },
+  {
+    "id": "soc-trahison-partenaire",
+    "weight": 1, "repeatable": true, "cooldown": 5,
+    "overline": "TRAHISON",
+    "text": "Un partenaire de club rejoint le camp de ton futur adversaire et livre tes secrets.",
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 }],
+    "choices": [
+      { "label": "T'en servir de carburant", "effects": [{ "target": "mental", "op": "add", "value": 5 }, { "target": "striking", "op": "add", "value": 2 }] },
+      { "label": "Changer tout ton plan", "effects": [{ "target": "grappling", "op": "add", "value": 3 }, { "target": "mental", "op": "sub", "value": 2 }] }
+    ]
+  },
+  {
+    "id": "soc-idole-enfance",
+    "weight": 1, "repeatable": true, "cooldown": 6,
+    "overline": "RENCONTRE MARQUANTE",
+    "text": "Tu croises l'idole qui t'a donné envie de faire ce sport. Le trac te saisit.",
+    "conditions": [{ "kind": "stat", "on": "reputation", "cmp": "gte", "value": 30 }],
+    "choices": [
+      { "label": "Lui dire ce qu'il représente", "effects": [{ "target": "mental", "op": "add", "value": 6 }] },
+      { "label": "Rester pro, échanger d'égal à égal", "effects": [{ "target": "reputation", "op": "add", "value": 3 }] }
+    ]
+  },
+  {
+    "id": "soc-fans-toxiques",
+    "weight": 2, "repeatable": true, "cooldown": 3,
+    "overline": "PRESSION DES FANS",
+    "text": "Tes fans exigent que tu affrontes untel, tout de suite. La pression monte.",
+    "conditions": [{ "kind": "stat", "on": "followers", "cmp": "gte", "value": 20000 }],
+    "choices": [
+      { "label": "Céder à la demande populaire", "effects": [{ "target": "followers", "op": "add", "value": 3000 }, { "target": "mental", "op": "sub", "value": 3 }] },
+      { "label": "Suivre ton propre plan", "effects": [{ "target": "mental", "op": "add", "value": 4 }, { "target": "followers", "op": "sub", "value": 1000 }] }
+    ]
+  },
+  {
+    "id": "soc-mariage-ami",
+    "weight": 1, "repeatable": true, "cooldown": 4,
+    "overline": "VIE SOCIALE",
+    "text": "Le mariage d'un proche tombe en pleine semaine de préparation.",
+    "choices": [
+      { "label": "Y aller, la vie continue", "effects": [{ "target": "mental", "op": "add", "value": 4 }, { "target": "cardio", "op": "sub", "value": 2 }] },
+      { "label": "Rester au camp, t'excuser", "effects": [{ "target": "striking", "op": "add", "value": 2 }, { "target": "mental", "op": "sub", "value": 2 }] }
+    ]
+  },
+  {
+    "id": "soc-legende-locale",
+    "weight": 1, "repeatable": true, "cooldown": 5,
+    "overline": "FIERTÉ RÉGIONALE",
+    "text": "Ta ville veut te rendre hommage : une soirée en ton honneur.",
+    "conditions": [{ "kind": "stat", "on": "reputation", "cmp": "gte", "value": 50 }],
+    "choices": [
+      { "label": "Accepter avec humilité", "effects": [{ "target": "reputation", "op": "add", "value": 5 }, { "target": "mental", "op": "add", "value": 3 }] },
+      { "label": "Rester focus sur la ceinture", "effects": [{ "target": "mental", "op": "add", "value": 2 }, { "target": "striking", "op": "add", "value": 1 }] }
+    ]
+  }
+]

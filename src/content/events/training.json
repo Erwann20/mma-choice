@@ -1,0 +1,208 @@
+[
+  {
+    "id": "trn-shadow",
+    "weight": 3, "repeatable": true, "cooldown": 1,
+    "overline": "SHADOW BOXING",
+    "text": "Seul face au miroir, tu répètes tes enchaînements. Sur quoi tu insistes ?",
+    "choices": [
+      { "label": "La vitesse des mains", "effects": [{ "target": "striking", "op": "add", "value": 3 }] },
+      { "label": "Le jeu de jambes", "effects": [{ "target": "cardio", "op": "add", "value": 2 }, { "target": "striking", "op": "add", "value": 1 }] }
+    ]
+  },
+  {
+    "id": "trn-grappling-round",
+    "weight": 3, "repeatable": true, "cooldown": 1,
+    "overline": "TAPIS",
+    "text": "Session de grappling à haute intensité. Le partenaire est coriace.",
+    "choices": [
+      { "label": "Travailler tes prises de dos", "effects": [{ "target": "grappling", "op": "add", "value": 4 }] },
+      { "label": "Bosser tes défenses de soumission", "effects": [{ "target": "ground", "op": "add", "value": 4 }] }
+    ]
+  },
+  {
+    "id": "trn-wrestling-camp",
+    "weight": 2, "repeatable": true, "cooldown": 2,
+    "overline": "STAGE DE LUTTE",
+    "text": "Un club de lutte t'accueille pour un stage intensif. Ça pique.",
+    "choices": [
+      { "label": "Enchaîner les projections", "effects": [{ "target": "grappling", "op": "add", "value": 5 }, { "target": "health", "op": "sub", "value": 3 }] },
+      { "label": "Doser pour éviter la blessure", "effects": [{ "target": "grappling", "op": "add", "value": 3 }] }
+    ]
+  },
+  {
+    "id": "trn-bjj-belt",
+    "weight": 2, "repeatable": true, "cooldown": 3,
+    "overline": "JIU-JITSU",
+    "text": "Ton professeur de JJB envisage de te passer au grade supérieur si tu bosses.",
+    "choices": [
+      { "label": "Vivre sur le tapis", "effects": [{ "target": "ground", "op": "add", "value": 6 }, { "target": "cardio", "op": "sub", "value": 1 }] },
+      { "label": "Rester généraliste", "effects": [{ "target": "ground", "op": "add", "value": 2 }, { "target": "striking", "op": "add", "value": 2 }] }
+    ]
+  },
+  {
+    "id": "trn-muay-thai",
+    "weight": 2, "repeatable": true, "cooldown": 2,
+    "overline": "MUAY-THAÏ",
+    "text": "Un nak muay de passage propose de t'endurcir les tibias et le corps-à-corps clinch.",
+    "choices": [
+      { "label": "Encaisser et cogner", "effects": [{ "target": "striking", "op": "add", "value": 5 }, { "target": "health", "op": "sub", "value": 2 }] },
+      { "label": "Bosser le clinch technique", "effects": [{ "target": "grappling", "op": "add", "value": 3 }, { "target": "striking", "op": "add", "value": 2 }] }
+    ]
+  },
+  {
+    "id": "trn-hiit",
+    "weight": 3, "repeatable": true, "cooldown": 1,
+    "overline": "PRÉPA PHYSIQUE",
+    "text": "Séance de HIIT qui arrache les poumons. Le prépa te pousse au bout.",
+    "choices": [
+      { "label": "Tout donner jusqu'à vomir", "effects": [{ "target": "cardio", "op": "add", "value": 5 }, { "target": "health", "op": "sub", "value": 2 }] },
+      { "label": "Rester à 90 %, intelligemment", "effects": [{ "target": "cardio", "op": "add", "value": 3 }] }
+    ]
+  },
+  {
+    "id": "trn-recovery",
+    "weight": 2, "repeatable": true, "cooldown": 2,
+    "overline": "RÉCUPÉRATION",
+    "text": "Cryothérapie, massage, sommeil : ton corps réclame de l'attention.",
+    "choices": [
+      { "label": "Investir dans la récup", "effects": [{ "target": "health", "op": "add", "value": 7 }, { "target": "money", "op": "sub", "value": 400 }] },
+      { "label": "Juste dormir plus", "effects": [{ "target": "health", "op": "add", "value": 4 }] }
+    ]
+  },
+  {
+    "id": "trn-video-study",
+    "weight": 2, "repeatable": true, "cooldown": 2,
+    "overline": "ÉTUDE VIDÉO",
+    "text": "Tu passes la soirée à décortiquer les combats de tes futurs adversaires.",
+    "choices": [
+      { "label": "Analyser leurs patterns", "effects": [{ "target": "mental", "op": "add", "value": 4 }, { "target": "ground", "op": "add", "value": 1 }] },
+      { "label": "Faire confiance à ton instinct", "effects": [{ "target": "mental", "op": "add", "value": 2 }] }
+    ]
+  },
+  {
+    "id": "trn-open-mat",
+    "weight": 2, "repeatable": true, "cooldown": 2,
+    "overline": "OPEN MAT",
+    "text": "Tapis libre le dimanche : des combattants d'autres clubs viennent rouler.",
+    "choices": [
+      { "label": "Rouler avec tout le monde", "effects": [{ "target": "ground", "op": "add", "value": 3 }, { "target": "reputation", "op": "add", "value": 1 }] },
+      { "label": "Cibler les meilleurs", "effects": [{ "target": "grappling", "op": "add", "value": 3 }, { "target": "mental", "op": "add", "value": 1 }] }
+    ]
+  },
+  {
+    "id": "trn-strength",
+    "weight": 2, "repeatable": true, "cooldown": 2,
+    "overline": "MUSCULATION",
+    "text": "Le coach de force veut te faire prendre de la puissance sans t'alourdir.",
+    "choices": [
+      { "label": "Force explosive", "effects": [{ "target": "striking", "op": "add", "value": 3 }, { "target": "grappling", "op": "add", "value": 2 }] },
+      { "label": "Gainage et prévention", "effects": [{ "target": "health", "op": "add", "value": 4 }, { "target": "cardio", "op": "add", "value": 1 }] }
+    ]
+  },
+  {
+    "id": "trn-altitude",
+    "weight": 1, "repeatable": true, "cooldown": 4,
+    "overline": "STAGE EN ALTITUDE",
+    "text": "Un camp en altitude est proposé. Dur, coûteux, mais redoutable pour le cardio.",
+    "conditions": [{ "kind": "stat", "on": "money", "cmp": "gte", "value": 2000 }],
+    "choices": [
+      { "label": "Y aller à fond", "effects": [{ "target": "cardio", "op": "add", "value": 8 }, { "target": "money", "op": "sub", "value": 1500 }] },
+      { "label": "Trop cher pour l'instant", "effects": [{ "target": "cardio", "op": "add", "value": 1 }] }
+    ]
+  },
+  {
+    "id": "trn-spar-star",
+    "weight": 1, "repeatable": true, "cooldown": 5,
+    "overline": "SPARRING DE HAUT NIVEAU",
+    "text": "Un top combattant de passage accepte de sparrer avec toi. Rare occasion.",
+    "conditions": [{ "kind": "stat", "on": "reputation", "cmp": "gte", "value": 25 }],
+    "choices": [
+      { "label": "Tout absorber comme une éponge", "effects": [{ "target": "striking", "op": "add", "value": 4 }, { "target": "grappling", "op": "add", "value": 4 }, { "target": "mental", "op": "add", "value": 2 }] },
+      { "label": "Te mesurer vraiment à lui", "effects": [{ "target": "mental", "op": "add", "value": 5 }, { "target": "health", "op": "sub", "value": 4 }] }
+    ]
+  },
+  {
+    "id": "trn-injury-rehab",
+    "weight": 2, "repeatable": true, "cooldown": 3,
+    "overline": "REPRISE",
+    "text": "Après une période creuse, la reprise doit être progressive.",
+    "conditions": [{ "kind": "stat", "on": "health", "cmp": "lt", "value": 60 }],
+    "choices": [
+      { "label": "Reconstruire les fondations", "effects": [{ "target": "health", "op": "add", "value": 8 }, { "target": "cardio", "op": "add", "value": 2 }] },
+      { "label": "Brûler les étapes", "effects": [{ "target": "striking", "op": "add", "value": 3 }, { "target": "health", "op": "sub", "value": 4 }] }
+    ]
+  },
+  {
+    "id": "trn-mental-coach",
+    "weight": 2, "repeatable": true, "cooldown": 3,
+    "overline": "PRÉPARATION MENTALE",
+    "text": "Un préparateur mental propose de bosser ta gestion du stress d'avant-combat.",
+    "choices": [
+      { "label": "Ouvrir cette porte", "effects": [{ "target": "mental", "op": "add", "value": 6 }, { "target": "money", "op": "sub", "value": 300 }] },
+      { "label": "Tu gères ça à l'instinct", "effects": [{ "target": "mental", "op": "add", "value": 1 }] }
+    ]
+  },
+  {
+    "id": "trn-technique-signature",
+    "weight": 1, "repeatable": true, "cooldown": 4,
+    "overline": "COUP SIGNATURE",
+    "text": "Tu veux développer un coup qui deviendra ta marque de fabrique.",
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 }],
+    "choices": [
+      { "label": "Un high kick dévastateur", "effects": [{ "target": "striking", "op": "add", "value": 6 }], "setFlags": { "coup_signature": true } },
+      { "label": "Une soumission piège", "effects": [{ "target": "ground", "op": "add", "value": 6 }], "setFlags": { "coup_signature": true } }
+    ]
+  },
+  {
+    "id": "trn-overtraining",
+    "weight": 2, "repeatable": true, "cooldown": 3,
+    "overline": "SURENTRAÎNEMENT",
+    "text": "Tu enchaînes sans repos. Le corps tire la sonnette d'alarme.",
+    "conditions": [{ "kind": "stat", "on": "health", "cmp": "lt", "value": 50 }],
+    "choices": [
+      { "label": "Écouter ton corps, souffler", "effects": [{ "target": "health", "op": "add", "value": 10 }] },
+      { "label": "Ignorer et pousser encore", "effects": [{ "target": "cardio", "op": "add", "value": 3 }, { "target": "health", "op": "sub", "value": 6 }] }
+    ]
+  },
+  {
+    "id": "trn-technique-fail",
+    "weight": 2, "repeatable": true, "cooldown": 2,
+    "overline": "JOUR SANS",
+    "text": "Rien ne rentre aujourd'hui. Les gestes sont brouillons, la tête ailleurs.",
+    "choices": [
+      { "label": "Insister quand même", "effects": [{ "target": "mental", "op": "sub", "value": 2 }, { "target": "striking", "op": "add", "value": 2 }] },
+      { "label": "Écourter et se recentrer", "effects": [{ "target": "mental", "op": "add", "value": 3 }] }
+    ]
+  },
+  {
+    "id": "trn-new-partner",
+    "weight": 2, "repeatable": true, "cooldown": 2,
+    "overline": "NOUVEAU PARTENAIRE",
+    "text": "Un nouveau talent arrive au club et te pousse dans tes retranchements.",
+    "choices": [
+      { "label": "Relever le défi tous les jours", "effects": [{ "target": "grappling", "op": "add", "value": 3 }, { "target": "cardio", "op": "add", "value": 2 }] },
+      { "label": "Lui apprendre les bases", "effects": [{ "target": "mental", "op": "add", "value": 3 }, { "target": "reputation", "op": "add", "value": 1 }] }
+    ]
+  },
+  {
+    "id": "trn-southpaw",
+    "weight": 1, "repeatable": true, "cooldown": 4,
+    "overline": "TRAVAIL SPÉCIFIQUE",
+    "text": "Ton prochain adversaire est gaucher. Le camp adapte tout le plan de bataille.",
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 }],
+    "choices": [
+      { "label": "Neutraliser sa patte arrière", "effects": [{ "target": "striking", "op": "add", "value": 4 }, { "target": "mental", "op": "add", "value": 2 }] },
+      { "label": "L'emmener au sol pour annuler ça", "effects": [{ "target": "grappling", "op": "add", "value": 4 }] }
+    ]
+  },
+  {
+    "id": "trn-weight-room-ego",
+    "weight": 1, "repeatable": true, "cooldown": 3,
+    "overline": "EGO EN SALLE",
+    "text": "Un habitué de la muscu te défie sur le développé couché devant tout le monde.",
+    "choices": [
+      { "label": "Relever, par fierté", "effects": [{ "target": "striking", "op": "add", "value": 2 }, { "target": "health", "op": "sub", "value": 2 }] },
+      { "label": "Ignorer, tu n'as rien à prouver", "effects": [{ "target": "mental", "op": "add", "value": 3 }] }
+    ]
+  }
+]
