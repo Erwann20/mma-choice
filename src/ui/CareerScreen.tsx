@@ -8,6 +8,7 @@ import { StatsSheet } from './StatsSheet'
 import { OpponentCard } from './OpponentCard'
 import { ResultBanner } from './ResultBanner'
 import { describeStatChanges } from './a11y'
+import { Skeleton } from './Skeleton'
 import type { GameState } from '../engine'
 
 export function CareerScreen() {
@@ -28,6 +29,10 @@ export function CareerScreen() {
     prevGame.current = gameForEffect
   }, [gameForEffect])
 
+  // Repli : session en cours mais événement pas encore prêt (transition).
+  if (session && !session.current && !session.lastResult && session.game.phase === 'career') {
+    return <Skeleton />
+  }
   if (!session || !session.current) return null
   const { game, current, opponent, lastResult } = session
 
