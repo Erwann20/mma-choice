@@ -8,6 +8,7 @@ import { StatsSheet } from './StatsSheet'
 import { OpponentCard } from './OpponentCard'
 import { ResultBanner } from './ResultBanner'
 import { ChoiceReveal } from './ChoiceReveal'
+import { YearReviewScreen } from './YearReviewScreen'
 import { describeStatChanges } from './a11y'
 import { eventCategory } from './labels'
 import { Skeleton } from './Skeleton'
@@ -31,12 +32,18 @@ export function CareerScreen() {
     prevGame.current = gameForEffect
   }, [gameForEffect])
 
+  // Bilan de fin d'année (FR-8) : écran de récap entre deux années.
+  if (session && session.yearReview && session.game.phase === 'career') {
+    return <YearReviewScreen review={session.yearReview} game={session.game} onContinue={advance} />
+  }
+
   // Repli : session en cours mais événement pas encore prêt (transition).
   if (
     session &&
     !session.current &&
     !session.lastResult &&
     !session.lastReveal &&
+    !session.yearReview &&
     session.game.phase === 'career'
   ) {
     return <Skeleton />

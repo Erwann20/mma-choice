@@ -1,0 +1,130 @@
+[
+  {
+    "id": "fight-amateur-gala-club",
+    "weight": 4,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "combat",
+    "overline": "GALA DU CLUB",
+    "text": "Le club organise son gala annuel et t'aligne sur la carte. La salle est pleine de proches et de curieux. À toi de faire le spectacle.",
+    "fight": {},
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 }],
+    "choices": [
+      { "label": "Aller au duel debout", "hint": "Ta frappe décide", "tactic": "striking" },
+      { "label": "Chercher le corps-à-corps", "hint": "Ta lutte décide", "tactic": "grappling" },
+      { "label": "Emmener au tapis", "hint": "Ton jeu au sol décide", "tactic": "ground" }
+    ]
+  },
+  {
+    "id": "fight-amateur-interclubs",
+    "weight": 4,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "combat",
+    "overline": "INTERCLUBS",
+    "text": "Un interclubs te met face à un espoir d'une autre salle. Personne ne te connaît ici : c'est l'occasion de te faire un nom sur le circuit.",
+    "fight": {},
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 }],
+    "choices": [
+      { "label": "Boxer avec sang-froid", "hint": "Ta frappe décide", "tactic": "striking" },
+      { "label": "Imposer le clinch", "hint": "Ta lutte décide", "tactic": "grappling" },
+      { "label": "Passer la garde", "hint": "Ton jeu au sol décide", "tactic": "ground" }
+    ]
+  },
+  {
+    "id": "fight-amateur-nuit-des-cages",
+    "weight": 4,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "combat",
+    "overline": "LA NUIT DES CAGES",
+    "text": "Une soirée amateur dans une salle bondée, projecteurs et musique à fond. L'adrénaline monte à l'entrée. Ton plan de match ?",
+    "fight": {},
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 }],
+    "choices": [
+      { "label": "Presser dès la cloche", "hint": "Ta frappe décide", "tactic": "striking" },
+      { "label": "Coller au grillage", "hint": "Ta lutte décide", "tactic": "grappling" },
+      { "label": "Dominer au sol", "hint": "Ton jeu au sol décide", "tactic": "ground" }
+    ]
+  },
+  {
+    "id": "fight-amateur-defi-lance",
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "combat",
+    "overline": "DÉFI LANCÉ",
+    "text": "Un rival de la région t'a défié publiquement. Refuser ferait mauvais genre. La cage tranchera qui avait raison de l'ouvrir.",
+    "fight": {},
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 }],
+    "choices": [
+      { "label": "Le faire taire debout", "hint": "Ta frappe décide", "tactic": "striking" },
+      { "label": "L'user au corps-à-corps", "hint": "Ta lutte décide", "tactic": "grappling" },
+      { "label": "Le soumettre au sol", "hint": "Ton jeu au sol décide", "tactic": "ground" }
+    ]
+  },
+  {
+    "id": "fight-regional-co-main",
+    "weight": 5,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "combat",
+    "overline": "CO-MAIN EVENT",
+    "text": "Tu es en co-main d'un gala régional. Un bon résultat et la promotion te confie bientôt une tête d'affiche. Comment abordes-tu le combat ?",
+    "fight": {},
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 }],
+    "choices": [
+      { "label": "Prendre le centre de la cage", "hint": "Ta frappe décide", "tactic": "striking" },
+      { "label": "Dicter au corps-à-corps", "hint": "Ta lutte décide", "tactic": "grappling" },
+      { "label": "Chercher la finition au sol", "hint": "Ton jeu au sol décide", "tactic": "ground" }
+    ]
+  },
+  {
+    "id": "fight-regional-revanche",
+    "weight": 4,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "combat",
+    "overline": "REVANCHE",
+    "text": "La promotion remet en jeu un adversaire coriace du circuit. Le public attend du sang neuf. À toi de marquer les esprits.",
+    "fight": {},
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 }],
+    "choices": [
+      { "label": "Le noyer sous les frappes", "hint": "Ta frappe décide", "tactic": "striking" },
+      { "label": "Le coller au grillage", "hint": "Ta lutte décide", "tactic": "grappling" },
+      { "label": "L'étouffer au sol", "hint": "Ton jeu au sol décide", "tactic": "ground" }
+    ]
+  },
+  {
+    "id": "fight-major-co-main",
+    "weight": 6,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "combat",
+    "overline": "SOUS LES PROJECTEURS",
+    "text": "Co-main event d'un grand show retransmis. Les caméras te cherchent, les recruteurs prennent des notes. Le monde regarde.",
+    "fight": {},
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 2 }],
+    "choices": [
+      { "label": "Assumer le duel debout", "hint": "Ta frappe décide", "tactic": "striking" },
+      { "label": "Dominer au corps-à-corps", "hint": "Ta lutte décide", "tactic": "grappling" },
+      { "label": "Finir au sol", "hint": "Ton jeu au sol décide", "tactic": "ground" }
+    ]
+  },
+  {
+    "id": "fight-major-prime-time",
+    "weight": 5,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "combat",
+    "overline": "PRIME TIME",
+    "text": "Un créneau en prime time t'est offert : gros contrat, gros enjeu, gros adversaire. Une victoire ici te rapproche d'un combat de titre.",
+    "fight": {},
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 2 }],
+    "choices": [
+      { "label": "Tout miser sur ta frappe", "hint": "Ta frappe décide", "tactic": "striking" },
+      { "label": "Imposer ta lutte", "hint": "Ta lutte décide", "tactic": "grappling" },
+      { "label": "Régner au sol", "hint": "Ton jeu au sol décide", "tactic": "ground" }
+    ]
+  }
+]
