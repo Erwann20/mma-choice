@@ -51,7 +51,7 @@ This document provides the complete epic and story breakdown for MMA Choice V1, 
 
 *(from the Architecture spine — technical constraints that shape stories; ADs referenced)*
 
-- **Scaffold / greenfield** (no external starter mandated): initialiser une app Vite 8 + React 19.2 + TanStack Router 1.170 + Zustand 5 + primereact ^11 + `@primeuix/themes` + Zod 4.4 + pure-rand 8.4 + Vitest. → **Epic 1, Story 1**.
+- **Scaffold / greenfield** (no external starter mandated): initialiser une app Vite 8 + React 19.2 + TanStack Router 1.170 + Zustand 5 + Zod 4.4 + pure-rand 8.4 + Vitest. UI = composants custom (React + tokens CSS), sans lib de composants à licence. → **Epic 1, Story 1**.
 - **AD-1** Functional Core / Imperative Shell : `src/engine` pur (aucun import framework) ; `store`/`routes`/`ui` peuvent importer `engine`, jamais l'inverse. Règle ESLint de frontière d'import à mettre en place.
 - **AD-2** État unique `GameState` + reducer ; unique voie de mutation (le store délègue au reducer).
 - **AD-3** PRNG à graine, état sérialisable stocké dans `GameState` ; `Math.random()` banni dans `engine` (lint `no-restricted-globals`).
@@ -142,7 +142,7 @@ So that toutes les stories suivantes reposent sur une base conforme à la spine.
 **Given** un dépôt vide
 **When** j'initialise le projet
 **Then** `npm run dev`, `npm run build` et `npm run test` (Vitest) fonctionnent sur une page d'accueil vide
-**And** les dépendances épinglées sont React 19.2, TanStack Router 1.170, Zustand 5, `primereact` ^11 + `@primeuix/themes`, Zod 4.4, Vite 8, pure-rand 8.4
+**And** les dépendances épinglées sont React 19.2, TanStack Router 1.170, Zustand 5, Zod 4.4, Vite 8, pure-rand 8.4 (UI custom, sans lib à licence)
 
 **Given** la règle de pureté du moteur (AD-1)
 **When** un fichier de `src/engine` tente d'importer React, le store, l'UI ou les routes

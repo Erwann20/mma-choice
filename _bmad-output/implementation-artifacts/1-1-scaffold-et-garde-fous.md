@@ -191,4 +191,5 @@ claude-opus-4-8 (Amelia / dev-story)
 
 ## Change Log
 
-- 2026-07-27 — Story 1.1 implémentée : scaffold Vite/React + TanStack Router + PrimeReact (thème sombre) + Zustand/Zod/pure-rand + Vitest, squelette de dossiers `src/{engine,schema,content,store,routes,ui}`, garde-fous ESLint (frontière du moteur AD-1, interdiction de `Math.random` AD-3), smoke test. `dev`/`build`/`test`/`lint` passent. Statut → review.
+- 2026-07-27 — Story 1.1 implémentée : scaffold Vite/React + TanStack Router + Zustand/Zod/pure-rand + Vitest, squelette de dossiers `src/{engine,schema,content,store,routes,ui}`, garde-fous ESLint (frontière du moteur AD-1, interdiction de `Math.random` AD-3), smoke test. `dev`/`build`/`test`/`lint` passent. Statut → review.
+- 2026-07-27 — **Correctif design system** : PrimeReact 11 retiré (la v11 exige une licence Community renouvelée annuellement, sinon bannière « Invalid PrimeUI License »). Décision : UI en **composants custom** (React + tokens CSS), lib headless gratuite (Radix/Ark) en option pour l'a11y. Dépendances `primereact`/`@primereact/core`/`@primeuix/themes`/`primeicons` supprimées, `main.tsx` simplifié. Re-vérifié vert ; bundle JS 448 ko → 275 ko. Spine/EPICS mis à jour.

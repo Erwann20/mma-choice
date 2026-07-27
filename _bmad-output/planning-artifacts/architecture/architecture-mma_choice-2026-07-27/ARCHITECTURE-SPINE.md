@@ -20,14 +20,14 @@ companions: []
 **Functional Core, Imperative Shell**, avec une **couche de contenu pilotée par la data**.
 
 - **Cœur fonctionnel** (`src/engine/`) — toutes les règles du jeu sous forme de fonctions **pures et déterministes** : `reduce(state, action) => state`. Aucune I/O, aucun framework, aucun accès au DOM/stockage. C'est le seul endroit où vivent les règles.
-- **Coquille impérative** — l'état applicatif (`src/store/`, Zustand), la navigation (`src/routes/`, TanStack Router), l'affichage (`src/ui/`, PrimeUI) et la persistance (localStorage). La coquille orchestre et affiche ; elle ne décide de rien.
+- **Coquille impérative** — l'état applicatif (`src/store/`, Zustand), la navigation (`src/routes/`, TanStack Router), l'affichage (`src/ui/`, composants custom React + tokens CSS) et la persistance (localStorage). La coquille orchestre et affiche ; elle ne décide de rien.
 - **Contenu = data** (`src/content/` + `src/schema/`) — Événements, adversaires, divisions, critères de départ, en JSON validé par des schémas Zod. Le cœur consomme le contenu via ces types validés.
 
 La règle de dépendance qui découle du paradigme (détaillée en AD-1) :
 
 ```mermaid
 graph TD
-    UI["src/ui — PrimeUI (présentation)"] --> STORE
+    UI["src/ui — composants custom (présentation)"] --> STORE
     ROUTES["src/routes — TanStack Router"] --> STORE
     STORE["src/store — Zustand (+ persist)"] --> ENGINE
     ENGINE["src/engine — cœur pur"] --> SCHEMA
@@ -42,7 +42,7 @@ Le sens des flèches est un **invariant** : `engine` ne dépend jamais de `store
 ### AD-1 — Cœur fonctionnel / coquille impérative [ADOPTED]
 - **Binds :** toute la logique de jeu ; FR-4..FR-16
 - **Prevents :** la logique qui fuit dans les composants ou le store → code non testable, règles dupliquées, divergence entre les 3 modes de jeu
-- **Rule :** Toutes les règles du jeu vivent dans `src/engine` sous forme de fonctions pures. `src/engine` **n'importe rien** de React, Zustand, PrimeUI, TanStack Router ou du DOM. `store`/`ui`/`routes` peuvent importer `engine` ; jamais l'inverse. Les 3 modes (Faire ma carrière / Revivre / Mission du jour) réutilisent le **même** moteur.
+- **Rule :** Toutes les règles du jeu vivent dans `src/engine` sous forme de fonctions pures. `src/engine` **n'importe rien** de React, Zustand, TanStack Router ou du DOM. `store`/`ui`/`routes` peuvent importer `engine` ; jamais l'inverse. Les 3 modes (Faire ma carrière / Revivre / Mission du jour) réutilisent le **même** moteur.
 
 ### AD-2 — État unique, voie de mutation unique [ADOPTED]
 - **Binds :** `GameState`
@@ -101,7 +101,7 @@ Le sens des flèches est un **invariant** : `engine` ne dépend jamais de `store
 | TypeScript | latest (à épingler au bind) |
 | React | 19.2.x |
 | TanStack Router | 1.170.x |
-| PrimeReact (ligne React de PrimeTek, ex-« PrimeUI ») + `@primeuix/themes` | ^11.0.0 — smoke-test React 19.2 + Vite 8 tôt |
+| UI — composants **custom** (React + tokens CSS de DESIGN.md) | pas de lib de composants à licence ; lib **headless gratuite** (Radix/Ark) en option pour dialog/sheet a11y |
 | Zustand (+ middleware `persist`) | 5.0.x |
 | Zod | 4.4.x |
 | Vite | 8.x |
@@ -131,7 +131,7 @@ src/
     opponent-archetypes.json   # gabarits (data) ; les instances sont générées (AD-3/4)
   store/             # Zustand + persist(localStorage) (AD-2, AD-7)
   routes/            # écrans TanStack Router (AD-8)
-  ui/                # composants PrimeUI présentationnels
+  ui/                # composants custom présentationnels (React + tokens CSS)
 ```
 
 Entités cœur (noms + relations ; un attribut qui est lui-même un invariant est un AD, pas ce diagramme) :
@@ -166,5 +166,5 @@ erDiagram
 - **Outillage d'authoring de contenu / pipeline de génération IA** — V1 = JSON écrit à la main ou généré par IA, validé par Zod (le contrat AD-4 suffit). Revisiter quand le volume l'exigera.
 - **Modes « Revivre » et « Mission du jour »** — même moteur (AD-1) ; ne restent à définir que le contenu et la config de graine. Reportés hors V1.
 - **Méta-progression persistante** (badges/Panthéon/défi quotidien) — la porte est ouverte par localStorage (AD-7) ; `saveVersion` permettra la migration.
-- **Approche de style PrimeUI** (thémé vs unstyled/Tailwind) — détail UI ; le code en est propriétaire.
+- **Éventuelle lib headless gratuite** (Radix/Ark) pour les primitives a11y-sensibles (dialog, bottom-sheet) — à décider au moment de les construire ; jamais de lib de composants sous licence (PrimeReact 11 écarté pour cause de licence/bannière).
 - **Setup de tests** (ex. Vitest sur le cœur pur) — impliqué par AD-1, pas un invariant.
