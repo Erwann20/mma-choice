@@ -1056,3 +1056,67 @@
   z-index: 60;
   font-size: var(--fs-meta);
 }
+
+/* --- Bilan de fin d'année (FR-8) --- */
+.year-review {
+  gap: var(--space-4);
+}
+.year-review .year-title {
+  margin: 0;
+  font-size: var(--fs-h2, 22px);
+  animation: fade-slide-up 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.year-titles {
+  border: 1px solid var(--color-accent);
+  background: var(--color-accent-wash);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-4);
+  animation: reveal-in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both,
+    glow-pulse 2s ease 0.3s 2;
+}
+.year-title-line {
+  margin: 2px 0;
+  font-weight: 800;
+  color: var(--color-accent);
+}
+.year-record {
+  text-align: center;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-xl);
+  padding: var(--space-4);
+  background: linear-gradient(180deg, var(--color-surface), #101216);
+  animation: reveal-in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.05s both;
+}
+.year-record-main {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: var(--space-2);
+}
+.year-record-val {
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 1;
+  animation: pop-in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.15s both;
+}
+.year-record-sep {
+  font-size: var(--fs-meta);
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.08em;
+}
+.year-record-sub {
+  margin: var(--space-2) 0 0;
+  font-size: var(--fs-meta);
+  color: var(--color-text-secondary);
+}
+.year-block {
+  animation: fade-slide-up 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s both;
+}
+.year-block .overline {
+  margin-bottom: var(--space-1);
+}
+.year-flat {
+  color: var(--color-text-secondary);
+  font-size: var(--fs-meta);
+}

@@ -43,6 +43,14 @@ export function careerStatus(game: GameState): string {
   return org ? `Pro · ${org} (${level})` : `Pro · ${TIER_LABEL[game.tier]}`
 }
 
+/** Libellé (avec drapeau) d'un titre amateur repéré par sa clé de flag. */
+export const TITLE_FLAG_LABEL: Record<string, string> = {
+  titre_monde: '🌍 Champion du Monde IMMAF',
+  titre_europe: "🇪🇺 Champion d'Europe IMMAF",
+  titre_france: '🇫🇷 Champion de France amateur',
+  titre_regional_am: '🏅 Vainqueur de tournoi régional',
+}
+
 /** Titres amateurs (tournois) remportés, du plus prestigieux au moins. */
 export function amateurTitles(game: GameState): string[] {
   const t: string[] = []

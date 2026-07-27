@@ -11,6 +11,7 @@ import journeyEvents from '../content/events/journey.json'
 import dailyEvents from '../content/events/daily.json'
 import careerEvents from '../content/events/career.json'
 import tournamentEvents from '../content/events/tournaments.json'
+import fightEvents from '../content/events/fights.json'
 import divisionsData from '../content/divisions.json'
 import organizationsData from '../content/organizations.json'
 import startingCriteriaData from '../content/starting-criteria.json'
@@ -161,6 +162,7 @@ export function loadEvents(): EventDef[] {
     ...dailyEvents,
     ...careerEvents,
     ...tournamentEvents,
+    ...fightEvents,
   ])
 }
 
