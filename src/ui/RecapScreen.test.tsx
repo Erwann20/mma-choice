@@ -13,4 +13,11 @@ describe('RecapScreen', () => {
     fireEvent.click(screen.getByRole('button', { name: /nouvelle carrière/i }))
     expect(onNew).toHaveBeenCalled()
   })
+
+  it("propose un retour à l'accueil", () => {
+    const onHome = vi.fn()
+    render(<RecapScreen game={createInitialState(1)} onNew={() => {}} onHome={onHome} />)
+    fireEvent.click(screen.getByRole('button', { name: /retour à l'accueil/i }))
+    expect(onHome).toHaveBeenCalled()
+  })
 })

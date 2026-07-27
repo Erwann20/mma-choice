@@ -26,7 +26,15 @@ function highlights(game: GameState): string[] {
   return lines
 }
 
-export function RecapScreen({ game, onNew }: { game: GameState; onNew: () => void }) {
+export function RecapScreen({
+  game,
+  onNew,
+  onHome,
+}: {
+  game: GameState
+  onNew: () => void
+  onHome?: () => void
+}) {
   const score = computeScore(game)
   const rank = allTimeRank(score)
   const [shareMsg, setShareMsg] = useState<string | null>(null)
@@ -61,6 +69,11 @@ export function RecapScreen({ game, onNew }: { game: GameState; onNew: () => voi
       <button className="btn-secondary" type="button" onClick={onShare}>
         Partager mon score
       </button>
+      {onHome ? (
+        <button className="btn-ghost" type="button" onClick={onHome}>
+          Retour à l'accueil
+        </button>
+      ) : null}
       {shareMsg ? <Toast message={shareMsg} /> : null}
     </section>
   )
