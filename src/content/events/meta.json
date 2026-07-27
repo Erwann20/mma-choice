@@ -1,0 +1,96 @@
+[
+  {
+    "id": "evt-sponsor-marque",
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 3,
+    "overline": "CONTRAT SPONSOR",
+    "text": "Une marque de nutrition sportive a repéré ta progression et ta communauté. Elle te propose un contrat d'image.",
+    "conditions": [
+      { "kind": "stat", "on": "reputation", "cmp": "gte", "value": 20 },
+      { "kind": "stat", "on": "followers", "cmp": "gte", "value": 500 }
+    ],
+    "choices": [
+      {
+        "label": "Signer le contrat",
+        "hint": "De l'argent et de la visibilité",
+        "effects": [
+          { "target": "money", "op": "add", "value": 4000 },
+          { "target": "followers", "op": "add", "value": 300 }
+        ]
+      },
+      {
+        "label": "Négocier plus dur",
+        "hint": "Quitte ou double",
+        "effects": [
+          { "target": "money", "op": "add", "value": 7000 },
+          { "target": "reputation", "op": "sub", "value": 3 }
+        ]
+      },
+      {
+        "label": "Refuser — pas la bonne image",
+        "effects": [{ "target": "reputation", "op": "add", "value": 2 }]
+      }
+    ]
+  },
+  {
+    "id": "evt-sponsor-major",
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 3,
+    "overline": "GROS CONTRAT",
+    "text": "Un équipementier international veut faire de toi une tête d'affiche. Le chèque est conséquent, la pression aussi.",
+    "conditions": [
+      { "kind": "stat", "on": "reputation", "cmp": "gte", "value": 55 },
+      { "kind": "stat", "on": "followers", "cmp": "gte", "value": 20000 }
+    ],
+    "choices": [
+      {
+        "label": "Signer — tu l'as mérité",
+        "effects": [
+          { "target": "money", "op": "add", "value": 30000 },
+          { "target": "followers", "op": "add", "value": 2000 }
+        ]
+      },
+      {
+        "label": "Rester indépendant",
+        "effects": [{ "target": "reputation", "op": "add", "value": 4 }]
+      }
+    ]
+  },
+  {
+    "id": "evt-camp-elite",
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 2,
+    "overline": "INVESTIR DANS TON CAMP",
+    "text": "Tu as de quoi t'offrir une préparation haut de gamme : sparring de niveau, préparateur physique, nutritionniste. Où mets-tu ton argent ?",
+    "conditions": [{ "kind": "stat", "on": "money", "cmp": "gte", "value": 3000 }],
+    "choices": [
+      {
+        "label": "Camp complet (−5000 €)",
+        "hint": "Progrès sur tous les tableaux",
+        "effects": [
+          { "target": "money", "op": "sub", "value": 5000 },
+          { "target": "striking", "op": "add", "value": 3 },
+          { "target": "grappling", "op": "add", "value": 3 },
+          { "target": "ground", "op": "add", "value": 3 },
+          { "target": "cardio", "op": "add", "value": 3 }
+        ]
+      },
+      {
+        "label": "Préparation physique (−3000 €)",
+        "hint": "Cardio et forme",
+        "effects": [
+          { "target": "money", "op": "sub", "value": 3000 },
+          { "target": "cardio", "op": "add", "value": 6 },
+          { "target": "health", "op": "add", "value": 6 }
+        ]
+      },
+      {
+        "label": "Économiser pour plus tard",
+        "effects": [{ "target": "mental", "op": "add", "value": 2 }]
+      }
+    ]
+  }
+]
