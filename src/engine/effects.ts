@@ -19,6 +19,10 @@ export function applyEffect(state: GameState, e: Effect): GameState {
 export function applyChoice(state: GameState, event: EventDef, choice: Choice): GameState {
   let s = state
   for (const eff of choice.effects) s = applyEffect(s, eff)
+  // Évolution du style (FR-15) : un entraînement/événement dédié réoriente le combattant.
+  if (choice.setStyle) {
+    s = { ...s, style: choice.setStyle }
+  }
   if (choice.setFlags) {
     s = { ...s, flags: { ...s.flags, ...choice.setFlags } }
   }
