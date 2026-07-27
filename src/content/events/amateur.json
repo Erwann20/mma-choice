@@ -72,6 +72,53 @@
     ]
   },
   {
+    "id": "evt-camp-specialise",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 4,
+    "overline": "CHANGER DE CAMP",
+    "text": "Un camp réputé t'ouvre ses portes pour une préparation longue. Tu peux réorienter en profondeur ta manière de combattre.",
+    "conditions": [{ "kind": "stat", "on": "age", "cmp": "gte", "value": 20 }],
+    "choices": [
+      {
+        "label": "Devenir un puncheur",
+        "hint": "Tout pour la frappe debout",
+        "setStyle": "striker",
+        "effects": [
+          { "target": "striking", "op": "add", "value": 8 },
+          { "target": "health", "op": "sub", "value": 4 }
+        ]
+      },
+      {
+        "label": "Devenir un lutteur",
+        "hint": "Imposer le corps-à-corps",
+        "setStyle": "wrestler",
+        "effects": [
+          { "target": "grappling", "op": "add", "value": 8 },
+          { "target": "health", "op": "sub", "value": 4 }
+        ]
+      },
+      {
+        "label": "Devenir un grappler",
+        "hint": "Régner au sol",
+        "setStyle": "grappler",
+        "effects": [
+          { "target": "ground", "op": "add", "value": 8 },
+          { "target": "health", "op": "sub", "value": 4 }
+        ]
+      },
+      {
+        "label": "Rester polyvalent",
+        "hint": "Ne rien sacrifier",
+        "setStyle": "allrounder",
+        "effects": [
+          { "target": "striking", "op": "add", "value": 3 },
+          { "target": "grappling", "op": "add", "value": 3 }
+        ]
+      }
+    ]
+  },
+  {
     "id": "fight-regional-main-card",
     "weight": 5,
     "repeatable": true,

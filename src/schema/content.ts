@@ -64,6 +64,8 @@ export const ChoiceSchema = z.object({
   effects: z.array(EffectSchema).default([]),
   /** Tactique de combat mise en avant (événements `fight` uniquement, FR-10). */
   tactic: ChannelSchema.optional(),
+  /** Fait évoluer le style du combattant (entraînement dédié, FR-15). */
+  setStyle: StyleSchema.optional(),
   setFlags: z.record(z.string(), z.union([z.boolean(), z.number()])).optional(),
   // Conséquences différées (FR-9) : arment un flag actif dans `inYears` années.
   armFlags: z
