@@ -4,7 +4,7 @@ baseline_commit: NO_VCS
 
 # Story 1.1: Scaffold du projet et garde-fous d'architecture
 
-Status: in-progress
+Status: review
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -24,32 +24,32 @@ so that toutes les stories suivantes reposent sur une base conforme à la spine 
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1 — Scaffold Vite react-ts** (AC: 1, 2)
-  - [ ] `npm create vite@latest . -- --template react-ts` (Node 20+ requis pour Vite 8)
-  - [ ] Épingler les versions exactes dans `package.json` (voir Dev Notes → Versions)
-  - [ ] Vérifier `npm run dev` et `npm run build`
-- [ ] **Task 2 — Squelette de dossiers** (AC: 5)
-  - [ ] Créer `src/{engine,schema,content,store,routes,ui}/` avec un fichier `index.ts` placeholder par dossier (commentaire de rôle, cf. Structural Seed). Le contenu réel arrive dans les stories suivantes.
-- [ ] **Task 3 — TanStack Router** (AC: 1)
-  - [ ] Installer `@tanstack/react-router` + `-D @tanstack/router-plugin`
-  - [ ] Ajouter le plugin dans `vite.config.ts` **avant** `react()` (voir Dev Notes)
-  - [ ] Créer `src/routes/__root.tsx` + `src/routes/index.tsx` (page d'accueil vide « MMA CHOICE ») ; bootstrap `RouterProvider` dans `main.tsx`
-- [ ] **Task 4 — PrimeReact 11 + thème sombre** (AC: 1)
-  - [ ] Installer `primereact@11 @primeuix/themes primeicons`
-  - [ ] Envelopper l'app dans `PrimeReactProvider` (import depuis `@primereact/core`) avec le preset `Aura` et `darkModeSelector: '.dark'`
-  - [ ] Poser la classe `dark` sur `<html>` (le jeu est sombre par défaut, cf. DESIGN.md). Importer `primeicons/primeicons.css`. *(Les tokens de couleur/typo précis = Story 1.6 ; ici, juste le câblage du provider.)*
-- [ ] **Task 5 — Dépendances du moteur** (AC: 2)
-  - [ ] Installer `zustand@5 zod@4 pure-rand@8` (utilisées dès les stories 1.2–1.3–1.10 ; pas de code métier ici)
-- [ ] **Task 6 — Garde-fous ESLint (flat config)** (AC: 3, 4)
-  - [ ] `eslint.config.js` : override `files: ['src/engine/**']` avec `no-restricted-imports` (patterns `react`, `**/store/**`, `**/ui/**`, `**/routes/**`) et `no-restricted-properties` (objet `Math`, propriété `random`)
-  - [ ] ⚠️ Utiliser **`no-restricted-properties`**, PAS `no-restricted-globals` (voir Dev Notes → Piège)
-  - [ ] `npm run lint` dans `package.json`
-- [ ] **Task 7 — Vitest + test de fumée** (AC: 1)
-  - [ ] Installer `-D vitest @testing-library/react @testing-library/jest-dom jsdom`
-  - [ ] Config `test: { globals: true, environment: 'jsdom', setupFiles: './src/test-setup.ts' }` ; `test-setup.ts` importe `@testing-library/jest-dom/vitest`
-  - [ ] Un test de fumée qui monte la page d'accueil et vérifie « MMA CHOICE »
-- [ ] **Task 8 — Vérifier les garde-fous** (AC: 3, 4)
-  - [ ] Prouver que le lint échoue sur une violation : ajouter temporairement dans un fichier `src/engine/` un `import React` et un `Math.random()`, lancer `npm run lint`, constater 2 erreurs, puis retirer.
+- [x] **Task 1 — Scaffold Vite react-ts** (AC: 1, 2)
+  - [x] `npm create vite@latest . -- --template react-ts` (Node 20+ requis pour Vite 8)
+  - [x] Épingler les versions exactes dans `package.json` (voir Dev Notes → Versions)
+  - [x] Vérifier `npm run dev` et `npm run build`
+- [x] **Task 2 — Squelette de dossiers** (AC: 5)
+  - [x] Créer `src/{engine,schema,content,store,routes,ui}/` avec un fichier `index.ts` placeholder par dossier (commentaire de rôle, cf. Structural Seed). Le contenu réel arrive dans les stories suivantes.
+- [x] **Task 3 — TanStack Router** (AC: 1)
+  - [x] Installer `@tanstack/react-router` + `-D @tanstack/router-plugin`
+  - [x] Ajouter le plugin dans `vite.config.ts` **avant** `react()` (voir Dev Notes)
+  - [x] Créer `src/routes/__root.tsx` + `src/routes/index.tsx` (page d'accueil vide « MMA CHOICE ») ; bootstrap `RouterProvider` dans `main.tsx`
+- [x] **Task 4 — PrimeReact 11 + thème sombre** (AC: 1)
+  - [x] Installer `primereact@11 @primeuix/themes primeicons`
+  - [x] Envelopper l'app dans `PrimeReactProvider` (import depuis `@primereact/core`) avec le preset `Aura` et `darkModeSelector: '.dark'`
+  - [x] Poser la classe `dark` sur `<html>` (le jeu est sombre par défaut, cf. DESIGN.md). Importer `primeicons/primeicons.css`. *(Les tokens de couleur/typo précis = Story 1.6 ; ici, juste le câblage du provider.)*
+- [x] **Task 5 — Dépendances du moteur** (AC: 2)
+  - [x] Installer `zustand@5 zod@4 pure-rand@8` (utilisées dès les stories 1.2–1.3–1.10 ; pas de code métier ici)
+- [x] **Task 6 — Garde-fous ESLint (flat config)** (AC: 3, 4)
+  - [x] `eslint.config.js` : override `files: ['src/engine/**']` avec `no-restricted-imports` (patterns `react`, `**/store/**`, `**/ui/**`, `**/routes/**`) et `no-restricted-properties` (objet `Math`, propriété `random`)
+  - [x] ⚠️ Utiliser **`no-restricted-properties`**, PAS `no-restricted-globals` (voir Dev Notes → Piège)
+  - [x] `npm run lint` dans `package.json`
+- [x] **Task 7 — Vitest + test de fumée** (AC: 1)
+  - [x] Installer `-D vitest @testing-library/react @testing-library/jest-dom jsdom`
+  - [x] Config `test: { globals: true, environment: 'jsdom', setupFiles: './src/test-setup.ts' }` ; `test-setup.ts` importe `@testing-library/jest-dom/vitest`
+  - [x] Un test de fumée qui monte la page d'accueil et vérifie « MMA CHOICE »
+- [x] **Task 8 — Vérifier les garde-fous** (AC: 3, 4)
+  - [x] Prouver que le lint échoue sur une violation : ajouter temporairement dans un fichier `src/engine/` un `import React` et un `Math.random()`, lancer `npm run lint`, constater 2 erreurs, puis retirer.
 
 ## Dev Notes
 
@@ -146,8 +146,49 @@ src/
 
 ### Agent Model Used
 
+claude-opus-4-8 (Amelia / dev-story)
+
 ### Debug Log References
+
+- `npm run test` → 1 fichier, 1 test passant (HomeScreen affiche « MMA CHOICE »).
+- `npm run lint` → 0 erreur.
+- `npm run build` (`tsc -b && vite build`) → succès, bundle produit dans `dist/`.
+- `npx vite` (dev) → HTTP 200 sur `http://localhost:5199/`, `<title>MMA Choice</title>`.
+- Vérif garde-fous : fichier temporaire `src/engine/_guardcheck.ts` avec `import React` + `Math.random()` → ESLint remonte 2 erreurs (`no-restricted-imports` AD-1, `no-restricted-properties` AD-3), puis fichier supprimé.
 
 ### Completion Notes List
 
+- Baseline échafaudé via `create-vite@9.1.1 --template react-ts` (dans un dossier temporaire, `create-vite` refusant un dossier non vide), puis copié à la racine et personnalisé.
+- Stack installée et épinglée (AC-2) : React 19.2.7, Vite 8.1.5, TanStack Router 1.170.18 (+ router-plugin 1.168.23), primereact 11.0.0 + @primereact/core 11 + @primeuix/themes 3.0.0 + primeicons 7, Zustand 5, Zod 4.4, pure-rand 8.4, Vitest 4.1.10.
+- **Décision** : routing **file-based** avec `@tanstack/router-plugin/vite` (plugin avant `react()`). `src/routeTree.gen.ts` est généré par le plugin et **commité** (évite l'échec de `tsc -b` avant `vite build` sur un checkout neuf).
+- **Décision** : lint = **ESLint flat-config** (le baseline create-vite proposait oxlint) car les garde-fous AD-1/AD-3 sont exprimés en règles ESLint (`no-restricted-imports` + `no-restricted-properties`). `src/routeTree.gen.ts` est exclu du lint.
+- **Piège évité (AC-4)** : `Math.random` est bloqué via `no-restricted-properties` (et NON `no-restricted-globals`, qui ne l'attrape pas).
+- PrimeReact 11 : provider importé depuis `@primereact/core` (nouveau chemin en v11), thème `Aura` en mode sombre (`darkModeSelector: '.dark'`, classe `dark` sur `<html>`).
+- Hors périmètre respecté : aucune logique moteur/store/schéma/persistance/token complet — uniquement squelette + garde-fous + smoke test.
+- ⚠️ `npm audit` remonte 5 vulnérabilités « high » (chaînes de devDeps) — à traiter hors story ; sans impact sur le build.
+- Note VCS : un dépôt git (`main`, sans commit initial) est apparu ; le travail est développé sur la branche `story/1-1-scaffold`. `baseline_commit: NO_VCS` conservé (aucun commit à référencer au démarrage).
+
 ### File List
+
+**Nouveaux**
+- `package.json`, `package-lock.json`
+- `eslint.config.js`
+- `tsconfig.json`, `tsconfig.app.json`, `tsconfig.node.json`
+- `.gitignore`
+- `src/main.tsx`
+- `src/index.css`
+- `src/routeTree.gen.ts` (généré)
+- `src/routes/__root.tsx`, `src/routes/index.tsx`
+- `src/ui/HomeScreen.tsx`, `src/ui/HomeScreen.test.tsx`, `src/ui/index.ts`
+- `src/engine/index.ts`, `src/schema/index.ts`, `src/store/index.ts`
+- `src/content/README.md`
+- `src/test-setup.ts`
+- `public/` (assets baseline)
+
+**Modifiés**
+- `index.html` (lang `fr`, classe `dark`, titre « MMA Choice »)
+- `vite.config.ts` (plugin router avant react + config Vitest)
+
+## Change Log
+
+- 2026-07-27 — Story 1.1 implémentée : scaffold Vite/React + TanStack Router + PrimeReact (thème sombre) + Zustand/Zod/pure-rand + Vitest, squelette de dossiers `src/{engine,schema,content,store,routes,ui}`, garde-fous ESLint (frontière du moteur AD-1, interdiction de `Math.random` AD-3), smoke test. `dev`/`build`/`test`/`lint` passent. Statut → review.
