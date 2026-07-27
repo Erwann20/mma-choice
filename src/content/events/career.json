@@ -1,0 +1,141 @@
+[
+  {
+    "id": "evt-passer-pro",
+    "weight": 6,
+    "repeatable": true,
+    "cooldown": 1,
+    "overline": "PASSER PROFESSIONNEL",
+    "text": "Tes résultats amateurs ont tapé dans l'œil des promoteurs. Trois organisations régionales veulent te faire signer ton premier contrat pro. À toi de choisir ta maison — ou d'attendre encore.",
+    "conditions": [
+      { "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 },
+      { "kind": "stat", "on": "wins", "cmp": "gte", "value": 3 },
+      { "kind": "stat", "on": "reputation", "cmp": "gte", "value": 15 }
+    ],
+    "choices": [
+      {
+        "label": "Signer chez Hexagone MMA",
+        "hint": "Prestige et projecteurs",
+        "signOrg": "hexagone",
+        "effects": [{ "target": "reputation", "op": "add", "value": 6 }]
+      },
+      {
+        "label": "Signer chez Cage Battle",
+        "hint": "Les meilleurs chèques du régional",
+        "signOrg": "cagebattle",
+        "effects": [{ "target": "money", "op": "add", "value": 4000 }]
+      },
+      {
+        "label": "Signer chez Brave Arena",
+        "hint": "Des guerres qui forgent le mental",
+        "signOrg": "bravearena",
+        "effects": [{ "target": "mental", "op": "add", "value": 6 }]
+      },
+      {
+        "label": "Rester amateur encore un peu",
+        "hint": "Se construire davantage",
+        "effects": [{ "target": "mental", "op": "add", "value": 2 }]
+      }
+    ]
+  },
+  {
+    "id": "evt-offre-regionale",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 3,
+    "overline": "OFFRE CONCURRENTE",
+    "text": "Une organisation régionale rivale te fait de l'œil et propose de meilleures conditions pour te débaucher. Tu changes de maison ?",
+    "conditions": [
+      { "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 },
+      { "kind": "stat", "on": "tier", "cmp": "lte", "value": 1 }
+    ],
+    "choices": [
+      {
+        "label": "Signer chez Hexagone MMA",
+        "hint": "Changer pour le prestige",
+        "signOrg": "hexagone",
+        "effects": [{ "target": "reputation", "op": "add", "value": 4 }]
+      },
+      {
+        "label": "Signer chez Cage Battle",
+        "hint": "Changer pour l'argent",
+        "signOrg": "cagebattle",
+        "effects": [{ "target": "money", "op": "add", "value": 5000 }]
+      },
+      {
+        "label": "Signer chez Brave Arena",
+        "hint": "Changer pour l'exposition",
+        "signOrg": "bravearena",
+        "effects": [{ "target": "followers", "op": "add", "value": 2000 }]
+      },
+      {
+        "label": "Rester fidèle à ton organisation",
+        "hint": "La loyauté paie",
+        "effects": [{ "target": "reputation", "op": "add", "value": 3 }]
+      }
+    ]
+  },
+  {
+    "id": "evt-offre-majeure",
+    "weight": 7,
+    "repeatable": true,
+    "cooldown": 2,
+    "overline": "LE GRAND SAUT",
+    "text": "Le rêve est là : deux organisations MAJEURES t'offrent un contrat. Signer, c'est entrer dans la cour des grands — adversaires redoutables, mais lumière mondiale et grosses bourses.",
+    "conditions": [
+      { "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 },
+      { "kind": "stat", "on": "tier", "cmp": "lte", "value": 1 },
+      { "kind": "stat", "on": "reputation", "cmp": "gte", "value": 55 },
+      { "kind": "stat", "on": "wins", "cmp": "gte", "value": 8 }
+    ],
+    "choices": [
+      {
+        "label": "Signer à l'Apex Championship",
+        "hint": "Le sommet, le vrai prestige",
+        "signOrg": "apex",
+        "effects": [{ "target": "reputation", "op": "add", "value": 10 }, { "target": "followers", "op": "add", "value": 8000 }]
+      },
+      {
+        "label": "Signer à la Global Fight League",
+        "hint": "L'international, le plus gros chèque",
+        "signOrg": "gfl",
+        "effects": [{ "target": "money", "op": "add", "value": 30000 }, { "target": "followers", "op": "add", "value": 6000 }]
+      },
+      {
+        "label": "Rester en régional cette saison",
+        "hint": "Encore un peu de métier",
+        "effects": [{ "target": "mental", "op": "add", "value": 3 }]
+      }
+    ]
+  },
+  {
+    "id": "evt-offre-majeure-rivale",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 4,
+    "overline": "GUERRE DES ORGAS",
+    "text": "L'autre géant mondial veut t'arracher à ton organisation. Le pont d'or est sur la table.",
+    "conditions": [
+      { "kind": "stat", "on": "tier", "cmp": "gte", "value": 2 },
+      { "kind": "stat", "on": "reputation", "cmp": "gte", "value": 65 }
+    ],
+    "choices": [
+      {
+        "label": "Rejoindre l'Apex Championship",
+        "hint": "Pour la légende",
+        "signOrg": "apex",
+        "effects": [{ "target": "reputation", "op": "add", "value": 6 }]
+      },
+      {
+        "label": "Rejoindre la Global Fight League",
+        "hint": "Pour l'empire financier",
+        "signOrg": "gfl",
+        "effects": [{ "target": "money", "op": "add", "value": 50000 }]
+      },
+      {
+        "label": "Honorer ton contrat actuel",
+        "hint": "L'homme d'une seule maison",
+        "effects": [{ "target": "reputation", "op": "add", "value": 5 }]
+      }
+    ]
+  }
+]

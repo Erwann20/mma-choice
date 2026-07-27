@@ -2,7 +2,7 @@ import { useState } from 'react'
 import type { GameState } from '../engine'
 import { computeScore, allTimeRank } from '../engine'
 import { loadDivisions } from '../schema'
-import { STYLE_LABEL, TIER_LABEL } from './labels'
+import { STYLE_LABEL, TIER_LABEL, organizationLabel } from './labels'
 import { shareScore } from './share'
 import { Toast } from './Toast'
 
@@ -20,6 +20,9 @@ function highlights(game: GameState): string[] {
         : 'A décroché la ceinture de sa division',
     )
   }
+  const org = organizationLabel(game.organization)
+  if (org) lines.push(`A porté les couleurs de ${org}`)
+  else if (!game.pro) lines.push('N’a jamais quitté les rangs amateurs')
   lines.push(`Plus haut palier atteint : ${TIER_LABEL[game.tier]}`)
   if (game.meta.reputation >= 40) lines.push('Un nom respecté dans le milieu')
   if (game.meta.followers >= 1000) lines.push(`${game.meta.followers} followers au compteur`)

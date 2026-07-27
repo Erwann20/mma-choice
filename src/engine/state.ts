@@ -58,6 +58,10 @@ export interface GameState {
   division: string
   style: Style
   tier: Tier
+  /** Statut professionnel : false = amateur (IMMAF), true = signé en promotion. */
+  pro: boolean
+  /** Id de l'organisation signée (null tant qu'amateur / libre). */
+  organization: string | null
   /** Détient-il la ceinture de sa division courante ? (FR-5) */
   belt: boolean
   /** Nombre de défenses de titre réussies (prestige). */
@@ -95,6 +99,8 @@ export function createInitialState(seed: number, setup: FighterSetup = {}): Game
     division: setup.division ?? 'lightweight',
     style: setup.style ?? 'allrounder',
     tier: 'immaf',
+    pro: false,
+    organization: null,
     belt: false,
     titleDefenses: 0,
     stats: { striking: 40, grappling: 40, ground: 40, cardio: 50 },

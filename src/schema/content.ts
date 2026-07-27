@@ -9,7 +9,9 @@ import businessEvents from '../content/events/business.json'
 import socialEvents from '../content/events/social.json'
 import journeyEvents from '../content/events/journey.json'
 import dailyEvents from '../content/events/daily.json'
+import careerEvents from '../content/events/career.json'
 import divisionsData from '../content/divisions.json'
+import organizationsData from '../content/organizations.json'
 import startingCriteriaData from '../content/starting-criteria.json'
 import opponentsData from '../content/opponents.json'
 
@@ -79,6 +81,10 @@ export const ChoiceSchema = z.object({
   setStyle: StyleSchema.optional(),
   /** Change de division de poids (déclenche une coupe de poids, FR-13). */
   setDivision: z.string().min(1).optional(),
+  /** Signe avec une organisation (id) : fixe l'orga, passe pro et cale le palier. */
+  signOrg: z.string().min(1).optional(),
+  /** Passe professionnel sans signer d'organisation précise. */
+  turnPro: z.boolean().optional(),
   setFlags: z.record(z.string(), z.union([z.boolean(), z.number()])).optional(),
   // Conséquences différées (FR-9) : arment un flag actif dans `inYears` années.
   armFlags: z
@@ -143,6 +149,7 @@ export function loadEvents(): EventDef[] {
     ...socialEvents,
     ...journeyEvents,
     ...dailyEvents,
+    ...careerEvents,
   ])
 }
 
@@ -206,4 +213,22 @@ export type OpponentPool = z.infer<typeof OpponentPoolSchema>
 
 export function loadOpponentPool(): OpponentPool {
   return OpponentPoolSchema.parse(opponentsData)
+}
+
+// --- Organisations (promotions) : le joueur signe et reçoit des offres ---
+export const OrganizationSchema = z.object({
+  id: z.string().min(1),
+  label: z.string().min(1),
+  /** Palier de l'organisation : régional ou majeur (l'amateur = pas d'orga). */
+  tier: z.enum(['regional', 'major']),
+  blurb: z.string().min(1),
+})
+export type Organization = z.infer<typeof OrganizationSchema>
+
+export const OrganizationPoolSchema = z.object({
+  organizations: z.array(OrganizationSchema).min(1),
+})
+
+export function loadOrganizations(): Organization[] {
+  return OrganizationPoolSchema.parse(organizationsData).organizations
 }

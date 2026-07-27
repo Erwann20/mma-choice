@@ -1,25 +1,19 @@
-// Progression de carrière (FR-5) : promotion de palier selon réputation + victoires.
-// PUR : promotion monotone (on ne rétrograde jamais).
+// Progression de carrière (FR-5). Le palier ne monte plus automatiquement :
+// le joueur passe pro et signe une organisation (voir store/session).
+// `earnedTier` reste un helper PUR : « à quel palier tes résultats donnent droit »,
+// utile pour signaler qu'une offre/un passage pro est mérité.
 import type { GameState, Tier } from './state'
-import { TIER_PROMOTION, tierIndex } from './config'
+import { TIER_PROMOTION } from './config'
 
-/** Palier mérité par l'état courant (le plus haut atteint, jamais en dessous). */
+/** Palier le plus élevé auquel la réputation + les victoires donnent droit. */
 export function earnedTier(state: GameState): Tier {
   const { reputation } = state.meta
   const { wins } = state.record
-  let tier: Tier = 'immaf'
-  if (reputation >= TIER_PROMOTION.regional.reputation && wins >= TIER_PROMOTION.regional.wins) {
-    tier = 'regional'
-  }
   if (reputation >= TIER_PROMOTION.major.reputation && wins >= TIER_PROMOTION.major.wins) {
-    tier = 'major'
+    return 'major'
   }
-  // Jamais de rétrogradation : on garde le palier le plus élevé atteint.
-  return tierIndex(tier) > tierIndex(state.tier) ? tier : state.tier
-}
-
-/** Applique la promotion de palier si elle est méritée (renvoie un nouvel état). */
-export function promoteTier(state: GameState): GameState {
-  const tier = earnedTier(state)
-  return tier === state.tier ? state : { ...state, tier }
+  if (reputation >= TIER_PROMOTION.regional.reputation && wins >= TIER_PROMOTION.regional.wins) {
+    return 'regional'
+  }
+  return 'immaf'
 }

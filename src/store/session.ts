@@ -1,7 +1,7 @@
 // Orchestration de la boucle de carrière (PURE, testable sans navigateur).
 // Enchaîne moteur + contenu ; le store Zustand n'est qu'un conteneur (AD-2).
-import type { Criterion, EventDef, StartingCriteria, OpponentPool } from '../schema'
-import { loadOpponentPool } from '../schema'
+import type { Criterion, EventDef, StartingCriteria, OpponentPool, Organization } from '../schema'
+import { loadOpponentPool, loadOrganizations } from '../schema'
 import type { FighterSetup, GameState, Opponent, FightResult, Sex, Style } from '../engine'
 import {
   createInitialState,
@@ -16,6 +16,19 @@ import {
 
 // Contenu statique chargé une fois (validé au chargement, AD-4).
 const OPPONENT_POOL: OpponentPool = loadOpponentPool()
+const ORGANIZATIONS: Organization[] = loadOrganizations()
+
+/** Applique la signature d'une organisation / le passage pro portés par un choix. */
+function applyCareerMove(game: GameState, choice: { signOrg?: string; turnPro?: boolean }): GameState {
+  if (choice.signOrg) {
+    const org = ORGANIZATIONS.find((o) => o.id === choice.signOrg)
+    if (org) return { ...game, organization: org.id, tier: org.tier, pro: true }
+  }
+  if (choice.turnPro && !game.pro) {
+    return { ...game, pro: true }
+  }
+  return game
+}
 
 export interface Session {
   game: GameState
@@ -164,7 +177,8 @@ export function chooseInSession(session: Session, choiceIndex: number): Session 
     return { ...session, game, lastResult: result }
   }
 
-  const game = applyChoice(session.game, session.current, choice)
+  let game = applyChoice(session.game, session.current, choice)
+  game = applyCareerMove(game, choice)
   return advanceAfterEvent(session, game)
 }
 

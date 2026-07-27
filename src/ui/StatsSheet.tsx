@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import type { GameState } from '../engine'
 import { StatBar } from './StatBar'
-import { STYLE_LABEL, TIER_LABEL } from './labels'
+import { STYLE_LABEL, careerStatus } from './labels'
 
 export function StatsSheet({ game, onClose }: { game: GameState; onClose: () => void }) {
   useEffect(() => {
@@ -23,7 +23,7 @@ export function StatsSheet({ game, onClose }: { game: GameState; onClose: () => 
       >
         <div className="sheet-grabber" aria-hidden="true" />
         <p className="fighter-meta" style={{ marginTop: 0 }}>
-          {game.fighter.age} ans · {STYLE_LABEL[game.style]} · {TIER_LABEL[game.tier]}
+          {game.fighter.age} ans · {STYLE_LABEL[game.style]} · {careerStatus(game)}
           {game.belt ? ' · 🏆 Champion' : ''}
         </p>
         <p className="fighter-meta" style={{ marginTop: 4 }}>
