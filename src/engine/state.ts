@@ -6,6 +6,19 @@ import { START_AGE } from './config'
 export type Sex = 'M' | 'F'
 export type Style = 'striker' | 'wrestler' | 'grappler' | 'allrounder'
 export type Phase = 'career' | 'retired'
+/** Palier du circuit MMA (FR-5) : amateur → régional → organisation majeure. */
+export type Tier = 'immaf' | 'regional' | 'major'
+
+/** Palmarès du combattant (FR-10/14). */
+export interface FightRecord {
+  wins: number
+  losses: number
+  /** Victoires marquantes (KO/soumission/upset), pour le prestige. */
+  finishes: number
+}
+
+/** Drapeaux narratifs + internes moteur (« vu »/cooldown préfixés). */
+export type Flags = Record<string, number | boolean>
 
 export interface Fighter {
   name: string
@@ -44,9 +57,15 @@ export interface GameState {
   fighter: Fighter
   division: string
   style: Style
+  tier: Tier
+  /** Détient-il la ceinture de sa division courante ? (FR-5) */
+  belt: boolean
+  /** Nombre de défenses de titre réussies (prestige). */
+  titleDefenses: number
   stats: Stats
   meta: Meta
-  flags: Record<string, number | boolean>
+  record: FightRecord
+  flags: Flags
   pending: PendingFlag[]
 }
 
@@ -75,8 +94,12 @@ export function createInitialState(seed: number, setup: FighterSetup = {}): Game
     },
     division: setup.division ?? 'lightweight',
     style: setup.style ?? 'allrounder',
+    tier: 'immaf',
+    belt: false,
+    titleDefenses: 0,
     stats: { striking: 40, grappling: 40, ground: 40, cardio: 50 },
     meta: { health: 100, mental: 60, reputation: 0, followers: 0, money: 0 },
+    record: { wins: 0, losses: 0, finishes: 0 },
     flags: {},
     pending: [],
   }

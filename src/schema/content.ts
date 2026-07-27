@@ -4,6 +4,7 @@ import { z } from 'zod'
 import amateurEvents from '../content/events/amateur.json'
 import divisionsData from '../content/divisions.json'
 import startingCriteriaData from '../content/starting-criteria.json'
+import opponentsData from '../content/opponents.json'
 
 // --- Canaux FERMÉS (AD-5) : effets/conditions ne peuvent viser que ceux-ci,
 // jamais un interne du moteur (rng, saveVersion, flags « vu »).
@@ -134,4 +135,31 @@ export type StartingCriteria = z.infer<typeof StartingCriteriaSchema>
 
 export function loadStartingCriteria(): StartingCriteria {
   return StartingCriteriaSchema.parse(startingCriteriaData)
+}
+
+// --- Adversaires (FR-16) : archétypes authorés + banques de noms (AD-4) ---
+export const StyleSchema = z.enum(['striker', 'wrestler', 'grappler', 'allrounder'])
+export type StyleName = z.infer<typeof StyleSchema>
+
+export const ArchetypeSchema = z.object({
+  id: z.string().min(1),
+  label: z.string().min(1),
+  style: StyleSchema,
+  blurb: z.string().min(1),
+  /** Prime de puissance de l'archétype (ajoutée au niveau calibré). */
+  power: z.number().int().default(0),
+  /** Tactique du joueur qui exploite la faiblesse de l'archétype. */
+  weakTo: ChannelSchema,
+})
+export type Archetype = z.infer<typeof ArchetypeSchema>
+
+export const OpponentPoolSchema = z.object({
+  archetypes: z.array(ArchetypeSchema).min(1),
+  firstNames: z.object({ M: z.array(z.string().min(1)).min(1), F: z.array(z.string().min(1)).min(1) }),
+  lastNames: z.array(z.string().min(1)).min(1),
+})
+export type OpponentPool = z.infer<typeof OpponentPoolSchema>
+
+export function loadOpponentPool(): OpponentPool {
+  return OpponentPoolSchema.parse(opponentsData)
 }

@@ -7,10 +7,16 @@ export type {
   Sex,
   Style,
   Phase,
+  Tier,
+  FightRecord,
+  Flags,
   FighterSetup,
   PendingFlag,
 } from './state'
 export { createInitialState } from './state'
+
+export type { Opponent } from './combat'
+export { generateOpponent } from './combat'
 
 export { readChannel, writeChannel } from './channels'
 export {
