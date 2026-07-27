@@ -50,7 +50,14 @@ export function GameRoot() {
   if (!session.current) {
     return (
       <>
-        <RecapScreen game={session.game} onNew={() => setConfirmNew(true)} />
+        <RecapScreen
+          game={session.game}
+          onNew={() => setConfirmNew(true)}
+          onHome={() => {
+            reset()
+            setCreating(false)
+          }}
+        />
         {confirmNew ? (
           <ConfirmDialog
             title="Nouvelle carrière ?"
