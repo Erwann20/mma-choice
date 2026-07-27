@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MMA Choice — Écrans clés (Direction B · Fight night sombre)</title>
+<style>
+  :root{
+    --bg:#0C0D10;
+    --surface:#15171C;
+    --sunken:#191B21;
+    --text:#E9EBF0;
+    --text-bright:#F4F6FA;
+    --text-secondary:#A7ADBA;
+    --text-muted:#7A818E;
+    --text-faint:#4D525C;
+    --border:#262A32;
+    --border-strong:#2B2F38;
+    --accent:#C7FF3D;
+    --accent-dim:#8FBF2E;
+    --accent-wash:rgba(199,255,61,0.10);
+    --accent-line:rgba(199,255,61,0.42);
+    --danger:#FF7A6B;
+    --danger-wash:rgba(255,122,107,0.10);
+    --warning:#E0B64A;
+    --warning-wash:rgba(224,182,74,0.12);
+    --warning-line:rgba(224,182,74,0.40);
+    --font:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#08090B;color:var(--text);font-family:var(--font);-webkit-font-smoothing:antialiased}
+  body{padding:40px 0 64px}
+  .page-head{max-width:1200px;margin:0 auto 28px;padding:0 32px}
+  .page-head .kick{font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+  .page-head h1{margin-top:10px;font-size:26px;font-weight:800;letter-spacing:-.02em;color:var(--text-bright)}
+  .page-head p{margin-top:8px;max-width:640px;font-size:14px;line-height:1.6;color:var(--text-muted)}
+
+  .rail{display:flex;gap:28px;overflow-x:auto;padding:8px 32px 24px;scroll-snap-type:x proximity}
+  .rail::-webkit-scrollbar{height:10px}
+  .rail::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:9999px}
+  .col{flex:0 0 auto;width:340px;scroll-snap-align:start}
+
+  /* phone frame */
+  .phone{
+    position:relative;width:340px;height:720px;border-radius:38px;
+    background:var(--bg);border:1px solid var(--border);
+    box-shadow:0 30px 70px -30px rgba(0,0,0,.8), inset 0 0 0 6px #0A0B0E;
+    overflow:hidden;
+  }
+  .phone::before{ /* lime cage-light glow from top */
+    content:"";position:absolute;top:-60px;left:50%;transform:translateX(-50%);
+    width:320px;height:180px;
+    background:radial-gradient(ellipse at center,var(--accent-wash),transparent 70%);
+    pointer-events:none;z-index:0;
+  }
+  .notch{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:120px;height:6px;border-radius:9999px;background:#000;z-index:5;opacity:.7}
+  .screen{position:relative;z-index:1;height:100%;padding:30px 20px 22px;display:flex;flex-direction:column;overflow:hidden}
+
+  /* generic */
+  .label{font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+  .muted{color:var(--text-muted)}
+  .tnum{font-variant-numeric:tabular-nums}
+  .btn{width:100%;min-height:48px;border-radius:14px;font-family:var(--font);font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px;cursor:default;border:1px solid transparent}
+  .btn-primary{background:var(--accent);color:var(--bg);font-weight:800;letter-spacing:-.01em}
+  .btn-secondary{background:transparent;border:1px solid var(--border);color:var(--text);font-weight:700}
+  .spacer{flex:1 1 auto}
+
+  /* ===== Screen 1 : Accueil ===== */
+  .brand{margin-top:6px}
+  .brand .wm{font-size:11px;font-weight:800;letter-spacing:.34em;color:var(--text-muted)}
+  .logotype{margin-top:14px;font-size:34px;font-weight:800;letter-spacing:-.02em;line-height:1;color:var(--text-bright)}
+  .logotype .lo-mma{display:block}
+  .logotype .lo-choice{display:block;color:var(--accent)}
+  .brand-sub{margin-top:14px;font-size:13.5px;line-height:1.55;color:var(--text-muted);max-width:250px}
+  .modes{margin-top:26px;display:flex;flex-direction:column;gap:12px}
+  .mode{border-radius:14px;border:1px solid var(--border);background:var(--surface);padding:16px 16px;position:relative}
+  .mode-primary{
+    background:linear-gradient(180deg,var(--accent-wash),rgba(199,255,61,0.02));
+    border:1px solid var(--accent-line);
+  }
+  .mode-top{display:flex;align-items:center;justify-content:space-between}
+  .mode h3{font-size:16px;font-weight:800;letter-spacing:-.01em;color:var(--text-bright)}
+  .mode-primary h3{color:var(--text-bright)}
+  .mode p{margin-top:5px;font-size:12.5px;line-height:1.45;color:var(--text-muted);max-width:230px}
+  .live{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+  .dot{width:7px;height:7px;border-radius:9999px;background:var(--accent);box-shadow:0 0 0 4px var(--accent-wash)}
+  .soon{font-size:9.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted);border:1px solid var(--border-strong);border-radius:9999px;padding:3px 8px}
+  .mode-locked h3{color:var(--text-secondary)}
+  .mode-locked{opacity:.7}
+  .mode-arrow{position:absolute;right:16px;bottom:15px;color:var(--bg);width:28px;height:28px;border-radius:9999px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px}
+
+  /* ===== Screen 2 : Création ===== */
+  .steps{display:flex;align-items:center;gap:6px;margin-top:4px}
+  .step{flex:1;height:4px;border-radius:9999px;background:var(--sunken)}
+  .step.done{background:var(--accent-dim)}
+  .step.active{background:var(--accent)}
+  .steplabels{display:flex;justify-content:space-between;margin-top:10px;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-faint)}
+  .steplabels .on{color:var(--accent)}
+  .cr-h{margin-top:22px}
+  .cr-h .label{color:var(--accent)}
+  .cr-h h2{margin-top:9px;font-size:19px;font-weight:800;letter-spacing:-.015em;color:var(--text-bright)}
+  .cr-h p{margin-top:6px;font-size:12.5px;line-height:1.5;color:var(--text-muted)}
+  .toggle{margin-top:16px;display:flex;background:var(--sunken);border:1px solid var(--border);border-radius:12px;padding:4px;gap:4px}
+  .toggle button{flex:1;min-height:38px;border:0;border-radius:9px;font-family:var(--font);font-size:13px;font-weight:700;color:var(--text-muted);background:transparent;cursor:default}
+  .toggle button.sel{background:var(--surface);color:var(--text-bright);box-shadow:inset 0 0 0 1px var(--border-strong)}
+  .grid{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .wc{border:1px solid var(--border);background:var(--surface);border-radius:10px;padding:10px 11px;min-height:52px;display:flex;flex-direction:column;justify-content:center}
+  .wc .wc-n{font-size:13px;font-weight:700;color:var(--text);letter-spacing:-.01em}
+  .wc .wc-w{font-size:10.5px;color:var(--text-muted);margin-top:2px}
+  .wc.sel{background:linear-gradient(180deg,var(--accent-wash),rgba(199,255,61,0.02));border-color:var(--accent-line)}
+  .wc.sel .wc-n{color:var(--accent)}
+  .wc.sel .wc-w{color:var(--accent-dim)}
+
+  /* ===== Screen 3 : Combat résultat ===== */
+  .fighter{display:flex;align-items:center;gap:12px;padding:4px 0 14px}
+  .avatar{width:54px;height:54px;border-radius:16px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:19px;color:var(--accent);background:linear-gradient(160deg,#1c1f26,#0e1013);border:1px solid var(--border-strong);letter-spacing:.02em}
+  .fighter .nm{font-size:19px;font-weight:800;letter-spacing:-.015em;color:var(--text-bright)}
+  .fighter .mt{margin-top:3px;font-size:11.5px;color:var(--text-muted)}
+  .fighter .mt b{color:var(--text);font-weight:700}
+  .result-card{
+    position:relative;border-radius:20px;padding:20px 18px;overflow:hidden;
+    background:linear-gradient(180deg,var(--surface),#101216);border:1px solid var(--border);
+  }
+  .result-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--warning)}
+  .verdict{display:flex;align-items:center;gap:9px}
+  .verdict .grade{font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--warning)}
+  .verdict .pip{width:6px;height:6px;border-radius:9999px;background:var(--warning)}
+  .result-card h2{margin-top:12px;font-size:19px;font-weight:800;letter-spacing:-.015em;color:var(--text-bright);line-height:1.25}
+  .result-card .recap{margin-top:10px;font-size:14px;line-height:1.55;color:var(--text-secondary)}
+  .method{margin-top:14px;display:inline-flex;gap:8px;flex-wrap:wrap}
+  .meta-tag{font-size:10.5px;font-weight:700;color:var(--text-muted);background:var(--sunken);border:1px solid var(--border);border-radius:6px;padding:5px 9px;letter-spacing:.02em}
+  .deltas{margin-top:16px;display:flex;flex-direction:column;gap:9px}
+  .delta-row{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;border-radius:12px;background:var(--surface);border:1px solid var(--border)}
+  .delta-row .dl{font-size:13px;color:var(--text);font-weight:600}
+  .delta-chip{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:800;padding:4px 9px;border-radius:6px}
+  .up{color:var(--accent);background:var(--accent-wash)}
+  .dwn{color:var(--danger);background:var(--danger-wash)}
+  .delta-val{font-size:11px;color:var(--text-muted);font-weight:600;margin-left:8px}
+
+  /* ===== Screen 4 : Récap ===== */
+  .recap-top{text-align:center;padding-top:6px}
+  .recap-top .label{color:var(--text-muted)}
+  .score{margin-top:12px;font-size:64px;font-weight:800;letter-spacing:-.03em;line-height:.9;color:var(--text-bright)}
+  .score .of{font-size:26px;color:var(--text-faint);font-weight:800;letter-spacing:-.02em}
+  .score b{color:var(--accent)}
+  .rankline{margin-top:12px;font-size:13px;color:var(--text-secondary)}
+  .rankline b{color:var(--accent);font-weight:800}
+  .sec-title{margin-top:20px;font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted)}
+  .timeline{margin-top:12px;position:relative;padding-left:16px}
+  .timeline::before{content:"";position:absolute;left:4px;top:5px;bottom:6px;width:2px;background:var(--border-strong)}
+  .tl{position:relative;padding:0 0 13px 4px}
+  .tl:last-child{padding-bottom:0}
+  .tl::before{content:"";position:absolute;left:-16px;top:4px;width:9px;height:9px;border-radius:9999px;background:var(--sunken);border:2px solid var(--border-strong)}
+  .tl.hi::before{background:var(--accent);border-color:var(--accent)}
+  .tl .ty{font-size:11px;font-weight:800;color:var(--text-muted);letter-spacing:.02em}
+  .tl.hi .ty{color:var(--accent)}
+  .tl .td{font-size:12.5px;color:var(--text);margin-top:1px;line-height:1.4}
+  .highlights{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+  .hl{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:12px;background:var(--surface);border:1px solid var(--border)}
+  .hl .ic{font-size:15px;line-height:1.2;flex:0 0 auto}
+  .hl .ht{font-size:12.5px;color:var(--text-secondary);line-height:1.45}
+  .hl .ht b{color:var(--text-bright);font-weight:700}
+  .recap-actions{margin-top:18px;display:flex;flex-direction:column;gap:10px}
+
+  /* captions */
+  .caption{width:340px;margin-top:18px}
+  .caption .cap-k{font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+  .caption h4{margin-top:7px;font-size:15px;font-weight:800;color:var(--text-bright);letter-spacing:-.01em}
+  .caption p{margin-top:6px;font-size:12.5px;line-height:1.55;color:var(--text-muted)}
+
+  /* scrollable inner content where needed */
+  .scrolls{overflow-y:auto;margin-right:-6px;padding-right:6px}
+  .scrolls::-webkit-scrollbar{width:0}
+</style>
+</head>
+<body>
+
+<div class="page-head">
+  <div class="kick">MMA Choice · Direction B — Fight night sombre</div>
+  <h1>Écrans clés — maquettes mobiles</h1>
+  <p>Quatre surfaces dans l'identité verrouillée : canevas charbon, un seul accent lime utilisé une fois par vue, Inter partout, ton documentaire sobre en français. Faites défiler horizontalement.</p>
+</div>
+
+<div class="rail">
+
+  <!-- ============ 1. ACCUEIL ============ -->
+  <div class="col">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="screen">
+        <div class="brand">
+          <div class="wm">SAISON 2026 · CARRIÈRE</div>
+          <div class="logotype"><span class="lo-mma">MMA</span><span class="lo-choice">CHOICE</span></div>
+          <p class="brand-sub">Une vie de combattant, un choix à la fois. Lis le moment, décide, vis les conséquences.</p>
+        </div>
+
+        <div class="modes">
+          <div class="mode mode-primary">
+            <div class="mode-top">
+              <h3>Faire ma carrière</h3>
+              <span class="live"><span class="dot"></span>Jouable</span>
+            </div>
+            <p>Crée ton combattant et mène-le des amateurs à la retraite.</p>
+            <div class="mode-arrow">›</div>
+          </div>
+
+          <div class="mode mode-locked">
+            <div class="mode-top">
+              <h3>Revivre la carrière</h3>
+              <span class="soon">Bientôt</span>
+            </div>
+            <p>Rejoue le parcours d'un combattant légendaire.</p>
+          </div>
+
+          <div class="mode mode-locked">
+            <div class="mode-top">
+              <h3>Mission du jour</h3>
+              <span class="soon">Bientôt</span>
+            </div>
+            <p>Un scénario court, une contrainte, un classement quotidien.</p>
+          </div>
+        </div>
+
+        <div class="spacer"></div>
+        <div class="btn btn-primary">Faire ma carrière</div>
+      </div>
+    </div>
+    <div class="caption">
+      <div class="cap-k">01 · Accueil</div>
+      <h4>Trois modes, une seule porte</h4>
+      <p>« Faire ma carrière » porte le seul traitement lime et le point de statut vivant. Les deux autres modes sont visibles mais estompés et marqués <i>Bientôt</i> — l'ambition se lit dès l'ouverture, sans mur ni compte.</p>
+    </div>
+  </div>
+
+  <!-- ============ 2. CRÉATION ============ -->
+  <div class="col">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="screen">
+        <div class="steps">
+          <div class="step done"></div>
+          <div class="step done"></div>
+          <div class="step done"></div>
+          <div class="step done"></div>
+          <div class="step active"></div>
+        </div>
+        <div class="steplabels">
+          <span>Sexe</span><span>Pays·Âge</span><span>Origine</span><span>Entourage</span><span class="on">Division</span>
+        </div>
+
+        <div class="cr-h">
+          <div class="label">Étape 5 sur 5</div>
+          <h2>Choisis ta division</h2>
+          <p>Les catégories dépendent du sexe. Tu pourras monter ou descendre plus tard, dans la limite du raisonnable.</p>
+        </div>
+
+        <div class="toggle" role="group" aria-label="Sexe">
+          <button class="sel">Homme</button>
+          <button>Femme</button>
+        </div>
+
+        <div class="grid">
+          <div class="wc"><div class="wc-n">Flyweight</div><div class="wc-w">− 57 kg</div></div>
+          <div class="wc"><div class="wc-n">Bantamweight</div><div class="wc-w">− 61 kg</div></div>
+          <div class="wc"><div class="wc-n">Featherweight</div><div class="wc-w">− 66 kg</div></div>
+          <div class="wc sel"><div class="wc-n">Lightweight</div><div class="wc-w">− 70 kg</div></div>
+          <div class="wc"><div class="wc-n">Welterweight</div><div class="wc-w">− 77 kg</div></div>
+          <div class="wc"><div class="wc-n">Middleweight</div><div class="wc-w">− 84 kg</div></div>
+          <div class="wc"><div class="wc-n">Light Heavy.</div><div class="wc-w">− 93 kg</div></div>
+          <div class="wc"><div class="wc-n">Heavyweight</div><div class="wc-w">− 120 kg</div></div>
+        </div>
+
+        <div class="spacer"></div>
+        <div class="btn btn-primary">Valider</div>
+      </div>
+    </div>
+    <div class="caption">
+      <div class="cap-k">02 · Création</div>
+      <h4>La division, filtrée par le sexe</h4>
+      <p>Le bascule Homme / Femme fixe la grille UFC affichée — ici la grille masculine, Flyweight → Heavyweight. La barre d'étapes (sexe · pays/âge · origine · entourage · division) situe l'avancée, « division » active.</p>
+    </div>
+  </div>
+
+  <!-- ============ 3. COMBAT — RÉSULTAT ============ -->
+  <div class="col">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="screen">
+        <div class="fighter">
+          <div class="avatar">KB</div>
+          <div>
+            <div class="nm">Karim Bouzid</div>
+            <div class="mt">28 ans · Lightweight · <b>14-3</b> · Régional</div>
+          </div>
+        </div>
+
+        <div class="result-card">
+          <div class="verdict"><span class="pip"></span><span class="grade">Victoire — Upset</span></div>
+          <h2>Personne ne t'attendait.</h2>
+          <p class="recap">Tu finis Diego Herrera par soumission au 3<sup>e</sup> round. Le favori du plateau tombe ; ton nom circule ce soir bien au-delà du circuit régional.</p>
+          <div class="method">
+            <span class="meta-tag">Soumission · étranglement arrière</span>
+            <span class="meta-tag">3<sup>e</sup> round · 2:41</span>
+          </div>
+        </div>
+
+        <div class="deltas">
+          <div class="delta-row">
+            <span class="dl">Réputation</span>
+            <span><span class="delta-chip up">▲ +12</span><span class="delta-val tnum">68 → 80</span></span>
+          </div>
+          <div class="delta-row">
+            <span class="dl">Followers</span>
+            <span><span class="delta-chip up">▲ +9 400</span><span class="delta-val tnum">31,2k → 40,6k</span></span>
+          </div>
+        </div>
+
+        <div class="spacer"></div>
+        <div class="btn btn-primary">Continuer</div>
+      </div>
+    </div>
+    <div class="caption">
+      <div class="cap-k">03 · Combat — résultat gradué</div>
+      <h4>Un upset, tenu en ambre</h4>
+      <p>Le verdict « Victoire — Upset » prend l'accent warning ambré, réservé et rare ; le récap reste factuel, jamais célébré. Les deltas montants (Réputation, Followers) s'affichent en lime au-dessus d'un « Continuer » à lire avant d'avancer.</p>
+    </div>
+  </div>
+
+  <!-- ============ 4. RÉCAP FIN DE CARRIÈRE ============ -->
+  <div class="col">
+    <div class="phone">
+      <div class="notch"></div>
+      <div class="screen scrolls">
+        <div class="recap-top">
+          <div class="label">Ta carrière s'arrête ici</div>
+          <div class="score tnum"><b>78</b><span class="of">/100</span></div>
+          <div class="rankline"><b>14ᵉ</b> meilleur combattant de tous les temps</div>
+        </div>
+
+        <div class="sec-title">Parcours</div>
+        <div class="timeline">
+          <div class="tl"><div class="ty">17 ANS</div><div class="td">Débuts amateurs — circuit IMMAF</div></div>
+          <div class="tl"><div class="ty">22 ANS</div><div class="td">Passage professionnel, scène régionale</div></div>
+          <div class="tl hi"><div class="ty">29 ANS</div><div class="td">Titre des poids légers conquis</div></div>
+          <div class="tl"><div class="ty">37 ANS</div><div class="td">Retraite après 24 combats</div></div>
+        </div>
+
+        <div class="sec-title">Faits marquants</div>
+        <div class="highlights">
+          <div class="hl"><span class="ic">🏆</span><span class="ht"><b>Ceinture régionale</b> défendue deux fois avant l'appel des grandes ligues.</span></div>
+          <div class="hl"><span class="ic">⚡</span><span class="ht"><b>Upset face à Diego Herrera</b> — soumission au 3<sup>e</sup>, le soir qui a lancé ton nom.</span></div>
+          <div class="hl"><span class="ic">🩹</span><span class="ht"><b>Genou brisé à 33 ans</b> — deux ans à remonter la pente, sans jamais renoncer.</span></div>
+        </div>
+
+        <div class="recap-actions">
+          <div class="btn btn-primary">Nouvelle carrière</div>
+          <div class="btn btn-secondary">Partager mon score</div>
+        </div>
+      </div>
+    </div>
+    <div class="caption">
+      <div class="cap-k">04 · Récap de fin de carrière</div>
+      <h4>Un chiffre, une histoire</h4>
+      <p>Le score 78/100 en display, une ligne de classement, une frise amateur → régional → titre → retraite et trois faits marquants. « Nouvelle carrière » porte l'accent primaire ; « Partager mon score » reste en secondaire, sobre.</p>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
