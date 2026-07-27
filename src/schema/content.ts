@@ -57,6 +57,10 @@ export const ConditionSchema = z.discriminatedUnion('kind', [
     kind: z.literal('style'),
     eq: StyleSchema,
   }),
+  z.object({
+    kind: z.literal('sex'),
+    eq: z.enum(['M', 'F']),
+  }),
 ])
 
 export const ChoiceSchema = z.object({
@@ -67,6 +71,8 @@ export const ChoiceSchema = z.object({
   tactic: ChannelSchema.optional(),
   /** Fait évoluer le style du combattant (entraînement dédié, FR-15). */
   setStyle: StyleSchema.optional(),
+  /** Change de division de poids (déclenche une coupe de poids, FR-13). */
+  setDivision: z.string().min(1).optional(),
   setFlags: z.record(z.string(), z.union([z.boolean(), z.number()])).optional(),
   // Conséquences différées (FR-9) : arment un flag actif dans `inYears` années.
   armFlags: z
