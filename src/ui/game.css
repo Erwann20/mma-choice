@@ -178,6 +178,64 @@
   letter-spacing: -0.02em;
 }
 
+/* Accueil (Story 5.1) */
+.home {
+  gap: var(--space-6);
+}
+.home-head h1 {
+  margin: 0 0 var(--space-2);
+}
+.mode-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+  max-width: 420px;
+}
+.mode-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) 18px;
+  min-height: 72px;
+  cursor: pointer;
+  font: inherit;
+  border: 1px solid var(--color-border-strong);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+.mode-card.is-primary {
+  border-color: var(--color-accent);
+  background: var(--color-accent-wash);
+}
+.mode-card.is-soon {
+  opacity: 0.7;
+  cursor: default;
+}
+.mode-title {
+  font-weight: 800;
+  font-size: var(--fs-stat);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.mode-desc {
+  font-size: var(--fs-meta);
+  color: var(--color-text-muted);
+}
+.badge-soon {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-warning);
+  border: 1px solid var(--color-warning);
+  border-radius: var(--radius-full);
+  padding: 1px 7px;
+}
+
 /* Création */
 .progress {
   display: flex;
