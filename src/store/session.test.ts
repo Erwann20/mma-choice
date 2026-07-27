@@ -72,6 +72,21 @@ describe('session', () => {
     expect(s.current).toBeNull()
   })
 
+  it('génère un nom de combattant aléatoire, déterministe par graine', () => {
+    const a = startCareer(EVENTS, 1)
+    const b = startCareer(EVENTS, 1)
+    const c = startCareer(EVENTS, 2)
+    expect(a.game.fighter.name).not.toBe('Nouveau combattant')
+    expect(a.game.fighter.name).toContain(' ') // prénom + nom
+    expect(a.game.fighter.name).toBe(b.game.fighter.name) // même graine → même nom
+    expect(a.game.fighter.name).not.toBe(c.game.fighter.name) // graines ≠ → noms ≠
+  })
+
+  it('respecte un nom explicite fourni (pas d’écrasement aléatoire)', () => {
+    const s = startCareer(EVENTS, 1, { name: 'Conor McGregor' })
+    expect(s.game.fighter.name).toBe('Conor McGregor')
+  })
+
   it('déterministe : même graine + mêmes choix => même carrière', () => {
     const run = () => {
       let s: Session = startCareer(EVENTS, 999)

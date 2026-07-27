@@ -5,6 +5,7 @@ import { CHANNELS, loadOpponentPool, loadOrganizations } from '../schema'
 import type { FighterSetup, GameState, Opponent, FightResult, FightChange, Sex, Style, RngState } from '../engine'
 import {
   createInitialState,
+  DEFAULT_FIGHTER_NAME,
   selectEvent,
   applyChoice,
   applyEffect,
@@ -243,8 +244,21 @@ function pickNext(game: GameState, events: EventDef[], slot: Slot): {
   return { game: g, current: event, opponent }
 }
 
+/** Nom de combattant aléatoire (seedé) tiré de la banque de noms, par sexe (FR-1). */
+function randomFighterName(sex: Sex, rng: RngState): [string, RngState] {
+  const firsts = OPPONENT_POOL.firstNames[sex]
+  const [fi, r1] = nextInt(rng, 0, firsts.length - 1)
+  const [li, r2] = nextInt(r1, 0, OPPONENT_POOL.lastNames.length - 1)
+  return [`${firsts[fi]} ${OPPONENT_POOL.lastNames[li]}`, r2]
+}
+
 /** Assemble une session neuve : planifie l'année puis tire le 1er Événement. */
 function beginCareer(game: GameState, events: EventDef[]): Session {
+  // Nom généré aléatoirement à chaque carrière si aucun nom explicite (FR-1).
+  if (!game.fighter.name || game.fighter.name === DEFAULT_FIGHTER_NAME) {
+    const [name, rng] = randomFighterName(game.fighter.sex, game.rng)
+    game = { ...game, fighter: { ...game.fighter, name }, rng }
+  }
   const { plan, rng } = planYear(game, events)
   const g: GameState = { ...game, rng }
   const next = pickNext(g, events, plan[0])

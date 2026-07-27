@@ -13,7 +13,7 @@ export type {
   FighterSetup,
   PendingFlag,
 } from './state'
-export { createInitialState } from './state'
+export { createInitialState, DEFAULT_FIGHTER_NAME } from './state'
 
 export type { Opponent, FightResult, FightOutcome, FightMethod, FightChange } from './combat'
 export { generateOpponent, resolveFight } from './combat'
