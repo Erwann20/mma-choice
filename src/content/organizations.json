@@ -1,0 +1,9 @@
+{
+  "organizations": [
+    { "id": "hexagone", "label": "Hexagone MMA", "tier": "regional", "blurb": "La vitrine du MMA français. Du prestige et des projecteurs." },
+    { "id": "cagebattle", "label": "Cage Battle", "tier": "regional", "blurb": "Petit promoteur, mais les chèques tombent vite." },
+    { "id": "bravearena", "label": "Brave Arena", "tier": "regional", "blurb": "Des guerres, rien que des guerres. Le public adore." },
+    { "id": "apex", "label": "Apex Championship", "tier": "major", "blurb": "Le sommet mondial. C'est là qu'on devient une légende." },
+    { "id": "gfl", "label": "Global Fight League", "tier": "major", "blurb": "L'organisation internationale qui paie le mieux." }
+  ]
+}

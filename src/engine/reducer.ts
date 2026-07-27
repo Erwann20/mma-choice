@@ -3,7 +3,6 @@
 import type { GameState } from './state'
 import type { Action } from './actions'
 import { RETIREMENT_AGE } from './config'
-import { promoteTier } from './progression'
 
 export function reduce(state: GameState, action: Action): GameState {
   switch (action.type) {
@@ -16,14 +15,15 @@ export function reduce(state: GameState, action: Action): GameState {
       const flags = due.length
         ? { ...state.flags, ...Object.fromEntries(due.map((p) => [p.flag, p.value])) }
         : state.flags
-      // Promotion de palier au bilan annuel (FR-5).
-      return promoteTier({
+      // NB : le palier ne progresse plus automatiquement — il change quand le
+      // joueur passe pro / signe une organisation (voir store/session).
+      return {
         ...state,
         phase,
         fighter: { ...state.fighter, age },
         flags,
         pending,
-      })
+      }
     }
     default:
       return state

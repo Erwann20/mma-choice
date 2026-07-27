@@ -1,11 +1,29 @@
 // Libellés FR et formatage des effets pour l'affichage (voix sobre).
 import type { Channel, Effect } from '../schema'
-import type { Tier, Style } from '../engine'
+import { loadOrganizations } from '../schema'
+import type { Tier, Style, GameState } from '../engine'
 
 export const TIER_LABEL: Record<Tier, string> = {
   immaf: 'Circuit amateur (IMMAF)',
   regional: 'Circuit régional',
   major: 'Organisation majeure',
+}
+
+const ORG_LABEL: Record<string, string> = Object.fromEntries(
+  loadOrganizations().map((o) => [o.id, o.label]),
+)
+
+/** Libellé lisible d'une organisation (ou null si aucune). */
+export function organizationLabel(id: string | null): string | null {
+  return id ? (ORG_LABEL[id] ?? null) : null
+}
+
+/** Statut de carrière : « Amateur · IMMAF » ou « Pro · Hexagone MMA (régional) ». */
+export function careerStatus(game: GameState): string {
+  if (!game.pro) return 'Amateur · circuit IMMAF'
+  const org = organizationLabel(game.organization)
+  const level = game.tier === 'major' ? 'majeure' : 'régionale'
+  return org ? `Pro · ${org} (${level})` : `Pro · ${TIER_LABEL[game.tier]}`
 }
 
 export const STYLE_LABEL: Record<Style, string> = {

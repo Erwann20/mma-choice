@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { createInitialState } from './state'
-import { earnedTier, promoteTier } from './progression'
+import { earnedTier } from './progression'
 import { reduce } from './reducer'
 import { isEligible, evalCondition } from './events'
 import type { GameState } from './state'
@@ -11,30 +11,26 @@ function withRepWins(rep: number, wins: number): GameState {
   return { ...g, meta: { ...g.meta, reputation: rep }, record: { ...g.record, wins } }
 }
 
-describe('progression de palier (FR-5)', () => {
+describe('éligibilité de palier (FR-5)', () => {
   it('reste IMMAF sous les seuils', () => {
     expect(earnedTier(withRepWins(10, 1))).toBe('immaf')
   })
 
-  it('passe régional avec réputation ET victoires suffisantes', () => {
+  it('donne droit au régional avec réputation ET victoires suffisantes', () => {
     expect(earnedTier(withRepWins(25, 3))).toBe('regional')
     // réputation OK mais pas assez de victoires ⇒ pas encore
     expect(earnedTier(withRepWins(25, 2))).toBe('immaf')
   })
 
-  it('passe organisation majeure aux seuils élevés', () => {
+  it('donne droit au majeur aux seuils élevés', () => {
     expect(earnedTier(withRepWins(55, 8))).toBe('major')
   })
 
-  it('ne rétrograde jamais', () => {
-    const major: GameState = { ...withRepWins(10, 1), tier: 'major' }
-    expect(promoteTier(major).tier).toBe('major')
-  })
-
-  it("la promotion s'applique au bilan annuel (ADVANCE_YEAR)", () => {
+  it("le palier ne progresse PLUS automatiquement au bilan annuel (choix explicite)", () => {
     const g = withRepWins(30, 4)
     expect(g.tier).toBe('immaf')
-    expect(reduce(g, { type: 'ADVANCE_YEAR' }).tier).toBe('regional')
+    // ADVANCE_YEAR ne promeut plus : la montée se fait en signant une orga.
+    expect(reduce(g, { type: 'ADVANCE_YEAR' }).tier).toBe('immaf')
   })
 })
 

@@ -50,9 +50,9 @@
     "repeatable": true,
     "cooldown": 1,
     "overline": "JOUR DE COMBAT",
-    "text": "La cage t'attend sur une carte locale. En face, un adversaire qui ne compte pas te faire de cadeau. Comment abordes-tu ce combat ?",
+    "text": "La cage t'attend sur une carte locale amateur. En face, un adversaire qui ne compte pas te faire de cadeau. Comment abordes-tu ce combat ?",
     "fight": {},
-    "conditions": [{ "kind": "stat", "on": "age", "cmp": "gte", "value": 18 }],
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 }],
     "choices": [
       {
         "label": "Boxer à distance",
