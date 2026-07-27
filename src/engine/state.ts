@@ -83,6 +83,9 @@ export interface FighterSetup {
   startAge?: number
 }
 
+/** Nom par défaut : signale « aucun nom fourni » → généré aléatoirement (FR-1). */
+export const DEFAULT_FIGHTER_NAME = 'Nouveau combattant'
+
 /** Construit un GameState initial valide et déterministe pour une graine donnée. */
 export function createInitialState(seed: number, setup: FighterSetup = {}): GameState {
   return {
@@ -91,7 +94,7 @@ export function createInitialState(seed: number, setup: FighterSetup = {}): Game
     rng: initRng(seed),
     phase: 'career',
     fighter: {
-      name: setup.name ?? 'Nouveau combattant',
+      name: setup.name ?? DEFAULT_FIGHTER_NAME,
       sex: setup.sex ?? 'M',
       country: setup.country ?? 'FR',
       age: setup.startAge ?? START_AGE,
