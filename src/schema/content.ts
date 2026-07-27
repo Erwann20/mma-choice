@@ -2,6 +2,8 @@
 // Le moteur ne consomme le contenu qu'à travers ces types validés.
 import { z } from 'zod'
 import amateurEvents from '../content/events/amateur.json'
+import divisionsData from '../content/divisions.json'
+import startingCriteriaData from '../content/starting-criteria.json'
 
 // --- Canaux FERMÉS (AD-5) : effets/conditions ne peuvent viser que ceux-ci,
 // jamais un interne du moteur (rng, saveVersion, flags « vu »).
@@ -94,4 +96,42 @@ export function parseEvents(raw: unknown): EventDef[] {
 /** Charge et valide tout le contenu d'Événements du jeu. */
 export function loadEvents(): EventDef[] {
   return parseEvents(amateurEvents)
+}
+
+// --- Divisions de poids (grilles UFC) ---
+export const DivisionSchema = z.object({
+  id: z.string().min(1),
+  label: z.string().min(1),
+  sex: z.enum(['M', 'F']),
+  weight: z.string().min(1),
+})
+export type Division = z.infer<typeof DivisionSchema>
+
+export function loadDivisions(): Division[] {
+  return z.array(DivisionSchema).parse(divisionsData)
+}
+
+/** Divisions proposées pour un sexe (grille hommes / femmes, FR-1/3). */
+export function divisionsForSex(divisions: Division[], sex: 'M' | 'F'): Division[] {
+  return divisions.filter((d) => d.sex === sex)
+}
+
+// --- Critères de départ (origine, entourage) ---
+export const CriterionSchema = z.object({
+  id: z.string().min(1),
+  label: z.string().min(1),
+  description: z.string().optional(),
+  effects: z.array(EffectSchema).default([]),
+  setFlags: z.record(z.string(), z.union([z.boolean(), z.number()])).optional(),
+})
+export type Criterion = z.infer<typeof CriterionSchema>
+
+export const StartingCriteriaSchema = z.object({
+  origins: z.array(CriterionSchema).min(1),
+  entourages: z.array(CriterionSchema).min(1),
+})
+export type StartingCriteria = z.infer<typeof StartingCriteriaSchema>
+
+export function loadStartingCriteria(): StartingCriteria {
+  return StartingCriteriaSchema.parse(startingCriteriaData)
 }
