@@ -21,7 +21,7 @@ export const CATEGORY_META: Record<EventCategory, { icon: string; label: string 
 }
 
 export const TIER_LABEL: Record<Tier, string> = {
-  immaf: 'Circuit amateur (IMMAF)',
+  immaf: 'Amateur',
   regional: 'Circuit régional',
   major: 'Organisation majeure',
 }
@@ -35,12 +35,22 @@ export function organizationLabel(id: string | null): string | null {
   return id ? (ORG_LABEL[id] ?? null) : null
 }
 
-/** Statut de carrière : « Amateur · IMMAF » ou « Pro · Hexagone MMA (régional) ». */
+/** Statut : « Amateur », « Amateur · Ligue X » ou « Pro · Hexagone MMA (régional) ». */
 export function careerStatus(game: GameState): string {
-  if (!game.pro) return 'Amateur · circuit IMMAF'
   const org = organizationLabel(game.organization)
+  if (!game.pro) return org ? `Amateur · ${org}` : 'Amateur'
   const level = game.tier === 'major' ? 'majeure' : 'régionale'
   return org ? `Pro · ${org} (${level})` : `Pro · ${TIER_LABEL[game.tier]}`
+}
+
+/** Titres amateurs (tournois) remportés, du plus prestigieux au moins. */
+export function amateurTitles(game: GameState): string[] {
+  const t: string[] = []
+  if (game.flags['titre_monde']) t.push('Champion du Monde IMMAF')
+  if (game.flags['titre_europe']) t.push("Champion d'Europe IMMAF")
+  if (game.flags['titre_france']) t.push('Champion de France amateur')
+  if (game.flags['titre_regional_am']) t.push('Vainqueur de tournoi régional')
+  return t
 }
 
 export const STYLE_LABEL: Record<Style, string> = {

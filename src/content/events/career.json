@@ -1,7 +1,65 @@
 [
   {
+    "id": "evt-offre-amateur",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 3,
+    "category": "career",
+    "overline": "OFFRE AMATEUR",
+    "text": "Une promotion amateur structurée veut te faire signer sous ses couleurs pour enchaîner les combats — sans encore passer pro. Un tremplin.",
+    "conditions": [
+      { "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 },
+      { "kind": "stat", "on": "wins", "cmp": "gte", "value": 2 }
+    ],
+    "choices": [
+      {
+        "label": "Signer avec la Ligue Amateur Élite",
+        "hint": "Une maison, plus de combats",
+        "signOrg": "ligue-amateur",
+        "effects": [{ "target": "reputation", "op": "add", "value": 3 }]
+      },
+      {
+        "label": "Rester électron libre",
+        "hint": "Garder les mains libres",
+        "effects": [{ "target": "mental", "op": "add", "value": 2 }]
+      }
+    ]
+  },
+  {
+    "id": "evt-passer-pro-star",
+    "weight": 14,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "career",
+    "overline": "LES PROS TE VEULENT",
+    "text": "Champion amateur reconnu, tu es la cible de tous les promoteurs. Le moment de passer pro est venu — à moins que tu ne veuilles encore tout rafler chez les amateurs.",
+    "conditions": [
+      { "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 },
+      { "kind": "flag", "flag": "titre_europe", "eq": true }
+    ],
+    "choices": [
+      {
+        "label": "Signer chez Hexagone MMA (pro)",
+        "hint": "Le tremplin prestige",
+        "signOrg": "hexagone",
+        "effects": [{ "target": "reputation", "op": "add", "value": 10 }, { "target": "money", "op": "add", "value": 3000 }]
+      },
+      {
+        "label": "Signer chez Cage Battle (pro)",
+        "hint": "Gros contrat d'entrée",
+        "signOrg": "cagebattle",
+        "effects": [{ "target": "money", "op": "add", "value": 9000 }]
+      },
+      {
+        "label": "Rester amateur, viser le titre mondial",
+        "hint": "Finir le travail chez les amateurs",
+        "effects": [{ "target": "mental", "op": "add", "value": 4 }]
+      }
+    ]
+  },
+  {
     "id": "evt-passer-pro",
-    "weight": 6,
+    "weight": 10,
     "repeatable": true,
     "cooldown": 1,
     "overline": "PASSER PROFESSIONNEL",

@@ -165,6 +165,11 @@ export function resolveFight(
     push('reputation', 12)
     push('followers', Math.round(followers * 0.5))
   }
+  // Prime de prestige sur un tournoi remporté (titre amateur).
+  const winFlag = event.fight?.winFlag
+  if (winFlag && win) {
+    push('reputation', 8)
+  }
 
   let g: GameState = { ...state, rng: rng1 }
   for (const c of changes) g = applyEffect(g, { target: c.target, op: 'add', value: c.value })
@@ -191,6 +196,11 @@ export function resolveFight(
       g = { ...g, belt: false }
       lostBelt = true
     }
+  }
+
+  // Titre de tournoi amateur remporté : pose le drapeau correspondant.
+  if (winFlag && win) {
+    g = { ...g, flags: { ...g.flags, [winFlag]: true } }
   }
 
   // Risque de blessure sur défaite quand la forme est déjà entamée (FR-13, ébauche).

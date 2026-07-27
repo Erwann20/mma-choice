@@ -23,7 +23,14 @@ const ORGANIZATIONS: Organization[] = loadOrganizations()
 function applyCareerMove(game: GameState, choice: { signOrg?: string; turnPro?: boolean }): GameState {
   if (choice.signOrg) {
     const org = ORGANIZATIONS.find((o) => o.id === choice.signOrg)
-    if (org) return { ...game, organization: org.id, tier: org.tier, pro: true }
+    if (org) {
+      // Une orga PRO fait signer un contrat pro et cale le palier ; une orga
+      // AMATEUR donne juste une maison (on reste amateur, palier inchangé).
+      if (org.level === 'pro') {
+        return { ...game, organization: org.id, tier: org.tier ?? 'regional', pro: true }
+      }
+      return { ...game, organization: org.id }
+    }
   }
   if (choice.turnPro && !game.pro) {
     return { ...game, pro: true }
