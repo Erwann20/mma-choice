@@ -23,6 +23,8 @@ export const CHANNELS = [
 export const ChannelSchema = z.enum(CHANNELS)
 export const OpSchema = z.enum(['add', 'sub', 'set'])
 export const CmpSchema = z.enum(['lt', 'lte', 'eq', 'ne', 'gte', 'gt'])
+export const StyleSchema = z.enum(['striker', 'wrestler', 'grappler', 'allrounder'])
+export type StyleName = z.infer<typeof StyleSchema>
 
 export const EffectSchema = z.object({
   target: ChannelSchema,
@@ -30,10 +32,18 @@ export const EffectSchema = z.object({
   value: z.number(),
 })
 
+// Champs numériques LISIBLES en condition : canaux + dérivés d'état (lecture
+// seule ; les effets, eux, ne peuvent viser qu'un canal — AD-5).
+export const ConditionFieldSchema = z.union([
+  ChannelSchema,
+  z.enum(['age', 'tier', 'wins', 'losses']),
+])
+export type ConditionField = z.infer<typeof ConditionFieldSchema>
+
 export const ConditionSchema = z.discriminatedUnion('kind', [
   z.object({
     kind: z.literal('stat'),
-    on: z.union([ChannelSchema, z.literal('age')]),
+    on: ConditionFieldSchema,
     cmp: CmpSchema,
     value: z.number(),
   }),
@@ -41,6 +51,10 @@ export const ConditionSchema = z.discriminatedUnion('kind', [
     kind: z.literal('flag'),
     flag: z.string().min(1),
     eq: z.union([z.boolean(), z.number()]),
+  }),
+  z.object({
+    kind: z.literal('style'),
+    eq: StyleSchema,
   }),
 ])
 
@@ -147,9 +161,6 @@ export function loadStartingCriteria(): StartingCriteria {
 }
 
 // --- Adversaires (FR-16) : archétypes authorés + banques de noms (AD-4) ---
-export const StyleSchema = z.enum(['striker', 'wrestler', 'grappler', 'allrounder'])
-export type StyleName = z.infer<typeof StyleSchema>
-
 export const ArchetypeSchema = z.object({
   id: z.string().min(1),
   label: z.string().min(1),

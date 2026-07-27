@@ -26,6 +26,12 @@ export function tierIndex(tier: Tier): number {
   return TIERS.indexOf(tier)
 }
 
+/** Seuils de promotion de palier (FR-5) : réputation ET victoires requises. */
+export const TIER_PROMOTION: Record<Exclude<Tier, 'immaf'>, { reputation: number; wins: number }> = {
+  regional: { reputation: 25, wins: 3 },
+  major: { reputation: 55, wins: 8 },
+}
+
 // --- Calibrage des adversaires (FR-16) ---
 // Niveau de base moyen d'un adversaire par palier ; la réputation le relève.
 export const TIER_OPPONENT_BASE: Record<Tier, number> = {

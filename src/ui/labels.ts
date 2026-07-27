@@ -1,5 +1,19 @@
 // Libellés FR et formatage des effets pour l'affichage (voix sobre).
 import type { Channel, Effect } from '../schema'
+import type { Tier, Style } from '../engine'
+
+export const TIER_LABEL: Record<Tier, string> = {
+  immaf: 'Circuit amateur (IMMAF)',
+  regional: 'Circuit régional',
+  major: 'Organisation majeure',
+}
+
+export const STYLE_LABEL: Record<Style, string> = {
+  striker: 'Puncheur',
+  wrestler: 'Lutteur',
+  grappler: 'Grappler',
+  allrounder: 'Polyvalent',
+}
 
 export const CHANNEL_LABEL: Record<Channel, string> = {
   striking: 'Frappe',

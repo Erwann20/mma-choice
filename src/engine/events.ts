@@ -1,11 +1,12 @@
 // Sélection d'événements (AD-6, FR-8/9) : filtrage par conditions, exclusion
 // des « vus » (anti-répétition), tirage pondéré à graine, pool jamais vide.
 // PUR : reçoit les Événements en paramètre (le moteur ne charge pas le contenu).
-import type { Cmp, Condition, EventDef } from '../schema'
+import type { Cmp, Condition, ConditionField, EventDef } from '../schema'
 import type { GameState } from './state'
 import type { RngState } from './rng'
 import { nextInt } from './rng'
 import { readChannel } from './channels'
+import { tierIndex } from './config'
 
 const SEEN_PREFIX = '__seen__'
 const COOLDOWN_PREFIX = '__cd__'
@@ -27,10 +28,28 @@ function compare(a: number, cmp: Cmp, b: number): boolean {
   }
 }
 
+/** Lit un champ numérique d'état pour les conditions (canaux + dérivés, AD-5). */
+function readField(state: GameState, field: ConditionField): number {
+  switch (field) {
+    case 'age':
+      return state.fighter.age
+    case 'tier':
+      return tierIndex(state.tier)
+    case 'wins':
+      return state.record.wins
+    case 'losses':
+      return state.record.losses
+    default:
+      return readChannel(state, field)
+  }
+}
+
 export function evalCondition(state: GameState, c: Condition): boolean {
   if (c.kind === 'stat') {
-    const value = c.on === 'age' ? state.fighter.age : readChannel(state, c.on)
-    return compare(value, c.cmp, c.value)
+    return compare(readField(state, c.on), c.cmp, c.value)
+  }
+  if (c.kind === 'style') {
+    return state.style === c.eq
   }
   // flag : absent => false
   return (state.flags[c.flag] ?? false) === c.eq

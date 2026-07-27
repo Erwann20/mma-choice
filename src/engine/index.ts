@@ -18,6 +18,8 @@ export { createInitialState } from './state'
 export type { Opponent, FightResult, FightOutcome, FightMethod, FightChange } from './combat'
 export { generateOpponent, resolveFight } from './combat'
 
+export { earnedTier, promoteTier } from './progression'
+
 export { readChannel, writeChannel } from './channels'
 export {
   evalCondition,
