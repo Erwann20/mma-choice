@@ -45,6 +45,33 @@
     ]
   },
   {
+    "id": "fight-amateur-carte-locale",
+    "weight": 4,
+    "repeatable": true,
+    "cooldown": 1,
+    "overline": "JOUR DE COMBAT",
+    "text": "La cage t'attend sur une carte locale. En face, un adversaire qui ne compte pas te faire de cadeau. Comment abordes-tu ce combat ?",
+    "fight": {},
+    "conditions": [{ "kind": "stat", "on": "age", "cmp": "gte", "value": 18 }],
+    "choices": [
+      {
+        "label": "Boxer à distance",
+        "hint": "Mets ta frappe à l'épreuve",
+        "tactic": "striking"
+      },
+      {
+        "label": "Chercher le corps-à-corps",
+        "hint": "Impose ta lutte",
+        "tactic": "grappling"
+      },
+      {
+        "label": "Amener au sol et contrôler",
+        "hint": "Joue le jeu au sol",
+        "tactic": "ground"
+      }
+    ]
+  },
+  {
     "id": "evt-sponsor-local",
     "weight": 2,
     "overline": "UNE PROPOSITION",
