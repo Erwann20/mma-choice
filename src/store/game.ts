@@ -1,12 +1,19 @@
 // Store Zustand : conteneur fin (AD-2). Délègue à la logique pure de session.
 import { create } from 'zustand'
 import type { FighterSetup } from '../engine'
-import { loadEvents } from '../schema'
-import { startCareer, chooseInSession, type Session } from './session'
+import { loadEvents, loadStartingCriteria } from '../schema'
+import {
+  startCareer,
+  startCareerFromCreation,
+  chooseInSession,
+  type CreationChoices,
+  type Session,
+} from './session'
 
 interface GameStore {
   session: Session | null
   newCareer: (setup?: FighterSetup, seed?: number) => void
+  createCareer: (choices: CreationChoices, seed?: number) => void
   choose: (choiceIndex: number) => void
   reset: () => void
 }
@@ -19,6 +26,10 @@ function randomSeed(): number {
 export const useGameStore = create<GameStore>((set, get) => ({
   session: null,
   newCareer: (setup, seed) => set({ session: startCareer(loadEvents(), seed ?? randomSeed(), setup) }),
+  createCareer: (choices, seed) =>
+    set({
+      session: startCareerFromCreation(loadEvents(), loadStartingCriteria(), seed ?? randomSeed(), choices),
+    }),
   choose: (choiceIndex) => {
     const s = get().session
     if (s) set({ session: chooseInSession(s, choiceIndex) })

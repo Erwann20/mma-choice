@@ -1,6 +1,7 @@
 // Composants de présentation custom (React + tokens CSS).
 export { GameRoot } from './GameRoot'
 export { CareerScreen } from './CareerScreen'
+export { CreationScreen } from './CreationScreen'
 export { FighterHeader } from './FighterHeader'
 export { DataChipRow } from './DataChipRow'
 export { EventCard } from './EventCard'

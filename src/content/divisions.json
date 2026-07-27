@@ -1,0 +1,14 @@
+[
+  { "id": "flyweight-m", "label": "Poids mouche", "sex": "M", "weight": "125 lb" },
+  { "id": "bantamweight-m", "label": "Poids coq", "sex": "M", "weight": "135 lb" },
+  { "id": "featherweight-m", "label": "Poids plume", "sex": "M", "weight": "145 lb" },
+  { "id": "lightweight-m", "label": "Poids léger", "sex": "M", "weight": "155 lb" },
+  { "id": "welterweight-m", "label": "Poids mi-moyen", "sex": "M", "weight": "170 lb" },
+  { "id": "middleweight-m", "label": "Poids moyen", "sex": "M", "weight": "185 lb" },
+  { "id": "lightheavyweight-m", "label": "Poids mi-lourd", "sex": "M", "weight": "205 lb" },
+  { "id": "heavyweight-m", "label": "Poids lourd", "sex": "M", "weight": "265 lb" },
+  { "id": "strawweight-f", "label": "Poids paille", "sex": "F", "weight": "115 lb" },
+  { "id": "flyweight-f", "label": "Poids mouche", "sex": "F", "weight": "125 lb" },
+  { "id": "bantamweight-f", "label": "Poids coq", "sex": "F", "weight": "135 lb" },
+  { "id": "featherweight-f", "label": "Poids plume", "sex": "F", "weight": "145 lb" }
+]

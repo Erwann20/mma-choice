@@ -1,0 +1,51 @@
+{
+  "origins": [
+    {
+      "id": "rue",
+      "label": "Bagarreur de rue",
+      "description": "Dur au mal, mais impulsif.",
+      "effects": [
+        { "target": "striking", "op": "add", "value": 10 },
+        { "target": "mental", "op": "sub", "value": 5 }
+      ]
+    },
+    {
+      "id": "lutteur-univ",
+      "label": "Lutteur universitaire",
+      "description": "Une base de lutte solide.",
+      "effects": [{ "target": "grappling", "op": "add", "value": 12 }]
+    },
+    {
+      "id": "famille",
+      "label": "Famille de combattants",
+      "description": "Polyvalent, mais sous pression.",
+      "effects": [
+        { "target": "striking", "op": "add", "value": 4 },
+        { "target": "grappling", "op": "add", "value": 4 },
+        { "target": "ground", "op": "add", "value": 4 }
+      ],
+      "setFlags": { "pression_familiale": true }
+    }
+  ],
+  "entourages": [
+    {
+      "id": "coach",
+      "label": "Coach mentor",
+      "description": "Quelqu'un croit en toi.",
+      "effects": [{ "target": "mental", "op": "add", "value": 10 }]
+    },
+    {
+      "id": "seul",
+      "label": "Seul",
+      "description": "Personne pour te guider.",
+      "effects": [{ "target": "mental", "op": "sub", "value": 5 }]
+    },
+    {
+      "id": "manager",
+      "label": "Manager véreux",
+      "description": "De l'argent, mais des risques.",
+      "effects": [{ "target": "money", "op": "add", "value": 500 }],
+      "setFlags": { "manager_vereux": true }
+    }
+  ]
+}
