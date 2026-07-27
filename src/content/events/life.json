@@ -1,0 +1,360 @@
+[
+  {
+    "id": "life-sparring-dur",
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 1,
+    "overline": "SPARRING",
+    "text": "Un sparring monte trop en intensité. Le coach ne dit rien, il observe. Tu fais quoi ?",
+    "choices": [
+      { "label": "Rendre coup pour coup", "effects": [{ "target": "striking", "op": "add", "value": 3 }, { "target": "health", "op": "sub", "value": 4 }] },
+      { "label": "Garder la tête froide et boxer propre", "effects": [{ "target": "mental", "op": "add", "value": 3 }, { "target": "cardio", "op": "add", "value": 2 }] }
+    ]
+  },
+  {
+    "id": "life-nouvelle-technique",
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 2,
+    "overline": "SÉANCE TECHNIQUE",
+    "text": "Un entraîneur invité propose de bosser une arme spécifique cette semaine.",
+    "choices": [
+      { "label": "Les low kicks", "effects": [{ "target": "striking", "op": "add", "value": 4 }] },
+      { "label": "Le double-jambe", "effects": [{ "target": "grappling", "op": "add", "value": 4 }] },
+      { "label": "Les passages de garde", "effects": [{ "target": "ground", "op": "add", "value": 4 }] }
+    ]
+  },
+  {
+    "id": "life-cardio-matinal",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 1,
+    "overline": "5H DU MATIN",
+    "text": "Le réveil sonne pour le footing. Dehors, il pleut.",
+    "choices": [
+      { "label": "Y aller quand même", "effects": [{ "target": "cardio", "op": "add", "value": 4 }, { "target": "mental", "op": "add", "value": 1 }] },
+      { "label": "Rester au chaud", "effects": [{ "target": "mental", "op": "add", "value": 2 }, { "target": "cardio", "op": "sub", "value": 1 }] }
+    ]
+  },
+  {
+    "id": "life-blessure-legere",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 3,
+    "overline": "PETIT PÉPIN",
+    "text": "Une gêne au genou traîne depuis quelques jours. Continuer, c'est prendre un risque.",
+    "choices": [
+      { "label": "Serrer les dents", "effects": [{ "target": "grappling", "op": "add", "value": 2 }, { "target": "health", "op": "sub", "value": 6 }] },
+      { "label": "Lever le pied une semaine", "effects": [{ "target": "health", "op": "add", "value": 5 }] }
+    ]
+  },
+  {
+    "id": "life-coach-conflit",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 4,
+    "overline": "TENSION AU CAMP",
+    "text": "Tu n'es pas d'accord avec le plan de ton coach pour ta progression.",
+    "choices": [
+      { "label": "Suivre son plan, il sait", "effects": [{ "target": "mental", "op": "add", "value": 4 }, { "target": "grappling", "op": "add", "value": 2 }] },
+      { "label": "Imposer ta vision", "effects": [{ "target": "striking", "op": "add", "value": 3 }, { "target": "mental", "op": "sub", "value": 2 }] }
+    ]
+  },
+  {
+    "id": "life-petit-boulot",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 2,
+    "overline": "JOINDRE LES DEUX BOUTS",
+    "text": "Les fins de mois sont difficiles. Un pote te propose un job alimentaire le soir.",
+    "conditions": [{ "kind": "stat", "on": "money", "cmp": "lt", "value": 1500 }],
+    "choices": [
+      { "label": "Accepter, il faut manger", "effects": [{ "target": "money", "op": "add", "value": 800 }, { "target": "cardio", "op": "sub", "value": 2 }] },
+      { "label": "Tout miser sur le MMA", "effects": [{ "target": "mental", "op": "add", "value": 3 }, { "target": "striking", "op": "add", "value": 2 }] }
+    ]
+  },
+  {
+    "id": "life-famille-doute",
+    "weight": 2,
+    "overline": "REPAS DE FAMILLE",
+    "text": "À table, on te demande quand tu vas « trouver un vrai métier ». Le silence pèse.",
+    "choices": [
+      { "label": "Assumer ton choix, calmement", "effects": [{ "target": "mental", "op": "add", "value": 6 }] },
+      { "label": "Encaisser sans répondre", "effects": [{ "target": "mental", "op": "sub", "value": 4 }, { "target": "reputation", "op": "add", "value": 1 }] }
+    ]
+  },
+  {
+    "id": "life-fan-premier",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 3,
+    "overline": "RÉSEAUX",
+    "text": "Une vidéo de ton dernier combat commence à tourner. Les premiers messages arrivent.",
+    "conditions": [{ "kind": "stat", "on": "reputation", "cmp": "gte", "value": 8 }],
+    "choices": [
+      { "label": "Poster régulièrement ton quotidien", "effects": [{ "target": "followers", "op": "add", "value": 600 }, { "target": "mental", "op": "sub", "value": 1 }] },
+      { "label": "Rester discret, bosser dans l'ombre", "effects": [{ "target": "mental", "op": "add", "value": 3 }, { "target": "followers", "op": "add", "value": 80 }] }
+    ]
+  },
+  {
+    "id": "life-rival-nait",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 5,
+    "overline": "UN RIVAL",
+    "text": "Un combattant de ta catégorie te vise ouvertement dans une interview. Le public adore l'idée d'un duel.",
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 }],
+    "choices": [
+      { "label": "Répondre du tac au tac", "effects": [{ "target": "followers", "op": "add", "value": 2000 }, { "target": "reputation", "op": "add", "value": 2 }], "armFlags": [{ "flag": "rivalite", "value": true, "inYears": 1 }] },
+      { "label": "Ignorer, ton heure viendra", "effects": [{ "target": "mental", "op": "add", "value": 3 }] }
+    ]
+  },
+  {
+    "id": "life-rival-face",
+    "weight": 4,
+    "repeatable": true,
+    "overline": "RÈGLEMENT DE COMPTES",
+    "text": "Le rival que tu as chauffé est enfin en face de toi à la pesée. Tout le monde attend l'étincelle.",
+    "conditions": [{ "kind": "flag", "flag": "rivalite", "eq": true }],
+    "choices": [
+      { "label": "Le fixer, sans un mot", "effects": [{ "target": "mental", "op": "add", "value": 5 }, { "target": "followers", "op": "add", "value": 1500 }], "setFlags": { "rivalite": false } },
+      { "label": "Enterrer la hache, se respecter", "effects": [{ "target": "reputation", "op": "add", "value": 6 }], "setFlags": { "rivalite": false } }
+    ]
+  },
+  {
+    "id": "life-tentation-dopage",
+    "weight": 1,
+    "repeatable": true,
+    "cooldown": 6,
+    "overline": "RACCOURCI",
+    "text": "Un « préparateur » te glisse qu'il peut accélérer ta récupération. Rien de très légal.",
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 }],
+    "choices": [
+      { "label": "Refuser net", "effects": [{ "target": "mental", "op": "add", "value": 4 }, { "target": "reputation", "op": "add", "value": 2 }] },
+      { "label": "Tenter le diable", "effects": [{ "target": "striking", "op": "add", "value": 5 }, { "target": "grappling", "op": "add", "value": 5 }], "armFlags": [{ "flag": "controle_antidopage", "value": true, "inYears": 1 }] }
+    ]
+  },
+  {
+    "id": "life-controle-positif",
+    "weight": 5,
+    "repeatable": true,
+    "overline": "CONTRÔLE ANTIDOPAGE",
+    "text": "Un contrôle inopiné tombe. Ton petit arrangement de l'an dernier refait surface.",
+    "conditions": [{ "kind": "flag", "flag": "controle_antidopage", "eq": true }],
+    "choices": [
+      { "label": "Assumer et coopérer", "effects": [{ "target": "reputation", "op": "sub", "value": 15 }, { "target": "followers", "op": "sub", "value": 3000 }, { "target": "mental", "op": "sub", "value": 6 }], "setFlags": { "controle_antidopage": false } }
+    ]
+  },
+  {
+    "id": "life-mentor-jeune",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 4,
+    "overline": "TRANSMETTRE",
+    "text": "Un débutant au club te regarde comme un modèle et te demande de l'encadrer.",
+    "conditions": [{ "kind": "stat", "on": "reputation", "cmp": "gte", "value": 30 }],
+    "choices": [
+      { "label": "Prendre le temps de l'aider", "effects": [{ "target": "mental", "op": "add", "value": 5 }, { "target": "reputation", "op": "add", "value": 3 }] },
+      { "label": "Rester concentré sur toi", "effects": [{ "target": "striking", "op": "add", "value": 2 }, { "target": "grappling", "op": "add", "value": 2 }] }
+    ]
+  },
+  {
+    "id": "life-media-tele",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 4,
+    "overline": "PLATEAU TÉLÉ",
+    "text": "Une émission sportive t'invite. Bonne visibilité, mais tu n'es pas à l'aise face caméra.",
+    "conditions": [{ "kind": "stat", "on": "followers", "cmp": "gte", "value": 5000 }],
+    "choices": [
+      { "label": "Y aller et te lâcher", "effects": [{ "target": "followers", "op": "add", "value": 5000 }, { "target": "reputation", "op": "add", "value": 3 }] },
+      { "label": "Décliner poliment", "effects": [{ "target": "mental", "op": "add", "value": 2 }] }
+    ]
+  },
+  {
+    "id": "life-sacrifice-couple",
+    "weight": 2,
+    "overline": "VIE PERSO",
+    "text": "Ta relation souffre de ton rythme d'athlète. Ce soir, il faut choisir.",
+    "choices": [
+      { "label": "Prioriser ta carrière", "effects": [{ "target": "striking", "op": "add", "value": 3 }, { "target": "grappling", "op": "add", "value": 3 }, { "target": "mental", "op": "sub", "value": 4 }] },
+      { "label": "Rééquilibrer ta vie", "effects": [{ "target": "mental", "op": "add", "value": 8 }, { "target": "cardio", "op": "sub", "value": 2 }] }
+    ]
+  },
+  {
+    "id": "life-corner-conseil",
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 2,
+    "overline": "ENTRE DEUX REPRISES",
+    "text": "Ton corner te hurle un ajustement tactique. Tu es cuit, mais lucide.",
+    "conditions": [{ "kind": "stat", "on": "cardio", "cmp": "gte", "value": 40 }],
+    "choices": [
+      { "label": "Écouter et changer de plan", "effects": [{ "target": "mental", "op": "add", "value": 3 }, { "target": "grappling", "op": "add", "value": 2 }] },
+      { "label": "Rester sur ton instinct", "effects": [{ "target": "striking", "op": "add", "value": 3 }, { "target": "mental", "op": "sub", "value": 1 }] }
+    ]
+  },
+  {
+    "id": "life-gym-demenage",
+    "weight": 1,
+    "overline": "TOURNANT",
+    "text": "Une salle de renom à l'autre bout du pays t'ouvre ses portes. Tout quitter pour progresser ?",
+    "conditions": [{ "kind": "stat", "on": "reputation", "cmp": "gte", "value": 20 }],
+    "choices": [
+      { "label": "Faire ses valises", "effects": [{ "target": "striking", "op": "add", "value": 5 }, { "target": "grappling", "op": "add", "value": 5 }, { "target": "mental", "op": "sub", "value": 3 }] },
+      { "label": "Rester fidèle à ton club", "effects": [{ "target": "mental", "op": "add", "value": 5 }, { "target": "reputation", "op": "add", "value": 2 }] }
+    ]
+  },
+  {
+    "id": "life-doute-defaite",
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 2,
+    "overline": "LENDEMAIN DIFFICILE",
+    "text": "Une défaite te trotte encore dans la tête. Le doute s'installe.",
+    "conditions": [{ "kind": "stat", "on": "losses", "cmp": "gte", "value": 1 }],
+    "choices": [
+      { "label": "Analyser froidement tes erreurs", "effects": [{ "target": "mental", "op": "add", "value": 5 }, { "target": "ground", "op": "add", "value": 2 }] },
+      { "label": "Retourner au sac, rageur", "effects": [{ "target": "striking", "op": "add", "value": 4 }, { "target": "health", "op": "sub", "value": 3 }] }
+    ]
+  },
+  {
+    "id": "life-invitation-gala",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 3,
+    "overline": "MONDANITÉS",
+    "text": "Un gala réunit tout le gratin du milieu. Réseauter peut ouvrir des portes.",
+    "conditions": [{ "kind": "stat", "on": "reputation", "cmp": "gte", "value": 35 }],
+    "choices": [
+      { "label": "Jouer le jeu, serrer des mains", "effects": [{ "target": "reputation", "op": "add", "value": 4 }, { "target": "followers", "op": "add", "value": 1200 }] },
+      { "label": "Rentrer t'entraîner", "effects": [{ "target": "cardio", "op": "add", "value": 3 }, { "target": "striking", "op": "add", "value": 2 }] }
+    ]
+  },
+  {
+    "id": "life-supporter-fidele",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 3,
+    "overline": "TERRAIN",
+    "text": "Après l'entraînement, un groupe de gamins du quartier t'attend pour une photo.",
+    "choices": [
+      { "label": "Prendre le temps pour eux", "effects": [{ "target": "mental", "op": "add", "value": 3 }, { "target": "followers", "op": "add", "value": 400 }] },
+      { "label": "Filer, tu es lessivé", "effects": [{ "target": "health", "op": "add", "value": 2 }] }
+    ]
+  },
+  {
+    "id": "life-poids-lourd-nutrition",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 3,
+    "overline": "DIÉTÉTIQUE",
+    "text": "Ton nutritionniste veut revoir toute ton alimentation. C'est contraignant.",
+    "choices": [
+      { "label": "Discipline totale", "effects": [{ "target": "cardio", "op": "add", "value": 3 }, { "target": "health", "op": "add", "value": 4 }] },
+      { "label": "Un écart de temps en temps", "effects": [{ "target": "mental", "op": "add", "value": 3 }, { "target": "health", "op": "sub", "value": 1 }] }
+    ]
+  },
+  {
+    "id": "life-style-doute",
+    "weight": 1,
+    "repeatable": true,
+    "cooldown": 5,
+    "overline": "IDENTITÉ DE COMBAT",
+    "text": "On te reproche d'être trop prévisible. Peut-être qu'il est temps d'élargir ton jeu.",
+    "conditions": [{ "kind": "style", "eq": "striker" }],
+    "choices": [
+      { "label": "Ajouter une vraie corde à ton arc", "effects": [{ "target": "grappling", "op": "add", "value": 6 }, { "target": "ground", "op": "add", "value": 4 }], "setStyle": "allrounder" },
+      { "label": "Assumer et perfectionner ta frappe", "effects": [{ "target": "striking", "op": "add", "value": 6 }] }
+    ]
+  },
+  {
+    "id": "life-contrat-piege",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 5,
+    "overline": "SIGNATURE",
+    "text": "Un promoteur te met un contrat sous le nez. Les chiffres brillent, les clauses moins.",
+    "conditions": [{ "kind": "stat", "on": "reputation", "cmp": "gte", "value": 25 }],
+    "choices": [
+      { "label": "Le faire lire à un avocat", "effects": [{ "target": "money", "op": "add", "value": 3000 }, { "target": "reputation", "op": "add", "value": 2 }] },
+      { "label": "Signer vite, prendre l'argent", "effects": [{ "target": "money", "op": "add", "value": 9000 }], "armFlags": [{ "flag": "litige_contrat", "value": true, "inYears": 2 }] }
+    ]
+  },
+  {
+    "id": "life-litige",
+    "weight": 4,
+    "repeatable": true,
+    "overline": "COUP DUR JURIDIQUE",
+    "text": "Le contrat signé à la va-vite te rattrape : le promoteur réclame une part énorme de tes bourses.",
+    "conditions": [{ "kind": "flag", "flag": "litige_contrat", "eq": true }],
+    "choices": [
+      { "label": "Payer pour t'en libérer", "effects": [{ "target": "money", "op": "sub", "value": 12000 }, { "target": "mental", "op": "sub", "value": 4 }], "setFlags": { "litige_contrat": false } },
+      { "label": "Te battre au tribunal", "effects": [{ "target": "reputation", "op": "sub", "value": 4 }, { "target": "mental", "op": "sub", "value": 6 }], "setFlags": { "litige_contrat": false } }
+    ]
+  },
+  {
+    "id": "life-veteran-conseil",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 4,
+    "overline": "SAGESSE",
+    "text": "Un ancien champion croise ta route et t'offre un conseil de carrière.",
+    "conditions": [{ "kind": "stat", "on": "age", "cmp": "gte", "value": 26 }],
+    "choices": [
+      { "label": "Boire ses paroles", "effects": [{ "target": "mental", "op": "add", "value": 6 }] },
+      { "label": "Sourire poliment", "effects": [{ "target": "reputation", "op": "add", "value": 1 }] }
+    ]
+  },
+  {
+    "id": "life-fin-approche",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 3,
+    "overline": "LE TEMPS FILE",
+    "text": "Les récupérations sont plus longues qu'avant. Ton corps t'envoie des signaux.",
+    "conditions": [{ "kind": "stat", "on": "age", "cmp": "gte", "value": 33 }],
+    "choices": [
+      { "label": "Adapter ton entraînement", "effects": [{ "target": "health", "op": "add", "value": 6 }, { "target": "cardio", "op": "add", "value": 2 }] },
+      { "label": "Refuser de vieillir, forcer", "effects": [{ "target": "striking", "op": "add", "value": 3 }, { "target": "health", "op": "sub", "value": 5 }] }
+    ]
+  },
+  {
+    "id": "life-charite",
+    "weight": 1,
+    "repeatable": true,
+    "cooldown": 5,
+    "overline": "RENDRE",
+    "text": "Une association de ton quartier te demande de parrainer un événement caritatif.",
+    "conditions": [{ "kind": "stat", "on": "money", "cmp": "gte", "value": 5000 }],
+    "choices": [
+      { "label": "Donner généreusement", "effects": [{ "target": "money", "op": "sub", "value": 3000 }, { "target": "reputation", "op": "add", "value": 6 }, { "target": "followers", "op": "add", "value": 1500 }] },
+      { "label": "Juste passer dire bonjour", "effects": [{ "target": "reputation", "op": "add", "value": 2 }] }
+    ]
+  },
+  {
+    "id": "life-highlight-viral",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 3,
+    "overline": "CLIP VIRAL",
+    "text": "Un de tes highlights explose sur les réseaux. Les marques commencent à te suivre.",
+    "conditions": [{ "kind": "stat", "on": "reputation", "cmp": "gte", "value": 30 }],
+    "choices": [
+      { "label": "Surfer sur la vague", "effects": [{ "target": "followers", "op": "add", "value": 8000 }] },
+      { "label": "Garder les pieds sur terre", "effects": [{ "target": "mental", "op": "add", "value": 4 }, { "target": "followers", "op": "add", "value": 1000 }] }
+    ]
+  },
+  {
+    "id": "life-esprit-equipe",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 2,
+    "overline": "COÉQUIPIER",
+    "text": "Un partenaire d'entraînement combat le même soir que toi et stresse. Il compte sur toi.",
+    "choices": [
+      { "label": "Le rassurer avant ton propre combat", "effects": [{ "target": "mental", "op": "add", "value": 3 }, { "target": "reputation", "op": "add", "value": 2 }] },
+      { "label": "Rester dans ta bulle", "effects": [{ "target": "mental", "op": "add", "value": 2 }, { "target": "striking", "op": "add", "value": 1 }] }
+    ]
+  }
+]
