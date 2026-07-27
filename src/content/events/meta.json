@@ -59,6 +59,68 @@
     ]
   },
   {
+    "id": "evt-clash-conference",
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 2,
+    "overline": "FACE-À-FACE",
+    "text": "Micro tendu, caméras braquées : ton prochain adversaire te cherche en conférence de presse. La salle attend ta réaction.",
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 }],
+    "choices": [
+      {
+        "label": "Le clasher sans filtre",
+        "hint": "Gros buzz… mais ça peut se retourner",
+        "effects": [
+          { "target": "followers", "op": "add", "value": 4000 },
+          { "target": "reputation", "op": "add", "value": 3 }
+        ],
+        "armFlags": [{ "flag": "bad_buzz", "value": true, "inYears": 1 }]
+      },
+      {
+        "label": "Rester pro et concentré",
+        "hint": "Le respect du milieu",
+        "effects": [
+          { "target": "reputation", "op": "add", "value": 5 },
+          { "target": "followers", "op": "add", "value": 400 }
+        ]
+      },
+      {
+        "label": "Jouer la carte de l'humour",
+        "hint": "Sympathie du public",
+        "effects": [{ "target": "followers", "op": "add", "value": 1500 }]
+      }
+    ]
+  },
+  {
+    "id": "evt-bad-buzz",
+    "weight": 4,
+    "repeatable": true,
+    "overline": "BAD BUZZ",
+    "text": "Tes propos ont dérapé et les réseaux s'enflamment contre toi. Sponsors nerveux, commentaires assassins. Comment gères-tu la crise ?",
+    "conditions": [{ "kind": "flag", "flag": "bad_buzz", "eq": true }],
+    "choices": [
+      {
+        "label": "Assumer, ne rien lâcher",
+        "hint": "Fidèle à toi-même, mais ça coûte",
+        "effects": [
+          { "target": "mental", "op": "sub", "value": 8 },
+          { "target": "reputation", "op": "sub", "value": 6 }
+        ],
+        "setFlags": { "bad_buzz": false }
+      },
+      {
+        "label": "Présenter des excuses",
+        "hint": "Éteindre l'incendie",
+        "effects": [
+          { "target": "reputation", "op": "sub", "value": 2 },
+          { "target": "followers", "op": "sub", "value": 1000 },
+          { "target": "mental", "op": "add", "value": 3 }
+        ],
+        "setFlags": { "bad_buzz": false }
+      }
+    ]
+  },
+  {
     "id": "evt-camp-elite",
     "weight": 3,
     "repeatable": true,
