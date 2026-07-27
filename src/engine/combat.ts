@@ -147,6 +147,7 @@ export function resolveFight(
           : 'décision'
       : 'décision'
 
+  const titleFight = event.fight?.titleFight ?? false
   const reward = REWARD[outcome]
   const followers = Math.round(((tierIndex(state.tier) + 1) * 30 + opponent.level) * reward.followersMul)
   const purse = win ? PURSE_BY_TIER[state.tier] : Math.round(PURSE_BY_TIER[state.tier] * 0.5)
@@ -159,6 +160,11 @@ export function resolveFight(
   push('followers', followers)
   push('money', purse)
   push('health', -reward.healthCost)
+  // Prime de prestige sur un combat de titre gagné (FR-5).
+  if (titleFight && win) {
+    push('reputation', 12)
+    push('followers', Math.round(followers * 0.5))
+  }
 
   let g: GameState = { ...state, rng: rng1 }
   for (const c of changes) g = applyEffect(g, { target: c.target, op: 'add', value: c.value })
@@ -170,6 +176,21 @@ export function resolveFight(
       losses: g.record.losses + (win ? 0 : 1),
       finishes: g.record.finishes + (finish ? 1 : 0),
     },
+  }
+
+  // Enjeu de la ceinture (FR-5) : conquête, défense ou perte du titre.
+  let wonBelt = false
+  let lostBelt = false
+  if (titleFight) {
+    if (win && !state.belt) {
+      g = { ...g, belt: true }
+      wonBelt = true
+    } else if (win && state.belt) {
+      g = { ...g, titleDefenses: g.titleDefenses + 1 }
+    } else if (!win && state.belt) {
+      g = { ...g, belt: false }
+      lostBelt = true
+    }
   }
 
   // Risque de blessure sur défaite quand la forme est déjà entamée (FR-13, ébauche).
@@ -186,9 +207,9 @@ export function resolveFight(
     outcome,
     win,
     method,
-    titleFight: event.fight?.titleFight ?? false,
-    wonBelt: false,
-    lostBelt: false,
+    titleFight,
+    wonBelt,
+    lostBelt,
     changes,
   }
   return { game: g, result }

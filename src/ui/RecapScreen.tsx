@@ -1,20 +1,23 @@
 import type { GameState } from '../engine'
 import { computeScore, allTimeRank } from '../engine'
 import { loadDivisions } from '../schema'
-
-const STYLE_LABEL: Record<GameState['style'], string> = {
-  striker: 'Puncheur',
-  wrestler: 'Lutteur',
-  grappler: 'Grappler',
-  allrounder: 'Polyvalent',
-}
+import { STYLE_LABEL, TIER_LABEL } from './labels'
 
 function highlights(game: GameState): string[] {
   const div = loadDivisions().find((d) => d.id === game.division)
+  const { record } = game
   const lines: string[] = []
   lines.push(`Combattant ${STYLE_LABEL[game.style]} de ${game.fighter.country}`)
   if (div) lines.push(`Division : ${div.label} (${div.weight})`)
-  if (game.flags['a_combattu_immaf']) lines.push('A fait ses armes sur le circuit IMMAF')
+  lines.push(`Palmarès : ${record.wins} victoires – ${record.losses} défaites`)
+  if (game.belt) {
+    lines.push(
+      game.titleDefenses > 0
+        ? `Champion (${game.titleDefenses} défense${game.titleDefenses > 1 ? 's' : ''} du titre)`
+        : 'A décroché la ceinture de sa division',
+    )
+  }
+  lines.push(`Plus haut palier atteint : ${TIER_LABEL[game.tier]}`)
   if (game.meta.reputation >= 40) lines.push('Un nom respecté dans le milieu')
   if (game.meta.followers >= 1000) lines.push(`${game.meta.followers} followers au compteur`)
   return lines

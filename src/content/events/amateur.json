@@ -102,6 +102,24 @@
     ]
   },
   {
+    "id": "fight-title-shot",
+    "weight": 7,
+    "repeatable": true,
+    "cooldown": 2,
+    "overline": "COMBAT DE TITRE",
+    "text": "La ceinture est en jeu. Champion ou prétendant, ce soir tout se décide sous les projecteurs. La légende s'écrit maintenant.",
+    "fight": { "titleFight": true },
+    "conditions": [
+      { "kind": "stat", "on": "tier", "cmp": "gte", "value": 2 },
+      { "kind": "stat", "on": "reputation", "cmp": "gte", "value": 60 }
+    ],
+    "choices": [
+      { "label": "Tout miser sur ta frappe", "hint": "Ta frappe décide", "tactic": "striking" },
+      { "label": "Imposer ta lutte", "hint": "Ta lutte décide", "tactic": "grappling" },
+      { "label": "Dominer au sol", "hint": "Ton jeu au sol décide", "tactic": "ground" }
+    ]
+  },
+  {
     "id": "evt-sponsor-local",
     "weight": 2,
     "overline": "UNE PROPOSITION",
