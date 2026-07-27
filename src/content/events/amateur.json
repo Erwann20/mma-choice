@@ -1,0 +1,64 @@
+[
+  {
+    "id": "evt-immaf-premier-tournoi",
+    "weight": 5,
+    "overline": "L'APPEL DU COACH",
+    "text": "Ton coach veut t'inscrire à ton premier tournoi IMMAF. Trois combats en une soirée, zéro bourse, mais c'est là qu'on se fait remarquer.",
+    "conditions": [{ "kind": "stat", "on": "age", "cmp": "lte", "value": 24 }],
+    "choices": [
+      {
+        "label": "S'inscrire et tout donner",
+        "hint": "Fatigue, mais de l'expérience",
+        "effects": [
+          { "target": "reputation", "op": "add", "value": 8 },
+          { "target": "cardio", "op": "add", "value": 3 },
+          { "target": "health", "op": "sub", "value": 5 }
+        ],
+        "setFlags": { "a_combattu_immaf": true }
+      },
+      {
+        "label": "Refuser, tu ne te sens pas prêt",
+        "effects": [{ "target": "mental", "op": "sub", "value": 3 }]
+      }
+    ]
+  },
+  {
+    "id": "evt-salle-de-quartier",
+    "weight": 3,
+    "overline": "LA ROUTINE",
+    "text": "Une journée d'entraînement de plus dans ta salle de quartier. Le sac de frappe ou le tapis de sol ?",
+    "repeatable": true,
+    "cooldown": 1,
+    "choices": [
+      {
+        "label": "Travailler la frappe",
+        "effects": [{ "target": "striking", "op": "add", "value": 4 }]
+      },
+      {
+        "label": "Travailler le sol",
+        "effects": [{ "target": "ground", "op": "add", "value": 4 }]
+      },
+      {
+        "label": "Travailler la lutte",
+        "effects": [{ "target": "grappling", "op": "add", "value": 4 }]
+      }
+    ]
+  },
+  {
+    "id": "evt-sponsor-local",
+    "weight": 2,
+    "overline": "UNE PROPOSITION",
+    "text": "Une petite boutique de sport locale te propose 200 € pour porter leur logo sur ton short au prochain combat.",
+    "conditions": [{ "kind": "stat", "on": "reputation", "cmp": "gte", "value": 10 }],
+    "choices": [
+      {
+        "label": "Accepter — chaque euro compte",
+        "effects": [{ "target": "money", "op": "add", "value": 200 }]
+      },
+      {
+        "label": "Refuser — tu vises plus haut",
+        "effects": [{ "target": "reputation", "op": "add", "value": 2 }]
+      }
+    ]
+  }
+]
