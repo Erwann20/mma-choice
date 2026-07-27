@@ -355,6 +355,38 @@
   flex-direction: column;
   gap: var(--space-3);
 }
+/* Récap de fin de carrière (Story 1.11) */
+.recap {
+  gap: var(--space-3);
+}
+.score-big {
+  font-size: 64px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.score-max {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  margin-left: 4px;
+}
+.rank-line {
+  margin: 0;
+  color: var(--color-accent);
+  font-weight: 700;
+}
+.highlights {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-2) 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--color-text-secondary);
+  font-size: var(--fs-meta);
+}
+
 .toast {
   position: fixed;
   left: 50%;

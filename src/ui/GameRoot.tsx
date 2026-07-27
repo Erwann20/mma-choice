@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useGameStore } from '../store/game'
 import { CareerScreen } from './CareerScreen'
 import { CreationScreen } from './CreationScreen'
+import { RecapScreen } from './RecapScreen'
 import { ConfirmDialog } from './ConfirmDialog'
 import { Toast } from './Toast'
 
@@ -51,14 +52,8 @@ export function GameRoot() {
 
   if (!session.current) {
     return (
-      <section className="center-screen">
-        <h1>Carrière terminée</h1>
-        <p style={{ color: 'var(--color-text-secondary)' }}>
-          {session.game.fighter.name} a raccroché les gants à {session.game.fighter.age} ans.
-        </p>
-        <button className="btn-primary" type="button" onClick={() => setConfirmNew(true)}>
-          Nouvelle carrière
-        </button>
+      <>
+        <RecapScreen game={session.game} onNew={() => setConfirmNew(true)} />
         {confirmNew ? (
           <ConfirmDialog
             title="Nouvelle carrière ?"
@@ -73,7 +68,7 @@ export function GameRoot() {
           />
         ) : null}
         {resumeToast}
-      </section>
+      </>
     )
   }
 

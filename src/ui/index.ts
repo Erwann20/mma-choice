@@ -2,6 +2,7 @@
 export { GameRoot } from './GameRoot'
 export { CareerScreen } from './CareerScreen'
 export { CreationScreen } from './CreationScreen'
+export { RecapScreen } from './RecapScreen'
 export { FighterHeader } from './FighterHeader'
 export { DataChipRow } from './DataChipRow'
 export { EventCard } from './EventCard'
