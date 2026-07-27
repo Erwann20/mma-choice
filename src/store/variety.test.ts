@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { loadEvents, loadStartingCriteria } from '../schema'
-import { startCareerFromCreation, chooseInSession, continueAfterFight, type CreationChoices } from './session'
+import { startCareerFromCreation, chooseInSession, continueSession, type CreationChoices } from './session'
 
 const criteria: CreationChoices = {
   name: 'Test',
@@ -21,9 +21,10 @@ function playCareer(seed: number): string[] {
   let guard = 0
   while (session.current && guard < 500) {
     guard++
-    if (session.current) seen.push(session.current.id)
-    session = session.lastResult ? session : chooseInSession(session, 0)
-    if (session.lastResult) session = continueAfterFight(session)
+    seen.push(session.current.id)
+    session = chooseInSession(session, 0)
+    // Écran de conséquences (combat ou choix narratif) → reprendre.
+    if (session.lastResult || session.lastReveal) session = continueSession(session)
   }
   return seen
 }

@@ -7,7 +7,7 @@ import {
   startCareer,
   startCareerFromCreation,
   chooseInSession,
-  continueAfterFight,
+  continueSession,
   serializeSession,
   deserializeSession,
   type CreationChoices,
@@ -20,7 +20,8 @@ interface GameStore {
   newCareer: (setup?: FighterSetup, seed?: number) => void
   createCareer: (choices: CreationChoices, seed?: number) => void
   choose: (choiceIndex: number) => void
-  continueFight: () => void
+  /** Reprend après un écran de conséquences (combat ou choix narratif). */
+  advance: () => void
   reset: () => void
 }
 
@@ -42,9 +43,9 @@ export const useGameStore = create<GameStore>()(
         const s = get().session
         if (s) set({ session: chooseInSession(s, choiceIndex) })
       },
-      continueFight: () => {
+      advance: () => {
         const s = get().session
-        if (s) set({ session: continueAfterFight(s) })
+        if (s) set({ session: continueSession(s) })
       },
       reset: () => set({ session: null }),
     }),
