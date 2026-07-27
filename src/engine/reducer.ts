@@ -3,6 +3,7 @@
 import type { GameState } from './state'
 import type { Action } from './actions'
 import { RETIREMENT_AGE } from './config'
+import { promoteTier } from './progression'
 
 export function reduce(state: GameState, action: Action): GameState {
   switch (action.type) {
@@ -15,13 +16,14 @@ export function reduce(state: GameState, action: Action): GameState {
       const flags = due.length
         ? { ...state.flags, ...Object.fromEntries(due.map((p) => [p.flag, p.value])) }
         : state.flags
-      return {
+      // Promotion de palier au bilan annuel (FR-5).
+      return promoteTier({
         ...state,
         phase,
         fighter: { ...state.fighter, age },
         flags,
         pending,
-      }
+      })
     }
     default:
       return state

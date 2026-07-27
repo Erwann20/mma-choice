@@ -72,6 +72,36 @@
     ]
   },
   {
+    "id": "fight-regional-main-card",
+    "weight": 5,
+    "repeatable": true,
+    "cooldown": 1,
+    "overline": "CARTE RÉGIONALE",
+    "text": "Tu es désormais sur le circuit régional, sous les projecteurs d'une vraie promotion. Ton adversaire a du métier. Ton plan de match ?",
+    "fight": {},
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 }],
+    "choices": [
+      { "label": "Le noyer sous les frappes", "hint": "Ta frappe décide", "tactic": "striking" },
+      { "label": "Le coller au grillage", "hint": "Ta lutte décide", "tactic": "grappling" },
+      { "label": "L'étouffer au sol", "hint": "Ton jeu au sol décide", "tactic": "ground" }
+    ]
+  },
+  {
+    "id": "fight-major-show",
+    "weight": 6,
+    "repeatable": true,
+    "cooldown": 1,
+    "overline": "GRAND SHOW",
+    "text": "L'organisation majeure t'a offert un contrat. Ce soir, l'octogone est à toi — et le monde regarde.",
+    "fight": {},
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 2 }],
+    "choices": [
+      { "label": "Assumer le duel debout", "hint": "Ta frappe décide", "tactic": "striking" },
+      { "label": "Dicter au corps-à-corps", "hint": "Ta lutte décide", "tactic": "grappling" },
+      { "label": "Chercher la finition au sol", "hint": "Ton jeu au sol décide", "tactic": "ground" }
+    ]
+  },
+  {
     "id": "evt-sponsor-local",
     "weight": 2,
     "overline": "UNE PROPOSITION",

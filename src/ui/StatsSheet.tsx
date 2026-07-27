@@ -1,13 +1,7 @@
 import { useEffect } from 'react'
 import type { GameState } from '../engine'
 import { StatBar } from './StatBar'
-
-const STYLE_LABEL: Record<GameState['style'], string> = {
-  striker: 'Puncheur',
-  wrestler: 'Lutteur',
-  grappler: 'Grappler',
-  allrounder: 'Polyvalent',
-}
+import { STYLE_LABEL, TIER_LABEL } from './labels'
 
 export function StatsSheet({ game, onClose }: { game: GameState; onClose: () => void }) {
   useEffect(() => {
@@ -29,7 +23,12 @@ export function StatsSheet({ game, onClose }: { game: GameState; onClose: () => 
       >
         <div className="sheet-grabber" aria-hidden="true" />
         <p className="fighter-meta" style={{ marginTop: 0 }}>
-          {game.fighter.age} ans · {STYLE_LABEL[game.style]} · circuit amateur
+          {game.fighter.age} ans · {STYLE_LABEL[game.style]} · {TIER_LABEL[game.tier]}
+          {game.belt ? ' · 🏆 Champion' : ''}
+        </p>
+        <p className="fighter-meta" style={{ marginTop: 4 }}>
+          Palmarès : <b>{game.record.wins}</b> V – <b>{game.record.losses}</b> D
+          {game.record.finishes > 0 ? ` (${game.record.finishes} avant la limite)` : ''}
         </p>
 
         <div className="overline" style={{ margin: 'var(--space-3) 0 var(--space-2)' }}>
