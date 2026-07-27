@@ -387,6 +387,101 @@
   font-size: var(--fs-meta);
 }
 
+/* Carte d'adversaire (Story 2.3) */
+.opponent-card {
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  padding: var(--space-3) 15px;
+}
+.opponent-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.opponent-record {
+  font-size: var(--fs-meta);
+  color: var(--color-text-muted);
+}
+.opponent-name {
+  margin: 4px 0 0;
+  font-size: var(--fs-stat);
+  font-weight: 800;
+}
+.opponent-label {
+  margin: 2px 0 var(--space-2);
+  font-size: var(--fs-meta);
+  color: var(--color-text-secondary);
+}
+.opponent-level {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.opponent-level-track {
+  flex: 1;
+  height: 6px;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-sunken);
+  overflow: hidden;
+}
+.opponent-level-fill {
+  height: 100%;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(90deg, var(--color-warning), var(--color-danger));
+}
+.opponent-level-value {
+  font-size: var(--fs-meta);
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+/* Bannière de résultat de combat (Story 2.3, UX-DR9) */
+.result-banner {
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5) 18px;
+  border-left-width: 4px;
+}
+.result-banner.tone-win {
+  border-left-color: var(--color-accent);
+  background: var(--color-accent-wash);
+}
+.result-banner.tone-upset {
+  border-left-color: var(--color-accent);
+  background: linear-gradient(180deg, var(--color-accent-wash), transparent);
+}
+.result-banner.tone-poor {
+  border-left-color: var(--color-warning);
+}
+.result-banner.tone-loss {
+  border-left-color: var(--color-danger);
+  background: var(--color-danger-wash);
+}
+.result-title {
+  margin: var(--space-1) 0 0;
+  font-size: var(--fs-title);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+.tone-win .result-title,
+.tone-upset .result-title {
+  color: var(--color-accent);
+}
+.tone-loss .result-title {
+  color: var(--color-danger);
+}
+.result-method {
+  margin: var(--space-1) 0 var(--space-2);
+  font-size: var(--fs-meta);
+  color: var(--color-text-secondary);
+}
+.result-belt {
+  margin: 0 0 var(--space-2);
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
 .toast {
   position: fixed;
   left: 50%;
