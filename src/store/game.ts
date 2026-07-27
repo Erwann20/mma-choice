@@ -1,12 +1,16 @@
-// Store Zustand : conteneur fin (AD-2). Délègue à la logique pure de session.
+// Store Zustand : conteneur fin (AD-2) + persistance localStorage (AD-7).
 import { create } from 'zustand'
+import { persist, createJSONStorage } from 'zustand/middleware'
 import type { FighterSetup } from '../engine'
 import { loadEvents, loadStartingCriteria } from '../schema'
 import {
   startCareer,
   startCareerFromCreation,
   chooseInSession,
+  serializeSession,
+  deserializeSession,
   type CreationChoices,
+  type SavedSession,
   type Session,
 } from './session'
 
@@ -20,19 +24,35 @@ interface GameStore {
 
 // Graine aléatoire par carrière (variété). Math.random hors du moteur = OK.
 function randomSeed(): number {
-  return Math.floor(Math.random() * 0x7fffffff)
+  return Math.floor(Math.random() * 0x7fff_ffff)
 }
 
-export const useGameStore = create<GameStore>((set, get) => ({
-  session: null,
-  newCareer: (setup, seed) => set({ session: startCareer(loadEvents(), seed ?? randomSeed(), setup) }),
-  createCareer: (choices, seed) =>
-    set({
-      session: startCareerFromCreation(loadEvents(), loadStartingCriteria(), seed ?? randomSeed(), choices),
+export const useGameStore = create<GameStore>()(
+  persist(
+    (set, get) => ({
+      session: null,
+      newCareer: (setup, seed) => set({ session: startCareer(loadEvents(), seed ?? randomSeed(), setup) }),
+      createCareer: (choices, seed) =>
+        set({
+          session: startCareerFromCreation(loadEvents(), loadStartingCriteria(), seed ?? randomSeed(), choices),
+        }),
+      choose: (choiceIndex) => {
+        const s = get().session
+        if (s) set({ session: chooseInSession(s, choiceIndex) })
+      },
+      reset: () => set({ session: null }),
     }),
-  choose: (choiceIndex) => {
-    const s = get().session
-    if (s) set({ session: chooseInSession(s, choiceIndex) })
-  },
-  reset: () => set({ session: null }),
-}))
+    {
+      // AD-7 : middleware persist = seul écrivain, clé versionnée, refs par id.
+      name: 'mmachoice.save.v1',
+      version: 1,
+      storage: createJSONStorage(() => localStorage),
+      partialize: (s) => ({ saved: s.session ? serializeSession(s.session) : null }),
+      merge: (persisted, current) => {
+        const p = persisted as { saved?: SavedSession | null }
+        if (!p?.saved) return current
+        return { ...current, session: deserializeSession(p.saved, loadEvents()) }
+      },
+    },
+  ),
+)
