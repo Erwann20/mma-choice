@@ -48,6 +48,8 @@ export const ChoiceSchema = z.object({
   label: z.string().min(1),
   hint: z.string().optional(),
   effects: z.array(EffectSchema).default([]),
+  /** Tactique de combat mise en avant (événements `fight` uniquement, FR-10). */
+  tactic: ChannelSchema.optional(),
   setFlags: z.record(z.string(), z.union([z.boolean(), z.number()])).optional(),
   // Conséquences différées (FR-9) : arment un flag actif dans `inYears` années.
   armFlags: z
@@ -61,6 +63,12 @@ export const ChoiceSchema = z.object({
     .optional(),
 })
 
+/** Un événement `fight` déclenche la résolution de combat (FR-10) au lieu
+ *  d'appliquer simplement les effets du choix. `titleFight` = combat de ceinture. */
+export const FightSchema = z.object({
+  titleFight: z.boolean().default(false),
+})
+
 export const EventSchema = z.object({
   id: z.string().min(1),
   weight: z.number().int().positive().default(1),
@@ -68,6 +76,7 @@ export const EventSchema = z.object({
   cooldown: z.number().int().nonnegative().optional(),
   overline: z.string().optional(),
   text: z.string().min(1),
+  fight: FightSchema.optional(),
   choices: z.array(ChoiceSchema).min(1).max(4),
   conditions: z.array(ConditionSchema).default([]),
 })

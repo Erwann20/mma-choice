@@ -15,8 +15,8 @@ export type {
 } from './state'
 export { createInitialState } from './state'
 
-export type { Opponent } from './combat'
-export { generateOpponent } from './combat'
+export type { Opponent, FightResult, FightOutcome, FightMethod, FightChange } from './combat'
+export { generateOpponent, resolveFight } from './combat'
 
 export { readChannel, writeChannel } from './channels'
 export {

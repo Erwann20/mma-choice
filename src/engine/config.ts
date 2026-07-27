@@ -37,3 +37,10 @@ export const TIER_OPPONENT_BASE: Record<Tier, number> = {
 export const OPPONENT_REP_FACTOR = 0.3
 /** Amplitude de la variance aléatoire à graine sur le niveau adverse (±). */
 export const OPPONENT_VARIANCE = 8
+
+// --- Économie du combat (FR-11) : bourse indicative par palier (€). ---
+export const PURSE_BY_TIER: Record<Tier, number> = {
+  immaf: 0,
+  regional: 2500,
+  major: 20000,
+}
