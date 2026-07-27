@@ -52,4 +52,15 @@ describe('organisations & passage pro (FR-5)', () => {
     expect(orgs.some((o) => o.tier === 'major')).toBe(true)
     expect(orgs.some((o) => o.tier === 'regional')).toBe(true)
   })
+
+  it('signer une organisation AMATEUR ne fait pas passer pro (reste amateur)', () => {
+    const offer = evt('evt-offre-amateur')
+    const ready = sessionAt({ record: { wins: 3, losses: 0, finishes: 0 } })
+    const session: Session = { ...ready, current: offer, opponent: null, lastResult: null, lastReveal: null, eventsThisYear: 0 }
+    const idx = offer.choices.findIndex((c) => c.signOrg)
+    const after = chooseInSession(session, idx)
+    expect(after.game.organization).toBe(offer.choices[idx].signOrg)
+    expect(after.game.pro).toBe(false)
+    expect(after.game.tier).toBe('immaf')
+  })
 })

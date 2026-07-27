@@ -10,6 +10,7 @@ import socialEvents from '../content/events/social.json'
 import journeyEvents from '../content/events/journey.json'
 import dailyEvents from '../content/events/daily.json'
 import careerEvents from '../content/events/career.json'
+import tournamentEvents from '../content/events/tournaments.json'
 import divisionsData from '../content/divisions.json'
 import organizationsData from '../content/organizations.json'
 import startingCriteriaData from '../content/starting-criteria.json'
@@ -99,9 +100,11 @@ export const ChoiceSchema = z.object({
 })
 
 /** Un événement `fight` déclenche la résolution de combat (FR-10) au lieu
- *  d'appliquer simplement les effets du choix. `titleFight` = combat de ceinture. */
+ *  d'appliquer simplement les effets du choix. `titleFight` = combat de ceinture.
+ *  `winFlag` = drapeau posé en cas de victoire (titres de tournoi amateur). */
 export const FightSchema = z.object({
   titleFight: z.boolean().default(false),
+  winFlag: z.string().min(1).optional(),
 })
 
 // Catégorie thématique d'un événement → couleur d'accent dans l'UI (les combats
@@ -157,6 +160,7 @@ export function loadEvents(): EventDef[] {
     ...journeyEvents,
     ...dailyEvents,
     ...careerEvents,
+    ...tournamentEvents,
   ])
 }
 
@@ -226,8 +230,10 @@ export function loadOpponentPool(): OpponentPool {
 export const OrganizationSchema = z.object({
   id: z.string().min(1),
   label: z.string().min(1),
-  /** Palier de l'organisation : régional ou majeur (l'amateur = pas d'orga). */
-  tier: z.enum(['regional', 'major']),
+  /** Niveau : amateur (ne passe pas pro) ou pro (fait signer un contrat pro). */
+  level: z.enum(['amateur', 'pro']).default('pro'),
+  /** Palier pour une orga pro (régional / majeur) ; ignoré pour l'amateur. */
+  tier: z.enum(['regional', 'major']).optional(),
   blurb: z.string().min(1),
 })
 export type Organization = z.infer<typeof OrganizationSchema>

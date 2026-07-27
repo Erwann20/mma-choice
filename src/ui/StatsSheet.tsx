@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import type { GameState } from '../engine'
 import { StatBar } from './StatBar'
-import { STYLE_LABEL, careerStatus } from './labels'
+import { STYLE_LABEL, careerStatus, amateurTitles } from './labels'
 
 export function StatsSheet({ game, onClose }: { game: GameState; onClose: () => void }) {
   useEffect(() => {
@@ -30,6 +30,11 @@ export function StatsSheet({ game, onClose }: { game: GameState; onClose: () => 
           Palmarès : <b>{game.record.wins}</b> V – <b>{game.record.losses}</b> D
           {game.record.finishes > 0 ? ` (${game.record.finishes} avant la limite)` : ''}
         </p>
+        {amateurTitles(game).length > 0 ? (
+          <p className="fighter-meta" style={{ marginTop: 4, color: 'var(--color-accent)' }}>
+            🏅 {amateurTitles(game).join(' · ')}
+          </p>
+        ) : null}
 
         <div className="overline" style={{ margin: 'var(--space-3) 0 var(--space-2)' }}>
           Combat

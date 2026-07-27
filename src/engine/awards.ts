@@ -30,6 +30,9 @@ export function careerAchievements(game: GameState): Achievement[] {
     if (cond) out.push(a)
   }
 
+  add(game.flags['titre_monde'] === true, { id: 'immaf-monde', icon: '🌍', label: 'Champion du Monde IMMAF', desc: 'A dominé le sommet de l’amateurisme mondial.' })
+  add(game.flags['titre_europe'] === true, { id: 'immaf-europe', icon: '🇪🇺', label: "Champion d'Europe IMMAF", desc: 'Sacré sur le continent en amateur.' })
+  add(game.flags['titre_france'] === true, { id: 'champ-france', icon: '🇫🇷', label: 'Champion de France amateur', desc: 'Meilleur amateur du pays.' })
   add(game.belt, { id: 'champion', icon: '🏆', label: 'Champion', desc: 'A décroché la ceinture de sa division.' })
   add(game.titleDefenses >= 2, { id: 'roi', icon: '🛡️', label: 'Roi de la division', desc: `${game.titleDefenses} défenses de titre réussies.` })
   add(game.tier === 'major' && meta.reputation >= 80, { id: 'icone', icon: '🌍', label: 'Icône mondiale', desc: 'Une superstar reconnue sur toute la planète MMA.' })
