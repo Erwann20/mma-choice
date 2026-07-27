@@ -3,6 +3,9 @@
 export const START_AGE = 18
 export const RETIREMENT_AGE = 38
 
+/** Nombre d'Événements joués par année de carrière avant l'avancée d'âge. */
+export const EVENTS_PER_YEAR = 3
+
 export const STAT_MIN = 0
 export const STAT_MAX = 100
 

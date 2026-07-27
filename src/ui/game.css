@@ -1,0 +1,179 @@
+/* Écran de carrière & composants (Story 1.7). Tokens : DESIGN.md / tokens.css */
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  padding: var(--space-4) var(--margin-mobile) var(--space-6);
+  gap: var(--space-4);
+}
+
+/* Fighter header */
+.fighter-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.fighter-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-strong);
+  display: grid;
+  place-content: center;
+  font-weight: 800;
+  color: var(--color-accent);
+  background: var(--color-surface);
+}
+.fighter-name {
+  margin: 0;
+  font-size: var(--fs-title);
+  font-weight: 800;
+  letter-spacing: -0.015em;
+}
+.fighter-meta {
+  margin: 2px 0 0;
+  font-size: var(--fs-meta);
+  color: var(--color-text-muted);
+}
+
+/* Chip row (méta) */
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  width: 100%;
+  border: 0;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+}
+.chip {
+  flex: 1 1 auto;
+  min-width: 60px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  padding: var(--space-2);
+}
+.chip-label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.chip-value {
+  font-size: var(--fs-stat);
+  font-weight: 700;
+}
+
+/* Event card */
+.event-card {
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-xl);
+  background: linear-gradient(180deg, var(--color-surface), #101216);
+  padding: var(--space-5) 18px;
+}
+.event-card .overline {
+  margin-bottom: var(--space-2);
+}
+.event-text {
+  margin: 0;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+/* Choices */
+.choice-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.choice-card {
+  width: 100%;
+  text-align: left;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  color: var(--color-text);
+  padding: var(--space-3) 15px;
+  min-height: 48px;
+  cursor: pointer;
+  font: inherit;
+}
+.choice-card:hover {
+  border-color: var(--color-accent-line);
+}
+.choice-label {
+  font-size: 14px;
+  font-weight: 700;
+}
+.choice-hint {
+  margin-top: 2px;
+  font-size: var(--fs-meta);
+  color: var(--color-text-muted);
+}
+.deltas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin-top: var(--space-2);
+}
+.delta {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: var(--radius-full);
+}
+.delta.up {
+  color: var(--color-accent);
+  background: var(--color-accent-wash);
+}
+.delta.down {
+  color: var(--color-danger);
+  background: var(--color-danger-wash);
+}
+.delta.neutral {
+  color: var(--color-text-secondary);
+  background: var(--color-surface-sunken);
+}
+
+/* Buttons */
+.btn-primary,
+.btn-secondary {
+  min-height: 48px;
+  border-radius: var(--radius-lg);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  padding: 0 var(--space-5);
+}
+.btn-primary {
+  background: var(--color-accent);
+  color: var(--color-bg);
+  border: 0;
+}
+.btn-secondary {
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-border-strong);
+  font-weight: 600;
+}
+
+/* Start & recap */
+.center-screen {
+  min-height: 100dvh;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  gap: var(--space-4);
+  padding: var(--margin-mobile);
+}
+.center-screen h1 {
+  margin: 0;
+  font-size: var(--fs-display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
