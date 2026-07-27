@@ -2,6 +2,7 @@
 // Le moteur ne consomme le contenu qu'à travers ces types validés.
 import { z } from 'zod'
 import amateurEvents from '../content/events/amateur.json'
+import metaEvents from '../content/events/meta.json'
 import divisionsData from '../content/divisions.json'
 import startingCriteriaData from '../content/starting-criteria.json'
 import opponentsData from '../content/opponents.json'
@@ -119,9 +120,9 @@ export function parseEvents(raw: unknown): EventDef[] {
   return events
 }
 
-/** Charge et valide tout le contenu d'Événements du jeu. */
+/** Charge et valide tout le contenu d'Événements du jeu (ids uniques globaux). */
 export function loadEvents(): EventDef[] {
-  return parseEvents(amateurEvents)
+  return parseEvents([...amateurEvents, ...metaEvents])
 }
 
 // --- Divisions de poids (grilles UFC) ---
