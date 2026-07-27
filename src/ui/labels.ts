@@ -22,3 +22,12 @@ export function effectChip(e: Effect): { label: string; dir: Dir } {
   const value = e.target === 'money' ? `${sign}${e.value} €` : `${CHANNEL_LABEL[e.target]} ${sign}${e.value}`
   return { label: value, dir }
 }
+
+/** Puce lisible pour un delta de combat (variation signée d'un canal). */
+export function changeChip(target: Effect['target'], value: number): { label: string; dir: Dir } {
+  const dir: Dir = value > 0 ? 'up' : value < 0 ? 'down' : 'neutral'
+  const sign = value > 0 ? '+' : value < 0 ? '−' : ''
+  const abs = Math.abs(value)
+  const label = target === 'money' ? `${sign}${abs} €` : `${CHANNEL_LABEL[target]} ${sign}${abs}`
+  return { label, dir }
+}
