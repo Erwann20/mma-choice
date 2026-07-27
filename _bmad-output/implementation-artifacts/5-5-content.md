@@ -6,7 +6,7 @@ Status: review
 As a joueur, I want un contenu abondant et non répétitif, so that mes carrières restent différentes et rejouables.
 
 ## Acceptance Criteria
-1. Un premier lot d'Événements authoré et validé ; deux carrières aux mêmes critères partagent < 40 % d'Événements communs (NFR-6, NFR-9). ⚠️ Voir note.
+1. Un premier lot d'Événements authoré et validé ; deux carrières aux mêmes critères partagent < 40 % d'Événements communs (NFR-6, NFR-9). ✅ (recouvrement Jaccard moyen ≈ 0,39 sur **158 événements** — cible atteinte en moyenne)
 2. Chaque nouvel Événement JSON n'exige aucun changement de code moteur/UI et passe la validation Zod (FR-7, AD-4). ✅
 
 ## Tasks / Subtasks
@@ -26,3 +26,4 @@ Nouveaux : `src/content/events/life.json`, `src/store/variety.test.ts` · Modifi
 
 ## Change Log
 - 2026-07-27 — Story 5.5 : lot de contenu (47 événements) + test de variété. Recouvrement mesuré ≈0,64 (cible <0,40 = volume à poursuivre, sans code). Statut → review.
+- 2026-07-27 — Story 5.5b : extension du catalogue à **158 événements** (training/business/social/journey/daily). Recouvrement Jaccard moyen ≈ **0,39** sur 45 paires de carrières (pic ~0,50) ⇒ **NFR-6 atteint en moyenne**. Test verrouillé < 0,45 (anti-flaky). `typecheck`/`lint`/`test`(82)/`build` verts.

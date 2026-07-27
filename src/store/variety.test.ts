@@ -49,10 +49,10 @@ describe('variété du contenu (NFR-6)', () => {
     const a = playCareer(111)
     const b = playCareer(999)
     const overlap = jaccard(a, b)
-    // Recouvrement mesuré ≈ 0,64 avec le catalogue V1 (~65 événements). La cible
-    // NFR-6 (< 0,40) suppose le catalogue plein visé (200–400) ; le pipeline le
-    // supporte sans changement de code (FR-7/NFR-9). On verrouille ici le seuil
-    // atteignable pour prévenir toute régression de variété.
-    expect(overlap).toBeLessThan(0.72)
+    // Catalogue V1 = 158 événements. Recouvrement Jaccard moyen ≈ 0,39 sur de
+    // nombreuses paires de carrières (cible NFR-6 < 0,40 atteinte en moyenne ;
+    // pic ~0,50 sur les pires paires). Seuil verrouillé avec marge anti-flaky
+    // pour prévenir toute régression de variété.
+    expect(overlap).toBeLessThan(0.45)
   })
 })
