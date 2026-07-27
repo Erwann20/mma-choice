@@ -51,6 +51,9 @@ export function evalCondition(state: GameState, c: Condition): boolean {
   if (c.kind === 'style') {
     return state.style === c.eq
   }
+  if (c.kind === 'sex') {
+    return state.fighter.sex === c.eq
+  }
   // flag : absent => false
   return (state.flags[c.flag] ?? false) === c.eq
 }

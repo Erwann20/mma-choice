@@ -121,6 +121,131 @@
     ]
   },
   {
+    "id": "evt-coupe-de-poids",
+    "weight": 8,
+    "repeatable": true,
+    "overline": "COUPE DE POIDS",
+    "text": "Nouvelle catégorie, nouvelle bataille contre la balance. La semaine de coupe s'annonce brutale. Comment la gères-tu ?",
+    "conditions": [{ "kind": "flag", "flag": "coupe_de_poids", "eq": true }],
+    "choices": [
+      {
+        "label": "Couper à l'arrache",
+        "hint": "Rapide mais tu le paies",
+        "effects": [
+          { "target": "health", "op": "sub", "value": 14 },
+          { "target": "cardio", "op": "sub", "value": 4 }
+        ],
+        "setFlags": { "coupe_de_poids": false }
+      },
+      {
+        "label": "Coupe encadrée par un nutritionniste (−2000 €)",
+        "hint": "Plus sûr, plus cher",
+        "effects": [
+          { "target": "money", "op": "sub", "value": 2000 },
+          { "target": "health", "op": "sub", "value": 5 }
+        ],
+        "setFlags": { "coupe_de_poids": false }
+      }
+    ]
+  },
+  {
+    "id": "evt-blessure",
+    "weight": 8,
+    "repeatable": true,
+    "overline": "BLESSURE",
+    "text": "L'IRM est tombée : une blessure sérieuse te met sur la touche. Le corps réclame son dû.",
+    "conditions": [{ "kind": "flag", "flag": "blessure", "eq": true }],
+    "choices": [
+      {
+        "label": "Repos complet",
+        "hint": "Guérir vraiment, quitte à rouiller",
+        "effects": [
+          { "target": "health", "op": "add", "value": 25 },
+          { "target": "reputation", "op": "sub", "value": 3 }
+        ],
+        "setFlags": { "blessure": false }
+      },
+      {
+        "label": "Revenir trop vite",
+        "hint": "Fragile, mais présent",
+        "effects": [
+          { "target": "health", "op": "add", "value": 8 },
+          { "target": "mental", "op": "sub", "value": 4 }
+        ],
+        "setFlags": { "blessure": false }
+      }
+    ]
+  },
+  {
+    "id": "evt-pesee-limite",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 2,
+    "overline": "SEMAINE DE PESÉE",
+    "text": "Tu arrives limite au poids. Le sauna ou la sagesse ?",
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 }],
+    "choices": [
+      {
+        "label": "Forcer la coupe",
+        "hint": "Tu fais le poids, mais vidé",
+        "effects": [{ "target": "health", "op": "sub", "value": 8 }]
+      },
+      {
+        "label": "Monter sur la balance serein",
+        "hint": "Discipline toute l'année",
+        "effects": [{ "target": "mental", "op": "add", "value": 2 }]
+      }
+    ]
+  },
+  {
+    "id": "evt-changer-categorie-h",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 5,
+    "overline": "CHANGER DE CATÉGORIE",
+    "text": "Ton corps a changé. Certains te voient plus fort dans une catégorie supérieure. Tu tentes le grand saut ?",
+    "conditions": [
+      { "kind": "sex", "eq": "M" },
+      { "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 }
+    ],
+    "choices": [
+      {
+        "label": "Monter chez les mi-moyens",
+        "hint": "Plus lourd, coupe plus douce",
+        "setDivision": "welterweight-m",
+        "effects": [{ "target": "health", "op": "add", "value": 5 }]
+      },
+      {
+        "label": "Rester dans ta catégorie",
+        "effects": [{ "target": "mental", "op": "add", "value": 2 }]
+      }
+    ]
+  },
+  {
+    "id": "evt-changer-categorie-f",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 5,
+    "overline": "CHANGER DE CATÉGORIE",
+    "text": "Ton corps a changé. Certaines te voient plus performante dans une catégorie supérieure. Tu tentes le grand saut ?",
+    "conditions": [
+      { "kind": "sex", "eq": "F" },
+      { "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 }
+    ],
+    "choices": [
+      {
+        "label": "Monter chez les poids coq",
+        "hint": "Plus lourd, coupe plus douce",
+        "setDivision": "bantamweight-f",
+        "effects": [{ "target": "health", "op": "add", "value": 5 }]
+      },
+      {
+        "label": "Rester dans ta catégorie",
+        "effects": [{ "target": "mental", "op": "add", "value": 2 }]
+      }
+    ]
+  },
+  {
     "id": "evt-camp-elite",
     "weight": 3,
     "repeatable": true,

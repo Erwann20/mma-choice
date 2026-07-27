@@ -23,6 +23,11 @@ export function applyChoice(state: GameState, event: EventDef, choice: Choice): 
   if (choice.setStyle) {
     s = { ...s, style: choice.setStyle }
   }
+  // Changement de division (FR-13) : déclenche une coupe de poids (flag consommé
+  // par un événement dédié) tant que la cible diffère de la division courante.
+  if (choice.setDivision && choice.setDivision !== s.division) {
+    s = { ...s, division: choice.setDivision, flags: { ...s.flags, coupe_de_poids: true } }
+  }
   if (choice.setFlags) {
     s = { ...s, flags: { ...s.flags, ...choice.setFlags } }
   }
