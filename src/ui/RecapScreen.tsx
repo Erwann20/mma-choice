@@ -1,7 +1,10 @@
+import { useState } from 'react'
 import type { GameState } from '../engine'
 import { computeScore, allTimeRank } from '../engine'
 import { loadDivisions } from '../schema'
 import { STYLE_LABEL, TIER_LABEL } from './labels'
+import { shareScore } from './share'
+import { Toast } from './Toast'
 
 function highlights(game: GameState): string[] {
   const div = loadDivisions().find((d) => d.id === game.division)
@@ -26,6 +29,16 @@ function highlights(game: GameState): string[] {
 export function RecapScreen({ game, onNew }: { game: GameState; onNew: () => void }) {
   const score = computeScore(game)
   const rank = allTimeRank(score)
+  const [shareMsg, setShareMsg] = useState<string | null>(null)
+
+  const onShare = async () => {
+    const outcome = await shareScore(game)
+    if (outcome === 'copied') setShareMsg('Score copié dans le presse-papiers.')
+    else if (outcome === 'failed') setShareMsg('Partage indisponible sur cet appareil.')
+    else setShareMsg(null)
+    if (outcome !== 'shared') setTimeout(() => setShareMsg(null), 2500)
+  }
+
   return (
     <section className="center-screen recap">
       <p className="overline">Fin de carrière</p>
@@ -45,6 +58,10 @@ export function RecapScreen({ game, onNew }: { game: GameState; onNew: () => voi
       <button className="btn-primary" type="button" onClick={onNew}>
         Nouvelle carrière
       </button>
+      <button className="btn-secondary" type="button" onClick={onShare}>
+        Partager mon score
+      </button>
+      {shareMsg ? <Toast message={shareMsg} /> : null}
     </section>
   )
 }
