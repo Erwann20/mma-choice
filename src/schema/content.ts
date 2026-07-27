@@ -46,6 +46,16 @@ export const ChoiceSchema = z.object({
   hint: z.string().optional(),
   effects: z.array(EffectSchema).default([]),
   setFlags: z.record(z.string(), z.union([z.boolean(), z.number()])).optional(),
+  // Conséquences différées (FR-9) : arment un flag actif dans `inYears` années.
+  armFlags: z
+    .array(
+      z.object({
+        flag: z.string().min(1),
+        value: z.union([z.boolean(), z.number()]),
+        inYears: z.number().int().positive(),
+      }),
+    )
+    .optional(),
 })
 
 export const EventSchema = z.object({
