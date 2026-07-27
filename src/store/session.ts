@@ -18,6 +18,22 @@ export interface Session {
   eventsThisYear: number
 }
 
+/** Forme persistée (AD-7) : le contenu est référencé par id, jamais embarqué. */
+export interface SavedSession {
+  game: GameState
+  currentId: string | null
+  eventsThisYear: number
+}
+
+export function serializeSession(s: Session): SavedSession {
+  return { game: s.game, currentId: s.current?.id ?? null, eventsThisYear: s.eventsThisYear }
+}
+
+export function deserializeSession(saved: SavedSession, events: EventDef[]): Session {
+  const current = saved.currentId ? (events.find((e) => e.id === saved.currentId) ?? null) : null
+  return { game: saved.game, events, current, eventsThisYear: saved.eventsThisYear }
+}
+
 /** Démarre une carrière : état initial + premier Événement sélectionné. */
 export function startCareer(events: EventDef[], seed: number, setup?: FighterSetup): Session {
   const game0 = createInitialState(seed, setup)
