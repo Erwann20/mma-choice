@@ -1,0 +1,57 @@
+{
+  "archetypes": [
+    {
+      "id": "brawler",
+      "label": "Cogneur",
+      "style": "striker",
+      "blurb": "Avance en marchant, mains lourdes.",
+      "power": 3,
+      "weakTo": "grappling"
+    },
+    {
+      "id": "sniper",
+      "label": "Tireur d'élite",
+      "style": "striker",
+      "blurb": "Précis, garde la distance.",
+      "power": 1,
+      "weakTo": "ground"
+    },
+    {
+      "id": "wrestler",
+      "label": "Lutteur de fond",
+      "style": "wrestler",
+      "blurb": "Amène au sol et contrôle.",
+      "power": 2,
+      "weakTo": "striking"
+    },
+    {
+      "id": "grappler",
+      "label": "Chasseur de soumission",
+      "style": "grappler",
+      "blurb": "Cherche le cou et les articulations.",
+      "power": 2,
+      "weakTo": "striking"
+    },
+    {
+      "id": "pressure",
+      "label": "Machine à pression",
+      "style": "allrounder",
+      "blurb": "Cardio infini, il t'use.",
+      "power": 2,
+      "weakTo": "ground"
+    },
+    {
+      "id": "veteran",
+      "label": "Vétéran retors",
+      "style": "allrounder",
+      "blurb": "Il a tout vu, il ne panique jamais.",
+      "power": 4,
+      "weakTo": "grappling"
+    }
+  ],
+  "firstNames": {
+    "M": ["Diego", "Kaï", "Marcus", "Rashid", "Ivan", "Tyrone", "Léo", "Hicham", "Bruno", "Yassin", "Connor", "Dmitri", "Malik", "Enzo", "Adem"],
+    "F": ["Nina", "Amara", "Léa", "Sofia", "Kayla", "Ronda", "Meïssa", "Ingrid", "Vanessa", "Julia", "Aïcha", "Petra", "Mona", "Zara", "Lucia"]
+  },
+  "lastNames": ["Volkov", "Da Silva", "Nguyen", "Kowalski", "Benali", "Torres", "Okafor", "Petrov", "Mendez", "Larsson", "Haddad", "Rossi", "Diallo", "Novak", "Costa", "Yamamoto"]
+}
