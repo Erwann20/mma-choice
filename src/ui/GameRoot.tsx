@@ -47,7 +47,9 @@ export function GameRoot() {
     )
   }
 
-  if (!session.current) {
+  // Récap de FIN DE CARRIÈRE uniquement à la retraite (le bilan annuel et la
+  // fin de tournoi mettent aussi `current` à null, mais sont gérés par CareerScreen).
+  if (session.game.phase === 'retired') {
     return (
       <>
         <RecapScreen

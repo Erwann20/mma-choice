@@ -9,6 +9,8 @@ import { OpponentCard } from './OpponentCard'
 import { ResultBanner } from './ResultBanner'
 import { ChoiceReveal } from './ChoiceReveal'
 import { YearReviewScreen } from './YearReviewScreen'
+import { BracketView } from './BracketView'
+import { TournamentEndScreen } from './TournamentEndScreen'
 import { describeStatChanges } from './a11y'
 import { eventCategory } from './labels'
 import { Skeleton } from './Skeleton'
@@ -32,6 +34,13 @@ export function CareerScreen() {
     prevGame.current = gameForEffect
   }, [gameForEffect])
 
+  // Fin de tournoi (FR-10) : tableau final + sacre ou élimination.
+  if (session && session.tournament && session.tournament.status !== 'fighting') {
+    return (
+      <TournamentEndScreen tournament={session.tournament} game={session.game} onContinue={advance} />
+    )
+  }
+
   // Bilan de fin d'année (FR-8) : écran de récap entre deux années.
   if (session && session.yearReview && session.game.phase === 'career') {
     return <YearReviewScreen review={session.yearReview} game={session.game} onContinue={advance} />
@@ -44,19 +53,21 @@ export function CareerScreen() {
     !session.lastResult &&
     !session.lastReveal &&
     !session.yearReview &&
+    !session.tournament &&
     session.game.phase === 'career'
   ) {
     return <Skeleton />
   }
   if (!session || !session.current) return null
-  const { game, current, opponent, lastResult, lastReveal } = session
+  const { game, current, opponent, lastResult, lastReveal, tournament } = session
 
-  // Écran de résultat de combat (UX-DR9).
+  // Écran de résultat de combat (UX-DR9) ; en tournoi, on montre le tableau.
   if (lastResult) {
     return (
       <main className="screen">
         <FighterHeader game={game} />
         <ResultBanner result={lastResult} />
+        {tournament ? <BracketView tournament={tournament} /> : null}
         <button className="btn-primary" type="button" onClick={advance}>
           Continuer
         </button>
@@ -87,6 +98,7 @@ export function CareerScreen() {
       <FighterHeader game={game} />
       <DataChipRow game={game} onOpen={() => setStatsOpen(true)} />
       {isFight && opponent ? <OpponentCard key={`opp-${current.id}`} opponent={opponent} /> : null}
+      {tournament ? <BracketView tournament={tournament} /> : null}
       <EventCard key={current.id} event={current} />
       <div className="choice-list">
         {current.choices.map((c, i) => (

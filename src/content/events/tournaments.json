@@ -7,16 +7,45 @@
     "category": "combat",
     "overline": "TOURNOI RÉGIONAL AMATEUR",
     "text": "Un tournoi amateur régional sur un week-end : plusieurs combats, un vrai test pour te jauger face à d'autres espoirs.",
-    "fight": { "winFlag": "titre_regional_am" },
+    "fight": {
+      "winFlag": "titre_regional_am",
+      "bracket": 4
+    },
     "conditions": [
-      { "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 },
-      { "kind": "stat", "on": "wins", "cmp": "gte", "value": 1 },
-      { "kind": "flag", "flag": "titre_regional_am", "eq": false }
+      {
+        "kind": "stat",
+        "on": "tier",
+        "cmp": "lte",
+        "value": 0
+      },
+      {
+        "kind": "stat",
+        "on": "wins",
+        "cmp": "gte",
+        "value": 1
+      },
+      {
+        "kind": "flag",
+        "flag": "titre_regional_am",
+        "eq": false
+      }
     ],
     "choices": [
-      { "label": "Miser sur ta frappe", "hint": "Debout", "tactic": "striking" },
-      { "label": "Imposer ta lutte", "hint": "Au corps-à-corps", "tactic": "grappling" },
-      { "label": "Dominer au sol", "hint": "Au tapis", "tactic": "ground" }
+      {
+        "label": "Miser sur ta frappe",
+        "hint": "Debout",
+        "tactic": "striking"
+      },
+      {
+        "label": "Imposer ta lutte",
+        "hint": "Au corps-à-corps",
+        "tactic": "grappling"
+      },
+      {
+        "label": "Dominer au sol",
+        "hint": "Au tapis",
+        "tactic": "ground"
+      }
     ]
   },
   {
@@ -27,16 +56,45 @@
     "category": "combat",
     "overline": "CHAMPIONNAT DE FRANCE AMATEUR",
     "text": "Le Championnat de France amateur. La meilleure sélection nationale se dispute le titre. Une victoire ici te met sur la carte.",
-    "fight": { "winFlag": "titre_france" },
+    "fight": {
+      "winFlag": "titre_france",
+      "bracket": 4
+    },
     "conditions": [
-      { "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 },
-      { "kind": "stat", "on": "wins", "cmp": "gte", "value": 3 },
-      { "kind": "flag", "flag": "titre_france", "eq": false }
+      {
+        "kind": "stat",
+        "on": "tier",
+        "cmp": "lte",
+        "value": 0
+      },
+      {
+        "kind": "stat",
+        "on": "wins",
+        "cmp": "gte",
+        "value": 3
+      },
+      {
+        "kind": "flag",
+        "flag": "titre_france",
+        "eq": false
+      }
     ],
     "choices": [
-      { "label": "Boxer avec précision", "hint": "Debout", "tactic": "striking" },
-      { "label": "Coller au grillage", "hint": "Au corps-à-corps", "tactic": "grappling" },
-      { "label": "Chercher la soumission", "hint": "Au tapis", "tactic": "ground" }
+      {
+        "label": "Boxer avec précision",
+        "hint": "Debout",
+        "tactic": "striking"
+      },
+      {
+        "label": "Coller au grillage",
+        "hint": "Au corps-à-corps",
+        "tactic": "grappling"
+      },
+      {
+        "label": "Chercher la soumission",
+        "hint": "Au tapis",
+        "tactic": "ground"
+      }
     ]
   },
   {
@@ -47,16 +105,44 @@
     "category": "combat",
     "overline": "IMMAF · CHAMPIONNAT D'EUROPE",
     "text": "Champion de France, tu es sélectionné pour l'IMMAF Europe. Le gratin continental est là. C'est un autre niveau.",
-    "fight": { "winFlag": "titre_europe" },
+    "fight": {
+      "winFlag": "titre_europe",
+      "bracket": 8
+    },
     "conditions": [
-      { "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 },
-      { "kind": "flag", "flag": "titre_france", "eq": true },
-      { "kind": "flag", "flag": "titre_europe", "eq": false }
+      {
+        "kind": "stat",
+        "on": "tier",
+        "cmp": "lte",
+        "value": 0
+      },
+      {
+        "kind": "flag",
+        "flag": "titre_france",
+        "eq": true
+      },
+      {
+        "kind": "flag",
+        "flag": "titre_europe",
+        "eq": false
+      }
     ],
     "choices": [
-      { "label": "Tenir la distance", "hint": "Debout", "tactic": "striking" },
-      { "label": "Étouffer au clinch", "hint": "Au corps-à-corps", "tactic": "grappling" },
-      { "label": "Passer la garde", "hint": "Au tapis", "tactic": "ground" }
+      {
+        "label": "Tenir la distance",
+        "hint": "Debout",
+        "tactic": "striking"
+      },
+      {
+        "label": "Étouffer au clinch",
+        "hint": "Au corps-à-corps",
+        "tactic": "grappling"
+      },
+      {
+        "label": "Passer la garde",
+        "hint": "Au tapis",
+        "tactic": "ground"
+      }
     ]
   },
   {
@@ -67,16 +153,44 @@
     "category": "combat",
     "overline": "IMMAF · CHAMPIONNAT DU MONDE",
     "text": "L'IMMAF Monde : le sommet de l'amateurisme. Gagner ici, c'est ouvrir en grand la porte du professionnalisme.",
-    "fight": { "winFlag": "titre_monde" },
+    "fight": {
+      "winFlag": "titre_monde",
+      "bracket": 8
+    },
     "conditions": [
-      { "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 },
-      { "kind": "flag", "flag": "titre_europe", "eq": true },
-      { "kind": "flag", "flag": "titre_monde", "eq": false }
+      {
+        "kind": "stat",
+        "on": "tier",
+        "cmp": "lte",
+        "value": 0
+      },
+      {
+        "kind": "flag",
+        "flag": "titre_europe",
+        "eq": true
+      },
+      {
+        "kind": "flag",
+        "flag": "titre_monde",
+        "eq": false
+      }
     ],
     "choices": [
-      { "label": "Tout donner debout", "hint": "Debout", "tactic": "striking" },
-      { "label": "Dicter le combat", "hint": "Au corps-à-corps", "tactic": "grappling" },
-      { "label": "Finir au sol", "hint": "Au tapis", "tactic": "ground" }
+      {
+        "label": "Tout donner debout",
+        "hint": "Debout",
+        "tactic": "striking"
+      },
+      {
+        "label": "Dicter le combat",
+        "hint": "Au corps-à-corps",
+        "tactic": "grappling"
+      },
+      {
+        "label": "Finir au sol",
+        "hint": "Au tapis",
+        "tactic": "ground"
+      }
     ]
   }
 ]

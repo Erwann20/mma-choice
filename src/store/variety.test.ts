@@ -19,12 +19,21 @@ function playCareer(seed: number): string[] {
   let session = startCareerFromCreation(events, crit, seed, criteria)
   const seen: string[] = []
   let guard = 0
-  while (session.current && guard < 500) {
+  while (session.current && guard < 2000) {
     guard++
     seen.push(session.current.id)
     session = chooseInSession(session, 0)
-    // Écran de conséquences (combat ou choix narratif) → reprendre.
-    if (session.lastResult || session.lastReveal) session = continueSession(session)
+    // Draine les écrans de pause : conséquences, bilan annuel, fin de tournoi.
+    let inner = 0
+    while (
+      (session.lastResult ||
+        session.lastReveal ||
+        session.yearReview ||
+        (session.tournament && session.tournament.status !== 'fighting')) &&
+      inner++ < 100
+    ) {
+      session = continueSession(session)
+    }
   }
   return seen
 }
