@@ -4,6 +4,7 @@ import { useGameStore } from '../store/game'
 import { CareerScreen } from './CareerScreen'
 import { CreationScreen } from './CreationScreen'
 import { RecapScreen } from './RecapScreen'
+import { HomeScreen } from './HomeScreen'
 import { ConfirmDialog } from './ConfirmDialog'
 import { Toast } from './Toast'
 
@@ -39,14 +40,10 @@ export function GameRoot() {
       )
     }
     return (
-      <section className="center-screen">
-        <h1>MMA CHOICE</h1>
-        <p style={{ color: 'var(--color-text-muted)' }}>Forge ta légende, choix après choix.</p>
-        <button className="btn-primary" type="button" onClick={() => setCreating(true)}>
-          Créer mon combattant
-        </button>
+      <>
+        <HomeScreen onStart={() => setCreating(true)} />
         {resumeToast}
-      </section>
+      </>
     )
   }
 
