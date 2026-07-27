@@ -178,6 +178,39 @@
   letter-spacing: -0.02em;
 }
 
+/* Squelette de chargement (Story 5.4, UX-DR12) */
+.skeleton {
+  border-radius: var(--radius-md);
+  background: linear-gradient(
+    90deg,
+    var(--color-surface) 25%,
+    var(--color-surface-sunken) 50%,
+    var(--color-surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.3s ease-in-out infinite;
+}
+.skeleton-header {
+  height: 46px;
+}
+.skeleton-chips {
+  height: 52px;
+}
+.skeleton-card {
+  height: 140px;
+}
+.skeleton-choice {
+  height: 56px;
+}
+@keyframes skeleton-shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
 /* Accueil (Story 5.1) */
 .home {
   gap: var(--space-6);
