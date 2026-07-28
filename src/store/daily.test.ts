@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { loadEvents } from '../schema'
 import { startDailyCareer, chooseInSession, continueSession, type Session } from './session'
-import { useGameStore } from './game'
+import { useGameStore, todayKey, yesterdayKey } from './game'
 
 function step(s: Session): Session {
   let a = chooseInSession(s, 0)
@@ -52,5 +52,31 @@ describe('mission du jour — verrou quotidien (store)', () => {
     useGameStore.setState({ session: null })
     useGameStore.getState().startDaily()
     expect(useGameStore.getState().session).toBeNull()
+  })
+
+  it('incrémente la série quand la mission de la veille a été jouée', () => {
+    useGameStore.setState({
+      session: null,
+      dailyResult: { date: yesterdayKey(), score: 40 },
+      dailyStreak: 3,
+      dailyHistory: [{ date: yesterdayKey(), score: 40 }],
+    })
+    useGameStore.getState().startDaily()
+    useGameStore.getState().retire()
+    expect(useGameStore.getState().dailyStreak).toBe(4)
+    expect(useGameStore.getState().dailyHistory[0].date).toBe(todayKey())
+    expect(useGameStore.getState().dailyHistory).toHaveLength(2)
+  })
+
+  it('réinitialise la série à 1 si un jour a été manqué', () => {
+    useGameStore.setState({
+      session: null,
+      dailyResult: { date: '2000-1-1', score: 40 },
+      dailyStreak: 9,
+      dailyHistory: [],
+    })
+    useGameStore.getState().startDaily()
+    useGameStore.getState().retire()
+    expect(useGameStore.getState().dailyStreak).toBe(1)
   })
 })
