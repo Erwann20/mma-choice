@@ -36,6 +36,12 @@ describe('trophées de carrière', () => {
     expect(champ?.label).toBe('Champion du Brésil (amateur)')
   })
 
+  it('débloque le trophée de Grand Prix mondial via le flag titre_gp', () => {
+    const g: GameState = { ...createInitialState(1), flags: { titre_gp: true } }
+    const gp = careerAchievements(g).find((a) => a.id === 'grand-prix')
+    expect(gp?.label).toMatch(/Grand Prix/)
+  })
+
   it('débloque les trophées de notoriété et de fortune', () => {
     const base = createInitialState(1)
     const g: GameState = { ...base, meta: { ...base.meta, followers: 60000, money: 150000 } }

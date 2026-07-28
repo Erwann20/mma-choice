@@ -27,6 +27,23 @@ describe('content schema', () => {
     expect(() => parseEvents([{ id: 'z', text: 't', choices: [] }])).toThrow()
   })
 
+  it('propose un combat de ceinture à chaque palier pro (régional ET majeur)', () => {
+    const titleFights = loadEvents().filter((e) => e.fight?.titleFight)
+    const atRegional = titleFights.some((e) =>
+      e.conditions.some((c) => c.kind === 'stat' && c.on === 'tier' && c.value <= 1),
+    )
+    const atMajor = titleFights.some((e) =>
+      e.conditions.some((c) => c.kind === 'stat' && c.on === 'tier' && c.cmp === 'gte' && c.value >= 2),
+    )
+    expect(atRegional).toBe(true)
+    expect(atMajor).toBe(true)
+  })
+
+  it('offre une bonne variété de combats simples (hors tournois)', () => {
+    const simpleFights = loadEvents().filter((e) => e.fight && e.fight.bracket === undefined)
+    expect(simpleFights.length).toBeGreaterThanOrEqual(15)
+  })
+
   it('applique les valeurs par défaut (weight, repeatable, conditions)', () => {
     const [e] = parseEvents([{ id: 'd', text: 't', choices: [{ label: 'l' }] }])
     expect(e.weight).toBe(1)

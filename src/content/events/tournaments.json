@@ -192,5 +192,54 @@
         "tactic": "ground"
       }
     ]
+  },
+  {
+    "id": "fight-tournoi-pro-gp",
+    "weight": 8,
+    "repeatable": true,
+    "cooldown": 3,
+    "category": "combat",
+    "overline": "GRAND PRIX MONDIAL",
+    "text": "Ton organisation lance un Grand Prix à huit combattants : trois combats en une nuit, un chèque colossal et un statut de prétendant n°1 au bout. Le tournoi le plus dur du sport pro. Prêt à tout enchaîner ?",
+    "fight": {
+      "winFlag": "titre_gp",
+      "bracket": 8
+    },
+    "conditions": [
+      {
+        "kind": "stat",
+        "on": "tier",
+        "cmp": "gte",
+        "value": 2
+      },
+      {
+        "kind": "stat",
+        "on": "reputation",
+        "cmp": "gte",
+        "value": 50
+      },
+      {
+        "kind": "flag",
+        "flag": "titre_gp",
+        "eq": false
+      }
+    ],
+    "choices": [
+      {
+        "label": "Tenir la distance et frapper",
+        "hint": "Debout",
+        "tactic": "striking"
+      },
+      {
+        "label": "Broyer au corps-à-corps",
+        "hint": "Au corps-à-corps",
+        "tactic": "grappling"
+      },
+      {
+        "label": "Enchaîner les finitions au sol",
+        "hint": "Au tapis",
+        "tactic": "ground"
+      }
+    ]
   }
 ]
