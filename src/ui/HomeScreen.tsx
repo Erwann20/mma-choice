@@ -55,6 +55,8 @@ export function HomeScreen({
   onStart,
   onReplay,
   onDaily,
+  onResume,
+  resumeName,
   dailyDoneScore,
   archive = [],
   onOpenCareer,
@@ -63,6 +65,10 @@ export function HomeScreen({
   onStart: () => void
   onReplay?: () => void
   onDaily?: () => void
+  /** Reprendre la carrière en pause (affiche une carte dédiée en tête). */
+  onResume?: () => void
+  /** Nom du combattant de la carrière en pause. */
+  resumeName?: string
   /** Score de la Mission du jour déjà tentée aujourd'hui, sinon null. */
   dailyDoneScore?: number | null
   archive?: ArchivedCareer[]
@@ -79,6 +85,16 @@ export function HomeScreen({
         <h1>MMA CHOICE</h1>
         <p style={{ color: 'var(--color-text-muted)', margin: 0 }}>Forge ta légende, choix après choix.</p>
       </div>
+      {onResume ? (
+        <button type="button" className="resume-card" onClick={onResume}>
+          <span className="resume-icon" aria-hidden="true">▶</span>
+          <span className="resume-body">
+            <span className="resume-title">Reprendre ma carrière</span>
+            <span className="resume-sub">{resumeName ?? 'Carrière en cours'}</span>
+          </span>
+        </button>
+      ) : null}
+
       <div className="mode-list">
         {MODES.map((m) => {
           const dailyDone = m.id === 'daily' && dailyDoneScore != null
