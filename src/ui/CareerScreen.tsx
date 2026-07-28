@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useGameStore } from '../store/game'
 import { FighterHeader } from './FighterHeader'
-import { DataChipRow } from './DataChipRow'
 import { EventCard } from './EventCard'
 import { ChoiceCard } from './ChoiceCard'
 import { StatsSheet } from './StatsSheet'
@@ -112,7 +111,7 @@ export function CareerScreen({
   if (lastResult) {
     return (
       <main className="screen">
-        <FighterHeader game={game} />
+        <FighterHeader game={game} onOpen={() => setStatsOpen(true)} />
         <ResultBanner result={lastResult} />
         {tournament ? <BracketView tournament={tournament} /> : null}
         <button className="btn-primary" type="button" onClick={advance}>
@@ -136,8 +135,7 @@ export function CareerScreen({
   if (lastReveal) {
     return (
       <main className={`screen cat-${eventCategory(current)}`}>
-        <FighterHeader game={game} />
-        <DataChipRow game={game} onOpen={() => setStatsOpen(true)} />
+        <FighterHeader game={game} onOpen={() => setStatsOpen(true)} />
         <EventCard event={current} game={game} />
         <ChoiceReveal changes={lastReveal.changes} />
         <button className="btn-primary" type="button" onClick={advance}>
@@ -160,8 +158,7 @@ export function CareerScreen({
   const isFight = !!current.fight && !!opponent
   return (
     <main className={`screen cat-${eventCategory(current)}`}>
-      <FighterHeader game={game} />
-      <DataChipRow game={game} onOpen={() => setStatsOpen(true)} />
+      <FighterHeader game={game} onOpen={() => setStatsOpen(true)} />
       {daily ? <DailyObjectiveBanner game={game} /> : null}
       {isFight && opponent ? <OpponentCard key={`opp-${current.id}`} opponent={opponent} /> : null}
       {tournament ? <BracketView tournament={tournament} /> : null}
