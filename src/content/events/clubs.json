@@ -1,0 +1,122 @@
+[
+  {
+    "id": "evt-club-ville",
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 3,
+    "category": "career",
+    "overline": "CHOISIR SON CLUB",
+    "text": "Il est temps de poser tes valises dans une salle. Chaque ville a sa culture, son école, son ambiance. Où vas-tu forger ton MMA ?",
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 }],
+    "choices": [
+      {
+        "label": "Paris — la grande scène",
+        "hint": "Exposition et contacts",
+        "effects": [
+          { "target": "reputation", "op": "add", "value": 4 },
+          { "target": "followers", "op": "add", "value": 300 }
+        ],
+        "setFlags": { "club_paris": true }
+      },
+      {
+        "label": "Angers — l'esprit famille",
+        "hint": "Un club soudé, la tête froide",
+        "effects": [
+          { "target": "mental", "op": "add", "value": 5 },
+          { "target": "cardio", "op": "add", "value": 2 }
+        ],
+        "setFlags": { "club_angers": true }
+      },
+      {
+        "label": "Nantes — l'école de lutte",
+        "hint": "Corps-à-corps et projections",
+        "effects": [{ "target": "grappling", "op": "add", "value": 6 }],
+        "setFlags": { "club_nantes": true }
+      },
+      {
+        "label": "Marseille — culture pieds-poings",
+        "hint": "La frappe avant tout",
+        "effects": [{ "target": "striking", "op": "add", "value": 6 }],
+        "setFlags": { "club_marseille": true }
+      }
+    ]
+  },
+  {
+    "id": "evt-changer-club",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 4,
+    "category": "career",
+    "overline": "CHANGER D'AIR",
+    "text": "Tu tournes en rond dans ta salle actuelle. Un changement de club pourrait relancer ta progression — ou te faire perdre tes repères.",
+    "conditions": [
+      { "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 },
+      { "kind": "stat", "on": "age", "cmp": "gte", "value": 19 }
+    ],
+    "choices": [
+      {
+        "label": "Rejoindre une grosse écurie en ville",
+        "hint": "Plus dur, plus relevé",
+        "effects": [
+          { "target": "reputation", "op": "add", "value": 5 },
+          { "target": "cardio", "op": "add", "value": 3 },
+          { "target": "health", "op": "sub", "value": 3 }
+        ]
+      },
+      {
+        "label": "Pointer une ville au hasard sur la carte",
+        "hint": "L'aventure, sans filet",
+        "effects": [
+          { "target": "striking", "op": "add", "value": 2 },
+          { "target": "grappling", "op": "add", "value": 2 },
+          { "target": "ground", "op": "add", "value": 2 },
+          { "target": "mental", "op": "sub", "value": 2 }
+        ]
+      },
+      {
+        "label": "Rester fidèle à ta salle",
+        "hint": "On ne change pas une équipe qui gagne",
+        "effects": [{ "target": "mental", "op": "add", "value": 3 }]
+      }
+    ]
+  },
+  {
+    "id": "evt-club-stage",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 3,
+    "category": "training",
+    "overline": "STAGE À L'ÉTRANGER",
+    "text": "Une salle réputée à l'étranger propose un stage intensif de quelques semaines. Ça coûte, ça fatigue, mais on en revient transformé.",
+    "conditions": [
+      { "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 },
+      { "kind": "stat", "on": "age", "cmp": "gte", "value": 20 }
+    ],
+    "choices": [
+      {
+        "label": "Camp de lutte à l'américaine",
+        "hint": "Wrestling non-stop",
+        "effects": [
+          { "target": "grappling", "op": "add", "value": 5 },
+          { "target": "health", "op": "sub", "value": 4 }
+        ]
+      },
+      {
+        "label": "Muay-thaï en Thaïlande",
+        "hint": "Tibias en acier",
+        "effects": [
+          { "target": "striking", "op": "add", "value": 5 },
+          { "target": "health", "op": "sub", "value": 4 }
+        ]
+      },
+      {
+        "label": "Rester bosser au pays",
+        "hint": "Économiser et récupérer",
+        "effects": [
+          { "target": "health", "op": "add", "value": 4 },
+          { "target": "mental", "op": "add", "value": 2 }
+        ]
+      }
+    ]
+  }
+]
