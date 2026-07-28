@@ -12,6 +12,7 @@ import { YearReviewScreen } from './YearReviewScreen'
 import { BracketView } from './BracketView'
 import { TournamentEndScreen } from './TournamentEndScreen'
 import { ConfirmDialog } from './ConfirmDialog'
+import { DailyObjectiveBanner } from './DailyObjectiveBanner'
 import { describeStatChanges } from './a11y'
 import { eventCategory } from './labels'
 import { Skeleton } from './Skeleton'
@@ -77,7 +78,7 @@ export function CareerScreen() {
     return <Skeleton />
   }
   if (!session || !session.current) return null
-  const { game, current, opponent, lastResult, lastReveal, tournament } = session
+  const { game, current, opponent, lastResult, lastReveal, tournament, daily } = session
 
   // Écran de résultat de combat (UX-DR9) ; en tournoi, on montre le tableau.
   if (lastResult) {
@@ -129,6 +130,7 @@ export function CareerScreen() {
     <main className={`screen cat-${eventCategory(current)}`}>
       <FighterHeader game={game} />
       <DataChipRow game={game} onOpen={() => setStatsOpen(true)} />
+      {daily ? <DailyObjectiveBanner game={game} /> : null}
       {isFight && opponent ? <OpponentCard key={`opp-${current.id}`} opponent={opponent} /> : null}
       {tournament ? <BracketView tournament={tournament} /> : null}
       <EventCard key={current.id} event={current} game={game} />

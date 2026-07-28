@@ -3,7 +3,7 @@ import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import type { FighterSetup, GameState } from '../engine'
 import type { Icon } from '../schema'
-import { computeScore } from '../engine'
+import { dailyScore } from '../engine'
 import { loadEvents, loadStartingCriteria } from '../schema'
 import {
   startCareer,
@@ -196,7 +196,7 @@ function recordDaily(
   if (next.daily && next.game.phase === 'retired') {
     const today = todayKey()
     if (get().dailyResult?.date !== today) {
-      return { session: next, dailyResult: { date: today, score: computeScore(next.game) } }
+      return { session: next, dailyResult: { date: today, score: dailyScore(next.game) } }
     }
   }
   return { session: next }

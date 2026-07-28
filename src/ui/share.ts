@@ -1,7 +1,7 @@
 // Partage du score de fin de carrière (FR-14, UX-DR15). 100 % côté client (AD-9) :
 // Web Share API si disponible, sinon repli sur le presse-papiers.
 import type { GameState } from '../engine'
-import { computeScore, allTimeRank } from '../engine'
+import { computeScore, allTimeRank, dailyObjective, dailyScore } from '../engine'
 
 export type ShareOutcome = 'shared' | 'copied' | 'failed'
 
@@ -13,11 +13,18 @@ export function buildShareText(game: GameState): string {
   return `MMA Choice — ${game.fighter.name} : ${score}/100 (${rank}ᵉ de tous les temps). Palmarès ${game.record.wins}-${game.record.losses}.${belt} Bats mon score !`
 }
 
+/** Carte de score partageable d'une Mission du jour (objectif + score). */
+export function buildDailyShareText(game: GameState): string {
+  const obj = dailyObjective(game.seed)
+  const met = obj.met(game)
+  return `MMA Choice — Mission du jour : ${dailyScore(game)}/100. Objectif « ${obj.label} » ${met ? 'réussi ✅' : 'manqué ❌'}. Bats mon score !`
+}
+
 /**
  * Tente de partager, avec repli presse-papiers. Ne lève jamais : renvoie l'issue.
  */
-export async function shareScore(game: GameState): Promise<ShareOutcome> {
-  const text = buildShareText(game)
+export async function shareScore(game: GameState, daily = false): Promise<ShareOutcome> {
+  const text = daily ? buildDailyShareText(game) : buildShareText(game)
   const nav = typeof navigator !== 'undefined' ? navigator : undefined
 
   if (nav && typeof nav.share === 'function') {

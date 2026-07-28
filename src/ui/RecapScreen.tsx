@@ -7,6 +7,8 @@ import {
   careerAchievements,
   beltOrgsWon,
   wasChampion,
+  dailyObjective,
+  dailyScore,
 } from '../engine'
 import type { Achievement } from '../engine'
 import { loadDivisions } from '../schema'
@@ -50,7 +52,10 @@ export function RecapScreen({
   /** Récap d'une Mission du jour (change l'intitulé). */
   daily?: boolean
 }) {
-  const score = computeScore(game)
+  // En Mission du jour, le score inclut le bonus d'objectif.
+  const objective = daily ? dailyObjective(game.seed) : null
+  const objectiveMet = objective ? objective.met(game) : false
+  const score = daily ? dailyScore(game) : computeScore(game)
   const rank = allTimeRank(score)
   const title = careerTitle(score)
   // Ceintures d'organisation (par promotion) : conservées à vie au palmarès,
@@ -68,7 +73,7 @@ export function RecapScreen({
   const [shareMsg, setShareMsg] = useState<string | null>(null)
 
   const onShare = async () => {
-    const outcome = await shareScore(game)
+    const outcome = await shareScore(game, daily)
     if (outcome === 'copied') setShareMsg('Score copié dans le presse-papiers.')
     else if (outcome === 'failed') setShareMsg('Partage indisponible sur cet appareil.')
     else setShareMsg(null)
@@ -94,6 +99,20 @@ export function RecapScreen({
         </p>
         <p className="rank-line">{rank}ᵉ meilleur combattant de tous les temps</p>
       </section>
+
+      {objective ? (
+        <section className={`daily-result ${objectiveMet ? 'met' : 'missed'}`}>
+          <span className="daily-result-icon" aria-hidden="true">
+            {objectiveMet ? '✅' : '❌'}
+          </span>
+          <span className="daily-result-body">
+            <span className="daily-result-head">
+              Objectif du jour {objectiveMet ? `réussi · +${objective.bonus}` : 'manqué'}
+            </span>
+            <span className="daily-result-text">{objective.label}</span>
+          </span>
+        </section>
+      ) : null}
 
       <h2 className="recap-section-title">Palmarès</h2>
       <div className="palmares-grid">
