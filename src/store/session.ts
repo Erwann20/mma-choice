@@ -1,6 +1,6 @@
 // Orchestration de la boucle de carrière (PURE, testable sans navigateur).
 // Enchaîne moteur + contenu ; le store Zustand n'est qu'un conteneur (AD-2).
-import type { Channel, Criterion, EventDef, StartingCriteria, OpponentPool, Organization } from '../schema'
+import type { Channel, Criterion, EventDef, StartingCriteria, OpponentPool, Organization, Icon } from '../schema'
 import { CHANNELS, loadOpponentPool, loadOrganizations } from '../schema'
 import type { FighterSetup, GameState, Opponent, FightResult, FightChange, Sex, Style, RngState } from '../engine'
 import {
@@ -429,6 +429,21 @@ function applyCriterion(state: GameState, cr: Criterion): GameState {
   for (const eff of cr.effects) s = applyEffect(s, eff)
   if (cr.setFlags) s = { ...s, flags: { ...s.flags, ...cr.setFlags } }
   return s
+}
+
+/** Démarre une carrière « Revivre » : profil d'une icône du MMA (FR-2). */
+export function startIconCareer(events: EventDef[], seed: number, icon: Icon): Session {
+  let game = createInitialState(seed, {
+    name: icon.name,
+    sex: icon.sex,
+    country: icon.country,
+    division: icon.division,
+    style: icon.style,
+    startAge: icon.startAge,
+  })
+  for (const eff of icon.effects) game = applyEffect(game, eff)
+  game = { ...game, flags: { ...game.flags, [`icon_${icon.id}`]: true } }
+  return beginCareer(game, events)
 }
 
 /** Démarre une carrière depuis l'écran de création : applique les critères (FR-2). */

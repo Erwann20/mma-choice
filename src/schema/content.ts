@@ -17,6 +17,7 @@ import divisionsData from '../content/divisions.json'
 import organizationsData from '../content/organizations.json'
 import startingCriteriaData from '../content/starting-criteria.json'
 import opponentsData from '../content/opponents.json'
+import iconsData from '../content/icons.json'
 
 // --- Canaux FERMÉS (AD-5) : effets/conditions ne peuvent viser que ceux-ci,
 // jamais un interne du moteur (rng, saveVersion, flags « vu »).
@@ -250,4 +251,25 @@ export const OrganizationPoolSchema = z.object({
 
 export function loadOrganizations(): Organization[] {
   return OrganizationPoolSchema.parse(organizationsData).organizations
+}
+
+// --- Icônes du MMA (mode « Revivre la carrière ») : profils préconfigurés ---
+export const IconSchema = z.object({
+  id: z.string().min(1),
+  name: z.string().min(1),
+  nickname: z.string().min(1),
+  flag: z.string().min(1),
+  country: z.string().min(1),
+  sex: z.enum(['M', 'F']),
+  division: z.string().min(1),
+  style: StyleSchema,
+  startAge: z.number().int().positive().optional(),
+  blurb: z.string().min(1),
+  /** Bonus de départ appliqués sur l'état initial (forces de l'icône). */
+  effects: z.array(EffectSchema).default([]),
+})
+export type Icon = z.infer<typeof IconSchema>
+
+export function loadIcons(): Icon[] {
+  return z.array(IconSchema).parse(iconsData)
 }

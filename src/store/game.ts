@@ -2,10 +2,12 @@
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import type { FighterSetup, GameState } from '../engine'
+import type { Icon } from '../schema'
 import { loadEvents, loadStartingCriteria } from '../schema'
 import {
   startCareer,
   startCareerFromCreation,
+  startIconCareer,
   chooseInSession,
   continueSession,
   retireCareer,
@@ -33,6 +35,8 @@ interface GameStore {
   archive: ArchivedCareer[]
   newCareer: (setup?: FighterSetup, seed?: number) => void
   createCareer: (choices: CreationChoices, seed?: number) => void
+  /** Démarre le mode « Revivre la carrière » avec le profil d'une icône. */
+  replayIcon: (icon: Icon, seed?: number) => void
   choose: (choiceIndex: number) => void
   /** Reprend après un écran de conséquences (combat ou choix narratif). */
   advance: () => void
@@ -74,6 +78,11 @@ export const useGameStore = create<GameStore>()(
         set((s) => ({
           archive: archiveIfRetired(s.archive, s.session),
           session: startCareerFromCreation(loadEvents(), loadStartingCriteria(), seed ?? randomSeed(), choices),
+        })),
+      replayIcon: (icon, seed) =>
+        set((s) => ({
+          archive: archiveIfRetired(s.archive, s.session),
+          session: startIconCareer(loadEvents(), seed ?? randomSeed(), icon),
         })),
       choose: (choiceIndex) => {
         const s = get().session

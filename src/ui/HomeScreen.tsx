@@ -14,7 +14,7 @@ interface Mode {
 
 const MODES: Mode[] = [
   { id: 'career', title: 'Faire ma carrière', desc: 'Crée ton combattant et écris ta légende, choix après choix.', soon: false },
-  { id: 'replay', title: 'Revivre la carrière', desc: 'Une carrière légendaire à rejouer, renouvelée chaque semaine.', soon: true },
+  { id: 'replay', title: 'Revivre la carrière', desc: 'Incarne une icône du MMA et réécris sa légende.', soon: false },
   { id: 'daily', title: 'Mission du jour', desc: 'Un défi quotidien, un seul essai.', soon: true },
 ]
 
@@ -53,16 +53,19 @@ function CareerRow({
 
 export function HomeScreen({
   onStart,
+  onReplay,
   archive = [],
   onOpenCareer,
   onDeleteCareer,
 }: {
   onStart: () => void
+  onReplay?: () => void
   archive?: ArchivedCareer[]
   onOpenCareer?: (career: ArchivedCareer) => void
   onDeleteCareer?: (id: string) => void
 }) {
   const [acked, setAcked] = useState<string | null>(null)
+  const onMode = (id: string) => (id === 'replay' ? onReplay?.() : onStart())
 
   return (
     <main className="center-screen home">
@@ -86,7 +89,12 @@ export function HomeScreen({
               <span className="mode-desc">{acked === m.id ? 'Bientôt disponible — reviens vite !' : m.desc}</span>
             </button>
           ) : (
-            <button key={m.id} type="button" className="mode-card is-primary" onClick={onStart}>
+            <button
+              key={m.id}
+              type="button"
+              className={`mode-card ${m.id === 'career' ? 'is-primary' : ''}`}
+              onClick={() => onMode(m.id)}
+            >
               <span className="mode-title">{m.title}</span>
               <span className="mode-desc">{m.desc}</span>
             </button>

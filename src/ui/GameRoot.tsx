@@ -3,18 +3,22 @@ import { useEffect, useState } from 'react'
 import { useGameStore } from '../store/game'
 import { CareerScreen } from './CareerScreen'
 import { CreationScreen } from './CreationScreen'
+import { IconSelectScreen } from './IconSelectScreen'
 import { RecapScreen } from './RecapScreen'
 import { HomeScreen } from './HomeScreen'
 import { ConfirmDialog } from './ConfirmDialog'
 import { Toast } from './Toast'
+import { loadIcons } from '../schema'
 
 export function GameRoot() {
   const session = useGameStore((s) => s.session)
   const archive = useGameStore((s) => s.archive)
   const createCareer = useGameStore((s) => s.createCareer)
+  const replayIcon = useGameStore((s) => s.replayIcon)
   const reset = useGameStore((s) => s.reset)
   const deleteArchived = useGameStore((s) => s.deleteArchived)
   const [creating, setCreating] = useState(false)
+  const [pickingIcon, setPickingIcon] = useState(false)
   const [confirmNew, setConfirmNew] = useState(false)
   const [resumed, setResumed] = useState(false)
   const [viewingId, setViewingId] = useState<string | null>(null)
@@ -47,10 +51,23 @@ export function GameRoot() {
         />
       )
     }
+    if (pickingIcon) {
+      return (
+        <IconSelectScreen
+          icons={loadIcons()}
+          onPick={(icon) => {
+            replayIcon(icon)
+            setPickingIcon(false)
+          }}
+          onCancel={() => setPickingIcon(false)}
+        />
+      )
+    }
     return (
       <>
         <HomeScreen
           onStart={() => setCreating(true)}
+          onReplay={() => setPickingIcon(true)}
           archive={archive}
           onOpenCareer={(c) => setViewingId(c.id)}
           onDeleteCareer={deleteArchived}

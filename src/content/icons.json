@@ -1,0 +1,92 @@
+[
+  {
+    "id": "notorious",
+    "name": "Conor McGregor",
+    "nickname": "The Notorious",
+    "flag": "🇮🇪",
+    "country": "Irlande",
+    "sex": "M",
+    "division": "lightweight-m",
+    "style": "striker",
+    "startAge": 20,
+    "blurb": "Le gaucher le plus arrogant du sport. Une main gauche qui éteint les lumières et un micro en or. Sauras-tu porter la couronne comme lui ?",
+    "effects": [
+      { "target": "striking", "op": "add", "value": 30 },
+      { "target": "mental", "op": "add", "value": 12 },
+      { "target": "reputation", "op": "add", "value": 18 },
+      { "target": "followers", "op": "add", "value": 4000 }
+    ]
+  },
+  {
+    "id": "eagle",
+    "name": "Khabib Nurmagomedov",
+    "nickname": "The Eagle",
+    "flag": "🇷🇺",
+    "country": "Russie (Daghestan)",
+    "sex": "M",
+    "division": "lightweight-m",
+    "style": "wrestler",
+    "startAge": 20,
+    "blurb": "Élevé à lutter contre des ours. Une pression au sol étouffante et un mental d'acier. Resteras-tu invaincu comme lui ?",
+    "effects": [
+      { "target": "grappling", "op": "add", "value": 30 },
+      { "target": "ground", "op": "add", "value": 20 },
+      { "target": "cardio", "op": "add", "value": 15 },
+      { "target": "mental", "op": "add", "value": 15 }
+    ]
+  },
+  {
+    "id": "spider",
+    "name": "Anderson Silva",
+    "nickname": "The Spider",
+    "flag": "🇧🇷",
+    "country": "Brésil",
+    "sex": "M",
+    "division": "middleweight-m",
+    "style": "striker",
+    "startAge": 21,
+    "blurb": "L'artiste de l'octogone. Une précision chirurgicale et un timing surnaturel. Signeras-tu le plus long règne de l'histoire ?",
+    "effects": [
+      { "target": "striking", "op": "add", "value": 32 },
+      { "target": "mental", "op": "add", "value": 18 },
+      { "target": "ground", "op": "add", "value": 8 },
+      { "target": "reputation", "op": "add", "value": 15 }
+    ]
+  },
+  {
+    "id": "lioness",
+    "name": "Amanda Nunes",
+    "nickname": "The Lioness",
+    "flag": "🇧🇷",
+    "country": "Brésil",
+    "sex": "F",
+    "division": "bantamweight-f",
+    "style": "allrounder",
+    "startAge": 20,
+    "blurb": "La plus grande combattante de l'histoire. Frappe dévastatrice, jiu-jitsu redoutable, double championne. Deviendras-tu une G.O.A.T. ?",
+    "effects": [
+      { "target": "striking", "op": "add", "value": 24 },
+      { "target": "grappling", "op": "add", "value": 22 },
+      { "target": "ground", "op": "add", "value": 12 },
+      { "target": "reputation", "op": "add", "value": 15 }
+    ]
+  },
+  {
+    "id": "rush",
+    "name": "Georges St-Pierre",
+    "nickname": "Rush",
+    "flag": "🇨🇦",
+    "country": "Canada",
+    "sex": "M",
+    "division": "welterweight-m",
+    "style": "wrestler",
+    "startAge": 20,
+    "blurb": "Le combattant le plus complet de sa génération. Lutte, cardio et intelligence de fight au sommet. Domineras-tu une division entière ?",
+    "effects": [
+      { "target": "grappling", "op": "add", "value": 25 },
+      { "target": "cardio", "op": "add", "value": 22 },
+      { "target": "mental", "op": "add", "value": 18 },
+      { "target": "striking", "op": "add", "value": 12 }
+    ]
+  }
+]

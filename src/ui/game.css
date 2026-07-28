@@ -1342,3 +1342,53 @@
   color: var(--color-danger);
   border-color: var(--color-danger);
 }
+
+/* --- Sélection d'icône (Revivre la carrière) --- */
+.icon-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: var(--space-3) 0;
+}
+.icon-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s ease, transform 0.1s ease;
+}
+.icon-card:hover {
+  border-color: var(--color-accent);
+}
+.icon-card:active {
+  transform: scale(0.99);
+}
+.icon-flag {
+  font-size: 32px;
+  line-height: 1.1;
+}
+.icon-body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.icon-name {
+  font-weight: 800;
+  font-size: var(--fs-body, 16px);
+}
+.icon-nick {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+.icon-blurb {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  line-height: 1.35;
+}
