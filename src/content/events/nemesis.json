@@ -1,0 +1,36 @@
+[
+  {
+    "id": "evt-nemesis-birth",
+    "weight": 10,
+    "repeatable": false,
+    "category": "combat",
+    "overline": "UN RIVAL EST NÉ",
+    "text": "Il y a des adversaires qu'on n'oublie pas. {nemesis} t'a chauffé toute la semaine de conférence, t'a manqué de respect au face-à-face. Ce soir, ça déborde. Cette rivalité commence maintenant.",
+    "fight": { "nemesis": true },
+    "conditions": [
+      { "kind": "stat", "on": "reputation", "cmp": "gte", "value": 20 },
+      { "kind": "flag", "flag": "nemesis_ne", "eq": false }
+    ],
+    "choices": [
+      { "label": "Le faire taire debout", "hint": "Ta frappe décide", "tactic": "striking" },
+      { "label": "Le briser au corps-à-corps", "hint": "Ta lutte décide", "tactic": "grappling" },
+      { "label": "L'humilier au sol", "hint": "Ton jeu au sol décide", "tactic": "ground" }
+    ]
+  },
+  {
+    "id": "evt-nemesis-rematch",
+    "weight": 5,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "combat",
+    "overline": "LA REVANCHE",
+    "text": "{nemesis} recroise ta route, et rien n'a été réglé entre vous. Le public réclame ce combat, les promoteurs s'en frottent les mains. Cette fois, tu veux clore le débat.",
+    "fight": { "nemesis": true },
+    "conditions": [{ "kind": "flag", "flag": "nemesis_ne", "eq": true }],
+    "choices": [
+      { "label": "Régler ça aux poings", "hint": "Ta frappe décide", "tactic": "striking" },
+      { "label": "Le dominer au corps-à-corps", "hint": "Ta lutte décide", "tactic": "grappling" },
+      { "label": "Le soumettre pour de bon", "hint": "Ton jeu au sol décide", "tactic": "ground" }
+    ]
+  }
+]

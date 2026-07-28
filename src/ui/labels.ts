@@ -76,6 +76,7 @@ export function interpolate(text: string, game: GameState): string {
     .replace(/\{nation\}/g, nationOf(game.fighter.country))
     .replace(/\{country\}/g, game.fighter.country)
     .replace(/\{name\}/g, game.fighter.name)
+    .replace(/\{nemesis\}/g, game.nemesis?.name ?? 'ton rival')
 }
 
 /** Libellé (avec emoji) d'un titre amateur, selon la clé de flag et le pays. */

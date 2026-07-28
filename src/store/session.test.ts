@@ -40,6 +40,27 @@ describe('session', () => {
     expect(s.year).toBe(2)
   })
 
+  it('fait naître une némésis sur un combat de rivalité et suit le face-à-face', () => {
+    const story = ev('s')
+    const nemFight: EventDef = {
+      id: 'nem',
+      weight: 50,
+      repeatable: true,
+      overline: undefined,
+      text: 'rival {nemesis}',
+      fight: { titleFight: false, nemesis: true },
+      choices: [{ label: 'x', effects: [], tactic: 'striking' }],
+      conditions: [],
+    }
+    let s: Session = startCareer([story, nemFight], 1)
+    for (let i = 0; i < 15; i++) s = step(s)
+    expect(s.game.nemesis).not.toBeNull()
+    expect(s.game.flags['nemesis_ne']).toBe(true)
+    // Un même rival, recroisé : le face-à-face a été alimenté au fil des duels.
+    const total = (s.game.nemesis?.playerWins ?? 0) + (s.game.nemesis?.playerLosses ?? 0)
+    expect(total).toBeGreaterThanOrEqual(1)
+  })
+
   it('dresse un bilan de fin d’année avant de vieillir', () => {
     let s: Session = startCareer(EVENTS, 1)
     const yearLen = s.yearPlan.length

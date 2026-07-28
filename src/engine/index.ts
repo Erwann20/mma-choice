@@ -12,8 +12,15 @@ export type {
   Flags,
   FighterSetup,
   PendingFlag,
+  Nemesis,
 } from './state'
 export { createInitialState, DEFAULT_FIGHTER_NAME } from './state'
+export {
+  NEMESIS_BORN_FLAG,
+  nemesisToOpponent,
+  birthNemesis,
+  recordNemesisResult,
+} from './nemesis'
 
 export type { Opponent, FightResult, FightOutcome, FightMethod, FightChange } from './combat'
 export { generateOpponent, resolveFight } from './combat'

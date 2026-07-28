@@ -15,7 +15,9 @@ export function ResultBanner({ result }: { result: FightResult }) {
   const meta = OUTCOME[result.outcome]
   return (
     <section className={`result-banner tone-${meta.tone}`} role="status" aria-live="polite">
-      <p className="overline">{result.titleFight ? 'Combat de titre' : 'Résultat du combat'}</p>
+      <p className="overline">
+        {result.nemesis ? '⚔️ Rivalité' : result.titleFight ? 'Combat de titre' : 'Résultat du combat'}
+      </p>
       <h2 className="result-title">{meta.title}</h2>
       <p className="result-method">
         {result.win ? 'Victoire' : 'Défaite'} par {result.method} · face à {result.opponentName} (

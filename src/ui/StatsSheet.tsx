@@ -63,6 +63,11 @@ export function StatsSheet({
             🏅 {amateurTitles(game).join(' · ')}
           </p>
         ) : null}
+        {game.nemesis ? (
+          <p className="fighter-meta sheet-nemesis" style={{ marginTop: 4 }}>
+            ⚔️ Némésis : {game.nemesis.name} (face-à-face {game.nemesis.playerWins}-{game.nemesis.playerLosses})
+          </p>
+        ) : null}
 
         <div className="overline" style={{ margin: 'var(--space-3) 0 var(--space-2)' }}>
           Combat

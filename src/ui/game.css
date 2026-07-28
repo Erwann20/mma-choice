@@ -1056,6 +1056,11 @@
   font-weight: 600;
 }
 
+.sheet-nemesis {
+  color: var(--color-danger, #e5484d);
+  font-weight: 600;
+}
+
 .toast {
   position: fixed;
   left: 50%;

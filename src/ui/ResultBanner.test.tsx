@@ -13,6 +13,7 @@ const base: FightResult = {
   titleFight: false,
   wonBelt: false,
   lostBelt: false,
+  nemesis: false,
   changes: [
     { target: 'reputation', value: 18 },
     { target: 'health', value: -9 },
