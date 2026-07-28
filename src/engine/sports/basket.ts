@@ -20,7 +20,12 @@ import { nextInt } from '../rng'
 import { readChannel } from '../channels'
 import { applyEffect } from '../effects'
 import { markEventConsumed } from '../events'
+import { activeSequelae, acquireSequela } from '../injuries'
+import { signatureTactic, SIGNATURE_BONUS } from '../coaching'
 import { loadOpponentPool } from '../../schema'
+
+/** Séquelles chroniques que le basket peut infliger. */
+const BK_SEQUELAE = ['sequelle_cheville', 'sequelle_genou', 'sequelle_dos']
 
 const STAT_KEYS = ['tir', 'dribble', 'passe', 'defense', 'athletisme']
 const STAT_LABELS: Record<string, string> = {
@@ -142,16 +147,19 @@ function generateOpponent(state: GameState, rng: RngState): [Opponent, RngState]
   const [wins, r4] = nextInt(r3, Math.floor(level / 3), Math.floor(level / 2) + 10)
   const [losses, r5] = nextInt(r4, 5, Math.max(6, Math.floor((100 - level) / 2)))
 
+  // Style basket parmi quelques archétypes (sert la némésis + la faiblesse).
+  const STYLES = ['scoreur', 'meneur', 'defenseur', 'athlete']
+  const [sIdx, r6] = nextInt(r5, 0, STYLES.length - 1)
   const opponent: Opponent = {
     name,
     archetypeId: 'basket',
     label: 'Équipe adverse',
-    style: 'polyvalent',
+    style: STYLES[sIdx],
     level,
     record: `${wins}-${losses}`,
-    weakTo: 'defense',
+    weakTo: STYLES[sIdx] === 'defenseur' || STYLES[sIdx] === 'athlete' ? 'tir' : 'defense',
   }
-  return [opponent, r5]
+  return [opponent, r6]
 }
 
 /** Meilleur canal offensif (tactique par défaut des matchs simulés). */
@@ -187,10 +195,13 @@ function resolveMatch(
   const tactic: Channel = choice.tactic ?? 'tir'
   const tacticStat = readChannel(state, tactic)
   const overall = overallOf(state)
+  const injuryCount = activeSequelae(state).length
 
   let perf = tacticStat * 0.6 + (state.stats.athletisme ?? 0) * 0.2 + state.meta.mental * 0.2
   if (tactic === opponent.weakTo) perf += 12
   if (styleMatchesTactic(state.style, tactic)) perf += 6
+  if (tactic === signatureTactic(state)) perf += SIGNATURE_BONUS
+  perf -= injuryCount * 5
 
   const [noise, rng1] = nextInt(state.rng, -10, 10)
   const margin = perf - opponent.level + noise
@@ -219,6 +230,7 @@ function resolveMatch(
   push('followers', followers)
   push('money', purse)
   push('health', -reward.healthCost)
+  if (injuryCount > 0) push('health', -injuryCount * 3)
   const titleFight = event.fight?.titleFight ?? false
   if (titleFight && win) {
     push('reputation', 12)
@@ -257,6 +269,15 @@ function resolveMatch(
     }
   }
 
+  // Séquelle chronique (FR-13) : une lourde défaite (ou en état critique) peut
+  // laisser une blessure durable, tirée dans le pool du basket.
+  let newInjury: string | undefined
+  if (!win && (margin <= -18 || g.meta.health <= 25)) {
+    const inj = acquireSequela(g, BK_SEQUELAE, margin <= -18)
+    g = inj.game
+    newInjury = inj.injury
+  }
+
   g = markEventConsumed(g, event)
 
   const result: FightResult = {
@@ -272,6 +293,7 @@ function resolveMatch(
     changes,
     nemesis: event.fight?.nemesis ?? false,
     detail,
+    ...(newInjury ? { newInjury } : {}),
   }
   return { game: g, result }
 }

@@ -285,5 +285,102 @@
       { "label": "{ville3} — le temple de la défense", "hint": "On y apprend à défendre", "effects": [{ "target": "defense", "op": "add", "value": 5 }], "setCity": 3 },
       { "label": "{ville4} — un club formateur", "hint": "Patience et fondamentaux", "effects": [{ "target": "passe", "op": "add", "value": 3 }, { "target": "mental", "op": "add", "value": 3 }], "setCity": 4 }
     ]
+  },
+  {
+    "id": "bk-coach-mentor",
+    "weight": 4,
+    "repeatable": false,
+    "category": "training",
+    "overline": "TROUVER SON MENTOR",
+    "text": "Un ancien de la ligue veut faire de toi son projet. Ce qu'il t'enseignera deviendra ta signature — l'arme que les défenses redouteront. Quelle école choisis-tu ?",
+    "conditions": [
+      { "kind": "stat", "on": "age", "cmp": "gte", "value": 19 },
+      { "kind": "flag", "flag": "coach_signe", "eq": false }
+    ],
+    "choices": [
+      { "label": "Un maître du shoot", "hint": "Débloque ton tir signature", "effects": [{ "target": "tir", "op": "add", "value": 5 }, { "target": "mental", "op": "add", "value": 2 }], "setFlags": { "coach_signe": true, "mentor_tir": true } },
+      { "label": "Un magicien du dribble", "hint": "Débloque ton dribble signature", "effects": [{ "target": "dribble", "op": "add", "value": 5 }], "setFlags": { "coach_signe": true, "mentor_dribble": true } },
+      { "label": "Un maestro de la passe", "hint": "Débloque ta passe signature", "effects": [{ "target": "passe", "op": "add", "value": 5 }, { "target": "mental", "op": "add", "value": 2 }], "setFlags": { "coach_signe": true, "mentor_passe": true } },
+      { "label": "Un stoppeur d'élite", "hint": "Débloque ta défense signature", "effects": [{ "target": "defense", "op": "add", "value": 5 }], "setFlags": { "coach_signe": true, "mentor_defense": true } }
+    ]
+  },
+  {
+    "id": "bk-nemesis-birth",
+    "weight": 10,
+    "repeatable": false,
+    "category": "combat",
+    "overline": "UN RIVAL EST NÉ",
+    "text": "Il y a des adversaires qu'on n'oublie pas. {nemesis} t'a chambré toute la semaine dans les médias et t'a manqué de respect. Ce soir, sur le parquet, ça déborde. Cette rivalité commence maintenant.",
+    "fight": { "nemesis": true },
+    "conditions": [
+      { "kind": "stat", "on": "reputation", "cmp": "gte", "value": 20 },
+      { "kind": "flag", "flag": "nemesis_ne", "eq": false }
+    ],
+    "choices": [
+      { "label": "Le faire taire au scoring", "hint": "Ton tir décide", "tactic": "tir" },
+      { "label": "L'humilier balle en main", "hint": "Ton dribble décide", "tactic": "dribble" },
+      { "label": "Le museler en défense", "hint": "Ta défense décide", "tactic": "defense" }
+    ]
+  },
+  {
+    "id": "bk-nemesis-rematch",
+    "weight": 5,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "combat",
+    "overline": "LA REVANCHE",
+    "text": "{nemesis} recroise ta route, et rien n'a été réglé entre vous. Le public réclame ce duel, les diffuseurs s'en frottent les mains. Cette fois, tu veux clore le débat.",
+    "fight": { "nemesis": true },
+    "conditions": [{ "kind": "flag", "flag": "nemesis_ne", "eq": true }],
+    "choices": [
+      { "label": "Régler ça au tir", "hint": "Ton tir décide", "tactic": "tir" },
+      { "label": "Le passer encore et encore", "hint": "Ton dribble décide", "tactic": "dribble" },
+      { "label": "Le rendre fou en défense", "hint": "Ta défense décide", "tactic": "defense" }
+    ]
+  },
+  {
+    "id": "bk-inj-cheville",
+    "weight": 4,
+    "repeatable": true,
+    "cooldown": 2,
+    "category": "health",
+    "overline": "CHEVILLE FRAGILE",
+    "text": "Ta cheville se dérobe au moindre appui depuis cette entorse mal soignée. Chaque changement de direction te rappelle qu'elle ne pardonnera pas. Comment tu gères ?",
+    "conditions": [{ "kind": "flag", "flag": "sequelle_cheville", "eq": true }],
+    "choices": [
+      { "label": "Passer sur le billard", "hint": "Opération : coûteuse mais on repart neuf", "effects": [{ "target": "money", "op": "sub", "value": 4000 }, { "target": "health", "op": "sub", "value": 6 }], "setFlags": { "sequelle_cheville": false } },
+      { "label": "Rééduquer patiemment", "hint": "Repos et kiné", "effects": [{ "target": "health", "op": "add", "value": 6 }, { "target": "mental", "op": "sub", "value": 2 }] },
+      { "label": "Strapper et jouer quand même", "hint": "On ne lâche rien", "effects": [{ "target": "athletisme", "op": "add", "value": 3 }, { "target": "health", "op": "sub", "value": 5 }] }
+    ]
+  },
+  {
+    "id": "bk-inj-genou",
+    "weight": 4,
+    "repeatable": true,
+    "cooldown": 2,
+    "category": "health",
+    "overline": "GENOU FRAGILE",
+    "text": "Ton genou te lance depuis cette réception ratée. Les médecins parlent de ménisque, toi tu penses au prochain match. Il faut trancher.",
+    "conditions": [{ "kind": "flag", "flag": "sequelle_genou", "eq": true }],
+    "choices": [
+      { "label": "Chirurgie du genou", "hint": "Longue convalescence, mais durable", "effects": [{ "target": "money", "op": "sub", "value": 6000 }, { "target": "health", "op": "sub", "value": 8 }], "setFlags": { "sequelle_genou": false } },
+      { "label": "Renforcement et prudence", "hint": "Gérer la charge", "effects": [{ "target": "health", "op": "add", "value": 5 }, { "target": "defense", "op": "add", "value": 2 }] },
+      { "label": "Serrer les dents", "hint": "Jouer sur une jambe", "effects": [{ "target": "tir", "op": "add", "value": 3 }, { "target": "health", "op": "sub", "value": 5 }] }
+    ]
+  },
+  {
+    "id": "bk-inj-dos",
+    "weight": 4,
+    "repeatable": true,
+    "cooldown": 2,
+    "category": "health",
+    "overline": "DOS FRAGILE",
+    "text": "Ton dos se bloque sans prévenir depuis des mois. Certains matins, tu peines à lacer tes chaussures. Ça ne peut plus durer.",
+    "conditions": [{ "kind": "flag", "flag": "sequelle_dos", "eq": true }],
+    "choices": [
+      { "label": "Intervention et longue pause", "hint": "Réparer pour de bon", "effects": [{ "target": "money", "op": "sub", "value": 5000 }, { "target": "health", "op": "sub", "value": 7 }, { "target": "mental", "op": "add", "value": 2 }], "setFlags": { "sequelle_dos": false } },
+      { "label": "Gainage et kiné au quotidien", "hint": "Prévenir plutôt que guérir", "effects": [{ "target": "health", "op": "add", "value": 5 }, { "target": "mental", "op": "add", "value": 2 }] },
+      { "label": "Infiltrations et on continue", "hint": "Tenir coûte que coûte", "effects": [{ "target": "passe", "op": "add", "value": 3 }, { "target": "health", "op": "sub", "value": 4 }] }
+    ]
   }
 ]

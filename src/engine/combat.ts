@@ -9,7 +9,10 @@ import { readChannel } from './channels'
 import { applyEffect } from './effects'
 import { markEventConsumed } from './events'
 import { BELT_ORG_PREFIX, BELT_EVER_FLAG } from './belts'
-import { SEQUELAE, activeSequelae, type Sequela } from './injuries'
+import { activeSequelae, acquireSequela } from './injuries'
+
+/** Séquelles chroniques que le MMA peut infliger. */
+const MMA_SEQUELAE = ['sequelle_genou', 'sequelle_arcade', 'sequelle_epaule']
 import { signatureTactic, SIGNATURE_BONUS } from './coaching'
 import {
   clampStat,
@@ -101,7 +104,7 @@ export interface FightResult {
   lostBelt: boolean
   changes: FightChange[]
   /** Séquelle chronique contractée sur ce combat (défaite violente), sinon absent. */
-  newInjury?: Sequela
+  newInjury?: string
   /** Combat de rivalité contre la némésis (FR-16). */
   nemesis: boolean
   /** Ligne de résultat propre au sport (ex. basket : « 28 pts · 104-98 »). */
@@ -252,21 +255,12 @@ export function resolveFight(
   }
 
   // Séquelle chronique (FR-13) : une défaite VIOLENTE (KO) ou très entamée peut
-  // laisser une blessure durable, tant qu'on ne les cumule pas déjà toutes.
-  let newInjury: Sequela | undefined
+  // laisser une blessure durable, tirée dans le pool du MMA.
+  let newInjury: string | undefined
   if (!win && (method === 'KO' || g.meta.health <= 25)) {
-    const available = SEQUELAE.filter((s) => g.flags[s] !== true)
-    if (available.length > 0) {
-      const [roll, rngInj] = nextInt(g.rng, 0, 99)
-      g = { ...g, rng: rngInj }
-      // ~55 % de risque sur un KO, ~35 % sur une défaite en état critique.
-      if (roll < (method === 'KO' ? 55 : 35)) {
-        const [pick, rngPick] = nextInt(g.rng, 0, available.length - 1)
-        const injury = available[pick]
-        g = { ...g, rng: rngPick, flags: { ...g.flags, [injury]: true } }
-        newInjury = injury
-      }
-    }
+    const inj = acquireSequela(g, MMA_SEQUELAE, method === 'KO')
+    g = inj.game
+    newInjury = inj.injury
   }
 
   g = markEventConsumed(g, event)
