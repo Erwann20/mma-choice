@@ -418,6 +418,24 @@
 .home-head h1 {
   margin: 0 0 var(--space-2);
 }
+.home-back {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  cursor: pointer;
+}
+.home-back:hover {
+  color: var(--color-text);
+}
+.sport-icon {
+  font-size: 1.4em;
+  vertical-align: -0.1em;
+}
 .mode-list {
   display: flex;
   flex-direction: column;

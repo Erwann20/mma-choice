@@ -52,6 +52,7 @@ function CareerRow({
 }
 
 export function HomeScreen({
+  onBack,
   onStart,
   onReplay,
   onDaily,
@@ -64,6 +65,8 @@ export function HomeScreen({
   onOpenCareer,
   onDeleteCareer,
 }: {
+  /** Revenir à la page de choix du sport. */
+  onBack?: () => void
   onStart: () => void
   onReplay?: () => void
   onDaily?: () => void
@@ -87,8 +90,13 @@ export function HomeScreen({
 
   return (
     <main className="center-screen home">
+      {onBack ? (
+        <button type="button" className="home-back" onClick={onBack}>
+          ← Tous les sports
+        </button>
+      ) : null}
       <div className="home-head">
-        <h1>MMA CHOICE</h1>
+        <h1>🥊 MMA</h1>
         <p style={{ color: 'var(--color-text-muted)', margin: 0 }}>Forge ta légende, choix après choix.</p>
       </div>
       {onResume ? (
