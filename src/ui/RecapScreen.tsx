@@ -31,10 +31,13 @@ export function RecapScreen({
   game,
   onNew,
   onHome,
+  onBack,
 }: {
   game: GameState
-  onNew: () => void
+  onNew?: () => void
   onHome?: () => void
+  /** Mode consultation (depuis l'historique) : affiche un bouton « Retour ». */
+  onBack?: () => void
 }) {
   const score = computeScore(game)
   const rank = allTimeRank(score)
@@ -52,7 +55,7 @@ export function RecapScreen({
 
   return (
     <main className="screen recap">
-      <p className="overline">Fin de carrière</p>
+      <p className="overline">{onBack ? 'Carrière archivée' : 'Fin de carrière'}</p>
 
       <section className={`recap-hero tone-${title.tone}`}>
         <div className="recap-score">
@@ -104,9 +107,16 @@ export function RecapScreen({
       </p>
 
       <div className="recap-actions">
-        <button className="btn-primary" type="button" onClick={onNew}>
-          Nouvelle carrière
-        </button>
+        {onBack ? (
+          <button className="btn-primary" type="button" onClick={onBack}>
+            ← Retour à mes carrières
+          </button>
+        ) : null}
+        {onNew ? (
+          <button className="btn-primary" type="button" onClick={onNew}>
+            Nouvelle carrière
+          </button>
+        ) : null}
         <button className="btn-secondary" type="button" onClick={onShare}>
           Partager mon score
         </button>

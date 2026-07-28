@@ -1,6 +1,9 @@
 // Écran d'accueil à 3 modes (UX-DR13). Un seul mode jouable en V1 ; les deux
-// autres sont marqués « Bientôt » avec un acquittement inline (sans navigation).
+// autres sont marqués « Bientôt ». En bas, l'historique des carrières terminées.
 import { useState } from 'react'
+import { computeScore, careerTitle } from '../engine'
+import type { ArchivedCareer } from '../store/game'
+import { careerStatus } from './labels'
 
 interface Mode {
   id: string
@@ -15,7 +18,50 @@ const MODES: Mode[] = [
   { id: 'daily', title: 'Mission du jour', desc: 'Un défi quotidien, un seul essai.', soon: true },
 ]
 
-export function HomeScreen({ onStart }: { onStart: () => void }) {
+function CareerRow({
+  career,
+  onOpen,
+  onDelete,
+}: {
+  career: ArchivedCareer
+  onOpen: () => void
+  onDelete: () => void
+}) {
+  const { game } = career
+  const score = computeScore(game)
+  const title = careerTitle(score)
+  return (
+    <li className="career-row">
+      <button type="button" className="career-open" onClick={onOpen}>
+        <span className="career-medal" aria-hidden="true">
+          {title.icon}
+        </span>
+        <span className="career-info">
+          <span className="career-name">{game.fighter.name}</span>
+          <span className="career-sub">
+            {game.record.wins} V – {game.record.losses} D · {game.fighter.age} ans · {careerStatus(game)}
+          </span>
+        </span>
+        <span className="career-score">{score}</span>
+      </button>
+      <button type="button" className="career-del" onClick={onDelete} aria-label={`Supprimer la carrière de ${game.fighter.name}`}>
+        ×
+      </button>
+    </li>
+  )
+}
+
+export function HomeScreen({
+  onStart,
+  archive = [],
+  onOpenCareer,
+  onDeleteCareer,
+}: {
+  onStart: () => void
+  archive?: ArchivedCareer[]
+  onOpenCareer?: (career: ArchivedCareer) => void
+  onDeleteCareer?: (id: string) => void
+}) {
   const [acked, setAcked] = useState<string | null>(null)
 
   return (
@@ -47,6 +93,22 @@ export function HomeScreen({ onStart }: { onStart: () => void }) {
           ),
         )}
       </div>
+
+      {archive.length > 0 ? (
+        <section className="careers">
+          <h2 className="careers-title">Mes carrières</h2>
+          <ul className="career-list">
+            {archive.map((c) => (
+              <CareerRow
+                key={c.id}
+                career={c}
+                onOpen={() => onOpenCareer?.(c)}
+                onDelete={() => onDeleteCareer?.(c.id)}
+              />
+            ))}
+          </ul>
+        </section>
+      ) : null}
     </main>
   )
 }

@@ -10,11 +10,14 @@ import { Toast } from './Toast'
 
 export function GameRoot() {
   const session = useGameStore((s) => s.session)
+  const archive = useGameStore((s) => s.archive)
   const createCareer = useGameStore((s) => s.createCareer)
   const reset = useGameStore((s) => s.reset)
+  const deleteArchived = useGameStore((s) => s.deleteArchived)
   const [creating, setCreating] = useState(false)
   const [confirmNew, setConfirmNew] = useState(false)
   const [resumed, setResumed] = useState(false)
+  const [viewingId, setViewingId] = useState<string | null>(null)
 
   // Toast « Reprise sauvegardée » si une carrière a été rechargée au démarrage.
   useEffect(() => {
@@ -28,6 +31,11 @@ export function GameRoot() {
   const resumeToast = resumed ? <Toast message="Reprise sauvegardée." /> : null
 
   if (!session) {
+    // Consultation d'une carrière archivée depuis l'accueil.
+    const viewing = viewingId ? (archive.find((a) => a.id === viewingId) ?? null) : null
+    if (viewing) {
+      return <RecapScreen game={viewing.game} onBack={() => setViewingId(null)} />
+    }
     if (creating) {
       return (
         <CreationScreen
@@ -41,7 +49,12 @@ export function GameRoot() {
     }
     return (
       <>
-        <HomeScreen onStart={() => setCreating(true)} />
+        <HomeScreen
+          onStart={() => setCreating(true)}
+          archive={archive}
+          onOpenCareer={(c) => setViewingId(c.id)}
+          onDeleteCareer={deleteArchived}
+        />
         {resumeToast}
       </>
     )
