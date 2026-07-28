@@ -1598,3 +1598,40 @@
   font-size: var(--fs-title);
   font-weight: 800;
 }
+
+/* --- Ressources sous la carte OVR (argent · abonnés) --- */
+.fighter-header {
+  flex-direction: column;
+  align-items: stretch;
+}
+.header-res {
+  display: flex;
+  gap: var(--space-2);
+}
+.res-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  font-size: var(--fs-meta);
+  min-width: 0;
+}
+.res-icon {
+  font-size: 13px;
+  line-height: 1;
+}
+.res-value {
+  font-weight: 800;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  animation: pop-in 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.res-unit {
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}

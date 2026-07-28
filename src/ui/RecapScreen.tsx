@@ -12,7 +12,7 @@ import {
 } from '../engine'
 import type { Achievement } from '../engine'
 import { loadDivisions } from '../schema'
-import { TIER_LABEL, organizationLabel } from './labels'
+import { TIER_LABEL, organizationLabel, formatCompact, formatMoney } from './labels'
 import { shareScore } from './share'
 import { Toast } from './Toast'
 
@@ -30,8 +30,8 @@ function palmares(game: GameState): Cell[] {
     { label: 'Défaites', value: String(record.losses) },
     { label: 'Finitions', value: String(record.finishes) },
     { label: 'Réputation', value: String(meta.reputation) },
-    { label: 'Followers', value: meta.followers.toLocaleString('fr-FR') },
-    { label: 'Gains', value: `${meta.money.toLocaleString('fr-FR')} €` },
+    { label: 'Followers', value: formatCompact(meta.followers) },
+    { label: 'Gains', value: formatMoney(meta.money) },
     { label: 'Division', value: div ? div.label : '—' },
     { label: 'Organisation', value: org ?? TIER_LABEL[game.tier] },
   ]

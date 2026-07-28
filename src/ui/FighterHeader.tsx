@@ -1,6 +1,6 @@
 import type { GameState } from '../engine'
 import { fighterOverall } from '../engine'
-import { STYLE_LABEL, careerStatus } from './labels'
+import { STYLE_LABEL, careerStatus, formatCompact, formatMoney } from './labels'
 
 /** Palier de couleur de la note (façon carte FIFA). */
 function ovrTier(o: number): string {
@@ -43,6 +43,18 @@ export function FighterHeader({ game, onOpen }: { game: GameState; onOpen?: () =
           </span>
         ) : null}
       </button>
+      <div className="header-res">
+        <span className="res-item">
+          <span className="res-icon" aria-hidden="true">💰</span>
+          <span className="res-value" key={game.meta.money}>{formatMoney(game.meta.money)}</span>
+        </span>
+        <span className="res-item">
+          <span className="res-icon" aria-hidden="true">📣</span>
+          <span className="res-value" key={game.meta.followers}>
+            {formatCompact(game.meta.followers)} <span className="res-unit">abonnés</span>
+          </span>
+        </span>
+      </div>
     </header>
   )
 }

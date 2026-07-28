@@ -4,6 +4,21 @@ import { loadOrganizations } from '../schema'
 import type { Tier, Style, GameState } from '../engine'
 import { nationOf } from '../engine'
 
+/** Formatage compact FR d'un nombre : 1 200 → « 1,2 k », 3 400 000 → « 3,4 M ». */
+export function formatCompact(n: number): string {
+  const abs = Math.abs(n)
+  if (abs < 1000) return String(n)
+  const unit = abs < 1_000_000 ? 'k' : 'M'
+  const v = n / (abs < 1_000_000 ? 1000 : 1_000_000)
+  const s = Math.abs(v) < 10 ? v.toFixed(1).replace(/\.0$/, '').replace('.', ',') : String(Math.round(v))
+  return `${s} ${unit}`
+}
+
+/** Montant en euros, formaté compact (« 850 € », « 50 k € », « 1,2 M € »). */
+export function formatMoney(n: number): string {
+  return `${formatCompact(n)} €`
+}
+
 /** Catégorie effective d'un événement (les combats priment). */
 export function eventCategory(event: EventDef): EventCategory {
   if (event.fight) return 'combat'
