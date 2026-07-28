@@ -15,6 +15,7 @@ export function GameRoot() {
   const session = useGameStore((s) => s.session)
   const archive = useGameStore((s) => s.archive)
   const createCareer = useGameStore((s) => s.createCareer)
+  const newCareer = useGameStore((s) => s.newCareer)
   const replayIcon = useGameStore((s) => s.replayIcon)
   const startDaily = useGameStore((s) => s.startDaily)
   const dailyResult = useGameStore((s) => s.dailyResult)
@@ -116,7 +117,17 @@ export function GameRoot() {
     if (sport === null) {
       return (
         <>
-          <SportSelectScreen onSelectSport={setSport} />
+          <SportSelectScreen
+            onSelectSport={(id) => {
+              if (id === 'basket') {
+                // MVP basket : démarrage direct d'une carrière basket.
+                newCareer({ sport: 'basket' })
+                leaveHome()
+              } else {
+                setSport(id)
+              }
+            }}
+          />
           {resumeToast}
         </>
       )

@@ -11,7 +11,7 @@ const OUTCOME: Record<FightOutcome, { title: string; tone: string }> = {
   loss: { title: 'Défaite', tone: 'loss' },
 }
 
-export function ResultBanner({ result }: { result: FightResult }) {
+export function ResultBanner({ result, beltNoun = 'titre' }: { result: FightResult; beltNoun?: string }) {
   const meta = OUTCOME[result.outcome]
   return (
     <section className={`result-banner tone-${meta.tone}`} role="status" aria-live="polite">
@@ -20,11 +20,12 @@ export function ResultBanner({ result }: { result: FightResult }) {
       </p>
       <h2 className="result-title">{meta.title}</h2>
       <p className="result-method">
-        {result.win ? 'Victoire' : 'Défaite'} par {result.method} · face à {result.opponentName} (
-        {result.opponentRecord})
+        {result.detail
+          ? `${result.detail} · face à ${result.opponentName} (${result.opponentRecord})`
+          : `${result.win ? 'Victoire' : 'Défaite'} par ${result.method} · face à ${result.opponentName} (${result.opponentRecord})`}
       </p>
-      {result.wonBelt ? <p className="result-belt">🏆 Tu remportes la ceinture !</p> : null}
-      {result.lostBelt ? <p className="result-belt">Tu perds ta ceinture.</p> : null}
+      {result.wonBelt ? <p className="result-belt">🏆 Tu remportes {beltNoun === 'ceinture' ? 'la' : beltNoun === 'bague' ? 'la' : 'le'} {beltNoun} !</p> : null}
+      {result.lostBelt ? <p className="result-belt">Tu perds {beltNoun === 'ceinture' || beltNoun === 'bague' ? 'ta' : 'ton'} {beltNoun}.</p> : null}
       {result.newInjury ? (
         <p className="result-injury">🩹 Blessure durable : {SEQUELA_LABEL[result.newInjury]}</p>
       ) : null}

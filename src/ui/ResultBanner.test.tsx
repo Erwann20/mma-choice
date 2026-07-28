@@ -29,8 +29,13 @@ describe('ResultBanner (UX-DR9)', () => {
     expect(screen.getByText(/Forme −9/)).toBeInTheDocument()
   })
 
-  it('affiche la mention de ceinture gagnée le cas échéant', () => {
-    render(<ResultBanner result={{ ...base, titleFight: true, wonBelt: true }} />)
+  it('affiche la mention de ceinture gagnée le cas échéant (MMA)', () => {
+    render(<ResultBanner result={{ ...base, titleFight: true, wonBelt: true }} beltNoun="ceinture" />)
     expect(screen.getByText(/remportes la ceinture/i)).toBeInTheDocument()
+  })
+
+  it('adapte le terme de titre au sport (basket : bague)', () => {
+    render(<ResultBanner result={{ ...base, titleFight: true, wonBelt: true }} beltNoun="bague" />)
+    expect(screen.getByText(/remportes la bague/i)).toBeInTheDocument()
   })
 })

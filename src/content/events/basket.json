@@ -1,0 +1,164 @@
+[
+  {
+    "id": "bk-match-playground",
+    "weight": 5,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "combat",
+    "overline": "MATCH DU WEEK-END",
+    "text": "Ton équipe joue gros ce week-end. Le petit gymnase est plein, la famille est dans les tribunes. À toi de porter les tiens.",
+    "fight": {},
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 }],
+    "choices": [
+      { "label": "Prendre le match à ton compte au shoot", "hint": "Ton tir décide", "tactic": "tir" },
+      { "label": "Percer et créer du jeu", "hint": "Ton dribble décide", "tactic": "dribble" },
+      { "label": "Faire jouer le collectif", "hint": "Ta passe décide", "tactic": "passe" },
+      { "label": "Verrouiller ton vis-à-vis", "hint": "Ta défense décide", "tactic": "defense" }
+    ]
+  },
+  {
+    "id": "bk-match-derby",
+    "weight": 4,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "combat",
+    "overline": "DERBY",
+    "text": "Le derby contre le rival de toujours. Deux quartiers, une salle bouillante, et personne ne veut perdre celui-là. Comment tu l'abordes ?",
+    "fight": {},
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 }],
+    "choices": [
+      { "label": "Faire déjouer aux tirs à distance", "hint": "Ton tir décide", "tactic": "tir" },
+      { "label": "Les user balle en main", "hint": "Ton dribble décide", "tactic": "dribble" },
+      { "label": "Servir les copains démarqués", "hint": "Ta passe décide", "tactic": "passe" },
+      { "label": "Étouffer leur meilleur scoreur", "hint": "Ta défense décide", "tactic": "defense" }
+    ]
+  },
+  {
+    "id": "bk-match-showcase",
+    "weight": 4,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "combat",
+    "overline": "SOUS LES YEUX DES RECRUTEURS",
+    "text": "Des recruteurs sont dans la salle ce soir. Un gros match et ton nom commence à circuler. Ta manière de jouer ?",
+    "conditions": [
+      { "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 },
+      { "kind": "stat", "on": "reputation", "cmp": "gte", "value": 20 }
+    ],
+    "fight": {},
+    "choices": [
+      { "label": "Montrer ton adresse extérieure", "hint": "Ton tir décide", "tactic": "tir" },
+      { "label": "Montrer tes mains et ta vitesse", "hint": "Ton dribble décide", "tactic": "dribble" },
+      { "label": "Montrer ta vision du jeu", "hint": "Ta passe décide", "tactic": "passe" }
+    ]
+  },
+  {
+    "id": "bk-match-titre",
+    "weight": 7,
+    "repeatable": true,
+    "cooldown": 2,
+    "category": "combat",
+    "overline": "FINALE DU CHAMPIONNAT",
+    "text": "La finale. Le titre au bout, une salle comble et ta légende qui s'écrit peut-être ce soir. Tout se joue là.",
+    "fight": { "titleFight": true },
+    "conditions": [
+      { "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 },
+      { "kind": "stat", "on": "reputation", "cmp": "gte", "value": 45 },
+      { "kind": "flag", "flag": "serie_negative", "eq": false }
+    ],
+    "choices": [
+      { "label": "Prendre tes responsabilités au tir", "hint": "Ton tir décide", "tactic": "tir" },
+      { "label": "Attaquer le cercle sans trembler", "hint": "Ton dribble décide", "tactic": "dribble" },
+      { "label": "Orchestrer et trouver l'homme libre", "hint": "Ta passe décide", "tactic": "passe" },
+      { "label": "Gagner le match en défense", "hint": "Ta défense décide", "tactic": "defense" }
+    ]
+  },
+  {
+    "id": "bk-train-shoot",
+    "weight": 4,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "training",
+    "overline": "SALLE DE MUSCU & SHOOT",
+    "text": "Séance libre au gymnase. Sur quoi tu bosses aujourd'hui ?",
+    "conditions": [],
+    "choices": [
+      { "label": "500 shoots au réveil", "hint": "Le tir", "effects": [{ "target": "tir", "op": "add", "value": 4 }, { "target": "health", "op": "sub", "value": 2 }] },
+      { "label": "Travail de handle et de vitesse", "hint": "Le dribble", "effects": [{ "target": "dribble", "op": "add", "value": 4 }, { "target": "health", "op": "sub", "value": 2 }] },
+      { "label": "Lecture de jeu et passes", "hint": "La passe", "effects": [{ "target": "passe", "op": "add", "value": 4 }] },
+      { "label": "Défense et déplacements", "hint": "La défense", "effects": [{ "target": "defense", "op": "add", "value": 4 }, { "target": "health", "op": "sub", "value": 2 }] }
+    ]
+  },
+  {
+    "id": "bk-train-athlete",
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "training",
+    "overline": "PRÉPA PHYSIQUE",
+    "text": "Le prépa physique t'attend. Détente, explosivité, endurance — le corps d'abord.",
+    "conditions": [],
+    "choices": [
+      { "label": "Travailler la détente et l'explosivité", "hint": "L'athlétisme", "effects": [{ "target": "athletisme", "op": "add", "value": 4 }, { "target": "health", "op": "sub", "value": 3 }] },
+      { "label": "Récupération et soins", "hint": "Recharger", "effects": [{ "target": "health", "op": "add", "value": 6 }, { "target": "mental", "op": "add", "value": 2 }] }
+    ]
+  },
+  {
+    "id": "bk-life-quartier",
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 2,
+    "category": "general",
+    "overline": "LE QUARTIER",
+    "text": "Les gamins du quartier te réclament sur le playground. Tu réponds présent ?",
+    "conditions": [],
+    "choices": [
+      { "label": "Passer l'aprèm à jouer avec eux", "hint": "Rester proche des tiens", "effects": [{ "target": "mental", "op": "add", "value": 4 }, { "target": "reputation", "op": "add", "value": 2 }] },
+      { "label": "Rester au repos, saison oblige", "hint": "Se préserver", "effects": [{ "target": "health", "op": "add", "value": 4 }] }
+    ]
+  },
+  {
+    "id": "bk-social-highlights",
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "social",
+    "overline": "MIXTAPE",
+    "text": "Un vidéaste veut faire ta mixtape de highlights. Ça peut te rendre viral… ou te mettre la pression.",
+    "conditions": [],
+    "choices": [
+      { "label": "Jouer le jeu à fond", "hint": "Viser le buzz", "effects": [{ "target": "followers", "op": "add", "value": 1200 }, { "target": "reputation", "op": "add", "value": 3 }] },
+      { "label": "Rester discret et bosser", "hint": "Tête baissée", "effects": [{ "target": "mental", "op": "add", "value": 3 }] }
+    ]
+  },
+  {
+    "id": "bk-biz-sponsor",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 2,
+    "category": "money",
+    "overline": "PREMIER SPONSOR",
+    "text": "Une marque locale de sneakers te propose un petit contrat d'image. Modeste, mais c'est un début.",
+    "conditions": [{ "kind": "stat", "on": "reputation", "cmp": "gte", "value": 15 }],
+    "choices": [
+      { "label": "Signer le contrat", "hint": "Des sous et de la visibilité", "effects": [{ "target": "money", "op": "add", "value": 1500 }, { "target": "followers", "op": "add", "value": 400 }] },
+      { "label": "Attendre une meilleure offre", "hint": "Croire en ta valeur", "effects": [{ "target": "mental", "op": "add", "value": 2 }] }
+    ]
+  },
+  {
+    "id": "bk-club-ville",
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 3,
+    "category": "career",
+    "overline": "CHOISIR SON CLUB",
+    "text": "Il est temps de choisir où poser ton sac et bâtir ton jeu. Chaque ville a sa culture basket. Où vas-tu ?",
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 }],
+    "choices": [
+      { "label": "{ville1} — la vitrine", "hint": "Exposition et paillettes", "effects": [{ "target": "reputation", "op": "add", "value": 4 }, { "target": "followers", "op": "add", "value": 300 }], "setCity": 1 },
+      { "label": "{ville2} — l'école du shoot", "hint": "L'adresse avant tout", "effects": [{ "target": "tir", "op": "add", "value": 5 }], "setCity": 2 },
+      { "label": "{ville3} — le temple de la défense", "hint": "On y apprend à défendre", "effects": [{ "target": "defense", "op": "add", "value": 5 }], "setCity": 3 },
+      { "label": "{ville4} — un club formateur", "hint": "Patience et fondamentaux", "effects": [{ "target": "passe", "op": "add", "value": 3 }, { "target": "mental", "op": "add", "value": 3 }], "setCity": 4 }
+    ]
+  }
+]

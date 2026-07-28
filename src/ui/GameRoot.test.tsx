@@ -10,7 +10,7 @@ describe('GameRoot', () => {
     render(<GameRoot />)
     expect(screen.getByRole('heading', { name: /sport choice/i })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /^MMA/ })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /basket.*bientôt/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /^Basket/ })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /vélo.*bientôt/i })).toBeInTheDocument()
   })
 

@@ -13,7 +13,7 @@ interface Sport {
 
 const SPORTS: Sport[] = [
   { id: 'mma', icon: '🥊', title: 'MMA', desc: 'Forge ta légende de la cage, combat après combat.', soon: false },
-  { id: 'basket', icon: '🏀', title: 'Basket', desc: 'Du playground à la grande ligue : deviens une légende du parquet.', soon: true },
+  { id: 'basket', icon: '🏀', title: 'Basket', desc: 'Du playground au sommet : deviens une légende du parquet.', soon: false },
   { id: 'velo', icon: '🚴', title: 'Vélo', desc: 'Des classiques aux grands tours : grimpe vers le maillot jaune.', soon: true },
 ]
 

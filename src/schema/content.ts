@@ -17,6 +17,7 @@ import homesickEvents from '../content/events/homesick.json'
 import injuryEvents from '../content/events/injuries.json'
 import coachEvents from '../content/events/coaches.json'
 import nemesisEvents from '../content/events/nemesis.json'
+import basketEvents from '../content/events/basket.json'
 import divisionsData from '../content/divisions.json'
 import organizationsData from '../content/organizations.json'
 import startingCriteriaData from '../content/starting-criteria.json'
@@ -26,10 +27,18 @@ import iconsData from '../content/icons.json'
 // --- Canaux FERMÉS (AD-5) : effets/conditions ne peuvent viser que ceux-ci,
 // jamais un interne du moteur (rng, saveVersion, flags « vu »).
 export const CHANNELS = [
+  // Attributs MMA
   'striking',
   'grappling',
   'ground',
   'cardio',
+  // Attributs basket
+  'tir',
+  'dribble',
+  'passe',
+  'defense',
+  'athletisme',
+  // Méta communes à tous les sports
   'health',
   'mental',
   'reputation',
@@ -40,7 +49,9 @@ export const CHANNELS = [
 export const ChannelSchema = z.enum(CHANNELS)
 export const OpSchema = z.enum(['add', 'sub', 'set'])
 export const CmpSchema = z.enum(['lt', 'lte', 'eq', 'ne', 'gte', 'gt'])
-export const StyleSchema = z.enum(['striker', 'wrestler', 'grappler', 'allrounder'])
+// Style/profil : dépend du sport (MMA : striker/wrestler/… ; basket : scoreur/…).
+// Chaîne libre validée non vide (les valeurs légales sont définies par le sport).
+export const StyleSchema = z.string().min(1)
 export type StyleName = z.infer<typeof StyleSchema>
 
 export const EffectSchema = z.object({
@@ -161,8 +172,15 @@ export function parseEvents(raw: unknown): EventDef[] {
   return events
 }
 
-/** Charge et valide tout le contenu d'Événements du jeu (ids uniques globaux). */
-export function loadEvents(): EventDef[] {
+/**
+ * Charge et valide le contenu d'Événements du SPORT demandé (ids uniques par
+ * bundle). Chaque sport a son propre catalogue — les événements MMA (frappe,
+ * lutte…) ne s'appliquent pas au basket et inversement.
+ */
+export function loadEvents(sport: 'mma' | 'basket' = 'mma'): EventDef[] {
+  if (sport === 'basket') {
+    return parseEvents([...basketEvents])
+  }
   return parseEvents([
     ...amateurEvents,
     ...metaEvents,

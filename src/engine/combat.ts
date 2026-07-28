@@ -104,6 +104,8 @@ export interface FightResult {
   newInjury?: Sequela
   /** Combat de rivalité contre la némésis (FR-16). */
   nemesis: boolean
+  /** Ligne de résultat propre au sport (ex. basket : « 28 pts · 104-98 »). */
+  detail?: string
 }
 
 /** La tactique correspond-elle à l'orientation naturelle du style ? (petit bonus) */
