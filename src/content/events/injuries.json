@@ -1,0 +1,111 @@
+[
+  {
+    "id": "evt-sequelle-genou",
+    "weight": 4,
+    "repeatable": true,
+    "cooldown": 2,
+    "category": "health",
+    "overline": "GENOU FRAGILE",
+    "text": "Ton genou te lance depuis cette blessure qui n'est jamais vraiment partie. À chaque appui un peu fort, une pointe te rappelle qu'il ne pardonnera pas une erreur. Comment tu gères ça ?",
+    "conditions": [{ "kind": "flag", "flag": "sequelle_genou", "eq": true }],
+    "choices": [
+      {
+        "label": "Passer sur le billard",
+        "hint": "Opération : coûteuse, mais on repart neuf",
+        "effects": [
+          { "target": "money", "op": "sub", "value": 4000 },
+          { "target": "health", "op": "sub", "value": 6 }
+        ],
+        "setFlags": { "sequelle_genou": false }
+      },
+      {
+        "label": "Rééduquer patiemment",
+        "hint": "Repos et kiné, sans forcer",
+        "effects": [
+          { "target": "health", "op": "add", "value": 6 },
+          { "target": "mental", "op": "sub", "value": 2 }
+        ]
+      },
+      {
+        "label": "Serrer les dents à l'entraînement",
+        "hint": "On ne lâche rien, quitte à souffrir",
+        "effects": [
+          { "target": "grappling", "op": "add", "value": 3 },
+          { "target": "health", "op": "sub", "value": 5 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt-sequelle-arcade",
+    "weight": 4,
+    "repeatable": true,
+    "cooldown": 2,
+    "category": "health",
+    "overline": "ARCADE FRAGILE",
+    "text": "Ton arcade s'ouvre au moindre choc désormais. Un combat sur deux vire à la boucherie et les médecins menacent d'arrêter tes duels au premier filet de sang. Il faut traiter ça.",
+    "conditions": [{ "kind": "flag", "flag": "sequelle_arcade", "eq": true }],
+    "choices": [
+      {
+        "label": "Chirurgie esthétique de l'arcade",
+        "hint": "On referme proprement, une bonne fois",
+        "effects": [
+          { "target": "money", "op": "sub", "value": 3000 },
+          { "target": "health", "op": "sub", "value": 4 }
+        ],
+        "setFlags": { "sequelle_arcade": false }
+      },
+      {
+        "label": "Travailler la défense de tête",
+        "hint": "Ne plus se faire toucher",
+        "effects": [
+          { "target": "striking", "op": "add", "value": 3 },
+          { "target": "mental", "op": "add", "value": 2 }
+        ]
+      },
+      {
+        "label": "Faire avec, et prier",
+        "hint": "Gratuit, mais risqué",
+        "effects": [{ "target": "mental", "op": "sub", "value": 3 }]
+      }
+    ]
+  },
+  {
+    "id": "evt-sequelle-epaule",
+    "weight": 4,
+    "repeatable": true,
+    "cooldown": 2,
+    "category": "health",
+    "overline": "ÉPAULE INSTABLE",
+    "text": "Ton épaule se déboîte pour un rien depuis ta dernière chute mal négociée. Tu la sens partir sur certains mouvements, et tu retiens tes coups sans t'en rendre compte. Ça ne peut plus durer.",
+    "conditions": [{ "kind": "flag", "flag": "sequelle_epaule", "eq": true }],
+    "choices": [
+      {
+        "label": "Reconstruction chirurgicale",
+        "hint": "Longue convalescence, mais durable",
+        "effects": [
+          { "target": "money", "op": "sub", "value": 5000 },
+          { "target": "health", "op": "sub", "value": 8 },
+          { "target": "mental", "op": "add", "value": 2 }
+        ],
+        "setFlags": { "sequelle_epaule": false }
+      },
+      {
+        "label": "Renforcer la coiffe des rotateurs",
+        "hint": "Prévention, sans opérer",
+        "effects": [
+          { "target": "health", "op": "add", "value": 5 },
+          { "target": "cardio", "op": "add", "value": 2 }
+        ]
+      },
+      {
+        "label": "Adapter ton jeu autour",
+        "hint": "Composer avec le handicap",
+        "effects": [
+          { "target": "ground", "op": "add", "value": 3 },
+          { "target": "health", "op": "sub", "value": 3 }
+        ]
+      }
+    ]
+  }
+]

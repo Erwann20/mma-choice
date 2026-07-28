@@ -2,6 +2,7 @@
 // PUR et déterministe : dérivé de l'état final + palmarès.
 import type { GameState } from './state'
 import { RETIREMENT_AGE } from './config'
+import { hasChronicInjury } from './injuries'
 
 export type TitleTone = 'goat' | 'legend' | 'star' | 'solid' | 'plain'
 
@@ -74,6 +75,7 @@ export function careerAchievements(game: GameState): Achievement[] {
   add(stats.ground >= 85, { id: 'maitre-sol', icon: '🥋', label: 'Maître du sol', desc: 'Un cauchemar au tapis.' })
   add(stats.grappling >= 85, { id: 'lutteur', icon: '🤼', label: 'Force de la lutte', desc: 'Personne ne reste debout face à lui.' })
   add(fighter.age >= RETIREMENT_AGE && record.wins + record.losses >= 15, { id: 'veteran', icon: '🎖️', label: 'Vétéran', desc: 'Une longue et dense carrière.' })
+  add(hasChronicInjury(game), { id: 'corps-marque', icon: '🩹', label: 'Corps marqué', desc: 'A porté ses blessures jusqu’au bout, sans jamais renoncer.' })
 
   return out
 }

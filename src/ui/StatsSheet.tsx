@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import type { GameState } from '../engine'
-import { fighterOverall } from '../engine'
+import { fighterOverall, activeSequelae, SEQUELA_LABEL } from '../engine'
 import { StatBar } from './StatBar'
 import { STYLE_LABEL, careerStatus, amateurTitles, formatCompact, formatMoney } from './labels'
 
@@ -78,6 +78,12 @@ export function StatsSheet({
         <StatBar label="Forme" value={game.meta.health} />
         <StatBar label="Mental" value={game.meta.mental} />
         <StatBar label="Réputation" value={game.meta.reputation} />
+
+        {activeSequelae(game).length > 0 ? (
+          <p className="fighter-meta sheet-injuries" style={{ marginTop: 'var(--space-2)' }}>
+            🩹 Séquelles : {activeSequelae(game).map((s) => SEQUELA_LABEL[s]).join(' · ')}
+          </p>
+        ) : null}
 
         <div className="sheet-numbers">
           <span>

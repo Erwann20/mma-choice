@@ -1,6 +1,7 @@
 // Bannière de résultat de combat graduée (UX-DR9) : couleur sémantique selon
 // le Degré (victoire nette / médiocre / défaite / upset) + deltas déclarés.
 import type { FightResult, FightOutcome } from '../engine'
+import { SEQUELA_LABEL } from '../engine'
 import { changeChip } from './labels'
 
 const OUTCOME: Record<FightOutcome, { title: string; tone: string }> = {
@@ -22,6 +23,9 @@ export function ResultBanner({ result }: { result: FightResult }) {
       </p>
       {result.wonBelt ? <p className="result-belt">🏆 Tu remportes la ceinture !</p> : null}
       {result.lostBelt ? <p className="result-belt">Tu perds ta ceinture.</p> : null}
+      {result.newInjury ? (
+        <p className="result-injury">🩹 Blessure durable : {SEQUELA_LABEL[result.newInjury]}</p>
+      ) : null}
       <div className="deltas">
         {result.changes.map((c) => {
           const chip = changeChip(c.target, c.value)
