@@ -138,7 +138,7 @@ export const useGameStore = create<GameStore>()(
       newCareer: (setup, seed) =>
         set((s) => ({
           archive: archiveIfRetired(s.archive, s.session),
-          session: startCareer(loadEvents(), seed ?? randomSeed(), setup),
+          session: startCareer(loadEvents(setup?.sport), seed ?? randomSeed(), setup),
         })),
       createCareer: (choices, seed) =>
         set((s) => ({
@@ -198,7 +198,7 @@ export const useGameStore = create<GameStore>()(
         }
         return {
           ...current,
-          session: p?.saved ? deserializeSession(p.saved, loadEvents()) : current.session,
+          session: p?.saved ? deserializeSession(p.saved, loadEvents(p.saved.game.sport)) : current.session,
           archive: p?.archive ?? [],
           dailyResult: p?.dailyResult ?? null,
           dailyStreak: p?.dailyStreak ?? 0,

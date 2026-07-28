@@ -23,12 +23,21 @@ export interface SportDef {
   id: SportId
   label: string
   icon: string
+  /** Nom du sportif (« combattant », « joueur »…). */
+  athleteNoun: string
   /** Clés d'attributs sportifs (canaux d'effet propres au sport). */
   statKeys: string[]
   /** Libellés d'affichage des attributs. */
   statLabels: Record<string, string>
   /** Attributs de départ d'une nouvelle carrière. */
   initialStats: Record<string, number>
+  /** Styles/profils jouables + libellés ; style par défaut. */
+  styles: string[]
+  styleLabels: Record<string, string>
+  defaultStyle: string
+  /** Postes/divisions (id + libellé) ; division par défaut. */
+  positions: { id: string; label: string }[]
+  defaultDivision: string
   /** Note générale (OVR 0-99), façon FIFA. */
   overall: (game: GameState) => number
   /** Score de carrière /100. */

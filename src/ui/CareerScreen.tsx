@@ -112,7 +112,7 @@ export function CareerScreen({
     return (
       <main className="screen">
         <FighterHeader game={game} onOpen={() => setStatsOpen(true)} />
-        <ResultBanner result={lastResult} />
+        <ResultBanner result={lastResult} beltNoun={game.sport === 'basket' ? 'bague' : 'ceinture'} />
         {tournament ? <BracketView tournament={tournament} /> : null}
         <button className="btn-primary" type="button" onClick={advance}>
           Continuer

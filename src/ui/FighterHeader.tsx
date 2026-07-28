@@ -1,6 +1,6 @@
 import type { GameState } from '../engine'
 import { fighterOverall } from '../engine'
-import { STYLE_LABEL, careerStatus, formatCompact, formatMoney, clubCity } from './labels'
+import { styleLabel, careerStatus, formatCompact, formatMoney, clubCity } from './labels'
 
 /** Palier de couleur de la note (façon carte FIFA). */
 function ovrTier(o: number): string {
@@ -12,7 +12,7 @@ function ovrTier(o: number): string {
 }
 
 export function FighterHeader({ game, onOpen }: { game: GameState; onOpen?: () => void }) {
-  const { fighter, style } = game
+  const { fighter } = game
   const overall = fighterOverall(game)
   const tier = ovrTier(overall)
   const city = clubCity(game)
@@ -35,7 +35,7 @@ export function FighterHeader({ game, onOpen }: { game: GameState; onOpen?: () =
         <span className="ovr-id">
           <span className="fighter-name">{fighter.name}</span>
           <span className="fighter-meta">
-            {fighter.age} ans · {STYLE_LABEL[style]} · {careerStatus(game)}
+            {fighter.age} ans · {styleLabel(game)} · {careerStatus(game)}
           </span>
         </span>
         {onOpen ? (

@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 import type { GameState } from '../engine'
-import { fighterOverall, activeSequelae, SEQUELA_LABEL, signatureTactic, SIGNATURE_LABEL } from '../engine'
+import { fighterOverall, activeSequelae, SEQUELA_LABEL, signatureTactic, SIGNATURE_LABEL, sportDef } from '../engine'
 import { StatBar } from './StatBar'
-import { STYLE_LABEL, careerStatus, amateurTitles, formatCompact, formatMoney } from './labels'
+import { styleLabel, careerStatus, amateurTitles, formatCompact, formatMoney } from './labels'
 
 function ovrTier(o: number): string {
   if (o >= 85) return 'elite'
@@ -51,7 +51,7 @@ export function StatsSheet({
           <span className="sheet-ovr-name">{game.fighter.name}</span>
         </div>
         <p className="fighter-meta" style={{ marginTop: 0 }}>
-          {game.fighter.age} ans · {STYLE_LABEL[game.style]} · {careerStatus(game)}
+          {game.fighter.age} ans · {styleLabel(game)} · {careerStatus(game)}
           {game.belt ? ' · 🏆 Champion' : ''}
         </p>
         <p className="fighter-meta" style={{ marginTop: 4 }}>
@@ -70,12 +70,11 @@ export function StatsSheet({
         ) : null}
 
         <div className="overline" style={{ margin: 'var(--space-3) 0 var(--space-2)' }}>
-          Combat
+          {game.sport === 'basket' ? 'Attributs' : 'Combat'}
         </div>
-        <StatBar label="Frappe" value={game.stats.striking} />
-        <StatBar label="Lutte" value={game.stats.grappling} />
-        <StatBar label="Sol" value={game.stats.ground} />
-        <StatBar label="Cardio" value={game.stats.cardio} />
+        {sportDef(game.sport).statKeys.map((k) => (
+          <StatBar key={k} label={sportDef(game.sport).statLabels[k] ?? k} value={game.stats[k] ?? 0} />
+        ))}
 
         {signatureTactic(game) ? (
           <p className="fighter-meta sheet-signature" style={{ marginTop: 'var(--space-2)' }}>

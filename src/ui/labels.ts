@@ -1,8 +1,8 @@
 // Libellés FR et formatage des effets pour l'affichage (voix sobre).
 import type { Channel, Effect, EventCategory, EventDef } from '../schema'
 import { loadOrganizations } from '../schema'
-import type { Tier, Style, GameState } from '../engine'
-import { nationOf, citiesForCountry } from '../engine'
+import type { Tier, GameState } from '../engine'
+import { nationOf, citiesForCountry, sportDef } from '../engine'
 
 /** Formatage compact FR d'un nombre : 1 200 → « 1,2 k », 3 400 000 → « 3,4 M ». */
 export function formatCompact(n: number): string {
@@ -130,7 +130,8 @@ export function amateurTitles(game: GameState): string[] {
   return t
 }
 
-export const STYLE_LABEL: Record<Style, string> = {
+/** Libellés de style MMA (utilisé par l'écran des icônes MMA). */
+export const STYLE_LABEL: Record<string, string> = {
   striker: 'Puncheur',
   wrestler: 'Lutteur',
   grappler: 'Grappler',
@@ -138,15 +139,28 @@ export const STYLE_LABEL: Record<Style, string> = {
 }
 
 export const CHANNEL_LABEL: Record<Channel, string> = {
+  // MMA
   striking: 'Frappe',
   grappling: 'Lutte',
   ground: 'Sol',
   cardio: 'Cardio',
+  // Basket
+  tir: 'Tir',
+  dribble: 'Dribble',
+  passe: 'Passe',
+  defense: 'Défense',
+  athletisme: 'Athlétisme',
+  // Méta
   health: 'Forme',
   mental: 'Mental',
   reputation: 'Réputation',
   followers: 'Followers',
   money: '€',
+}
+
+/** Libellé du style/profil du sportif, selon le sport courant. */
+export function styleLabel(game: GameState): string {
+  return sportDef(game.sport).styleLabels[game.style] ?? game.style
 }
 
 export type Dir = 'up' | 'down' | 'neutral'

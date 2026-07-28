@@ -6,7 +6,8 @@ import type { SportId } from './sports/types'
 import { sportDef } from './sports/registry'
 
 export type Sex = 'M' | 'F'
-export type Style = 'striker' | 'wrestler' | 'grappler' | 'allrounder'
+/** Style/profil du sportif : valeurs définies par le sport (chaîne libre). */
+export type Style = string
 export type Phase = 'career' | 'retired'
 /** Palier du circuit MMA (FR-5) : amateur → régional → organisation majeure. */
 export type Tier = 'immaf' | 'regional' | 'major'
