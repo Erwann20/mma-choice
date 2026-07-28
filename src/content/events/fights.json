@@ -64,6 +64,57 @@
     ]
   },
   {
+    "id": "fight-amateur-derby",
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "combat",
+    "overline": "DERBY DE SALLES",
+    "text": "Deux clubs de la même ville se détestent depuis des années, et tu portes les couleurs de la tienne. Les gradins sont partagés en deux camps qui hurlent. Pas le droit de perdre ce soir.",
+    "fight": {},
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 }],
+    "choices": [
+      { "label": "Enflammer la salle aux poings", "hint": "Ta frappe décide", "tactic": "striking" },
+      { "label": "Casser son rythme au contact", "hint": "Ta lutte décide", "tactic": "grappling" },
+      { "label": "L'enrouler au tapis", "hint": "Ton jeu au sol décide", "tactic": "ground" }
+    ]
+  },
+  {
+    "id": "fight-amateur-court-preavis",
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "combat",
+    "overline": "REMPLAÇANT DE DERNIÈRE MINUTE",
+    "text": "Un combattant s'est blessé et on t'appelle à trois jours du gala. L'adversaire est plus expérimenté, mais dire oui, c'est se faire remarquer. Tu sautes sur l'occasion.",
+    "fight": {},
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 }],
+    "choices": [
+      { "label": "Jouer l'instinct debout", "hint": "Ta frappe décide", "tactic": "striking" },
+      { "label": "Neutraliser au corps-à-corps", "hint": "Ta lutte décide", "tactic": "grappling" },
+      { "label": "Voler la finition au sol", "hint": "Ton jeu au sol décide", "tactic": "ground" }
+    ]
+  },
+  {
+    "id": "fight-amateur-tete-affiche-locale",
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "combat",
+    "overline": "TÊTE D'AFFICHE LOCALE",
+    "text": "Pour la première fois, ton nom est en haut de l'affiche du gala. Les billets se sont écoulés grâce à toi. Le public local est venu voir sa nouvelle attraction — offre-lui un show.",
+    "fight": {},
+    "conditions": [
+      { "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 },
+      { "kind": "stat", "on": "wins", "cmp": "gte", "value": 2 }
+    ],
+    "choices": [
+      { "label": "Chercher le KO d'entrée", "hint": "Ta frappe décide", "tactic": "striking" },
+      { "label": "Étouffer contre la cage", "hint": "Ta lutte décide", "tactic": "grappling" },
+      { "label": "Signer une soumission propre", "hint": "Ton jeu au sol décide", "tactic": "ground" }
+    ]
+  },
+  {
     "id": "fight-regional-co-main",
     "weight": 5,
     "repeatable": true,
@@ -96,19 +147,54 @@
     ]
   },
   {
-    "id": "fight-major-co-main",
-    "weight": 6,
+    "id": "fight-regional-main-event",
+    "weight": 5,
     "repeatable": true,
     "cooldown": 1,
     "category": "combat",
-    "overline": "SOUS LES PROJECTEURS",
-    "text": "Co-main event d'un grand show retransmis. Les caméras te cherchent, les recruteurs prennent des notes. Le monde regarde.",
+    "overline": "MAIN EVENT RÉGIONAL",
+    "text": "Tête d'affiche, cinq rounds, ta photo sur l'affiche. La promotion mise sur toi pour porter la soirée. Un combat propre ici et les majeures commenceront à parler de ton nom.",
     "fight": {},
-    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 2 }],
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 }],
     "choices": [
-      { "label": "Assumer le duel debout", "hint": "Ta frappe décide", "tactic": "striking" },
-      { "label": "Dominer au corps-à-corps", "hint": "Ta lutte décide", "tactic": "grappling" },
-      { "label": "Finir au sol", "hint": "Ton jeu au sol décide", "tactic": "ground" }
+      { "label": "Gérer la distance et frapper", "hint": "Ta frappe décide", "tactic": "striking" },
+      { "label": "User l'adversaire au clinch", "hint": "Ta lutte décide", "tactic": "grappling" },
+      { "label": "Contrôler round après round au sol", "hint": "Ton jeu au sol décide", "tactic": "ground" }
+    ]
+  },
+  {
+    "id": "fight-regional-invaincu",
+    "weight": 4,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "combat",
+    "overline": "CHOC D'INVAINCUS",
+    "text": "En face, un prospect invaincu comme toi, présenté comme le futur du circuit. Deux bilans immaculés, un seul survivra à la soirée. C'est le combat qui fait les réputations.",
+    "fight": {},
+    "conditions": [
+      { "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 },
+      { "kind": "stat", "on": "wins", "cmp": "gte", "value": 3 }
+    ],
+    "choices": [
+      { "label": "Le tester debout d'entrée", "hint": "Ta frappe décide", "tactic": "striking" },
+      { "label": "Briser son invincibilité au corps-à-corps", "hint": "Ta lutte décide", "tactic": "grappling" },
+      { "label": "Le piéger au sol", "hint": "Ton jeu au sol décide", "tactic": "ground" }
+    ]
+  },
+  {
+    "id": "fight-regional-court-preavis",
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "combat",
+    "overline": "APPEL DE DERNIÈRE MINUTE",
+    "text": "Le main-eventer s'est blessé et la promotion t'offre sa place à dix jours. Tu montes de niveau d'un coup, sans camp complet. Refuser, c'est raisonnable. Accepter, c'est ambitieux.",
+    "fight": {},
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 }],
+    "choices": [
+      { "label": "Compter sur ton punch", "hint": "Ta frappe décide", "tactic": "striking" },
+      { "label": "T'accrocher au corps-à-corps", "hint": "Ta lutte décide", "tactic": "grappling" },
+      { "label": "Chercher vite le sol", "hint": "Ton jeu au sol décide", "tactic": "ground" }
     ]
   },
   {
@@ -132,6 +218,22 @@
     ]
   },
   {
+    "id": "fight-major-co-main",
+    "weight": 6,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "combat",
+    "overline": "SOUS LES PROJECTEURS",
+    "text": "Co-main event d'un grand show retransmis. Les caméras te cherchent, les recruteurs prennent des notes. Le monde regarde.",
+    "fight": {},
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 2 }],
+    "choices": [
+      { "label": "Assumer le duel debout", "hint": "Ta frappe décide", "tactic": "striking" },
+      { "label": "Dominer au corps-à-corps", "hint": "Ta lutte décide", "tactic": "grappling" },
+      { "label": "Finir au sol", "hint": "Ton jeu au sol décide", "tactic": "ground" }
+    ]
+  },
+  {
     "id": "fight-major-prime-time",
     "weight": 5,
     "repeatable": true,
@@ -145,6 +247,76 @@
       { "label": "Tout miser sur ta frappe", "hint": "Ta frappe décide", "tactic": "striking" },
       { "label": "Imposer ta lutte", "hint": "Ta lutte décide", "tactic": "grappling" },
       { "label": "Régner au sol", "hint": "Ton jeu au sol décide", "tactic": "ground" }
+    ]
+  },
+  {
+    "id": "fight-major-main-event",
+    "weight": 6,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "combat",
+    "overline": "MAIN EVENT MONDIAL",
+    "text": "Ton nom clôt la soirée d'un show diffusé sur toute la planète. Entrée sous les flashs, hymne, cage immense. C'est là que se construisent les légendes — ou qu'elles s'effondrent.",
+    "fight": {},
+    "conditions": [
+      { "kind": "stat", "on": "tier", "cmp": "gte", "value": 2 },
+      { "kind": "stat", "on": "reputation", "cmp": "gte", "value": 55 }
+    ],
+    "choices": [
+      { "label": "Signer le highlight debout", "hint": "Ta frappe décide", "tactic": "striking" },
+      { "label": "Écraser au corps-à-corps", "hint": "Ta lutte décide", "tactic": "grappling" },
+      { "label": "Verrouiller la soumission au sol", "hint": "Ton jeu au sol décide", "tactic": "ground" }
+    ]
+  },
+  {
+    "id": "fight-major-fight-night",
+    "weight": 5,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "combat",
+    "overline": "FIGHT NIGHT",
+    "text": "Carte du samedi soir, adversaire classé juste devant toi. Le vainqueur grimpe, le perdant recule. Pas de ceinture ce soir, mais tout le classement se joue là.",
+    "fight": {},
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 2 }],
+    "choices": [
+      { "label": "Le devancer debout", "hint": "Ta frappe décide", "tactic": "striking" },
+      { "label": "Le contrôler au corps-à-corps", "hint": "Ta lutte décide", "tactic": "grappling" },
+      { "label": "Le dominer au sol", "hint": "Ton jeu au sol décide", "tactic": "ground" }
+    ]
+  },
+  {
+    "id": "fight-major-gatekeeper",
+    "weight": 4,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "combat",
+    "overline": "LE JUGE DE PAIX",
+    "text": "En face, un vétéran qui a affronté tous les meilleurs. On ne passe pas champion sans passer par lui. Battre ce gardien, c'est prouver qu'on appartient vraiment à l'élite.",
+    "fight": {},
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 2 }],
+    "choices": [
+      { "label": "Le pousser dans ses retranchements debout", "hint": "Ta frappe décide", "tactic": "striking" },
+      { "label": "Le fatiguer au corps-à-corps", "hint": "Ta lutte décide", "tactic": "grappling" },
+      { "label": "Exposer sa vieille garde au sol", "hint": "Ton jeu au sol décide", "tactic": "ground" }
+    ]
+  },
+  {
+    "id": "fight-major-title-shot",
+    "weight": 8,
+    "repeatable": true,
+    "cooldown": 2,
+    "category": "combat",
+    "overline": "CHAMPIONNAT DU MONDE",
+    "text": "La ceinture mondiale de ton organisation est en jeu. Cinq rounds, le champion en face, et l'histoire qui t'attend si tu l'emportes. Toute une carrière tient dans cette soirée.",
+    "fight": { "titleFight": true },
+    "conditions": [
+      { "kind": "stat", "on": "tier", "cmp": "gte", "value": 2 },
+      { "kind": "stat", "on": "reputation", "cmp": "gte", "value": 60 }
+    ],
+    "choices": [
+      { "label": "Aller chercher le titre debout", "hint": "Ta frappe décide", "tactic": "striking" },
+      { "label": "Arracher la ceinture au corps-à-corps", "hint": "Ta lutte décide", "tactic": "grappling" },
+      { "label": "Sceller le combat au sol", "hint": "Ton jeu au sol décide", "tactic": "ground" }
     ]
   }
 ]

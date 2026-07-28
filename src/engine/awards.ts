@@ -62,6 +62,7 @@ export function careerAchievements(game: GameState): Achievement[] {
   add(game.flags['titre_national'] === true, { id: 'champ-national', icon: '🥇', label: `Champion ${nationOf(fighter.country)} (amateur)`, desc: 'Meilleur amateur du pays.' })
   // Les ceintures d'organisation (par promotion) sont ajoutées côté UI, où les
   // libellés d'orga sont disponibles (voir RecapScreen / belts.ts).
+  add(game.flags['titre_gp'] === true, { id: 'grand-prix', icon: '🏆', label: 'Vainqueur du Grand Prix mondial', desc: 'A remporté le tournoi le plus dur du sport pro.' })
   add(game.titleDefenses >= 2, { id: 'roi', icon: '🛡️', label: 'Roi de la division', desc: `${game.titleDefenses} défenses de titre réussies.` })
   add(game.tier === 'major' && meta.reputation >= 80, { id: 'icone', icon: '🌍', label: 'Icône mondiale', desc: 'Une superstar reconnue sur toute la planète MMA.' })
   add(record.wins >= 5 && record.losses === 0, { id: 'invaincu', icon: '💯', label: 'Invaincu', desc: 'A raccroché sans la moindre défaite.' })
