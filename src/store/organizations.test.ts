@@ -5,7 +5,7 @@ import { isEligible } from '../engine'
 import type { GameState } from '../engine'
 
 const criteria: CreationChoices = {
-  name: 'T', sex: 'M', country: 'FR', style: 'allrounder', division: 'lightweight-m',
+  name: 'T', sex: 'M', country: 'France', style: 'allrounder', division: 'lightweight-m',
   originId: 'lutteur-univ', entourageId: 'coach',
 }
 

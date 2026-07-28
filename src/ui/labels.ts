@@ -30,18 +30,29 @@ export const TIER_LABEL: Record<Tier, string> = {
 const ORG_LABEL: Record<string, string> = Object.fromEntries(
   loadOrganizations().map((o) => [o.id, o.label]),
 )
+const ORG_COUNTRY: Record<string, string> = Object.fromEntries(
+  loadOrganizations().map((o) => [o.id, o.country]),
+)
 
 /** Libellé lisible d'une organisation (ou null si aucune). */
 export function organizationLabel(id: string | null): string | null {
   return id ? (ORG_LABEL[id] ?? null) : null
 }
 
-/** Statut : « Amateur », « Amateur · Ligue X » ou « Pro · Hexagone MMA (régional) ». */
+/** Pays d'attache d'une organisation (ou null si aucune). */
+export function organizationCountry(id: string | null): string | null {
+  return id ? (ORG_COUNTRY[id] ?? null) : null
+}
+
+/** Statut : « Amateur », « Pro · Hexagone MMA (régionale) · France ✈️ »… */
 export function careerStatus(game: GameState): string {
   const org = organizationLabel(game.organization)
-  if (!game.pro) return org ? `Amateur · ${org}` : 'Amateur'
+  const country = organizationCountry(game.organization)
+  const abroad = game.flags['expatrie'] === true
+  const loc = country ? ` · ${country}${abroad ? ' ✈️' : ''}` : ''
+  if (!game.pro) return org ? `Amateur · ${org}${loc}` : 'Amateur'
   const level = game.tier === 'major' ? 'majeure' : 'régionale'
-  return org ? `Pro · ${org} (${level})` : `Pro · ${TIER_LABEL[game.tier]}`
+  return org ? `Pro · ${org} (${level})${loc}` : `Pro · ${TIER_LABEL[game.tier]}`
 }
 
 /** Remplace les variables de gabarit d'un texte d'événement selon l'état. */

@@ -13,6 +13,7 @@ import careerEvents from '../content/events/career.json'
 import tournamentEvents from '../content/events/tournaments.json'
 import fightEvents from '../content/events/fights.json'
 import clubEvents from '../content/events/clubs.json'
+import homesickEvents from '../content/events/homesick.json'
 import divisionsData from '../content/divisions.json'
 import organizationsData from '../content/organizations.json'
 import startingCriteriaData from '../content/starting-criteria.json'
@@ -168,6 +169,7 @@ export function loadEvents(): EventDef[] {
     ...tournamentEvents,
     ...fightEvents,
     ...clubEvents,
+    ...homesickEvents,
   ])
 }
 
@@ -241,6 +243,8 @@ export const OrganizationSchema = z.object({
   level: z.enum(['amateur', 'pro']).default('pro'),
   /** Palier pour une orga pro (régional / majeur) ; ignoré pour l'amateur. */
   tier: z.enum(['regional', 'major']).optional(),
+  /** Pays d'attache de l'organisation (sert au « mal du pays » si ≠ combattant). */
+  country: z.string().min(1),
   blurb: z.string().min(1),
 })
 export type Organization = z.infer<typeof OrganizationSchema>
