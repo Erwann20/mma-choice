@@ -250,6 +250,10 @@ export interface Session {
   /** Instantané des compteurs au début de l'année (pour le bilan). */
   yearSnapshot: YearSnapshot
   eventsThisYear: number
+  /** Mode « Mission du jour » (sprint borné, graine du jour). */
+  daily: boolean
+  /** Nombre d'années max avant retraite forcée (sprint), sinon null. */
+  maxYear: number | null
 }
 
 /** Forme persistée (AD-7) : le contenu est référencé par id, jamais embarqué. */
@@ -265,6 +269,8 @@ export interface SavedSession {
   year: number
   yearSnapshot: YearSnapshot
   eventsThisYear: number
+  daily: boolean
+  maxYear: number | null
 }
 
 export function serializeSession(s: Session): SavedSession {
@@ -280,6 +286,8 @@ export function serializeSession(s: Session): SavedSession {
     year: s.year,
     yearSnapshot: s.yearSnapshot,
     eventsThisYear: s.eventsThisYear,
+    daily: s.daily,
+    maxYear: s.maxYear,
   }
 }
 
@@ -314,6 +322,8 @@ export function deserializeSession(saved: SavedSession, events: EventDef[]): Ses
     year: saved.year ?? 1,
     yearSnapshot: saved.yearSnapshot ?? snapshot(saved.game),
     eventsThisYear: saved.eventsThisYear,
+    daily: saved.daily ?? false,
+    maxYear: saved.maxYear ?? null,
   }
 }
 
@@ -408,12 +418,24 @@ function beginCareer(game: GameState, events: EventDef[]): Session {
     year: 1,
     yearSnapshot: snapshot(g),
     eventsThisYear: 0,
+    daily: false,
+    maxYear: null,
   }
 }
 
 /** Démarre une carrière : état initial + première année planifiée. */
 export function startCareer(events: EventDef[], seed: number, setup?: FighterSetup): Session {
   return beginCareer(createInitialState(seed, setup), events)
+}
+
+/** Démarre une « Mission du jour » : carrière bornée à `maxYear` années (sprint). */
+export function startDailyCareer(
+  events: EventDef[],
+  seed: number,
+  maxYear: number,
+  setup?: FighterSetup,
+): Session {
+  return { ...startCareer(events, seed, setup), daily: true, maxYear }
 }
 
 export interface CreationChoices {
@@ -500,6 +522,22 @@ function advanceAfterEvent(session: Session, game: GameState): Session {
   const autoN = Math.max(0, fightsPerYear(game.pro) - PLAYED_FIGHTS_PER_YEAR)
   const sim = simulateSeasonFights(game, autoN)
   const played = sim.game
+
+  // Mission du jour : sprint borné → retraite forcée au bout de `maxYear` années.
+  if (session.maxYear !== null && session.year >= session.maxYear) {
+    return {
+      ...session,
+      game: reduce(played, { type: 'RETIRE' }),
+      current: null,
+      opponent: null,
+      lastResult: null,
+      lastReveal: null,
+      yearReview: null,
+      tournament: null,
+      eventsThisYear: 0,
+    }
+  }
+
   const review = buildYearReview(session.yearSnapshot, played, session.year, played.fighter.age + 1, sim.count)
   const aged = reduce(played, { type: 'ADVANCE_YEAR' })
   if (aged.phase === 'retired') {

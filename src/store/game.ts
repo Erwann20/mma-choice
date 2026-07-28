@@ -3,11 +3,13 @@ import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import type { FighterSetup, GameState } from '../engine'
 import type { Icon } from '../schema'
+import { computeScore } from '../engine'
 import { loadEvents, loadStartingCriteria } from '../schema'
 import {
   startCareer,
   startCareerFromCreation,
   startIconCareer,
+  startDailyCareer,
   chooseInSession,
   continueSession,
   retireCareer,
@@ -26,17 +28,29 @@ export interface ArchivedCareer {
   game: GameState
 }
 
+/** Résultat de la Mission du jour déjà tentée (verrou « un seul essai »). */
+export interface DailyResult {
+  date: string
+  score: number
+}
+
 /** Nombre maximum de carrières conservées dans l'historique. */
 const MAX_ARCHIVE = 50
+/** Durée (années) d'un sprint « Mission du jour ». */
+const DAILY_YEARS = 6
 
 interface GameStore {
   session: Session | null
   /** Historique des carrières terminées (plus récentes en tête). */
   archive: ArchivedCareer[]
+  /** Dernière Mission du jour tentée (verrou quotidien). */
+  dailyResult: DailyResult | null
   newCareer: (setup?: FighterSetup, seed?: number) => void
   createCareer: (choices: CreationChoices, seed?: number) => void
   /** Démarre le mode « Revivre la carrière » avec le profil d'une icône. */
   replayIcon: (icon: Icon, seed?: number) => void
+  /** Démarre la « Mission du jour » (une seule tentative par jour). */
+  startDaily: () => void
   choose: (choiceIndex: number) => void
   /** Reprend après un écran de conséquences (combat ou choix narratif). */
   advance: () => void
@@ -51,6 +65,42 @@ interface GameStore {
 // Graine aléatoire par carrière (variété). Math.random hors du moteur = OK.
 function randomSeed(): number {
   return Math.floor(Math.random() * 0x7fff_ffff)
+}
+
+/** Clé du jour (AAAA-M-J) — la Mission du jour est partagée par tous ce jour-là. */
+export function todayKey(): string {
+  const d = new Date()
+  return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`
+}
+
+/** Graine déterministe dérivée d'une clé de jour (FNV-1a). */
+function dailySeed(key: string): number {
+  let h = 2166136261
+  for (let i = 0; i < key.length; i++) {
+    h ^= key.charCodeAt(i)
+    h = Math.imul(h, 16777619)
+  }
+  return (h >>> 0) % 0x7fff_ffff
+}
+
+const DAILY_STYLES = ['striker', 'wrestler', 'grappler', 'allrounder'] as const
+const DAILY_DIVISIONS = [
+  'flyweight-m',
+  'bantamweight-m',
+  'featherweight-m',
+  'lightweight-m',
+  'welterweight-m',
+  'middleweight-m',
+]
+
+/** Profil du combattant du jour (style/division variant selon la graine). */
+function dailySetup(seed: number): FighterSetup {
+  return {
+    style: DAILY_STYLES[seed % DAILY_STYLES.length],
+    division: DAILY_DIVISIONS[seed % DAILY_DIVISIONS.length],
+    country: 'France',
+    startAge: 18,
+  }
 }
 
 /** Archive la carrière courante si elle est terminée (retraite), sinon inchangé. */
@@ -69,6 +119,7 @@ export const useGameStore = create<GameStore>()(
     (set, get) => ({
       session: null,
       archive: [],
+      dailyResult: null,
       newCareer: (setup, seed) =>
         set((s) => ({
           archive: archiveIfRetired(s.archive, s.session),
@@ -84,17 +135,27 @@ export const useGameStore = create<GameStore>()(
           archive: archiveIfRetired(s.archive, s.session),
           session: startIconCareer(loadEvents(), seed ?? randomSeed(), icon),
         })),
+      startDaily: () =>
+        set((s) => {
+          const today = todayKey()
+          if (s.dailyResult?.date === today) return {} // déjà tentée aujourd'hui
+          const seed = dailySeed(today)
+          return {
+            archive: archiveIfRetired(s.archive, s.session),
+            session: startDailyCareer(loadEvents(), seed, DAILY_YEARS, dailySetup(seed)),
+          }
+        }),
       choose: (choiceIndex) => {
         const s = get().session
         if (s) set({ session: chooseInSession(s, choiceIndex) })
       },
       advance: () => {
         const s = get().session
-        if (s) set({ session: continueSession(s) })
+        if (s) set(recordDaily(get, continueSession(s)))
       },
       retire: () => {
         const s = get().session
-        if (s) set({ session: retireCareer(s) })
+        if (s) set(recordDaily(get, retireCareer(s)))
       },
       reset: () =>
         set((s) => ({ archive: archiveIfRetired(s.archive, s.session), session: null })),
@@ -108,15 +169,35 @@ export const useGameStore = create<GameStore>()(
       partialize: (s) => ({
         saved: s.session ? serializeSession(s.session) : null,
         archive: s.archive,
+        dailyResult: s.dailyResult,
       }),
       merge: (persisted, current) => {
-        const p = persisted as { saved?: SavedSession | null; archive?: ArchivedCareer[] }
+        const p = persisted as {
+          saved?: SavedSession | null
+          archive?: ArchivedCareer[]
+          dailyResult?: DailyResult | null
+        }
         return {
           ...current,
           session: p?.saved ? deserializeSession(p.saved, loadEvents()) : current.session,
           archive: p?.archive ?? [],
+          dailyResult: p?.dailyResult ?? null,
         }
       },
     },
   ),
 )
+
+/** À la fin d'une Mission du jour, enregistre le score (verrou du jour). */
+function recordDaily(
+  get: () => GameStore,
+  next: Session,
+): Partial<GameStore> {
+  if (next.daily && next.game.phase === 'retired') {
+    const today = todayKey()
+    if (get().dailyResult?.date !== today) {
+      return { session: next, dailyResult: { date: today, score: computeScore(next.game) } }
+    }
+  }
+  return { session: next }
+}

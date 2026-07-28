@@ -40,12 +40,15 @@ export function RecapScreen({
   onNew,
   onHome,
   onBack,
+  daily,
 }: {
   game: GameState
   onNew?: () => void
   onHome?: () => void
   /** Mode consultation (depuis l'historique) : affiche un bouton « Retour ». */
   onBack?: () => void
+  /** Récap d'une Mission du jour (change l'intitulé). */
+  daily?: boolean
 }) {
   const score = computeScore(game)
   const rank = allTimeRank(score)
@@ -74,7 +77,9 @@ export function RecapScreen({
 
   return (
     <main className="screen recap">
-      <p className="overline">{onBack ? 'Carrière archivée' : 'Fin de carrière'}</p>
+      <p className="overline">
+        {daily ? 'Mission du jour · terminée' : onBack ? 'Carrière archivée' : 'Fin de carrière'}
+      </p>
 
       <section className={`recap-hero tone-${title.tone}`}>
         <div className="recap-score">

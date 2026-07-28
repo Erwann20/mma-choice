@@ -15,7 +15,7 @@ interface Mode {
 const MODES: Mode[] = [
   { id: 'career', title: 'Faire ma carrière', desc: 'Crée ton combattant et écris ta légende, choix après choix.', soon: false },
   { id: 'replay', title: 'Revivre la carrière', desc: 'Incarne une icône du MMA et réécris sa légende.', soon: false },
-  { id: 'daily', title: 'Mission du jour', desc: 'Un défi quotidien, un seul essai.', soon: true },
+  { id: 'daily', title: 'Mission du jour', desc: 'Un défi quotidien à graine partagée, un seul essai.', soon: false },
 ]
 
 function CareerRow({
@@ -54,18 +54,24 @@ function CareerRow({
 export function HomeScreen({
   onStart,
   onReplay,
+  onDaily,
+  dailyDoneScore,
   archive = [],
   onOpenCareer,
   onDeleteCareer,
 }: {
   onStart: () => void
   onReplay?: () => void
+  onDaily?: () => void
+  /** Score de la Mission du jour déjà tentée aujourd'hui, sinon null. */
+  dailyDoneScore?: number | null
   archive?: ArchivedCareer[]
   onOpenCareer?: (career: ArchivedCareer) => void
   onDeleteCareer?: (id: string) => void
 }) {
   const [acked, setAcked] = useState<string | null>(null)
-  const onMode = (id: string) => (id === 'replay' ? onReplay?.() : onStart())
+  const onMode = (id: string) =>
+    id === 'replay' ? onReplay?.() : id === 'daily' ? onDaily?.() : onStart()
 
   return (
     <main className="center-screen home">
@@ -74,21 +80,36 @@ export function HomeScreen({
         <p style={{ color: 'var(--color-text-muted)', margin: 0 }}>Forge ta légende, choix après choix.</p>
       </div>
       <div className="mode-list">
-        {MODES.map((m) =>
-          m.soon ? (
-            <button
-              key={m.id}
-              type="button"
-              className="mode-card is-soon"
-              onClick={() => setAcked(m.id)}
-              aria-disabled="true"
-            >
-              <span className="mode-title">
-                {m.title} <span className="badge-soon">Bientôt</span>
-              </span>
-              <span className="mode-desc">{acked === m.id ? 'Bientôt disponible — reviens vite !' : m.desc}</span>
-            </button>
-          ) : (
+        {MODES.map((m) => {
+          const dailyDone = m.id === 'daily' && dailyDoneScore != null
+          if (m.soon || dailyDone) {
+            return (
+              <button
+                key={m.id}
+                type="button"
+                className="mode-card is-soon"
+                onClick={() => (m.soon ? setAcked(m.id) : undefined)}
+                aria-disabled="true"
+              >
+                <span className="mode-title">
+                  {m.title}{' '}
+                  {dailyDone ? (
+                    <span className="badge-soon">Terminée · {dailyDoneScore}</span>
+                  ) : (
+                    <span className="badge-soon">Bientôt</span>
+                  )}
+                </span>
+                <span className="mode-desc">
+                  {dailyDone
+                    ? `Score du jour : ${dailyDoneScore}/100 — reviens demain pour un nouveau défi !`
+                    : acked === m.id
+                      ? 'Bientôt disponible — reviens vite !'
+                      : m.desc}
+                </span>
+              </button>
+            )
+          }
+          return (
             <button
               key={m.id}
               type="button"
@@ -98,8 +119,8 @@ export function HomeScreen({
               <span className="mode-title">{m.title}</span>
               <span className="mode-desc">{m.desc}</span>
             </button>
-          ),
-        )}
+          )
+        })}
       </div>
 
       {archive.length > 0 ? (
