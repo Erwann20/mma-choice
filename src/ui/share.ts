@@ -10,14 +10,14 @@ export function buildShareText(game: GameState): string {
   const score = computeScore(game)
   const rank = allTimeRank(score)
   const belt = game.belt ? ' 🏆 Champion.' : ''
-  return `MMA Choice — ${game.fighter.name} : ${score}/100 (${rank}ᵉ de tous les temps). Palmarès ${game.record.wins}-${game.record.losses}.${belt} Bats mon score !`
+  return `Sport Choice · MMA — ${game.fighter.name} : ${score}/100 (${rank}ᵉ de tous les temps). Palmarès ${game.record.wins}-${game.record.losses}.${belt} Bats mon score !`
 }
 
 /** Carte de score partageable d'une Mission du jour (objectif + score). */
 export function buildDailyShareText(game: GameState): string {
   const obj = dailyObjective(game.seed)
   const met = obj.met(game)
-  return `MMA Choice — Mission du jour : ${dailyScore(game)}/100. Objectif « ${obj.label} » ${met ? 'réussi ✅' : 'manqué ❌'}. Bats mon score !`
+  return `Sport Choice · MMA — Mission du jour : ${dailyScore(game)}/100. Objectif « ${obj.label} » ${met ? 'réussi ✅' : 'manqué ❌'}. Bats mon score !`
 }
 
 /**
@@ -29,7 +29,7 @@ export async function shareScore(game: GameState, daily = false): Promise<ShareO
 
   if (nav && typeof nav.share === 'function') {
     try {
-      await nav.share({ title: 'MMA Choice', text })
+      await nav.share({ title: 'Sport Choice', text })
       return 'shared'
     } catch {
       // partage annulé ou indisponible ⇒ on tente le presse-papiers

@@ -6,6 +6,7 @@ import { CreationScreen } from './CreationScreen'
 import { IconSelectScreen } from './IconSelectScreen'
 import { RecapScreen } from './RecapScreen'
 import { HomeScreen } from './HomeScreen'
+import { SportSelectScreen } from './SportSelectScreen'
 import { ConfirmDialog } from './ConfirmDialog'
 import { Toast } from './Toast'
 import { loadIcons } from '../schema'
@@ -28,6 +29,8 @@ export function GameRoot() {
   const [viewingId, setViewingId] = useState<string | null>(null)
   // Consulter l'accueil sans terminer la carrière en cours (reprise possible).
   const [atHome, setAtHome] = useState(false)
+  // Sport choisi sur la page d'entrée multi-sports (null = page de choix).
+  const [sport, setSport] = useState<string | null>(null)
 
   // Toast « Reprise sauvegardée » si une carrière a été rechargée au démarrage.
   useEffect(() => {
@@ -108,9 +111,20 @@ export function GameRoot() {
         />
       )
     }
+    // Page d'entrée multi-sports : tant qu'aucun sport n'est choisi, on la montre.
+    // Le MMA mène au hub MMA existant ; les autres sports sont « Bientôt ».
+    if (sport === null) {
+      return (
+        <>
+          <SportSelectScreen onSelectSport={setSport} />
+          {resumeToast}
+        </>
+      )
+    }
     return (
       <>
         <HomeScreen
+          onBack={() => setSport(null)}
           onStart={() => (pausedCareer ? setConfirmNew(true) : setCreating(true))}
           onReplay={() => setPickingIcon(true)}
           onDaily={() => {
