@@ -1,18 +1,20 @@
 import type { EventDef } from '../schema'
-import { eventCategory, CATEGORY_META } from './labels'
+import type { GameState } from '../engine'
+import { eventCategory, CATEGORY_META, interpolate } from './labels'
 
-export function EventCard({ event }: { event: EventDef }) {
+export function EventCard({ event, game }: { event: EventDef; game?: GameState }) {
   const cat = eventCategory(event)
   const meta = CATEGORY_META[cat]
+  const overline = event.overline ?? meta.label
   return (
     <article className={`event-card cat-${cat}`}>
       <div className="event-cat">
         <span className="event-cat-icon" aria-hidden="true">
           {meta.icon}
         </span>
-        <span>{event.overline ?? meta.label}</span>
+        <span>{game ? interpolate(overline, game) : overline}</span>
       </div>
-      <p className="event-text">{event.text}</p>
+      <p className="event-text">{game ? interpolate(event.text, game) : event.text}</p>
     </article>
   )
 }

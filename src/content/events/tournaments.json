@@ -49,15 +49,15 @@
     ]
   },
   {
-    "id": "fight-tournoi-france",
+    "id": "fight-tournoi-national",
     "weight": 6,
     "repeatable": true,
     "cooldown": 1,
     "category": "combat",
-    "overline": "CHAMPIONNAT DE FRANCE AMATEUR",
-    "text": "Le Championnat de France amateur. La meilleure sélection nationale se dispute le titre. Une victoire ici te met sur la carte.",
+    "overline": "CHAMPIONNAT NATIONAL AMATEUR",
+    "text": "Le championnat national amateur : la meilleure sélection {nation} se dispute le titre. Une victoire ici te met sur la carte.",
     "fight": {
-      "winFlag": "titre_france",
+      "winFlag": "titre_national",
       "bracket": 4
     },
     "conditions": [
@@ -75,7 +75,7 @@
       },
       {
         "kind": "flag",
-        "flag": "titre_france",
+        "flag": "titre_national",
         "eq": false
       }
     ],
@@ -104,7 +104,7 @@
     "cooldown": 1,
     "category": "combat",
     "overline": "IMMAF · CHAMPIONNAT D'EUROPE",
-    "text": "Champion de France, tu es sélectionné pour l'IMMAF Europe. Le gratin continental est là. C'est un autre niveau.",
+    "text": "Champion national, tu es sélectionné pour l'IMMAF Europe. Le gratin continental est là. C'est un autre niveau.",
     "fight": {
       "winFlag": "titre_europe",
       "bracket": 8
@@ -118,7 +118,7 @@
       },
       {
         "kind": "flag",
-        "flag": "titre_france",
+        "flag": "titre_national",
         "eq": true
       },
       {

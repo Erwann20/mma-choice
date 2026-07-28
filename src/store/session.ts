@@ -164,7 +164,7 @@ interface YearSnapshot {
 }
 
 /** Drapeaux de titres suivis dans le bilan annuel (du + prestigieux au -). */
-const TITLE_FLAGS = ['titre_monde', 'titre_europe', 'titre_france', 'titre_regional_am'] as const
+const TITLE_FLAGS = ['titre_monde', 'titre_europe', 'titre_national', 'titre_regional_am'] as const
 
 function snapshot(game: GameState): YearSnapshot {
   return {

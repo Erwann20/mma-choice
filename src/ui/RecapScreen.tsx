@@ -1,6 +1,14 @@
 import { useState } from 'react'
 import type { GameState } from '../engine'
-import { computeScore, allTimeRank, careerTitle, careerAchievements } from '../engine'
+import {
+  computeScore,
+  allTimeRank,
+  careerTitle,
+  careerAchievements,
+  beltOrgsWon,
+  wasChampion,
+} from '../engine'
+import type { Achievement } from '../engine'
 import { loadDivisions } from '../schema'
 import { TIER_LABEL, organizationLabel } from './labels'
 import { shareScore } from './share'
@@ -42,7 +50,18 @@ export function RecapScreen({
   const score = computeScore(game)
   const rank = allTimeRank(score)
   const title = careerTitle(score)
-  const trophies = careerAchievements(game)
+  // Ceintures d'organisation (par promotion) : conservées à vie au palmarès,
+  // même après une perte de titre ou un changement d'orga.
+  const beltTrophies: Achievement[] = beltOrgsWon(game).map((orgId) => ({
+    id: `belt-${orgId}`,
+    icon: '🏆',
+    label: `Champion — ${organizationLabel(orgId) ?? 'organisation pro'}`,
+    desc: "Ceinture d'organisation conquise.",
+  }))
+  if (beltTrophies.length === 0 && wasChampion(game)) {
+    beltTrophies.push({ id: 'champion', icon: '🏆', label: 'Champion', desc: 'A décroché une ceinture pro.' })
+  }
+  const trophies = [...beltTrophies, ...careerAchievements(game)]
   const [shareMsg, setShareMsg] = useState<string | null>(null)
 
   const onShare = async () => {

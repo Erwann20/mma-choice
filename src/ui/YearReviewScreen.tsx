@@ -2,7 +2,7 @@
 // affiché entre deux années de carrière (une respiration + une récompense).
 import type { GameState, FightChange } from '../engine'
 import type { YearReview } from '../store/session'
-import { changeChip, TITLE_FLAG_LABEL } from './labels'
+import { changeChip, titleFlagLabel } from './labels'
 
 const SKILL_CHANNELS = ['striking', 'grappling', 'ground', 'cardio'] as const
 const isSkill = (c: FightChange) => (SKILL_CHANNELS as readonly string[]).includes(c.target)
@@ -51,7 +51,7 @@ export function YearReviewScreen({
           {review.wonBelt ? <p className="year-title-line">🏆 Champion — ceinture conquise !</p> : null}
           {review.newTitleFlags.map((f) => (
             <p className="year-title-line" key={f}>
-              {TITLE_FLAG_LABEL[f] ?? f}
+              {titleFlagLabel(f, game)}
             </p>
           ))}
         </section>

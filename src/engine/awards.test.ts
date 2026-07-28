@@ -18,17 +18,22 @@ describe('trophées de carrière', () => {
     expect(careerAchievements(createInitialState(1))).toEqual([])
   })
 
-  it('débloque champion, invaincu et guerrier selon le palmarès', () => {
+  it('débloque invaincu, guerrier et finisseur selon le palmarès', () => {
     const g: GameState = {
       ...createInitialState(1),
-      belt: true,
       record: { wins: 12, losses: 0, finishes: 6 },
     }
     const ids = careerAchievements(g).map((a) => a.id)
-    expect(ids).toContain('champion')
     expect(ids).toContain('invaincu')
     expect(ids).toContain('guerrier')
     expect(ids).toContain('finisseur')
+  })
+
+  it('le titre national reflète le pays du combattant', () => {
+    const base = createInitialState(1, { country: 'Brésil' })
+    const g: GameState = { ...base, flags: { titre_national: true } }
+    const champ = careerAchievements(g).find((a) => a.id === 'champ-national')
+    expect(champ?.label).toBe('Champion du Brésil (amateur)')
   })
 
   it('débloque les trophées de notoriété et de fortune', () => {

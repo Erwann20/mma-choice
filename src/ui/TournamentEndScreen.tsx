@@ -3,7 +3,7 @@ import type { GameState } from '../engine'
 import type { Tournament } from '../store/tournament'
 import { roundNames } from '../store/tournament'
 import { BracketView } from './BracketView'
-import { TITLE_FLAG_LABEL } from './labels'
+import { titleFlagLabel } from './labels'
 
 /** Nom du tour où le joueur a été éliminé (dernier match perdu). */
 function eliminatedRound(t: Tournament): string {
@@ -25,7 +25,7 @@ export function TournamentEndScreen({
   onContinue: () => void
 }) {
   const won = tournament.status === 'won'
-  const titleLabel = tournament.winFlag ? TITLE_FLAG_LABEL[tournament.winFlag] : null
+  const titleLabel = tournament.winFlag ? titleFlagLabel(tournament.winFlag, game) : null
 
   return (
     <main className="screen tournament-end">

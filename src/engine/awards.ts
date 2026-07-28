@@ -5,6 +5,33 @@ import { RETIREMENT_AGE } from './config'
 
 export type TitleTone = 'goat' | 'legend' | 'star' | 'solid' | 'plain'
 
+// Fragment « de/du/d'/des <pays> » pour libeller un titre national selon le
+// pays du combattant (ex. « Champion du Brésil », « Champion d'Irlande »).
+const NATION_DE: Record<string, string> = {
+  France: 'de France',
+  'États-Unis': 'des États-Unis',
+  Brésil: 'du Brésil',
+  Russie: 'de Russie',
+  'Russie (Daghestan)': 'de Russie',
+  Nigéria: 'du Nigéria',
+  Irlande: "d'Irlande",
+  Japon: 'du Japon',
+  Mexique: 'du Mexique',
+  Canada: 'du Canada',
+  'Royaume-Uni': 'du Royaume-Uni',
+  Pologne: 'de Pologne',
+  Thaïlande: 'de Thaïlande',
+  Italie: "d'Italie",
+  Espagne: "d'Espagne",
+  Allemagne: "d'Allemagne",
+  FR: 'de France',
+}
+
+/** Fragment de nationalité (« de France », « du Brésil », « d'Irlande »…). */
+export function nationOf(country: string): string {
+  return NATION_DE[country] ?? `de ${country}`
+}
+
 /** Titre de carrière dérivé du Score /100 (de « passage discret » à GOAT). */
 export function careerTitle(score: number): { label: string; icon: string; tone: TitleTone } {
   if (score >= 90) return { label: 'GOAT — le plus grand de tous les temps', icon: '🐐', tone: 'goat' }
@@ -32,8 +59,9 @@ export function careerAchievements(game: GameState): Achievement[] {
 
   add(game.flags['titre_monde'] === true, { id: 'immaf-monde', icon: '🌍', label: 'Champion du Monde IMMAF', desc: 'A dominé le sommet de l’amateurisme mondial.' })
   add(game.flags['titre_europe'] === true, { id: 'immaf-europe', icon: '🇪🇺', label: "Champion d'Europe IMMAF", desc: 'Sacré sur le continent en amateur.' })
-  add(game.flags['titre_france'] === true, { id: 'champ-france', icon: '🇫🇷', label: 'Champion de France amateur', desc: 'Meilleur amateur du pays.' })
-  add(game.belt, { id: 'champion', icon: '🏆', label: 'Champion', desc: 'A décroché la ceinture de sa division.' })
+  add(game.flags['titre_national'] === true, { id: 'champ-national', icon: '🥇', label: `Champion ${nationOf(fighter.country)} (amateur)`, desc: 'Meilleur amateur du pays.' })
+  // Les ceintures d'organisation (par promotion) sont ajoutées côté UI, où les
+  // libellés d'orga sont disponibles (voir RecapScreen / belts.ts).
   add(game.titleDefenses >= 2, { id: 'roi', icon: '🛡️', label: 'Roi de la division', desc: `${game.titleDefenses} défenses de titre réussies.` })
   add(game.tier === 'major' && meta.reputation >= 80, { id: 'icone', icon: '🌍', label: 'Icône mondiale', desc: 'Une superstar reconnue sur toute la planète MMA.' })
   add(record.wins >= 5 && record.losses === 0, { id: 'invaincu', icon: '💯', label: 'Invaincu', desc: 'A raccroché sans la moindre défaite.' })
