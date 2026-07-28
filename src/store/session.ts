@@ -36,12 +36,15 @@ function applyCareerMove(game: GameState, choice: { signOrg?: string; turnPro?: 
   if (choice.signOrg) {
     const org = ORGANIZATIONS.find((o) => o.id === choice.signOrg)
     if (org) {
+      // Expatriation : l'orga est-elle basée dans un autre pays que le combattant ?
+      const expatrie = org.country !== game.fighter.country
+      const flags = { ...game.flags, expatrie }
       // Une orga PRO fait signer un contrat pro et cale le palier ; une orga
       // AMATEUR donne juste une maison (on reste amateur, palier inchangé).
       if (org.level === 'pro') {
-        return { ...game, organization: org.id, tier: org.tier ?? 'regional', pro: true }
+        return { ...game, organization: org.id, tier: org.tier ?? 'regional', pro: true, flags }
       }
-      return { ...game, organization: org.id }
+      return { ...game, organization: org.id, flags }
     }
   }
   if (choice.turnPro && !game.pro) {

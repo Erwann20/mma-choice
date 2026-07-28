@@ -1,0 +1,178 @@
+[
+  {
+    "id": "evt-mal-du-pays",
+    "weight": 4,
+    "repeatable": true,
+    "cooldown": 2,
+    "category": "health",
+    "overline": "LE MAL DU PAYS",
+    "text": "Loin de chez toi, la nostalgie te ronge. Ta famille, tes repères, ta langue te manquent. Comment tiens-tu le coup ?",
+    "conditions": [{ "kind": "flag", "flag": "expatrie", "eq": true }],
+    "choices": [
+      {
+        "label": "Rentrer quelques jours au pays",
+        "hint": "Coûteux, mais ça recharge",
+        "effects": [
+          { "target": "money", "op": "sub", "value": 1500 },
+          { "target": "mental", "op": "add", "value": 8 },
+          { "target": "health", "op": "add", "value": 4 }
+        ]
+      },
+      {
+        "label": "Appeler tes proches chaque soir",
+        "hint": "Un peu de réconfort",
+        "effects": [{ "target": "mental", "op": "add", "value": 4 }]
+      },
+      {
+        "label": "Noyer le vague à l'âme dans le travail",
+        "hint": "Tu progresses, mais tu t'uses",
+        "effects": [
+          { "target": "cardio", "op": "add", "value": 4 },
+          { "target": "grappling", "op": "add", "value": 3 },
+          { "target": "mental", "op": "sub", "value": 4 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt-barriere-langue",
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 3,
+    "category": "social",
+    "overline": "BARRIÈRE DE LA LANGUE",
+    "text": "Aux entraînements, tu ne comprends pas la moitié des consignes. La barrière de la langue t'isole du groupe.",
+    "conditions": [{ "kind": "flag", "flag": "expatrie", "eq": true }],
+    "choices": [
+      {
+        "label": "Prendre des cours de langue",
+        "hint": "Un effort qui paie",
+        "effects": [
+          { "target": "money", "op": "sub", "value": 800 },
+          { "target": "mental", "op": "add", "value": 5 }
+        ]
+      },
+      {
+        "label": "T'appuyer sur la diaspora locale",
+        "hint": "Des compatriotes te soutiennent",
+        "effects": [
+          { "target": "followers", "op": "add", "value": 1200 },
+          { "target": "mental", "op": "add", "value": 2 }
+        ]
+      },
+      {
+        "label": "Rester dans ta bulle",
+        "hint": "Tu t'enfermes un peu plus",
+        "effects": [{ "target": "mental", "op": "sub", "value": 3 }]
+      }
+    ]
+  },
+  {
+    "id": "evt-nourriture-pays",
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 3,
+    "category": "health",
+    "overline": "LE GOÛT DU PAYS",
+    "text": "La cuisine locale ne passe pas. Ton corps réclame les plats de chez toi et ta coupe de poids en souffre.",
+    "conditions": [{ "kind": "flag", "flag": "expatrie", "eq": true }],
+    "choices": [
+      {
+        "label": "Te faire importer tes produits",
+        "hint": "Le confort a un prix",
+        "effects": [
+          { "target": "money", "op": "sub", "value": 600 },
+          { "target": "health", "op": "add", "value": 5 }
+        ]
+      },
+      {
+        "label": "T'adapter à la cuisine locale",
+        "hint": "Difficile, mais formateur",
+        "effects": [
+          { "target": "mental", "op": "add", "value": 4 },
+          { "target": "health", "op": "sub", "value": 2 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt-fete-loin-des-siens",
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 4,
+    "category": "social",
+    "overline": "LES FÊTES, LOIN DES TIENS",
+    "text": "C'est la période des fêtes au pays. Tout le monde est réuni là-bas… sauf toi, seul à l'autre bout du monde.",
+    "conditions": [{ "kind": "flag", "flag": "expatrie", "eq": true }],
+    "choices": [
+      {
+        "label": "Visio en famille toute la soirée",
+        "hint": "Le cœur se réchauffe",
+        "effects": [{ "target": "mental", "op": "add", "value": 6 }]
+      },
+      {
+        "label": "T'imposer une séance ce soir-là",
+        "hint": "Personne ne bosse plus dur que toi",
+        "effects": [
+          { "target": "reputation", "op": "add", "value": 3 },
+          { "target": "striking", "op": "add", "value": 3 },
+          { "target": "mental", "op": "sub", "value": 3 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt-diaspora-derriere-toi",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 4,
+    "category": "social",
+    "overline": "TOUT UN PAYS DERRIÈRE TOI",
+    "text": "Même à l'étranger, tes compatriotes se déplacent en nombre pour te soutenir. Entendre ton hymne dans les tribunes te galvanise.",
+    "conditions": [{ "kind": "flag", "flag": "expatrie", "eq": true }],
+    "choices": [
+      {
+        "label": "Porter les couleurs de ton pays",
+        "hint": "Fierté et ferveur",
+        "effects": [
+          { "target": "followers", "op": "add", "value": 2000 },
+          { "target": "reputation", "op": "add", "value": 4 },
+          { "target": "mental", "op": "add", "value": 3 }
+        ]
+      },
+      {
+        "label": "Rester concentré sur le sport",
+        "hint": "Tête froide",
+        "effects": [{ "target": "mental", "op": "add", "value": 2 }]
+      }
+    ]
+  },
+  {
+    "id": "evt-heros-local",
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 3,
+    "category": "social",
+    "overline": "HÉROS À DOMICILE",
+    "text": "Tu combats sur tes terres, devant ton public. La salle scande ton nom : la pression est immense, mais la ferveur te porte.",
+    "conditions": [
+      { "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 },
+      { "kind": "flag", "flag": "expatrie", "eq": false }
+    ],
+    "choices": [
+      {
+        "label": "Régaler ton public",
+        "hint": "Le show avant tout",
+        "effects": [
+          { "target": "reputation", "op": "add", "value": 5 },
+          { "target": "followers", "op": "add", "value": 1500 }
+        ]
+      },
+      {
+        "label": "Gérer la pression avec sérieux",
+        "hint": "Le résultat d'abord",
+        "effects": [{ "target": "mental", "op": "add", "value": 4 }]
+      }
+    ]
+  }
+]

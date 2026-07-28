@@ -96,7 +96,7 @@ export function createInitialState(seed: number, setup: FighterSetup = {}): Game
     fighter: {
       name: setup.name ?? DEFAULT_FIGHTER_NAME,
       sex: setup.sex ?? 'M',
-      country: setup.country ?? 'FR',
+      country: setup.country ?? 'France',
       age: setup.startAge ?? START_AGE,
     },
     division: setup.division ?? 'lightweight',
