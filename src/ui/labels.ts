@@ -2,7 +2,7 @@
 import type { Channel, Effect, EventCategory, EventDef } from '../schema'
 import { loadOrganizations } from '../schema'
 import type { Tier, Style, GameState } from '../engine'
-import { nationOf } from '../engine'
+import { nationOf, citiesForCountry } from '../engine'
 
 /** Formatage compact FR d'un nombre : 1 200 → « 1,2 k », 3 400 000 → « 3,4 M ». */
 export function formatCompact(n: number): string {
@@ -59,8 +59,9 @@ export function organizationCountry(id: string | null): string | null {
   return id ? (ORG_COUNTRY[id] ?? null) : null
 }
 
-/** Ville du club, par drapeau posé au choix du club (clubs.json). */
-const CLUB_CITY: Record<string, string> = {
+// Repli LEGACY : anciennes carrières où la ville était portée par un drapeau
+// (avant que `fighter.city` existe). Les nouvelles carrières lisent fighter.city.
+const LEGACY_CLUB_CITY: Record<string, string> = {
   club_paris: 'Paris',
   club_angers: 'Angers',
   club_nantes: 'Nantes',
@@ -71,11 +72,11 @@ const CLUB_CITY: Record<string, string> = {
   club_bordeaux: 'Bordeaux',
 }
 
-/** Ville du club choisi par le combattant (dernier drapeau posé), ou null. */
+/** Ville du club choisi par le combattant, ou null si aucun club posé. */
 export function clubCity(game: GameState): string | null {
-  // Le dernier flag de ville posé prime (un changement de club écrase le décor).
+  if (game.fighter.city) return game.fighter.city
   let city: string | null = null
-  for (const [flag, name] of Object.entries(CLUB_CITY)) {
+  for (const [flag, name] of Object.entries(LEGACY_CLUB_CITY)) {
     if (game.flags[flag] === true) city = name
   }
   return city
@@ -94,11 +95,13 @@ export function careerStatus(game: GameState): string {
 
 /** Remplace les variables de gabarit d'un texte d'événement selon l'état. */
 export function interpolate(text: string, game: GameState): string {
+  const cities = citiesForCountry(game.fighter.country)
   return text
     .replace(/\{nation\}/g, nationOf(game.fighter.country))
     .replace(/\{country\}/g, game.fighter.country)
     .replace(/\{name\}/g, game.fighter.name)
     .replace(/\{nemesis\}/g, game.nemesis?.name ?? 'ton rival')
+    .replace(/\{ville(\d)\}/g, (_, n) => cities[Number(n) - 1] ?? cities[0])
 }
 
 /** Libellé (avec emoji) d'un titre amateur, selon la clé de flag et le pays. */

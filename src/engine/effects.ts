@@ -4,6 +4,7 @@ import type { Choice, Effect, EventDef } from '../schema'
 import type { GameState } from './state'
 import { readChannel, writeChannel } from './channels'
 import { markEventConsumed } from './events'
+import { cityForSlot } from './cities'
 
 /** Applique un effet déclaré `{target, op, value}` (borné par writeChannel). */
 export function applyEffect(state: GameState, e: Effect): GameState {
@@ -27,6 +28,11 @@ export function applyChoice(state: GameState, event: EventDef, choice: Choice): 
   // par un événement dédié) tant que la cible diffère de la division courante.
   if (choice.setDivision && choice.setDivision !== s.division) {
     s = { ...s, division: choice.setDivision, flags: { ...s.flags, coupe_de_poids: true } }
+  }
+  // Ville du club (FR-1) : résolue depuis la banque de villes du PAYS (crédible).
+  if (choice.setCity) {
+    const city = cityForSlot(s.fighter.country, choice.setCity)
+    if (city) s = { ...s, fighter: { ...s.fighter, city } }
   }
   if (choice.setFlags) {
     s = { ...s, flags: { ...s.flags, ...choice.setFlags } }

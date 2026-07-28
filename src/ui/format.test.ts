@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { formatCompact, formatMoney, clubCity } from './labels'
+import { formatCompact, formatMoney, clubCity, interpolate } from './labels'
 import { createInitialState } from '../engine'
 
 describe('formatage compact des nombres', () => {
@@ -34,8 +34,20 @@ describe('ville du club', () => {
     expect(clubCity(createInitialState(1))).toBeNull()
   })
 
-  it('renvoie la ville du drapeau de club posé', () => {
+  it('reflète la ville posée sur le combattant', () => {
+    const base = createInitialState(1)
+    expect(clubCity({ ...base, fighter: { ...base.fighter, city: 'Las Vegas' } })).toBe('Las Vegas')
+  })
+
+  it('repli legacy : ancienne carrière où la ville était un drapeau', () => {
     const base = createInitialState(1)
     expect(clubCity({ ...base, flags: { club_angers: true } })).toBe('Angers')
+  })
+
+  it('interpole {villeN} selon le pays (un Américain ne voit pas Nantes)', () => {
+    const us = createInitialState(1, { country: 'États-Unis' })
+    const txt = interpolate('Va à {ville1} ou {ville2}', us)
+    expect(txt).toBe('Va à Las Vegas ou New York')
+    expect(txt).not.toMatch(/Nantes|Paris/)
   })
 })

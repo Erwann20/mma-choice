@@ -10,34 +10,34 @@
     "conditions": [{ "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 }],
     "choices": [
       {
-        "label": "Paris — la grande scène",
+        "label": "{ville1} — viser les projecteurs",
         "hint": "Exposition et contacts",
         "effects": [
           { "target": "reputation", "op": "add", "value": 4 },
           { "target": "followers", "op": "add", "value": 300 }
         ],
-        "setFlags": { "club_paris": true }
+        "setCity": 1
       },
       {
-        "label": "Angers — l'esprit famille",
-        "hint": "Un club soudé, la tête froide",
+        "label": "{ville2} — une école de lutte réputée",
+        "hint": "Corps-à-corps et projections",
+        "effects": [{ "target": "grappling", "op": "add", "value": 6 }],
+        "setCity": 2
+      },
+      {
+        "label": "{ville3} — une salle de frappe",
+        "hint": "Les pieds-poings avant tout",
+        "effects": [{ "target": "striking", "op": "add", "value": 6 }],
+        "setCity": 3
+      },
+      {
+        "label": "{ville4} — un club familial et soudé",
+        "hint": "La tête froide, le cœur solide",
         "effects": [
           { "target": "mental", "op": "add", "value": 5 },
           { "target": "cardio", "op": "add", "value": 2 }
         ],
-        "setFlags": { "club_angers": true }
-      },
-      {
-        "label": "Nantes — l'école de lutte",
-        "hint": "Corps-à-corps et projections",
-        "effects": [{ "target": "grappling", "op": "add", "value": 6 }],
-        "setFlags": { "club_nantes": true }
-      },
-      {
-        "label": "Marseille — culture pieds-poings",
-        "hint": "La frappe avant tout",
-        "effects": [{ "target": "striking", "op": "add", "value": 6 }],
-        "setFlags": { "club_marseille": true }
+        "setCity": 4
       }
     ]
   },
@@ -127,41 +127,35 @@
     "category": "career",
     "overline": "UN AUTRE HORIZON",
     "text": "Une salle t'ouvre ses portes dans une nouvelle ville. Changer de décor, c'est repartir de zéro dans un vestiaire — mais parfois c'est là qu'on grandit le plus.",
-    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 }],
+    "conditions": [
+      { "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 },
+      { "kind": "stat", "on": "age", "cmp": "gte", "value": 19 }
+    ],
     "choices": [
       {
-        "label": "Lyon — la fabrique à champions",
+        "label": "{ville1} — la fabrique à champions",
         "hint": "Exigence et sparring relevé",
         "effects": [
           { "target": "grappling", "op": "add", "value": 3 },
           { "target": "striking", "op": "add", "value": 3 },
           { "target": "health", "op": "sub", "value": 2 }
         ],
-        "setFlags": { "club_lyon": true }
+        "setCity": 1
       },
       {
-        "label": "Toulouse — l'esprit rugby",
-        "hint": "Cardio et combat au contact",
+        "label": "{ville3} — cardio et volume",
+        "hint": "Rythme et combat au contact",
         "effects": [
           { "target": "cardio", "op": "add", "value": 5 },
           { "target": "grappling", "op": "add", "value": 2 }
         ],
-        "setFlags": { "club_toulouse": true }
+        "setCity": 3
       },
       {
-        "label": "Lille — l'école du sol",
+        "label": "{ville4} — l'école du sol",
         "hint": "Jiu-jitsu et soumissions",
         "effects": [{ "target": "ground", "op": "add", "value": 6 }],
-        "setFlags": { "club_lille": true }
-      },
-      {
-        "label": "Bordeaux — travail patient",
-        "hint": "Technique et tête froide",
-        "effects": [
-          { "target": "mental", "op": "add", "value": 4 },
-          { "target": "ground", "op": "add", "value": 2 }
-        ],
-        "setFlags": { "club_bordeaux": true }
+        "setCity": 4
       }
     ]
   },

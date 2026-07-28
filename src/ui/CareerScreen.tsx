@@ -165,7 +165,7 @@ export function CareerScreen({
       <EventCard key={current.id} event={current} game={game} />
       <div className="choice-list">
         {current.choices.map((c, i) => (
-          <ChoiceCard key={`${current.id}-${i}`} index={i} choice={c} onClick={() => choose(i)} />
+          <ChoiceCard key={`${current.id}-${i}`} index={i} choice={c} game={game} onClick={() => choose(i)} />
         ))}
       </div>
       <p className="sr-only" role="status" aria-live="polite">

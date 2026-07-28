@@ -89,6 +89,8 @@ export const ChoiceSchema = z.object({
   setStyle: StyleSchema.optional(),
   /** Change de division de poids (déclenche une coupe de poids, FR-13). */
   setDivision: z.string().min(1).optional(),
+  /** Pose la ville du club (slot 1-based dans la banque de villes du pays, FR-1). */
+  setCity: z.number().int().positive().optional(),
   /** Signe avec une organisation (id) : fixe l'orga, passe pro et cale le palier. */
   signOrg: z.string().min(1).optional(),
   /** Passe professionnel sans signer d'organisation précise. */
