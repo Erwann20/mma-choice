@@ -293,6 +293,7 @@ export const BASKET: SportDef = {
     athlete: 'Athlète',
   },
   defaultStyle: 'polyvalent',
+  tierLabels: { immaf: 'Amateur', regional: 'Ligue mineure', major: 'Grande ligue' },
   positions: [
     { id: 'meneur', label: 'Meneur' },
     { id: 'arriere', label: 'Arrière' },

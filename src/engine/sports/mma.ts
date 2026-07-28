@@ -126,6 +126,7 @@ export const MMA: SportDef = {
   defaultStyle: 'allrounder',
   positions: [],
   defaultDivision: 'lightweight',
+  tierLabels: { immaf: 'Amateur', regional: 'Circuit régional', major: 'Organisation majeure' },
   overall: mmaOverall,
   score: mmaScore,
   achievements: mmaAchievements,

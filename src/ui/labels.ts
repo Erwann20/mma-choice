@@ -88,9 +88,9 @@ export function careerStatus(game: GameState): string {
   const country = organizationCountry(game.organization)
   const abroad = game.flags['expatrie'] === true
   const loc = country ? ` · ${country}${abroad ? ' ✈️' : ''}` : ''
-  if (!game.pro) return org ? `Amateur · ${org}${loc}` : 'Amateur'
-  const level = game.tier === 'major' ? 'majeure' : 'régionale'
-  return org ? `Pro · ${org} (${level})${loc}` : `Pro · ${TIER_LABEL[game.tier]}`
+  const tl = sportDef(game.sport).tierLabels
+  if (!game.pro) return org ? `${tl.immaf} · ${org}${loc}` : tl.immaf
+  return org ? `Pro · ${org} (${tl[game.tier]})${loc}` : `Pro · ${tl[game.tier]}`
 }
 
 /** Remplace les variables de gabarit d'un texte d'événement selon l'état. */

@@ -11,6 +11,13 @@
     { "id": "apex", "label": "Apex Championship", "level": "pro", "tier": "major", "country": "États-Unis", "blurb": "Le sommet mondial, à Las Vegas. C'est là qu'on devient une légende." },
     { "id": "gfl", "label": "Global Fight League", "level": "pro", "tier": "major", "country": "Singapour", "blurb": "L'organisation asiatique qui paie le mieux, basée à Singapour." },
     { "id": "pinnacle", "label": "Pinnacle FC", "level": "pro", "tier": "major", "country": "États-Unis", "blurb": "Le mastodonte américain ultra-médiatisé : lumières, pay-per-view et superstars." },
-    { "id": "empire", "label": "Empire MMA", "level": "pro", "tier": "major", "country": "Émirats arabes unis", "blurb": "Le géant du Golfe aux bourses astronomiques. Le luxe, la démesure, les projecteurs." }
+    { "id": "empire", "label": "Empire MMA", "level": "pro", "tier": "major", "country": "Émirats arabes unis", "blurb": "Le géant du Golfe aux bourses astronomiques. Le luxe, la démesure, les projecteurs." },
+
+    { "id": "bk-riverside", "label": "Riverside Hoops", "level": "pro", "tier": "regional", "country": "États-Unis", "blurb": "Une franchise de développement américaine où les talents bruts se polissent." },
+    { "id": "bk-lyon-basket", "label": "Lyon Basket", "level": "pro", "tier": "regional", "country": "France", "blurb": "Le fer de lance du basket français, ambitieux et bien structuré." },
+    { "id": "bk-madrid", "label": "Madrid Titanes", "level": "pro", "tier": "regional", "country": "Espagne", "blurb": "Un cador européen à la culture défensive redoutable." },
+    { "id": "bk-metropolis", "label": "Metropolis Kings", "level": "pro", "tier": "major", "country": "États-Unis", "blurb": "Franchise phare de la grande ligue : projecteurs, salles combles, contrats en or." },
+    { "id": "bk-coastal", "label": "Coastal Waves", "level": "pro", "tier": "major", "country": "États-Unis", "blurb": "La franchise glamour de la côte ouest : show, stars et titres." },
+    { "id": "bk-dragons", "label": "Shanghai Dragons", "level": "pro", "tier": "major", "country": "Chine", "blurb": "Le géant asiatique aux moyens colossaux et au public immense." }
   ]
 }

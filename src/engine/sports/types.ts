@@ -38,6 +38,8 @@ export interface SportDef {
   /** Postes/divisions (id + libellé) ; division par défaut. */
   positions: { id: string; label: string }[]
   defaultDivision: string
+  /** Libellés des paliers de carrière (amateur → régional → majeur). */
+  tierLabels: Record<'immaf' | 'regional' | 'major', string>
   /** Note générale (OVR 0-99), façon FIFA. */
   overall: (game: GameState) => number
   /** Score de carrière /100. */
