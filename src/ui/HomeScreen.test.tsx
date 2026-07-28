@@ -3,11 +3,17 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import { HomeScreen } from './HomeScreen'
 
 describe('HomeScreen (UX-DR13)', () => {
-  it('affiche les trois modes de jeu', () => {
-    render(<HomeScreen onStart={() => {}} />)
+  it('affiche les trois modes de jeu (hub avec mission du jour)', () => {
+    render(<HomeScreen onStart={() => {}} onDaily={() => {}} />)
     expect(screen.getByRole('button', { name: /faire ma carrière/i })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /revivre la carrière/i })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /mission du jour/i })).toBeInTheDocument()
+  })
+
+  it('le hub basket masque la mission du jour', () => {
+    render(<HomeScreen sport="basket" onStart={() => {}} />)
+    expect(screen.getByRole('button', { name: /faire ma carrière/i })).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /mission du jour/i })).toBeNull()
   })
 
   it('le mode carrière lance la création', () => {

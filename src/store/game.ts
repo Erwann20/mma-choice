@@ -148,7 +148,7 @@ export const useGameStore = create<GameStore>()(
       replayIcon: (icon, seed) =>
         set((s) => ({
           archive: archiveIfRetired(s.archive, s.session),
-          session: startIconCareer(loadEvents(), seed ?? randomSeed(), icon),
+          session: startIconCareer(loadEvents(icon.sport), seed ?? randomSeed(), icon),
         })),
       startDaily: () =>
         set((s) => {

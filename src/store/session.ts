@@ -479,6 +479,7 @@ export function startIconCareer(events: EventDef[], seed: number, icon: Icon): S
     division: icon.division,
     style: icon.style,
     startAge: icon.startAge,
+    sport: icon.sport,
   })
   for (const eff of icon.effects) game = applyEffect(game, eff)
   game = { ...game, flags: { ...game.flags, [`icon_${icon.id}`]: true } }

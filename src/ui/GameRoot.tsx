@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useGameStore, todayKey, yesterdayKey } from '../store/game'
 import { CareerScreen } from './CareerScreen'
 import { CreationScreen } from './CreationScreen'
+import { BasketCreationScreen } from './BasketCreationScreen'
 import { IconSelectScreen } from './IconSelectScreen'
 import { RecapScreen } from './RecapScreen'
 import { HomeScreen } from './HomeScreen'
@@ -25,6 +26,8 @@ export function GameRoot() {
   const deleteArchived = useGameStore((s) => s.deleteArchived)
   const [creating, setCreating] = useState(false)
   const [pickingIcon, setPickingIcon] = useState(false)
+  const [creatingBasket, setCreatingBasket] = useState(false)
+  const [pickingBasketIcon, setPickingBasketIcon] = useState(false)
   const [confirmNew, setConfirmNew] = useState(false)
   const [resumed, setResumed] = useState(false)
   const [viewingId, setViewingId] = useState<string | null>(null)
@@ -50,6 +53,8 @@ export function GameRoot() {
     setAtHome(false)
     setCreating(false)
     setPickingIcon(false)
+    setCreatingBasket(false)
+    setPickingBasketIcon(false)
   }
 
   // Récap de FIN DE CARRIÈRE (retraite) — prioritaire sur tout le reste.
@@ -112,22 +117,65 @@ export function GameRoot() {
         />
       )
     }
+    if (creatingBasket) {
+      return (
+        <BasketCreationScreen
+          onCreate={(setup) => {
+            newCareer(setup)
+            leaveHome()
+          }}
+          onCancel={() => setCreatingBasket(false)}
+        />
+      )
+    }
+    if (pickingBasketIcon) {
+      return (
+        <IconSelectScreen
+          icons={loadIcons('basket')}
+          onPick={(icon) => {
+            replayIcon(icon)
+            leaveHome()
+          }}
+          onCancel={() => setPickingBasketIcon(false)}
+        />
+      )
+    }
     // Page d'entrée multi-sports : tant qu'aucun sport n'est choisi, on la montre.
-    // Le MMA mène au hub MMA existant ; les autres sports sont « Bientôt ».
     if (sport === null) {
       return (
         <>
-          <SportSelectScreen
-            onSelectSport={(id) => {
-              if (id === 'basket') {
-                // MVP basket : démarrage direct d'une carrière basket.
-                newCareer({ sport: 'basket' })
-                leaveHome()
-              } else {
-                setSport(id)
-              }
-            }}
+          <SportSelectScreen onSelectSport={(id) => setSport(id)} />
+          {resumeToast}
+        </>
+      )
+    }
+    // Hub BASKET : mêmes modes que le MMA (carrière / revivre), sans mission du jour.
+    if (sport === 'basket') {
+      return (
+        <>
+          <HomeScreen
+            sport="basket"
+            onBack={() => setSport(null)}
+            onStart={() => (pausedCareer ? setConfirmNew(true) : setCreatingBasket(true))}
+            onReplay={() => setPickingBasketIcon(true)}
+            onResume={pausedCareer ? () => setAtHome(false) : undefined}
+            resumeName={pausedCareer ? session?.game.fighter.name : undefined}
+            archive={archive}
+            onOpenCareer={(c) => setViewingId(c.id)}
+            onDeleteCareer={deleteArchived}
           />
+          {confirmNew ? (
+            <ConfirmDialog
+              title="Remplacer la carrière en cours ?"
+              body="La carrière que tu as en cours sera définitivement perdue."
+              confirmLabel="Nouvelle carrière"
+              onConfirm={() => {
+                setConfirmNew(false)
+                setCreatingBasket(true)
+              }}
+              onCancel={() => setConfirmNew(false)}
+            />
+          ) : null}
           {resumeToast}
         </>
       )
