@@ -1,0 +1,91 @@
+[
+  {
+    "id": "bk-king",
+    "name": "Marcus Bell",
+    "nickname": "Sa Majesté",
+    "flag": "🇺🇸",
+    "country": "États-Unis",
+    "sex": "M",
+    "sport": "basket",
+    "division": "ailier",
+    "style": "polyvalent",
+    "startAge": 18,
+    "blurb": "L'ailier total : il score, il passe, il défend. Le patron du terrain.",
+    "effects": [
+      { "target": "tir", "op": "add", "value": 15 },
+      { "target": "passe", "op": "add", "value": 15 },
+      { "target": "athletisme", "op": "add", "value": 15 },
+      { "target": "dribble", "op": "add", "value": 10 }
+    ]
+  },
+  {
+    "id": "bk-chef",
+    "name": "Danny Rivers",
+    "nickname": "Le Chef",
+    "flag": "🇺🇸",
+    "country": "États-Unis",
+    "sex": "M",
+    "sport": "basket",
+    "division": "meneur",
+    "style": "scoreur",
+    "startAge": 18,
+    "blurb": "La meilleure gâchette de tous les temps. Il dégaine de la moitié de terrain.",
+    "effects": [
+      { "target": "tir", "op": "add", "value": 22 },
+      { "target": "dribble", "op": "add", "value": 14 }
+    ]
+  },
+  {
+    "id": "bk-air",
+    "name": "Elijah Moon",
+    "nickname": "Air",
+    "flag": "🇺🇸",
+    "country": "États-Unis",
+    "sex": "M",
+    "sport": "basket",
+    "division": "arriere",
+    "style": "athlete",
+    "startAge": 18,
+    "blurb": "Il vole. Le scoreur le plus spectaculaire que le jeu ait connu.",
+    "effects": [
+      { "target": "tir", "op": "add", "value": 18 },
+      { "target": "athletisme", "op": "add", "value": 18 },
+      { "target": "defense", "op": "add", "value": 8 }
+    ]
+  },
+  {
+    "id": "bk-general",
+    "name": "Earvin Cross",
+    "nickname": "Le Général",
+    "flag": "🇺🇸",
+    "country": "États-Unis",
+    "sex": "M",
+    "sport": "basket",
+    "division": "meneur",
+    "style": "meneur",
+    "startAge": 18,
+    "blurb": "La vision du jeu incarnée. Il rend tous ses coéquipiers meilleurs.",
+    "effects": [
+      { "target": "passe", "op": "add", "value": 22 },
+      { "target": "dribble", "op": "add", "value": 14 },
+      { "target": "tir", "op": "add", "value": 6 }
+    ]
+  },
+  {
+    "id": "bk-wall",
+    "name": "Hakeem Stone",
+    "nickname": "Le Mur",
+    "flag": "🇳🇬",
+    "country": "Nigéria",
+    "sex": "M",
+    "sport": "basket",
+    "division": "pivot",
+    "style": "defenseur",
+    "startAge": 18,
+    "blurb": "Le cauchemar des attaquants. Aucun panier facile près de lui.",
+    "effects": [
+      { "target": "defense", "op": "add", "value": 22 },
+      { "target": "athletisme", "op": "add", "value": 16 }
+    ]
+  }
+]

@@ -1,8 +1,8 @@
-// Mode « Revivre la carrière » : choisir une icône du MMA à incarner. Chaque
-// icône est un profil préconfiguré (pays, division, style, forces de départ).
+// Mode « Revivre la carrière » : choisir une légende à incarner. Chaque icône
+// est un profil préconfiguré (pays, poste/division, style, forces de départ).
 import { useMemo } from 'react'
 import { loadDivisions, type Icon } from '../schema'
-import { STYLE_LABEL } from './labels'
+import { sportDef } from '../engine'
 
 export function IconSelectScreen({
   icons,
@@ -14,13 +14,19 @@ export function IconSelectScreen({
   onCancel: () => void
 }) {
   const divisions = useMemo(() => loadDivisions(), [])
-  const divLabel = (id: string) => divisions.find((d) => d.id === id)?.label ?? id
+  // Libellé du poste/division : positions du sport, sinon grille MMA, sinon brut.
+  const divLabel = (icon: Icon) => {
+    const pos = sportDef(icon.sport).positions.find((p) => p.id === icon.division)
+    if (pos) return pos.label
+    return divisions.find((d) => d.id === icon.division)?.label ?? icon.division
+  }
+  const styleLabelOf = (icon: Icon) => sportDef(icon.sport).styleLabels[icon.style] ?? icon.style
 
   return (
     <main className="screen">
       <h2 className="step-title">Revivre la carrière</h2>
       <p className="event-text" style={{ marginTop: 0 }}>
-        Incarne une icône du MMA et réécris sa légende, à ta façon.
+        Incarne une légende et réécris son histoire, à ta façon.
       </p>
 
       <div className="icon-grid">
@@ -32,7 +38,7 @@ export function IconSelectScreen({
             <span className="icon-body">
               <span className="icon-name">{icon.name}</span>
               <span className="icon-nick">
-                « {icon.nickname} » · {divLabel(icon.division)} · {STYLE_LABEL[icon.style]}
+                « {icon.nickname} » · {divLabel(icon)} · {styleLabelOf(icon)}
               </span>
               <span className="icon-blurb">{icon.blurb}</span>
             </span>

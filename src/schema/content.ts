@@ -23,6 +23,7 @@ import organizationsData from '../content/organizations.json'
 import startingCriteriaData from '../content/starting-criteria.json'
 import opponentsData from '../content/opponents.json'
 import iconsData from '../content/icons.json'
+import basketIconsData from '../content/basket-icons.json'
 
 // --- Canaux FERMÉS (AD-5) : effets/conditions ne peuvent viser que ceux-ci,
 // jamais un interne du moteur (rng, saveVersion, flags « vu »).
@@ -293,6 +294,8 @@ export const IconSchema = z.object({
   flag: z.string().min(1),
   country: z.string().min(1),
   sex: z.enum(['M', 'F']),
+  /** Sport de l'icône (MMA par défaut). */
+  sport: z.enum(['mma', 'basket']).default('mma'),
   division: z.string().min(1),
   style: StyleSchema,
   startAge: z.number().int().positive().optional(),
@@ -302,6 +305,6 @@ export const IconSchema = z.object({
 })
 export type Icon = z.infer<typeof IconSchema>
 
-export function loadIcons(): Icon[] {
-  return z.array(IconSchema).parse(iconsData)
+export function loadIcons(sport: 'mma' | 'basket' = 'mma'): Icon[] {
+  return z.array(IconSchema).parse(sport === 'basket' ? basketIconsData : iconsData)
 }

@@ -1,7 +1,8 @@
 // Écran d'accueil à 3 modes (UX-DR13). Un seul mode jouable en V1 ; les deux
 // autres sont marqués « Bientôt ». En bas, l'historique des carrières terminées.
 import { useState } from 'react'
-import { computeScore, careerTitle } from '../engine'
+import { computeScore, careerTitle, sportDef } from '../engine'
+import type { SportId } from '../engine'
 import type { ArchivedCareer, DailyResult } from '../store/game'
 import { careerStatus } from './labels'
 
@@ -12,11 +13,18 @@ interface Mode {
   soon: boolean
 }
 
-const MODES: Mode[] = [
-  { id: 'career', title: 'Faire ma carrière', desc: 'Crée ton combattant et écris ta légende, choix après choix.', soon: false },
-  { id: 'replay', title: 'Revivre la carrière', desc: 'Incarne une icône du MMA et réécris sa légende.', soon: false },
-  { id: 'daily', title: 'Mission du jour', desc: 'Un défi quotidien à graine partagée, un seul essai.', soon: false },
-]
+/** Modes du hub d'un sport (la Mission du jour n'apparaît que si `withDaily`). */
+function modesFor(sport: SportId, withDaily: boolean): Mode[] {
+  const noun = sportDef(sport).athleteNoun
+  const modes: Mode[] = [
+    { id: 'career', title: 'Faire ma carrière', desc: `Crée ton ${noun} et écris ta légende, choix après choix.`, soon: false },
+    { id: 'replay', title: 'Revivre la carrière', desc: `Incarne une légende et réécris son histoire.`, soon: false },
+  ]
+  if (withDaily) {
+    modes.push({ id: 'daily', title: 'Mission du jour', desc: 'Un défi quotidien à graine partagée, un seul essai.', soon: false })
+  }
+  return modes
+}
 
 function CareerRow({
   career,
@@ -52,6 +60,7 @@ function CareerRow({
 }
 
 export function HomeScreen({
+  sport = 'mma',
   onBack,
   onStart,
   onReplay,
@@ -65,6 +74,8 @@ export function HomeScreen({
   onOpenCareer,
   onDeleteCareer,
 }: {
+  /** Sport du hub (titre + libellés). */
+  sport?: SportId
   /** Revenir à la page de choix du sport. */
   onBack?: () => void
   onStart: () => void
@@ -85,6 +96,7 @@ export function HomeScreen({
   onDeleteCareer?: (id: string) => void
 }) {
   const [acked, setAcked] = useState<string | null>(null)
+  const MODES = modesFor(sport, !!onDaily)
   const onMode = (id: string) =>
     id === 'replay' ? onReplay?.() : id === 'daily' ? onDaily?.() : onStart()
 
@@ -96,7 +108,7 @@ export function HomeScreen({
         </button>
       ) : null}
       <div className="home-head">
-        <h1>🥊 MMA</h1>
+        <h1>{sportDef(sport).icon} {sportDef(sport).label}</h1>
         <p style={{ color: 'var(--color-text-muted)', margin: 0 }}>Forge ta légende, choix après choix.</p>
       </div>
       {onResume ? (

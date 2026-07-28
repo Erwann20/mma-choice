@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { loadEvents, parseEvents } from './content'
+import { loadEvents, parseEvents, loadIcons } from './content'
 
 describe('content schema', () => {
   it('charge et valide le contenu seed', () => {
@@ -42,6 +42,21 @@ describe('content schema', () => {
   it('offre une bonne variété de combats simples (hors tournois)', () => {
     const simpleFights = loadEvents().filter((e) => e.fight && e.fight.bracket === undefined)
     expect(simpleFights.length).toBeGreaterThanOrEqual(15)
+  })
+
+  it('charge des icônes basket valides (mode Revivre)', () => {
+    const icons = loadIcons('basket')
+    expect(icons.length).toBeGreaterThanOrEqual(5)
+    expect(icons.every((i) => i.sport === 'basket')).toBe(true)
+    // Les postes des icônes existent bien comme positions du sport basket.
+    expect(icons.every((i) => typeof i.division === 'string' && i.division.length > 0)).toBe(true)
+  })
+
+  it('charge le contenu basket sans le mélanger au MMA', () => {
+    const bk = loadEvents('basket').map((e) => e.id)
+    const mma = loadEvents('mma').map((e) => e.id)
+    expect(bk.every((id) => id.startsWith('bk-'))).toBe(true)
+    expect(mma.some((id) => id.startsWith('bk-'))).toBe(false)
   })
 
   it('applique les valeurs par défaut (weight, repeatable, conditions)', () => {
