@@ -24,6 +24,8 @@ export function GameRoot() {
   const [confirmNew, setConfirmNew] = useState(false)
   const [resumed, setResumed] = useState(false)
   const [viewingId, setViewingId] = useState<string | null>(null)
+  // Consulter l'accueil sans terminer la carrière en cours (reprise possible).
+  const [atHome, setAtHome] = useState(false)
 
   // Toast « Reprise sauvegardée » si une carrière a été rechargée au démarrage.
   useEffect(() => {
@@ -35,55 +37,17 @@ export function GameRoot() {
   }, [])
 
   const resumeToast = resumed ? <Toast message="Reprise sauvegardée." /> : null
+  const pausedCareer = session != null && session.game.phase === 'career'
 
-  if (!session) {
-    // Consultation d'une carrière archivée depuis l'accueil.
-    const viewing = viewingId ? (archive.find((a) => a.id === viewingId) ?? null) : null
-    if (viewing) {
-      return <RecapScreen game={viewing.game} onBack={() => setViewingId(null)} />
-    }
-    if (creating) {
-      return (
-        <CreationScreen
-          onCreate={(c) => {
-            createCareer(c)
-            setCreating(false)
-          }}
-          onCancel={() => setCreating(false)}
-        />
-      )
-    }
-    if (pickingIcon) {
-      return (
-        <IconSelectScreen
-          icons={loadIcons()}
-          onPick={(icon) => {
-            replayIcon(icon)
-            setPickingIcon(false)
-          }}
-          onCancel={() => setPickingIcon(false)}
-        />
-      )
-    }
-    return (
-      <>
-        <HomeScreen
-          onStart={() => setCreating(true)}
-          onReplay={() => setPickingIcon(true)}
-          onDaily={startDaily}
-          dailyDoneScore={dailyResult && dailyResult.date === todayKey() ? dailyResult.score : null}
-          archive={archive}
-          onOpenCareer={(c) => setViewingId(c.id)}
-          onDeleteCareer={deleteArchived}
-        />
-        {resumeToast}
-      </>
-    )
+  /** Démarre proprement un nouveau mode : quitte l'écran d'accueil temporaire. */
+  const leaveHome = () => {
+    setAtHome(false)
+    setCreating(false)
+    setPickingIcon(false)
   }
 
-  // Récap de FIN DE CARRIÈRE uniquement à la retraite (le bilan annuel et la
-  // fin de tournoi mettent aussi `current` à null, mais sont gérés par CareerScreen).
-  if (session.game.phase === 'retired') {
+  // Récap de FIN DE CARRIÈRE (retraite) — prioritaire sur tout le reste.
+  if (session && session.game.phase === 'retired') {
     return (
       <>
         <RecapScreen
@@ -113,9 +77,78 @@ export function GameRoot() {
     )
   }
 
+  // Zone « accueil » : aucune carrière, ou l'on a mis la carrière en pause.
+  if (!session || atHome) {
+    const viewing = viewingId ? (archive.find((a) => a.id === viewingId) ?? null) : null
+    if (viewing) {
+      return <RecapScreen game={viewing.game} onBack={() => setViewingId(null)} />
+    }
+    if (creating) {
+      return (
+        <CreationScreen
+          onCreate={(c) => {
+            createCareer(c)
+            leaveHome()
+          }}
+          onCancel={() => setCreating(false)}
+        />
+      )
+    }
+    if (pickingIcon) {
+      return (
+        <IconSelectScreen
+          icons={loadIcons()}
+          onPick={(icon) => {
+            replayIcon(icon)
+            leaveHome()
+          }}
+          onCancel={() => setPickingIcon(false)}
+        />
+      )
+    }
+    return (
+      <>
+        <HomeScreen
+          onStart={() => (pausedCareer ? setConfirmNew(true) : setCreating(true))}
+          onReplay={() => setPickingIcon(true)}
+          onDaily={() => {
+            startDaily()
+            leaveHome()
+          }}
+          onResume={pausedCareer ? () => setAtHome(false) : undefined}
+          resumeName={pausedCareer ? session.game.fighter.name : undefined}
+          dailyDoneScore={dailyResult && dailyResult.date === todayKey() ? dailyResult.score : null}
+          archive={archive}
+          onOpenCareer={(c) => setViewingId(c.id)}
+          onDeleteCareer={deleteArchived}
+        />
+        {confirmNew ? (
+          <ConfirmDialog
+            title="Remplacer la carrière en cours ?"
+            body="La carrière que tu as en cours sera définitivement perdue."
+            confirmLabel="Nouvelle carrière"
+            onConfirm={() => {
+              setConfirmNew(false)
+              setCreating(true)
+            }}
+            onCancel={() => setConfirmNew(false)}
+          />
+        ) : null}
+        {resumeToast}
+      </>
+    )
+  }
+
+  // Carrière active.
   return (
     <>
-      <CareerScreen />
+      <CareerScreen
+        onExitToHome={() => setAtHome(true)}
+        onAbandon={() => {
+          reset()
+          setAtHome(false)
+        }}
+      />
       {resumeToast}
     </>
   )

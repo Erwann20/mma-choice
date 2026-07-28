@@ -18,17 +18,26 @@ import { eventCategory } from './labels'
 import { Skeleton } from './Skeleton'
 import type { GameState } from '../engine'
 
-export function CareerScreen() {
+export function CareerScreen({
+  onExitToHome,
+  onAbandon,
+}: {
+  /** Revenir à l'accueil sans terminer la carrière (reprise possible). */
+  onExitToHome?: () => void
+  /** Abandonner définitivement la carrière en cours. */
+  onAbandon?: () => void
+} = {}) {
   const session = useGameStore((s) => s.session)
   const choose = useGameStore((s) => s.choose)
   const advance = useGameStore((s) => s.advance)
   const retire = useGameStore((s) => s.retire)
   const [statsOpen, setStatsOpen] = useState(false)
   const [confirmRetire, setConfirmRetire] = useState(false)
+  const [confirmAbandon, setConfirmAbandon] = useState(false)
   const [announce, setAnnounce] = useState('')
   const prevGame = useRef<GameState | null>(null)
 
-  // Dialogue de retraite volontaire (FR-14), partagé par tous les écrans.
+  // Dialogues (retraite / abandon), partagés par tous les écrans.
   const retireDialog = confirmRetire ? (
     <ConfirmDialog
       title="Raccrocher les gants ?"
@@ -42,6 +51,25 @@ export function CareerScreen() {
       onCancel={() => setConfirmRetire(false)}
     />
   ) : null
+  const abandonDialog = confirmAbandon ? (
+    <ConfirmDialog
+      title="Abandonner cette carrière ?"
+      body="La carrière en cours sera définitivement perdue, sans bilan ni palmarès."
+      confirmLabel="Abandonner"
+      onConfirm={() => {
+        setConfirmAbandon(false)
+        setStatsOpen(false)
+        onAbandon?.()
+      }}
+      onCancel={() => setConfirmAbandon(false)}
+    />
+  ) : null
+  const menuDialogs = (
+    <>
+      {retireDialog}
+      {abandonDialog}
+    </>
+  )
 
   const gameForEffect = session?.game ?? null
   // Annonce les variations de stats aux lecteurs d'écran après chaque changement (UX-DR17).
@@ -94,10 +122,12 @@ export function CareerScreen() {
           <StatsSheet
             game={game}
             onClose={() => setStatsOpen(false)}
+            onHome={onExitToHome ? () => { setStatsOpen(false); onExitToHome() } : undefined}
             onRetire={() => setConfirmRetire(true)}
+            onAbandon={onAbandon ? () => setConfirmAbandon(true) : undefined}
           />
         ) : null}
-        {retireDialog}
+        {menuDialogs}
       </main>
     )
   }
@@ -117,10 +147,12 @@ export function CareerScreen() {
           <StatsSheet
             game={game}
             onClose={() => setStatsOpen(false)}
+            onHome={onExitToHome ? () => { setStatsOpen(false); onExitToHome() } : undefined}
             onRetire={() => setConfirmRetire(true)}
+            onAbandon={onAbandon ? () => setConfirmAbandon(true) : undefined}
           />
         ) : null}
-        {retireDialog}
+        {menuDialogs}
       </main>
     )
   }

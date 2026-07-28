@@ -6,11 +6,15 @@ import { STYLE_LABEL, careerStatus, amateurTitles } from './labels'
 export function StatsSheet({
   game,
   onClose,
+  onHome,
   onRetire,
+  onAbandon,
 }: {
   game: GameState
   onClose: () => void
+  onHome?: () => void
   onRetire?: () => void
+  onAbandon?: () => void
 }) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -71,6 +75,11 @@ export function StatsSheet({
         <button className="btn-secondary" type="button" onClick={onClose} style={{ marginTop: 'var(--space-4)' }}>
           Fermer
         </button>
+        {onHome ? (
+          <button className="btn-ghost" type="button" onClick={onHome} style={{ marginTop: 'var(--space-2)' }}>
+            🏠 Revenir à l'accueil
+          </button>
+        ) : null}
         {onRetire ? (
           <button
             className="btn-ghost btn-retire"
@@ -79,6 +88,16 @@ export function StatsSheet({
             style={{ marginTop: 'var(--space-2)' }}
           >
             🥊 Raccrocher les gants
+          </button>
+        ) : null}
+        {onAbandon ? (
+          <button
+            className="btn-ghost btn-retire"
+            type="button"
+            onClick={onAbandon}
+            style={{ marginTop: 'var(--space-2)' }}
+          >
+            🗑️ Abandonner la carrière
           </button>
         ) : null}
       </div>

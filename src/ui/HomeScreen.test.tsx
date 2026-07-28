@@ -33,6 +33,19 @@ describe('HomeScreen (UX-DR13)', () => {
     expect(onDaily).toHaveBeenCalledOnce()
   })
 
+  it('propose de reprendre la carrière en pause', () => {
+    const onResume = vi.fn()
+    render(<HomeScreen onStart={() => {}} onResume={onResume} resumeName="Tyrone Larsson" />)
+    expect(screen.getByText('Tyrone Larsson')).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: /reprendre ma carrière/i }))
+    expect(onResume).toHaveBeenCalledOnce()
+  })
+
+  it('sans carrière en pause, aucune carte de reprise', () => {
+    render(<HomeScreen onStart={() => {}} />)
+    expect(screen.queryByRole('button', { name: /reprendre ma carrière/i })).toBeNull()
+  })
+
   it('une mission du jour déjà tentée affiche le score et ne relance pas', () => {
     const onDaily = vi.fn()
     render(<HomeScreen onStart={() => {}} onDaily={onDaily} dailyDoneScore={62} />)

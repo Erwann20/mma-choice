@@ -1468,3 +1468,42 @@
   font-size: 13px;
   color: var(--color-text-secondary);
 }
+
+/* --- Carte « Reprendre ma carrière » (accueil pendant une pause) --- */
+.resume-card {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) 18px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-accent);
+  background: var(--color-accent-wash);
+  color: var(--color-text);
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+}
+.resume-card:active {
+  transform: scale(0.99);
+}
+.resume-icon {
+  font-size: 18px;
+  color: var(--color-accent);
+}
+.resume-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.resume-title {
+  font-weight: 800;
+}
+.resume-sub {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
