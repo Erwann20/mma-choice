@@ -14,9 +14,10 @@ import { signatureTactic, SIGNATURE_BONUS } from './coaching'
 import {
   clampStat,
   tierIndex,
-  TIER_OPPONENT_BASE,
+  TIER_DIFFICULTY,
   OPPONENT_REP_FACTOR,
   OPPONENT_VARIANCE,
+  OPPONENT_LEVEL_GAP,
   PURSE_BY_TIER,
 } from './config'
 
@@ -52,10 +53,15 @@ export function generateOpponent(
   const [lIdx, r3] = nextInt(r2, 0, pool.lastNames.length - 1)
   const name = `${firsts[fIdx]} ${pool.lastNames[lIdx]}`
 
-  const base =
-    TIER_OPPONENT_BASE[state.tier] + arche.power + state.meta.reputation * OPPONENT_REP_FACTOR
+  // Niveau de combat du joueur (moyenne des 4 stats) : socle de calibrage.
+  const overall =
+    (state.stats.striking + state.stats.grappling + state.stats.ground + state.stats.cardio) / 4
+  const repBump = Math.min(state.meta.reputation, 100) * OPPONENT_REP_FACTOR
+  const target = overall + TIER_DIFFICULTY[state.tier] + repBump + arche.power
   const [variance, r4] = nextInt(r3, -OPPONENT_VARIANCE, OPPONENT_VARIANCE)
-  const level = clampStat(Math.round(base + variance))
+  // On borne l'écart au niveau du joueur : le combat reste toujours à sa portée.
+  const bounded = Math.max(overall - OPPONENT_LEVEL_GAP, Math.min(Math.round(target + variance), overall + OPPONENT_LEVEL_GAP))
+  const level = clampStat(bounded)
 
   // Palmarès « flavor » cohérent avec le niveau (plus fort ⇒ plus de victoires).
   const [wins, r5] = nextInt(r4, Math.floor(level / 10), Math.floor(level / 4) + 3)
@@ -198,6 +204,12 @@ export function resolveFight(
       finishes: g.record.finishes + (finish ? 1 : 0),
     },
   }
+
+  // Forme récente : compte les défaites consécutives. `serie_negative` gate les
+  // combats de titre (on ne se bat pas pour la ceinture en pleine mauvaise passe).
+  const prevStreak = typeof g.flags['defaites_daffilee'] === 'number' ? g.flags['defaites_daffilee'] : 0
+  const lossStreak = win ? 0 : prevStreak + 1
+  g = { ...g, flags: { ...g.flags, defaites_daffilee: lossStreak, serie_negative: lossStreak >= 2 } }
 
   // Enjeu de la ceinture (FR-5) : conquête, défense ou perte du titre. Chaque
   // organisation a SA ceinture : on est déjà champion « ici » si le drapeau de
