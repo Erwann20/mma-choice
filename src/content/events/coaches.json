@@ -1,0 +1,82 @@
+[
+  {
+    "id": "evt-coach-mentor",
+    "weight": 4,
+    "repeatable": false,
+    "category": "training",
+    "overline": "TROUVER SON MENTOR",
+    "text": "Un coach reconnu accepte de te prendre sous son aile. Ce qu'il t'enseignera deviendra ta marque de fabrique — l'arme que tes adversaires redouteront. Quelle école embrasses-tu ?",
+    "conditions": [
+      { "kind": "stat", "on": "age", "cmp": "gte", "value": 20 },
+      { "kind": "flag", "flag": "coach_signe", "eq": false }
+    ],
+    "choices": [
+      {
+        "label": "Un maître de la boxe",
+        "hint": "Débloque ta frappe signature",
+        "effects": [
+          { "target": "striking", "op": "add", "value": 5 },
+          { "target": "mental", "op": "add", "value": 2 }
+        ],
+        "setFlags": { "coach_signe": true, "mentor_striking": true }
+      },
+      {
+        "label": "Un ceinture noire de lutte",
+        "hint": "Débloque ta lutte signature",
+        "effects": [
+          { "target": "grappling", "op": "add", "value": 5 },
+          { "target": "cardio", "op": "add", "value": 2 }
+        ],
+        "setFlags": { "coach_signe": true, "mentor_grappling": true }
+      },
+      {
+        "label": "Un sorcier du sol",
+        "hint": "Débloque ta soumission signature",
+        "effects": [
+          { "target": "ground", "op": "add", "value": 5 },
+          { "target": "mental", "op": "add", "value": 2 }
+        ],
+        "setFlags": { "coach_signe": true, "mentor_ground": true }
+      }
+    ]
+  },
+  {
+    "id": "evt-specialisation-style",
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 4,
+    "category": "training",
+    "overline": "REDÉFINIR SON JEU",
+    "text": "Ton corps a changé, ton MMA aussi. C'est le moment de rebâtir ton identité de combattant autour de ta plus grande force. Vers quoi orientes-tu tout ton camp ?",
+    "conditions": [{ "kind": "stat", "on": "age", "cmp": "gte", "value": 21 }],
+    "choices": [
+      {
+        "label": "Devenir un puncheur",
+        "hint": "Tout miser sur les mains",
+        "effects": [{ "target": "striking", "op": "add", "value": 4 }],
+        "setStyle": "striker"
+      },
+      {
+        "label": "Devenir un lutteur",
+        "hint": "Imposer le corps-à-corps",
+        "effects": [{ "target": "grappling", "op": "add", "value": 4 }],
+        "setStyle": "wrestler"
+      },
+      {
+        "label": "Devenir un grappler",
+        "hint": "Régner au sol",
+        "effects": [{ "target": "ground", "op": "add", "value": 4 }],
+        "setStyle": "grappler"
+      },
+      {
+        "label": "Devenir polyvalent",
+        "hint": "Ne jamais être pris à défaut",
+        "effects": [
+          { "target": "cardio", "op": "add", "value": 3 },
+          { "target": "mental", "op": "add", "value": 2 }
+        ],
+        "setStyle": "allrounder"
+      }
+    ]
+  }
+]

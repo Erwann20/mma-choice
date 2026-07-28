@@ -10,6 +10,7 @@ import { applyEffect } from './effects'
 import { markEventConsumed } from './events'
 import { BELT_ORG_PREFIX, BELT_EVER_FLAG } from './belts'
 import { SEQUELAE, activeSequelae, type Sequela } from './injuries'
+import { signatureTactic, SIGNATURE_BONUS } from './coaching'
 import {
   clampStat,
   tierIndex,
@@ -135,6 +136,8 @@ export function resolveFight(
   let perf = tacticStat * 0.6 + state.stats.cardio * 0.2 + state.meta.mental * 0.2
   if (tactic === opponent.weakTo) perf += 12
   if (styleMatchesTactic(state.style, tactic)) perf += 6
+  // Coup signature d'un coach (FR-15) : bonus durable sur la tactique enseignée.
+  if (tactic === signatureTactic(state)) perf += SIGNATURE_BONUS
   perf -= injuryCount * 5
 
   const [noise, rng1] = nextInt(state.rng, -10, 10)
