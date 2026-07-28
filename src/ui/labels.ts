@@ -2,6 +2,7 @@
 import type { Channel, Effect, EventCategory, EventDef } from '../schema'
 import { loadOrganizations } from '../schema'
 import type { Tier, Style, GameState } from '../engine'
+import { nationOf } from '../engine'
 
 /** Catégorie effective d'un événement (les combats priment). */
 export function eventCategory(event: EventDef): EventCategory {
@@ -43,12 +44,28 @@ export function careerStatus(game: GameState): string {
   return org ? `Pro · ${org} (${level})` : `Pro · ${TIER_LABEL[game.tier]}`
 }
 
-/** Libellé (avec drapeau) d'un titre amateur repéré par sa clé de flag. */
-export const TITLE_FLAG_LABEL: Record<string, string> = {
-  titre_monde: '🌍 Champion du Monde IMMAF',
-  titre_europe: "🇪🇺 Champion d'Europe IMMAF",
-  titre_france: '🇫🇷 Champion de France amateur',
-  titre_regional_am: '🏅 Vainqueur de tournoi régional',
+/** Remplace les variables de gabarit d'un texte d'événement selon l'état. */
+export function interpolate(text: string, game: GameState): string {
+  return text
+    .replace(/\{nation\}/g, nationOf(game.fighter.country))
+    .replace(/\{country\}/g, game.fighter.country)
+    .replace(/\{name\}/g, game.fighter.name)
+}
+
+/** Libellé (avec emoji) d'un titre amateur, selon la clé de flag et le pays. */
+export function titleFlagLabel(flag: string, game: GameState): string {
+  switch (flag) {
+    case 'titre_monde':
+      return '🌍 Champion du Monde IMMAF'
+    case 'titre_europe':
+      return "🇪🇺 Champion d'Europe IMMAF"
+    case 'titre_national':
+      return `🥇 Champion ${nationOf(game.fighter.country)}`
+    case 'titre_regional_am':
+      return '🏅 Vainqueur de tournoi régional'
+    default:
+      return flag
+  }
 }
 
 /** Titres amateurs (tournois) remportés, du plus prestigieux au moins. */
@@ -56,7 +73,7 @@ export function amateurTitles(game: GameState): string[] {
   const t: string[] = []
   if (game.flags['titre_monde']) t.push('Champion du Monde IMMAF')
   if (game.flags['titre_europe']) t.push("Champion d'Europe IMMAF")
-  if (game.flags['titre_france']) t.push('Champion de France amateur')
+  if (game.flags['titre_national']) t.push(`Champion ${nationOf(game.fighter.country)}`)
   if (game.flags['titre_regional_am']) t.push('Vainqueur de tournoi régional')
   return t
 }

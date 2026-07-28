@@ -8,6 +8,7 @@ import { nextInt } from './rng'
 import { readChannel } from './channels'
 import { applyEffect } from './effects'
 import { markEventConsumed } from './events'
+import { BELT_ORG_PREFIX, BELT_EVER_FLAG } from './belts'
 import {
   clampStat,
   tierIndex,
@@ -183,14 +184,27 @@ export function resolveFight(
     },
   }
 
-  // Enjeu de la ceinture (FR-5) : conquête, défense ou perte du titre.
+  // Enjeu de la ceinture (FR-5) : conquête, défense ou perte du titre. Chaque
+  // organisation a SA ceinture : on est déjà champion « ici » si le drapeau de
+  // l'orga courante est posé (sinon on retombe sur le booléen `belt`).
   let wonBelt = false
   let lostBelt = false
   if (titleFight) {
-    if (win && !state.belt) {
-      g = { ...g, belt: true }
+    const orgKey = state.organization ? BELT_ORG_PREFIX + state.organization : null
+    const champHere = orgKey ? state.flags[orgKey] === true : state.belt
+    if (win && !champHere) {
+      // Nouvelle ceinture : on la conquiert et on l'inscrit au palmarès (à vie).
+      g = {
+        ...g,
+        belt: true,
+        flags: {
+          ...g.flags,
+          [BELT_EVER_FLAG]: true,
+          ...(orgKey ? { [orgKey]: true } : {}),
+        },
+      }
       wonBelt = true
-    } else if (win && state.belt) {
+    } else if (win && champHere) {
       g = { ...g, titleDefenses: g.titleDefenses + 1 }
     } else if (!win && state.belt) {
       g = { ...g, belt: false }

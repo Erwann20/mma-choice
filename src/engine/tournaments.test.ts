@@ -12,7 +12,7 @@ const tournoi: EventDef = {
   repeatable: true,
   cooldown: 1,
   text: 'Tournoi',
-  fight: { titleFight: false, winFlag: 'titre_france' },
+  fight: { titleFight: false, winFlag: 'titre_national' },
   choices: [],
   conditions: [],
 }
@@ -28,14 +28,14 @@ describe('tournois amateurs (titres)', () => {
   it('gagner un tournoi pose le drapeau de titre', () => {
     const { game, result } = resolveFight(strong(), tournoi, striking, weak())
     expect(result.win).toBe(true)
-    expect(game.flags['titre_france']).toBe(true)
+    expect(game.flags['titre_national']).toBe(true)
   })
 
-  it('la ladder amateur est progressive (Europe exige le titre de France)', () => {
+  it('la ladder amateur est progressive (Europe exige le titre national)', () => {
     const events = loadEvents()
     const europe = events.find((e) => e.id === 'fight-tournoi-europe')!
     const g = { ...createInitialState(1) }
-    expect(isEligible(g, europe)).toBe(false) // pas encore champion de France
-    expect(isEligible({ ...g, flags: { titre_france: true } }, europe)).toBe(true)
+    expect(isEligible(g, europe)).toBe(false) // pas encore champion national
+    expect(isEligible({ ...g, flags: { titre_national: true } }, europe)).toBe(true)
   })
 })

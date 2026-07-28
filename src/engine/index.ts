@@ -31,7 +31,8 @@ export {
 export { applyEffect, applyChoice } from './effects'
 export { computeScore, allTimeRank } from './score'
 export type { Achievement, TitleTone } from './awards'
-export { careerTitle, careerAchievements } from './awards'
+export { careerTitle, careerAchievements, nationOf } from './awards'
+export { beltOrgsWon, wasChampion } from './belts'
 
 export type { Action } from './actions'
 export { reduce } from './reducer'

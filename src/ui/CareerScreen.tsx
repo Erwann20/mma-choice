@@ -107,7 +107,7 @@ export function CareerScreen() {
       <main className={`screen cat-${eventCategory(current)}`}>
         <FighterHeader game={game} />
         <DataChipRow game={game} onOpen={() => setStatsOpen(true)} />
-        <EventCard event={current} />
+        <EventCard event={current} game={game} />
         <ChoiceReveal changes={lastReveal.changes} />
         <button className="btn-primary" type="button" onClick={advance}>
           Continuer
@@ -131,7 +131,7 @@ export function CareerScreen() {
       <DataChipRow game={game} onOpen={() => setStatsOpen(true)} />
       {isFight && opponent ? <OpponentCard key={`opp-${current.id}`} opponent={opponent} /> : null}
       {tournament ? <BracketView tournament={tournament} /> : null}
-      <EventCard key={current.id} event={current} />
+      <EventCard key={current.id} event={current} game={game} />
       <div className="choice-list">
         {current.choices.map((c, i) => (
           <ChoiceCard key={`${current.id}-${i}`} index={i} choice={c} onClick={() => choose(i)} />

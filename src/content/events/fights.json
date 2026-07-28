@@ -112,6 +112,26 @@
     ]
   },
   {
+    "id": "fight-title-shot-regional",
+    "weight": 6,
+    "repeatable": true,
+    "cooldown": 2,
+    "category": "combat",
+    "overline": "CEINTURE RÉGIONALE",
+    "text": "La ceinture de ton organisation est en jeu. Devenir champion ici, c'est planter ton drapeau et attirer l'œil des majeures. Ton plan de match ?",
+    "fight": { "titleFight": true },
+    "conditions": [
+      { "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 },
+      { "kind": "stat", "on": "tier", "cmp": "lte", "value": 1 },
+      { "kind": "stat", "on": "reputation", "cmp": "gte", "value": 35 }
+    ],
+    "choices": [
+      { "label": "Tout miser sur ta frappe", "hint": "Ta frappe décide", "tactic": "striking" },
+      { "label": "Imposer ta lutte", "hint": "Ta lutte décide", "tactic": "grappling" },
+      { "label": "Dominer au sol", "hint": "Ton jeu au sol décide", "tactic": "ground" }
+    ]
+  },
+  {
     "id": "fight-major-prime-time",
     "weight": 5,
     "repeatable": true,

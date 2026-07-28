@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { createInitialState } from './state'
 import { resolveFight, type Opponent } from './combat'
 import { computeScore } from './score'
+import { beltOrgsWon, wasChampion } from './belts'
 import type { GameState } from './state'
 import type { Choice, EventDef } from '../schema'
 
@@ -55,6 +56,27 @@ describe('ceintures de division (FR-5)', () => {
     expect(result.win).toBe(false)
     expect(result.lostBelt).toBe(true)
     expect(game.belt).toBe(false)
+  })
+
+  it('un titre gagné dans une organisation est mémorisé à vie (belt_org + belt_ever)', () => {
+    const champ: GameState = { ...champContender(), organization: 'hexagone' }
+    const { game } = resolveFight(champ, titleEvent, striking, opp(20))
+    expect(game.flags['belt_ever']).toBe(true)
+    expect(beltOrgsWon(game)).toContain('hexagone')
+    // Perdre le titre ensuite ne l'efface pas du palmarès.
+    const lost = resolveFight(game, titleEvent, striking, opp(130)).game
+    expect(lost.belt).toBe(false)
+    expect(beltOrgsWon(lost)).toContain('hexagone')
+    expect(wasChampion(lost)).toBe(true)
+  })
+
+  it('un titre dans une NOUVELLE orga est une conquête, pas une défense', () => {
+    const champ: GameState = { ...champContender(), organization: 'hexagone' }
+    const g1 = resolveFight(champ, titleEvent, striking, opp(20)).game
+    const atApex: GameState = { ...g1, organization: 'apex' }
+    const r2 = resolveFight(atApex, titleEvent, striking, opp(20))
+    expect(r2.result.wonBelt).toBe(true)
+    expect(beltOrgsWon(r2.game).sort()).toEqual(['apex', 'hexagone'])
   })
 
   it('la ceinture améliore le score de carrière', () => {
