@@ -68,8 +68,8 @@ export function YearReviewScreen({
           {fights === 0
             ? 'Aucun combat cette année'
             : `${fights} combat${fights > 1 ? 's' : ''} cette année${
-                review.finishes > 0 ? ` · ${review.finishes} avant la limite` : ''
-              }`}
+                review.autoFights > 0 ? ` · ${review.autoFights} hors caméra` : ''
+              }${review.finishes > 0 ? ` · ${review.finishes} avant la limite` : ''}`}
         </p>
       </section>
 
