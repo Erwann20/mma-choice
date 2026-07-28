@@ -25,6 +25,8 @@ export interface Fighter {
   sex: Sex
   country: string
   age: number
+  /** Ville du club choisi en carrière (null tant qu'aucun club posé). */
+  city: string | null
 }
 
 export interface Stats {
@@ -112,6 +114,7 @@ export function createInitialState(seed: number, setup: FighterSetup = {}): Game
       sex: setup.sex ?? 'M',
       country: setup.country ?? 'France',
       age: setup.startAge ?? START_AGE,
+      city: null,
     },
     division: setup.division ?? 'lightweight',
     style: setup.style ?? 'allrounder',
