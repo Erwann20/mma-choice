@@ -19,6 +19,12 @@
         "effects": [{ "target": "reputation", "op": "add", "value": 3 }]
       },
       {
+        "label": "Rejoindre Espoirs MMA",
+        "hint": "Vitrine des recruteurs",
+        "signOrg": "espoirs-mma",
+        "effects": [{ "target": "followers", "op": "add", "value": 400 }]
+      },
+      {
         "label": "Rester électron libre",
         "hint": "Garder les mains libres",
         "effects": [{ "target": "mental", "op": "add", "value": 2 }]
@@ -348,5 +354,119 @@
       }
     ],
     "category": "career"
+  },
+  {
+    "id": "evt-passer-pro-nouvelle-vague",
+    "weight": 8,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "career",
+    "overline": "LA NOUVELLE VAGUE",
+    "text": "De jeunes promotions ambitieuses veulent bâtir leur écurie autour de toi pour ton passage pro. Moins installées, mais prêtes à te mettre en avant.",
+    "conditions": [
+      { "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 },
+      { "kind": "stat", "on": "wins", "cmp": "gte", "value": 3 },
+      { "kind": "stat", "on": "reputation", "cmp": "gte", "value": 15 }
+    ],
+    "choices": [
+      {
+        "label": "Signer au Colisée FC",
+        "hint": "Arènes bouillantes du Sud",
+        "signOrg": "colisee",
+        "effects": [{ "target": "followers", "op": "add", "value": 1500 }]
+      },
+      {
+        "label": "Signer chez Nordik Fight",
+        "hint": "L'école dure du Nord",
+        "signOrg": "nordik",
+        "effects": [{ "target": "mental", "op": "add", "value": 6 }]
+      },
+      {
+        "label": "Signer chez Titan Fights",
+        "hint": "Le plus gros contrat d'entrée",
+        "signOrg": "titan",
+        "effects": [{ "target": "money", "op": "add", "value": 7000 }]
+      },
+      {
+        "label": "Attendre une meilleure offre",
+        "hint": "Ne rien précipiter",
+        "effects": [{ "target": "mental", "op": "add", "value": 2 }]
+      }
+    ]
+  },
+  {
+    "id": "evt-offre-regionale-nouvelle",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 3,
+    "category": "career",
+    "overline": "APPEL DU PIED",
+    "text": "Une promotion régionale rivale veut te débaucher avec de meilleures conditions. Changer de maison, c'est repartir à zéro dans un nouveau vestiaire.",
+    "conditions": [
+      { "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 },
+      { "kind": "stat", "on": "tier", "cmp": "lte", "value": 1 }
+    ],
+    "choices": [
+      {
+        "label": "Rejoindre le Colisée FC",
+        "hint": "Pour la ferveur du public",
+        "signOrg": "colisee",
+        "effects": [{ "target": "followers", "op": "add", "value": 2500 }]
+      },
+      {
+        "label": "Rejoindre Titan Fights",
+        "hint": "Pour l'argent",
+        "signOrg": "titan",
+        "effects": [{ "target": "money", "op": "add", "value": 6000 }]
+      },
+      {
+        "label": "Rejoindre Nordik Fight",
+        "hint": "Pour forger ton mental",
+        "signOrg": "nordik",
+        "effects": [{ "target": "mental", "op": "add", "value": 5 }]
+      },
+      {
+        "label": "Rester fidèle à ton organisation",
+        "hint": "La loyauté paie",
+        "effects": [{ "target": "reputation", "op": "add", "value": 3 }]
+      }
+    ]
+  },
+  {
+    "id": "evt-offre-majeure-elite",
+    "weight": 6,
+    "repeatable": true,
+    "cooldown": 2,
+    "category": "career",
+    "overline": "LA COUR DES GRANDS",
+    "text": "Deux géants mondiaux entrent dans la danse : la superstar-machine américaine et le colosse du Golfe. Contrats en or, adversaires terrifiants, lumière planétaire.",
+    "conditions": [
+      { "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 },
+      { "kind": "stat", "on": "tier", "cmp": "lte", "value": 1 },
+      { "kind": "stat", "on": "reputation", "cmp": "gte", "value": 55 },
+      { "kind": "stat", "on": "wins", "cmp": "gte", "value": 8 }
+    ],
+    "choices": [
+      {
+        "label": "Signer à Pinnacle FC",
+        "hint": "La machine médiatique américaine",
+        "signOrg": "pinnacle",
+        "effects": [
+          { "target": "followers", "op": "add", "value": 12000 },
+          { "target": "reputation", "op": "add", "value": 8 }
+        ]
+      },
+      {
+        "label": "Signer à Empire MMA",
+        "hint": "Les bourses démesurées du Golfe",
+        "signOrg": "empire",
+        "effects": [{ "target": "money", "op": "add", "value": 45000 }]
+      },
+      {
+        "label": "Rester en régional cette saison",
+        "hint": "Encore un peu de métier",
+        "effects": [{ "target": "mental", "op": "add", "value": 3 }]
+      }
+    ]
   }
 ]

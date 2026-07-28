@@ -53,6 +53,22 @@ describe('organisations & passage pro (FR-5)', () => {
     expect(orgs.some((o) => o.tier === 'regional')).toBe(true)
   })
 
+  it('chaque signOrg référencé par un événement pointe vers une orga réelle', () => {
+    const ids = new Set(loadOrganizations().map((o) => o.id))
+    const referenced = loadEvents().flatMap((e) => e.choices.map((c) => c.signOrg).filter(Boolean))
+    expect(referenced.length).toBeGreaterThan(0)
+    for (const id of referenced) expect(ids, `orga inconnue: ${id}`).toContain(id)
+  })
+
+  it('chaque organisation pro est atteignable via au moins une offre', () => {
+    const referenced = new Set(
+      loadEvents().flatMap((e) => e.choices.map((c) => c.signOrg).filter(Boolean)),
+    )
+    for (const org of loadOrganizations()) {
+      expect(referenced, `orga jamais proposée: ${org.id}`).toContain(org.id)
+    }
+  })
+
   it('signer une organisation AMATEUR ne fait pas passer pro (reste amateur)', () => {
     const offer = evt('evt-offre-amateur')
     const ready = sessionAt({ record: { wins: 3, losses: 0, finishes: 0 } })
