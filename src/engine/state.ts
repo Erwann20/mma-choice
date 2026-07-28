@@ -2,6 +2,8 @@
 // (aucune fonction/closure/classe) car persisté en localStorage (AD-7).
 import { initRng, type RngState } from './rng'
 import { START_AGE } from './config'
+import type { SportId } from './sports/types'
+import { sportDef } from './sports/registry'
 
 export type Sex = 'M' | 'F'
 export type Style = 'striker' | 'wrestler' | 'grappler' | 'allrounder'
@@ -29,12 +31,8 @@ export interface Fighter {
   city: string | null
 }
 
-export interface Stats {
-  striking: number
-  grappling: number
-  ground: number
-  cardio: number
-}
+/** Attributs sportifs, indexés par clé (les clés dépendent du sport, FR-1). */
+export type Stats = Record<string, number>
 
 export interface Meta {
   health: number
@@ -65,6 +63,8 @@ export interface Nemesis {
 
 export interface GameState {
   saveVersion: number
+  /** Sport de la carrière (MMA par défaut ; le cœur en dérive attributs/règles). */
+  sport: SportId
   seed: number
   rng: RngState
   phase: Phase
@@ -97,6 +97,8 @@ export interface FighterSetup {
   division?: string
   style?: Style
   startAge?: number
+  /** Sport de la carrière (MMA par défaut). */
+  sport?: SportId
 }
 
 /** Nom par défaut : signale « aucun nom fourni » → généré aléatoirement (FR-1). */
@@ -104,8 +106,10 @@ export const DEFAULT_FIGHTER_NAME = 'Nouveau combattant'
 
 /** Construit un GameState initial valide et déterministe pour une graine donnée. */
 export function createInitialState(seed: number, setup: FighterSetup = {}): GameState {
+  const sport = setup.sport ?? 'mma'
   return {
     saveVersion: 1,
+    sport,
     seed,
     rng: initRng(seed),
     phase: 'career',
@@ -123,7 +127,7 @@ export function createInitialState(seed: number, setup: FighterSetup = {}): Game
     organization: null,
     belt: false,
     titleDefenses: 0,
-    stats: { striking: 40, grappling: 40, ground: 40, cardio: 50 },
+    stats: { ...sportDef(sport).initialStats },
     meta: { health: 100, mental: 60, reputation: 0, followers: 0, money: 0 },
     record: { wins: 0, losses: 0, finishes: 0 },
     flags: {},
