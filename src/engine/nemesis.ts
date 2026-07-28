@@ -12,12 +12,23 @@ export const NEMESIS_BORN_FLAG = 'nemesis_ne'
 /** Tactique du joueur qui met la némésis en difficulté, selon son style. */
 function weakToForStyle(style: Style): Channel {
   switch (style) {
+    // MMA
     case 'striker':
       return 'grappling'
     case 'wrestler':
       return 'striking'
     case 'grappler':
       return 'striking'
+    case 'allrounder':
+      return 'ground'
+    // Basket
+    case 'scoreur':
+    case 'meneur':
+    case 'polyvalent':
+      return 'defense'
+    case 'defenseur':
+    case 'athlete':
+      return 'tir'
     default:
       return 'ground'
   }
