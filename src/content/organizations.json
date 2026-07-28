@@ -1,10 +1,16 @@
 {
   "organizations": [
     { "id": "ligue-amateur", "label": "Ligue Amateur Élite", "level": "amateur", "blurb": "Une promotion amateur structurée pour enchaîner les combats et te faire un nom." },
+    { "id": "espoirs-mma", "label": "Espoirs MMA", "level": "amateur", "blurb": "Le vivier des jeunes talents : peu de bourse, mais des recruteurs dans chaque salle." },
     { "id": "hexagone", "label": "Hexagone MMA", "level": "pro", "tier": "regional", "blurb": "La vitrine du MMA français. Du prestige et des projecteurs." },
     { "id": "cagebattle", "label": "Cage Battle", "level": "pro", "tier": "regional", "blurb": "Petit promoteur, mais les chèques tombent vite." },
     { "id": "bravearena", "label": "Brave Arena", "level": "pro", "tier": "regional", "blurb": "Des guerres, rien que des guerres. Le public adore." },
+    { "id": "colisee", "label": "Colisée FC", "level": "pro", "tier": "regional", "blurb": "La promotion du Sud, arènes bouillantes et foules en fusion." },
+    { "id": "nordik", "label": "Nordik Fight", "level": "pro", "tier": "regional", "blurb": "L'école du Nord : combattants durs au mal, style pression sans répit." },
+    { "id": "titan", "label": "Titan Fights", "level": "pro", "tier": "regional", "blurb": "La promotion montante qui casse sa tirelire pour signer les meilleurs prospects." },
     { "id": "apex", "label": "Apex Championship", "level": "pro", "tier": "major", "blurb": "Le sommet mondial. C'est là qu'on devient une légende." },
-    { "id": "gfl", "label": "Global Fight League", "level": "pro", "tier": "major", "blurb": "L'organisation internationale qui paie le mieux." }
+    { "id": "gfl", "label": "Global Fight League", "level": "pro", "tier": "major", "blurb": "L'organisation internationale qui paie le mieux." },
+    { "id": "pinnacle", "label": "Pinnacle FC", "level": "pro", "tier": "major", "blurb": "Le mastodonte américain ultra-médiatisé : lumières, pay-per-view et superstars." },
+    { "id": "empire", "label": "Empire MMA", "level": "pro", "tier": "major", "blurb": "Le géant du Golfe aux bourses astronomiques. Le luxe, la démesure, les projecteurs." }
   ]
 }
