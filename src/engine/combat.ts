@@ -9,6 +9,7 @@ import { readChannel } from './channels'
 import { applyEffect } from './effects'
 import { markEventConsumed } from './events'
 import { BELT_ORG_PREFIX, BELT_EVER_FLAG } from './belts'
+import { SEQUELAE, activeSequelae, type Sequela } from './injuries'
 import {
   clampStat,
   tierIndex,
@@ -92,6 +93,8 @@ export interface FightResult {
   wonBelt: boolean
   lostBelt: boolean
   changes: FightChange[]
+  /** Séquelle chronique contractée sur ce combat (défaite violente), sinon absent. */
+  newInjury?: Sequela
 }
 
 /** La tactique correspond-elle à l'orientation naturelle du style ? (petit bonus) */
@@ -125,9 +128,14 @@ export function resolveFight(
   const overall =
     (state.stats.striking + state.stats.grappling + state.stats.ground + state.stats.cardio) / 4
 
+  // Fragilité : chaque séquelle chronique entame la performance (le corps ne
+  // suit plus comme avant) — conséquence durable d'une blessure passée (FR-13).
+  const injuryCount = activeSequelae(state).length
+
   let perf = tacticStat * 0.6 + state.stats.cardio * 0.2 + state.meta.mental * 0.2
   if (tactic === opponent.weakTo) perf += 12
   if (styleMatchesTactic(state.style, tactic)) perf += 6
+  perf -= injuryCount * 5
 
   const [noise, rng1] = nextInt(state.rng, -10, 10)
   const margin = perf - opponent.level + noise
@@ -161,6 +169,8 @@ export function resolveFight(
   push('followers', followers)
   push('money', purse)
   push('health', -reward.healthCost)
+  // Une séquelle chronique alourdit l'usure de chaque combat.
+  if (injuryCount > 0) push('health', -injuryCount * 3)
   // Prime de prestige sur un combat de titre gagné (FR-5).
   if (titleFight && win) {
     push('reputation', 12)
@@ -222,6 +232,24 @@ export function resolveFight(
     g = { ...g, flags: { ...g.flags, blessure: true } }
   }
 
+  // Séquelle chronique (FR-13) : une défaite VIOLENTE (KO) ou très entamée peut
+  // laisser une blessure durable, tant qu'on ne les cumule pas déjà toutes.
+  let newInjury: Sequela | undefined
+  if (!win && (method === 'KO' || g.meta.health <= 25)) {
+    const available = SEQUELAE.filter((s) => g.flags[s] !== true)
+    if (available.length > 0) {
+      const [roll, rngInj] = nextInt(g.rng, 0, 99)
+      g = { ...g, rng: rngInj }
+      // ~55 % de risque sur un KO, ~35 % sur une défaite en état critique.
+      if (roll < (method === 'KO' ? 55 : 35)) {
+        const [pick, rngPick] = nextInt(g.rng, 0, available.length - 1)
+        const injury = available[pick]
+        g = { ...g, rng: rngPick, flags: { ...g.flags, [injury]: true } }
+        newInjury = injury
+      }
+    }
+  }
+
   g = markEventConsumed(g, event)
 
   const result: FightResult = {
@@ -235,6 +263,7 @@ export function resolveFight(
     wonBelt,
     lostBelt,
     changes,
+    ...(newInjury ? { newInjury } : {}),
   }
   return { game: g, result }
 }

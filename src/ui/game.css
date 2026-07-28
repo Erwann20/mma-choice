@@ -1041,6 +1041,16 @@
   color: var(--color-accent);
 }
 
+.result-injury {
+  margin: 0 0 var(--space-2);
+  font-weight: 600;
+  color: var(--color-danger, #e5484d);
+}
+
+.sheet-injuries {
+  color: var(--color-danger, #e5484d);
+}
+
 .toast {
   position: fixed;
   left: 50%;
