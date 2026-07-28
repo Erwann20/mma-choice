@@ -118,5 +118,124 @@
         ]
       }
     ]
+  },
+  {
+    "id": "evt-club-ville-2",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 4,
+    "category": "career",
+    "overline": "UN AUTRE HORIZON",
+    "text": "Une salle t'ouvre ses portes dans une nouvelle ville. Changer de décor, c'est repartir de zéro dans un vestiaire — mais parfois c'est là qu'on grandit le plus.",
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 }],
+    "choices": [
+      {
+        "label": "Lyon — la fabrique à champions",
+        "hint": "Exigence et sparring relevé",
+        "effects": [
+          { "target": "grappling", "op": "add", "value": 3 },
+          { "target": "striking", "op": "add", "value": 3 },
+          { "target": "health", "op": "sub", "value": 2 }
+        ],
+        "setFlags": { "club_lyon": true }
+      },
+      {
+        "label": "Toulouse — l'esprit rugby",
+        "hint": "Cardio et combat au contact",
+        "effects": [
+          { "target": "cardio", "op": "add", "value": 5 },
+          { "target": "grappling", "op": "add", "value": 2 }
+        ],
+        "setFlags": { "club_toulouse": true }
+      },
+      {
+        "label": "Lille — l'école du sol",
+        "hint": "Jiu-jitsu et soumissions",
+        "effects": [{ "target": "ground", "op": "add", "value": 6 }],
+        "setFlags": { "club_lille": true }
+      },
+      {
+        "label": "Bordeaux — travail patient",
+        "hint": "Technique et tête froide",
+        "effects": [
+          { "target": "mental", "op": "add", "value": 4 },
+          { "target": "ground", "op": "add", "value": 2 }
+        ],
+        "setFlags": { "club_bordeaux": true }
+      }
+    ]
+  },
+  {
+    "id": "evt-club-ambiance",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 3,
+    "category": "career",
+    "overline": "TROUVER SA MEUTE",
+    "text": "Au-delà de la ville, c'est le groupe qui fait le combattant. Quel type de salle te ressemble vraiment ?",
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 }],
+    "choices": [
+      {
+        "label": "Une petite salle familiale",
+        "hint": "Peu de moyens, beaucoup de cœur",
+        "effects": [
+          { "target": "mental", "op": "add", "value": 5 },
+          { "target": "health", "op": "add", "value": 3 }
+        ],
+        "setFlags": { "salle_familiale": true }
+      },
+      {
+        "label": "Une écurie de guerriers",
+        "hint": "Sparring dur, progrès rapides",
+        "effects": [
+          { "target": "striking", "op": "add", "value": 3 },
+          { "target": "grappling", "op": "add", "value": 3 },
+          { "target": "health", "op": "sub", "value": 4 }
+        ],
+        "setFlags": { "salle_guerriers": true }
+      },
+      {
+        "label": "Une salle branchée et médiatisée",
+        "hint": "Caméras et visibilité",
+        "effects": [
+          { "target": "reputation", "op": "add", "value": 4 },
+          { "target": "followers", "op": "add", "value": 500 }
+        ],
+        "setFlags": { "salle_mediatique": true }
+      }
+    ]
+  },
+  {
+    "id": "evt-club-ville-random",
+    "weight": 1,
+    "repeatable": true,
+    "cooldown": 5,
+    "category": "career",
+    "overline": "LE DOIGT SUR LA CARTE",
+    "text": "Ras-le-bol de la routine. Tu fermes les yeux, tu poses le doigt sur la carte, et tu boucles ton sac pour la ville tirée au sort. L'aventure, la vraie.",
+    "conditions": [
+      { "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 },
+      { "kind": "stat", "on": "age", "cmp": "gte", "value": 20 }
+    ],
+    "choices": [
+      {
+        "label": "Suivre le hasard sans réfléchir",
+        "hint": "Tout peut arriver",
+        "effects": [
+          { "target": "striking", "op": "add", "value": 2 },
+          { "target": "grappling", "op": "add", "value": 2 },
+          { "target": "ground", "op": "add", "value": 2 },
+          { "target": "cardio", "op": "add", "value": 2 },
+          { "target": "mental", "op": "add", "value": 3 },
+          { "target": "health", "op": "sub", "value": 3 }
+        ],
+        "setFlags": { "aventurier": true }
+      },
+      {
+        "label": "Finalement, rester au chaud",
+        "hint": "La sagesse, cette fois",
+        "effects": [{ "target": "mental", "op": "add", "value": 2 }]
+      }
+    ]
   }
 ]
