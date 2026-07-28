@@ -1,0 +1,34 @@
+// Définition d'un sport (couche générique multi-sports). Chaque sport fournit
+// ses attributs, ses valeurs de départ et ses formules (OVR, score, trophées).
+// Le cœur (state/score/awards/session) est PARAMÉTRÉ par cette définition.
+import type { GameState } from '../state'
+
+/** Identifiant de sport (s'enrichit quand on ajoute un sport). */
+export type SportId = 'mma' | 'basket'
+
+/** Trophée de fin de carrière (générique). */
+export interface Achievement {
+  id: string
+  icon: string
+  label: string
+  desc: string
+}
+
+/** Contrat qu'un sport doit remplir pour être jouable par le cœur commun. */
+export interface SportDef {
+  id: SportId
+  label: string
+  icon: string
+  /** Clés d'attributs sportifs (canaux d'effet propres au sport). */
+  statKeys: string[]
+  /** Libellés d'affichage des attributs. */
+  statLabels: Record<string, string>
+  /** Attributs de départ d'une nouvelle carrière. */
+  initialStats: Record<string, number>
+  /** Note générale (OVR 0-99), façon FIFA. */
+  overall: (game: GameState) => number
+  /** Score de carrière /100. */
+  score: (game: GameState) => number
+  /** Trophées débloqués par la carrière. */
+  achievements: (game: GameState) => Achievement[]
+}

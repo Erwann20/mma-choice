@@ -15,6 +15,8 @@ export type {
   Nemesis,
 } from './state'
 export { createInitialState, DEFAULT_FIGHTER_NAME } from './state'
+export type { SportId, SportDef, Achievement as SportAchievement } from './sports/types'
+export { sportDef, playableSports } from './sports/registry'
 export {
   NEMESIS_BORN_FLAG,
   nemesisToOpponent,
