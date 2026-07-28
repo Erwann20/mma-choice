@@ -76,6 +76,17 @@ export function careerAchievements(game: GameState): Achievement[] {
   add(stats.grappling >= 85, { id: 'lutteur', icon: '🤼', label: 'Force de la lutte', desc: 'Personne ne reste debout face à lui.' })
   add(fighter.age >= RETIREMENT_AGE && record.wins + record.losses >= 15, { id: 'veteran', icon: '🎖️', label: 'Vétéran', desc: 'Une longue et dense carrière.' })
   add(hasChronicInjury(game), { id: 'corps-marque', icon: '🩹', label: 'Corps marqué', desc: 'A porté ses blessures jusqu’au bout, sans jamais renoncer.' })
+  add(
+    !!game.nemesis && game.nemesis.playerWins > game.nemesis.playerLosses,
+    {
+      id: 'nemesis',
+      icon: '⚔️',
+      label: 'Bête noire domptée',
+      desc: game.nemesis
+        ? `A dominé ${game.nemesis.name} (${game.nemesis.playerWins}-${game.nemesis.playerLosses}).`
+        : '',
+    },
+  )
 
   return out
 }

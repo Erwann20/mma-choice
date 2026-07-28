@@ -96,6 +96,8 @@ export interface FightResult {
   changes: FightChange[]
   /** Séquelle chronique contractée sur ce combat (défaite violente), sinon absent. */
   newInjury?: Sequela
+  /** Combat de rivalité contre la némésis (FR-16). */
+  nemesis: boolean
 }
 
 /** La tactique correspond-elle à l'orientation naturelle du style ? (petit bonus) */
@@ -266,6 +268,7 @@ export function resolveFight(
     wonBelt,
     lostBelt,
     changes,
+    nemesis: event.fight?.nemesis ?? false,
     ...(newInjury ? { newInjury } : {}),
   }
   return { game: g, result }

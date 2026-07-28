@@ -49,6 +49,18 @@ export interface PendingFlag {
   atAge: number
 }
 
+/** Rival récurrent (FR-16) : un adversaire nommé recroisé au fil de la carrière,
+ *  avec un palmarès de face-à-face qui construit l'attachement narratif. */
+export interface Nemesis {
+  name: string
+  style: Style
+  /** Face-à-face du POINT DE VUE du joueur. */
+  playerWins: number
+  playerLosses: number
+  /** Niveau de la némésis : grimpe à chaque retrouvaille (elle progresse aussi). */
+  level: number
+}
+
 export interface GameState {
   saveVersion: number
   seed: number
@@ -71,6 +83,8 @@ export interface GameState {
   record: FightRecord
   flags: Flags
   pending: PendingFlag[]
+  /** Rival récurrent, né en cours de carrière (null tant qu'aucune rivalité). */
+  nemesis: Nemesis | null
 }
 
 /** Données de création (l'écran réel arrive en Story 1.8). */
@@ -111,5 +125,6 @@ export function createInitialState(seed: number, setup: FighterSetup = {}): Game
     record: { wins: 0, losses: 0, finishes: 0 },
     flags: {},
     pending: [],
+    nemesis: null,
   }
 }

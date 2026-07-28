@@ -19,6 +19,10 @@ import {
   fightsPerYear,
   PLAYED_FIGHTS_PER_YEAR,
   STORY_EVENTS_PER_YEAR,
+  NEMESIS_BORN_FLAG,
+  nemesisToOpponent,
+  birthNemesis,
+  recordNemesisResult,
 } from '../engine'
 import {
   createTournament,
@@ -328,6 +332,20 @@ export function deserializeSession(saved: SavedSession, events: EventDef[]): Ses
 }
 
 /**
+ * Ouvre un combat de rivalité (FR-16) : à la première rencontre, la némésis
+ * naît d'un adversaire fraîchement généré et est mémorisée (drapeau posé) ;
+ * ensuite on la ressort, identique mais renforcée. Renvoie le RNG propagé.
+ */
+function openNemesisFight(game: GameState): { game: GameState; opponent: Opponent } {
+  let g = game
+  if (!g.nemesis) {
+    const [opp, rng] = generateOpponent(g, OPPONENT_POOL, g.rng)
+    g = { ...g, rng, nemesis: birthNemesis(opp), flags: { ...g.flags, [NEMESIS_BORN_FLAG]: true } }
+  }
+  return { game: g, opponent: nemesisToOpponent(g.nemesis!) }
+}
+
+/**
  * Sélectionne l'Événement du créneau demandé et, si c'est un combat, génère
  * l'adversaire (FR-16). Renvoie l'état RNG déjà propagé.
  */
@@ -339,7 +357,11 @@ function pickNext(game: GameState, events: EventDef[], slot: Slot): {
   const { event, rng } = selectEvent(game, poolForSlot(game, events, slot))
   let g: GameState = { ...game, rng }
   let opponent: Opponent | null = null
-  if (event.fight) {
+  if (event.fight?.nemesis) {
+    const opened = openNemesisFight(g)
+    g = opened.game
+    opponent = opened.opponent
+  } else if (event.fight) {
     const [opp, rng2] = generateOpponent(g, OPPONENT_POOL, g.rng)
     opponent = opp
     g = { ...g, rng: rng2 }
@@ -586,7 +608,9 @@ export function chooseInSession(session: Session, choiceIndex: number): Session 
 
   if (session.current.fight && session.opponent) {
     const { game, result } = resolveFight(session.game, session.current, choice, session.opponent)
-    return { ...session, game, lastResult: result, lastReveal: null }
+    // Combat de rivalité : met à jour le face-à-face et renforce la némésis.
+    const g = result.nemesis ? recordNemesisResult(game, result.win) : game
+    return { ...session, game: g, lastResult: result, lastReveal: null }
   }
 
   let game = applyChoice(session.game, session.current, choice)

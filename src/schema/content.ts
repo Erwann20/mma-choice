@@ -16,6 +16,7 @@ import clubEvents from '../content/events/clubs.json'
 import homesickEvents from '../content/events/homesick.json'
 import injuryEvents from '../content/events/injuries.json'
 import coachEvents from '../content/events/coaches.json'
+import nemesisEvents from '../content/events/nemesis.json'
 import divisionsData from '../content/divisions.json'
 import organizationsData from '../content/organizations.json'
 import startingCriteriaData from '../content/starting-criteria.json'
@@ -113,6 +114,8 @@ export const FightSchema = z.object({
   winFlag: z.string().min(1).optional(),
   /** Taille du tableau si le combat est un TOURNOI (4 ou 8) ; sinon combat simple. */
   bracket: z.union([z.literal(4), z.literal(8)]).optional(),
+  /** Combat de rivalité (FR-16) : affronte la némésis récurrente du combattant. */
+  nemesis: z.boolean().optional(),
 })
 
 // Catégorie thématique d'un événement → couleur d'accent dans l'UI (les combats
@@ -174,6 +177,7 @@ export function loadEvents(): EventDef[] {
     ...homesickEvents,
     ...injuryEvents,
     ...coachEvents,
+    ...nemesisEvents,
   ])
 }
 
