@@ -1242,3 +1242,13 @@
   color: var(--color-text-secondary);
   font-weight: 500;
 }
+
+/* Bouton de retraite volontaire (FR-14) */
+.btn-retire {
+  color: var(--color-danger);
+  width: 100%;
+}
+.btn-retire:hover {
+  color: var(--color-danger);
+  opacity: 0.85;
+}

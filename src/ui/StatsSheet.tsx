@@ -3,7 +3,15 @@ import type { GameState } from '../engine'
 import { StatBar } from './StatBar'
 import { STYLE_LABEL, careerStatus, amateurTitles } from './labels'
 
-export function StatsSheet({ game, onClose }: { game: GameState; onClose: () => void }) {
+export function StatsSheet({
+  game,
+  onClose,
+  onRetire,
+}: {
+  game: GameState
+  onClose: () => void
+  onRetire?: () => void
+}) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
@@ -63,6 +71,16 @@ export function StatsSheet({ game, onClose }: { game: GameState; onClose: () => 
         <button className="btn-secondary" type="button" onClick={onClose} style={{ marginTop: 'var(--space-4)' }}>
           Fermer
         </button>
+        {onRetire ? (
+          <button
+            className="btn-ghost btn-retire"
+            type="button"
+            onClick={onRetire}
+            style={{ marginTop: 'var(--space-2)' }}
+          >
+            🥊 Raccrocher les gants
+          </button>
+        ) : null}
       </div>
     </div>
   )

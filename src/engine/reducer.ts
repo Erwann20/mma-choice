@@ -25,6 +25,10 @@ export function reduce(state: GameState, action: Action): GameState {
         pending,
       }
     }
+    case 'RETIRE': {
+      // Retraite volontaire (FR-14) : le combattant raccroche les gants.
+      return { ...state, phase: 'retired' }
+    }
     default:
       return state
   }

@@ -582,6 +582,20 @@ function finalizeTournament(session: Session): Session {
  * - tournoi en cours → tour suivant, ou clôture si le tableau est terminé ;
  * - conséquences de combat/choix → avance dans l'année.
  */
+/** Retraite volontaire (FR-14) : raccroche les gants → écran de fin de carrière. */
+export function retireCareer(session: Session): Session {
+  return {
+    ...session,
+    game: reduce(session.game, { type: 'RETIRE' }),
+    current: null,
+    opponent: null,
+    lastResult: null,
+    lastReveal: null,
+    yearReview: null,
+    tournament: null,
+  }
+}
+
 export function continueSession(session: Session): Session {
   if (session.yearReview) {
     const opening = openSlot(session.game, session.events, session.yearPlan[0])
