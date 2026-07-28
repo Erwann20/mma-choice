@@ -17,6 +17,7 @@ import {
   markEventConsumed,
   nextInt,
   fightsPerYear,
+  PLAYED_FIGHTS_PER_YEAR,
   STORY_EVENTS_PER_YEAR,
 } from '../engine'
 import {
@@ -86,14 +87,13 @@ function shuffle<T>(items: T[], rng: RngState): [T[], RngState] {
  * (le tournoi peut tomber n'importe quand dans l'année).
  */
 function planYear(game: GameState, events: EventDef[]): { plan: Slot[]; rng: RngState } {
-  const fights = fightsPerYear(game.pro)
   const actions: Slot[] = []
-  for (let i = 0; i < fights; i++) actions.push('fight')
+  for (let i = 0; i < PLAYED_FIGHTS_PER_YEAR; i++) actions.push('fight')
   if (events.some((e) => isTournament(e) && isEligible(game, e))) actions.push('tournament')
   const [shuffled, rng] = shuffle(actions, game.rng)
 
   // Autant (+1) de récits que d'actions ⇒ un récit sépare chaque combat.
-  const stories = Math.max(STORY_EVENTS_PER_YEAR, fights + 1)
+  const stories = Math.max(STORY_EVENTS_PER_YEAR, actions.length + 1)
   const plan: Slot[] = []
   let ai = 0
   let si = 0
@@ -115,6 +115,42 @@ function poolForSlot(game: GameState, events: EventDef[], slot: Slot): EventDef[
   const keep = slot === 'fight' ? isRegularFight : slot === 'tournament' ? isTournament : isStory
   const subset = events.filter(keep)
   return subset.some((e) => isEligible(game, e)) ? subset : events
+}
+
+// --- Combats de saison simulés (FR-10) -------------------------------------
+// Le joueur ne VIT qu'un combat par an ; les autres se déroulent hors caméra
+// (simulés avec sa meilleure tactique) et alimentent le palmarès + le bilan.
+/** Meilleur canal de frappe/lutte/sol du joueur (tactique par défaut). */
+function bestTactic(game: GameState): Channel {
+  const { striking, grappling, ground } = game.stats
+  if (ground >= striking && ground >= grappling) return 'ground'
+  if (grappling >= striking) return 'grappling'
+  return 'striking'
+}
+
+/** Événement-combat synthétique des combats simulés (ni titre ni drapeau). */
+const AUTO_FIGHT_EVENT: EventDef = {
+  id: '__season_fight',
+  weight: 1,
+  repeatable: true,
+  text: 'Combat de saison.',
+  fight: { titleFight: false },
+  choices: [{ label: 'auto', effects: [] }],
+  conditions: [],
+}
+
+/** Simule N combats de saison (adversaires calibrés) et applique leurs suites. */
+function simulateSeasonFights(game: GameState, n: number): { game: GameState; count: number } {
+  let g = game
+  let count = 0
+  for (let i = 0; i < n; i++) {
+    const [opp, rng] = generateOpponent(g, OPPONENT_POOL, g.rng)
+    g = { ...g, rng }
+    const choice = { label: 'auto', effects: [], tactic: bestTactic(g) }
+    g = resolveFight(g, AUTO_FIGHT_EVENT, choice, opp).game
+    count++
+  }
+  return { game: g, count }
 }
 
 // --- Bilan de fin d'année (FR-8) -------------------------------------------
@@ -151,13 +187,21 @@ export interface YearReview {
   wins: number
   losses: number
   finishes: number
+  /** Combats disputés hors caméra (simulés) cette année. */
+  autoFights: number
   /** Drapeaux de titres décrochés cette année (clés, formatées côté UI). */
   newTitleFlags: string[]
   /** A décroché la ceinture professionnelle cette année. */
   wonBelt: boolean
 }
 
-function buildYearReview(before: YearSnapshot, after: GameState, year: number, age: number): YearReview {
+function buildYearReview(
+  before: YearSnapshot,
+  after: GameState,
+  year: number,
+  age: number,
+  autoFights: number,
+): YearReview {
   // État « début d'année » reconstitué pour diffusion des canaux (stats/méta).
   const pseudoBefore: GameState = { ...after, stats: before.stats, meta: before.meta }
   const changes = channelDeltas(pseudoBefore, after)
@@ -171,6 +215,7 @@ function buildYearReview(before: YearSnapshot, after: GameState, year: number, a
     wins: after.record.wins - before.record.wins,
     losses: after.record.losses - before.record.losses,
     finishes: after.record.finishes - before.record.finishes,
+    autoFights,
     newTitleFlags,
     wonBelt: after.belt && !before.belt,
   }
@@ -432,9 +477,13 @@ function advanceAfterEvent(session: Session, game: GameState): Session {
     }
   }
 
-  // Année terminée : bilan (avant vieillissement) puis avancée d'âge.
-  const review = buildYearReview(session.yearSnapshot, game, session.year, game.fighter.age + 1)
-  const aged = reduce(game, { type: 'ADVANCE_YEAR' })
+  // Année terminée : on dispute d'abord les combats de saison restants (hors
+  // caméra), puis on dresse le bilan (avant vieillissement) et on avance d'âge.
+  const autoN = Math.max(0, fightsPerYear(game.pro) - PLAYED_FIGHTS_PER_YEAR)
+  const sim = simulateSeasonFights(game, autoN)
+  const played = sim.game
+  const review = buildYearReview(session.yearSnapshot, played, session.year, played.fighter.age + 1, sim.count)
+  const aged = reduce(played, { type: 'ADVANCE_YEAR' })
   if (aged.phase === 'retired') {
     return {
       ...session,

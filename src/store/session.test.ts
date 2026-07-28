@@ -54,6 +54,18 @@ describe('session', () => {
     expect(resumed.current).not.toBeNull()
   })
 
+  it('dispute des combats de saison hors caméra, comptés au bilan', () => {
+    // EVENTS synthétiques = aucun combat interactif ; seuls les combats simulés
+    // de fin d'année alimentent le palmarès (amateur : 4 total − 1 vécu = 3).
+    let s: Session = startCareer(EVENTS, 1)
+    const yearLen = s.yearPlan.length
+    for (let i = 0; i < yearLen - 1; i++) s = step(s)
+    const atReview = continueSession(chooseInSession(s, 0))
+    expect(atReview.yearReview?.autoFights).toBe(3)
+    const total = (atReview.yearReview?.wins ?? 0) + (atReview.yearReview?.losses ?? 0)
+    expect(total).toBe(3)
+  })
+
   it('un choix à effet passe par un écran de conséquences avant d’avancer', () => {
     const s0 = startCareer(EVENTS, 1)
     const afterChoice = chooseInSession(s0, 0)

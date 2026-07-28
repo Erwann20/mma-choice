@@ -4,15 +4,19 @@ export const START_AGE = 18
 export const RETIREMENT_AGE = 38
 
 // --- Structure d'une année de carrière (FR-8) ---
-// Une année = un nombre garanti de COMBATS + des Événements narratifs, plus un
-// éventuel créneau TOURNOI si un tournoi est débloqué. On garantit ainsi un
-// volume de combats crédible (amateur ≥ 4, pro ≥ 3) au lieu d'un tirage pur.
-/** Combats garantis par an en amateur. */
+// Une année compte un volume de combats crédible (amateur 4, pro 3) MAIS le
+// joueur n'en VIT qu'un seul de façon interactive (choix de tactique) : les
+// autres se déroulent en coulisses (simulés) et alimentent le palmarès + le
+// bilan annuel. On évite ainsi la redondance des questions de combat tout en
+// gardant une carrière remplie. Les tournois, eux, restent vécus tour par tour.
+/** Combats totaux disputés par an en amateur (1 vécu + le reste simulé). */
 export const AMATEUR_FIGHTS_PER_YEAR = 4
-/** Combats garantis par an en professionnel. */
+/** Combats totaux disputés par an en professionnel (1 vécu + le reste simulé). */
 export const PRO_FIGHTS_PER_YEAR = 3
-/** Événements narratifs (non-combat) par an, en plus des combats. */
-export const STORY_EVENTS_PER_YEAR = 3
+/** Combats VÉCUS de façon interactive par an (le reste est simulé). */
+export const PLAYED_FIGHTS_PER_YEAR = 1
+/** Événements narratifs (non-combat) par an, entre les combats. */
+export const STORY_EVENTS_PER_YEAR = 4
 
 /** Combats garantis pour l'année selon le statut (amateur / pro). */
 export function fightsPerYear(pro: boolean): number {
