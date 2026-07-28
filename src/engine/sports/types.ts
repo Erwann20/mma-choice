@@ -1,7 +1,11 @@
 // Définition d'un sport (couche générique multi-sports). Chaque sport fournit
-// ses attributs, ses valeurs de départ et ses formules (OVR, score, trophées).
-// Le cœur (state/score/awards/session) est PARAMÉTRÉ par cette définition.
+// ses attributs, ses valeurs de départ et ses formules (OVR, score, trophées),
+// ET sa résolution de « match vécu ». Le cœur (state/score/awards/session) est
+// PARAMÉTRÉ par cette définition.
 import type { GameState } from '../state'
+import type { RngState } from '../rng'
+import type { Opponent, FightResult } from '../combat'
+import type { Channel, EventDef, Choice } from '../../schema'
 
 /** Identifiant de sport (s'enrichit quand on ajoute un sport). */
 export type SportId = 'mma' | 'basket'
@@ -31,4 +35,17 @@ export interface SportDef {
   score: (game: GameState) => number
   /** Trophées débloqués par la carrière. */
   achievements: (game: GameState) => Achievement[]
+
+  // --- Résolution du « match vécu » (propre au sport) ---
+  /** Génère un adversaire calibré (propage l'état RNG). */
+  generateOpponent: (state: GameState, rng: RngState) => [Opponent, RngState]
+  /** Résout un match/combat vécu et renvoie l'état + le résultat à afficher. */
+  resolveMatch: (
+    state: GameState,
+    event: EventDef,
+    choice: Choice,
+    opponent: Opponent,
+  ) => { game: GameState; result: FightResult }
+  /** Tactique par défaut pour les matchs SIMULÉS (hors caméra). */
+  autoTactic: (state: GameState) => Channel
 }

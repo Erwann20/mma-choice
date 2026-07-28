@@ -11,8 +11,6 @@ import {
   applyEffect,
   readChannel,
   reduce,
-  generateOpponent,
-  resolveFight,
   isEligible,
   markEventConsumed,
   nextInt,
@@ -23,6 +21,7 @@ import {
   nemesisToOpponent,
   birthNemesis,
   recordNemesisResult,
+  sportDef,
 } from '../engine'
 import {
   createTournament,
@@ -126,15 +125,7 @@ function poolForSlot(game: GameState, events: EventDef[], slot: Slot): EventDef[
 
 // --- Combats de saison simulés (FR-10) -------------------------------------
 // Le joueur ne VIT qu'un combat par an ; les autres se déroulent hors caméra
-// (simulés avec sa meilleure tactique) et alimentent le palmarès + le bilan.
-/** Meilleur canal de frappe/lutte/sol du joueur (tactique par défaut). */
-function bestTactic(game: GameState): Channel {
-  const { striking, grappling, ground } = game.stats
-  if (ground >= striking && ground >= grappling) return 'ground'
-  if (grappling >= striking) return 'grappling'
-  return 'striking'
-}
-
+// (simulés avec sa meilleure tactique, propre au sport) et alimentent le bilan.
 /** Événement-combat synthétique des combats simulés (ni titre ni drapeau). */
 const AUTO_FIGHT_EVENT: EventDef = {
   id: '__season_fight',
@@ -151,10 +142,11 @@ function simulateSeasonFights(game: GameState, n: number): { game: GameState; co
   let g = game
   let count = 0
   for (let i = 0; i < n; i++) {
-    const [opp, rng] = generateOpponent(g, OPPONENT_POOL, g.rng)
+    const def = sportDef(g.sport)
+    const [opp, rng] = def.generateOpponent(g, g.rng)
     g = { ...g, rng }
-    const choice = { label: 'auto', effects: [], tactic: bestTactic(g) }
-    g = resolveFight(g, AUTO_FIGHT_EVENT, choice, opp).game
+    const choice = { label: 'auto', effects: [], tactic: def.autoTactic(g) }
+    g = def.resolveMatch(g, AUTO_FIGHT_EVENT, choice, opp).game
     count++
   }
   return { game: g, count }
@@ -339,7 +331,7 @@ export function deserializeSession(saved: SavedSession, events: EventDef[]): Ses
 function openNemesisFight(game: GameState): { game: GameState; opponent: Opponent } {
   let g = game
   if (!g.nemesis) {
-    const [opp, rng] = generateOpponent(g, OPPONENT_POOL, g.rng)
+    const [opp, rng] = sportDef(g.sport).generateOpponent(g, g.rng)
     g = { ...g, rng, nemesis: birthNemesis(opp), flags: { ...g.flags, [NEMESIS_BORN_FLAG]: true } }
   }
   return { game: g, opponent: nemesisToOpponent(g.nemesis!) }
@@ -362,7 +354,7 @@ function pickNext(game: GameState, events: EventDef[], slot: Slot): {
     g = opened.game
     opponent = opened.opponent
   } else if (event.fight) {
-    const [opp, rng2] = generateOpponent(g, OPPONENT_POOL, g.rng)
+    const [opp, rng2] = sportDef(g.sport).generateOpponent(g, g.rng)
     opponent = opp
     g = { ...g, rng: rng2 }
   }
@@ -607,7 +599,12 @@ export function chooseInSession(session: Session, choiceIndex: number): Session 
   if (!choice) return session
 
   if (session.current.fight && session.opponent) {
-    const { game, result } = resolveFight(session.game, session.current, choice, session.opponent)
+    const { game, result } = sportDef(session.game.sport).resolveMatch(
+      session.game,
+      session.current,
+      choice,
+      session.opponent,
+    )
     // Combat de rivalité : met à jour le face-à-face et renforce la némésis.
     const g = result.nemesis ? recordNemesisResult(game, result.win) : game
     return { ...session, game: g, lastResult: result, lastReveal: null }

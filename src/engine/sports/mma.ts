@@ -2,10 +2,23 @@
 // trophées. Ces formules ÉTAIENT dans score.ts / awards.ts ; elles vivent
 // désormais ici, derrière le contrat SportDef (le cœur les appelle par sport).
 import type { GameState } from '../state'
+import type { Channel } from '../../schema'
 import type { Achievement, SportDef } from './types'
 import { START_AGE, RETIREMENT_AGE, clampStat, tierIndex } from '../config'
 import { nationOf } from '../nation'
 import { hasChronicInjury } from '../injuries'
+import { generateOpponent as genOpponent, resolveFight } from '../combat'
+import { loadOpponentPool } from '../../schema'
+
+const OPPONENT_POOL = loadOpponentPool()
+
+/** Meilleur canal offensif du joueur (tactique par défaut des matchs simulés). */
+function bestTactic(game: GameState): Channel {
+  const { striking, grappling, ground } = game.stats
+  if (ground >= striking && ground >= grappling) return 'ground'
+  if (grappling >= striking) return 'grappling'
+  return 'striking'
+}
 
 const STAT_KEYS = ['striking', 'grappling', 'ground', 'cardio']
 const STAT_LABELS: Record<string, string> = {
@@ -110,4 +123,7 @@ export const MMA: SportDef = {
   overall: mmaOverall,
   score: mmaScore,
   achievements: mmaAchievements,
+  generateOpponent: (state, rng) => genOpponent(state, OPPONENT_POOL, rng),
+  resolveMatch: (state, event, choice, opponent) => resolveFight(state, event, choice, opponent),
+  autoTactic: bestTactic,
 }
