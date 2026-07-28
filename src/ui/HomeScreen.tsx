@@ -2,7 +2,7 @@
 // autres sont marqués « Bientôt ». En bas, l'historique des carrières terminées.
 import { useState } from 'react'
 import { computeScore, careerTitle } from '../engine'
-import type { ArchivedCareer } from '../store/game'
+import type { ArchivedCareer, DailyResult } from '../store/game'
 import { careerStatus } from './labels'
 
 interface Mode {
@@ -58,6 +58,8 @@ export function HomeScreen({
   onResume,
   resumeName,
   dailyDoneScore,
+  dailyStreak = 0,
+  dailyHistory = [],
   archive = [],
   onOpenCareer,
   onDeleteCareer,
@@ -71,6 +73,10 @@ export function HomeScreen({
   resumeName?: string
   /** Score de la Mission du jour déjà tentée aujourd'hui, sinon null. */
   dailyDoneScore?: number | null
+  /** Série de jours consécutifs (0 si la série est rompue). */
+  dailyStreak?: number
+  /** Historique des Missions du jour (plus récentes en tête). */
+  dailyHistory?: DailyResult[]
   archive?: ArchivedCareer[]
   onOpenCareer?: (career: ArchivedCareer) => void
   onDeleteCareer?: (id: string) => void
@@ -138,6 +144,23 @@ export function HomeScreen({
           )
         })}
       </div>
+
+      {dailyHistory.length > 0 ? (
+        <section className="daily-recap">
+          {dailyStreak > 0 ? (
+            <p className="daily-streak">
+              🔥 Série : {dailyStreak} jour{dailyStreak > 1 ? 's' : ''} d'affilée
+            </p>
+          ) : null}
+          <div className="daily-history" aria-label="Historique des missions du jour">
+            {dailyHistory.slice(0, 10).map((d) => (
+              <span key={d.date} className="daily-dot" title={`${d.date} · ${d.score}/100`}>
+                {d.score}
+              </span>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       {archive.length > 0 ? (
         <section className="careers">

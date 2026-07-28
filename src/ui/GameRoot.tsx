@@ -1,6 +1,6 @@
 import './game.css'
 import { useEffect, useState } from 'react'
-import { useGameStore, todayKey } from '../store/game'
+import { useGameStore, todayKey, yesterdayKey } from '../store/game'
 import { CareerScreen } from './CareerScreen'
 import { CreationScreen } from './CreationScreen'
 import { IconSelectScreen } from './IconSelectScreen'
@@ -17,6 +17,8 @@ export function GameRoot() {
   const replayIcon = useGameStore((s) => s.replayIcon)
   const startDaily = useGameStore((s) => s.startDaily)
   const dailyResult = useGameStore((s) => s.dailyResult)
+  const dailyStreak = useGameStore((s) => s.dailyStreak)
+  const dailyHistory = useGameStore((s) => s.dailyHistory)
   const reset = useGameStore((s) => s.reset)
   const deleteArchived = useGameStore((s) => s.deleteArchived)
   const [creating, setCreating] = useState(false)
@@ -118,6 +120,12 @@ export function GameRoot() {
           onResume={pausedCareer ? () => setAtHome(false) : undefined}
           resumeName={pausedCareer ? session.game.fighter.name : undefined}
           dailyDoneScore={dailyResult && dailyResult.date === todayKey() ? dailyResult.score : null}
+          dailyStreak={
+            dailyResult && (dailyResult.date === todayKey() || dailyResult.date === yesterdayKey())
+              ? dailyStreak
+              : 0
+          }
+          dailyHistory={dailyHistory}
           archive={archive}
           onOpenCareer={(c) => setViewingId(c.id)}
           onDeleteCareer={deleteArchived}
