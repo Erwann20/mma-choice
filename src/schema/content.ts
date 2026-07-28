@@ -15,6 +15,7 @@ import fightEvents from '../content/events/fights.json'
 import clubEvents from '../content/events/clubs.json'
 import homesickEvents from '../content/events/homesick.json'
 import injuryEvents from '../content/events/injuries.json'
+import coachEvents from '../content/events/coaches.json'
 import divisionsData from '../content/divisions.json'
 import organizationsData from '../content/organizations.json'
 import startingCriteriaData from '../content/starting-criteria.json'
@@ -172,6 +173,7 @@ export function loadEvents(): EventDef[] {
     ...clubEvents,
     ...homesickEvents,
     ...injuryEvents,
+    ...coachEvents,
   ])
 }
 

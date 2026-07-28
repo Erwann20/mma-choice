@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import type { GameState } from '../engine'
-import { fighterOverall, activeSequelae, SEQUELA_LABEL } from '../engine'
+import { fighterOverall, activeSequelae, SEQUELA_LABEL, signatureTactic, SIGNATURE_LABEL } from '../engine'
 import { StatBar } from './StatBar'
 import { STYLE_LABEL, careerStatus, amateurTitles, formatCompact, formatMoney } from './labels'
 
@@ -71,6 +71,12 @@ export function StatsSheet({
         <StatBar label="Lutte" value={game.stats.grappling} />
         <StatBar label="Sol" value={game.stats.ground} />
         <StatBar label="Cardio" value={game.stats.cardio} />
+
+        {signatureTactic(game) ? (
+          <p className="fighter-meta sheet-signature" style={{ marginTop: 'var(--space-2)' }}>
+            ⭐ {SIGNATURE_LABEL[signatureTactic(game)!]}
+          </p>
+        ) : null}
 
         <div className="overline" style={{ margin: 'var(--space-4) 0 var(--space-2)' }}>
           Forme & réputation

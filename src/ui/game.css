@@ -1051,6 +1051,11 @@
   color: var(--color-danger, #e5484d);
 }
 
+.sheet-signature {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
 .toast {
   position: fixed;
   left: 50%;
