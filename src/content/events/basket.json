@@ -54,23 +54,148 @@
   },
   {
     "id": "bk-match-titre",
-    "weight": 7,
+    "weight": 6,
     "repeatable": true,
     "cooldown": 2,
     "category": "combat",
-    "overline": "FINALE DU CHAMPIONNAT",
-    "text": "La finale. Le titre au bout, une salle comble et ta légende qui s'écrit peut-être ce soir. Tout se joue là.",
-    "fight": { "titleFight": true },
+    "overline": "FINALE AMATEUR",
+    "text": "La finale du championnat amateur. Une salle comble, les recruteurs au premier rang : c'est le match qui peut lancer ta carrière. Tout se joue là.",
+    "fight": {},
     "conditions": [
       { "kind": "stat", "on": "tier", "cmp": "lte", "value": 0 },
-      { "kind": "stat", "on": "reputation", "cmp": "gte", "value": 45 },
-      { "kind": "flag", "flag": "serie_negative", "eq": false }
+      { "kind": "stat", "on": "reputation", "cmp": "gte", "value": 30 }
     ],
     "choices": [
       { "label": "Prendre tes responsabilités au tir", "hint": "Ton tir décide", "tactic": "tir" },
       { "label": "Attaquer le cercle sans trembler", "hint": "Ton dribble décide", "tactic": "dribble" },
       { "label": "Orchestrer et trouver l'homme libre", "hint": "Ta passe décide", "tactic": "passe" },
       { "label": "Gagner le match en défense", "hint": "Ta défense décide", "tactic": "defense" }
+    ]
+  },
+  {
+    "id": "bk-draft",
+    "weight": 12,
+    "repeatable": false,
+    "category": "career",
+    "overline": "SOIRÉE DE DRAFT",
+    "text": "Ton nom résonne dans la salle : une franchise pro te tend la main. C'est LE moment, celui dont tu rêves depuis gamin. Quel maillot enfiles-tu ?",
+    "conditions": [
+      { "kind": "stat", "on": "reputation", "cmp": "gte", "value": 25 },
+      { "kind": "flag", "flag": "drafte", "eq": false }
+    ],
+    "choices": [
+      {
+        "label": "Riverside Hoops (États-Unis)",
+        "hint": "Le tremplin américain du développement",
+        "effects": [{ "target": "money", "op": "add", "value": 8000 }, { "target": "reputation", "op": "add", "value": 6 }],
+        "signOrg": "bk-riverside",
+        "setFlags": { "drafte": true }
+      },
+      {
+        "label": "Lyon Basket (France)",
+        "hint": "Le fer de lance français, à la maison",
+        "effects": [{ "target": "money", "op": "add", "value": 6000 }, { "target": "reputation", "op": "add", "value": 5 }],
+        "signOrg": "bk-lyon-basket",
+        "setFlags": { "drafte": true }
+      },
+      {
+        "label": "Madrid Titanes (Espagne)",
+        "hint": "L'école défensive européenne",
+        "effects": [{ "target": "money", "op": "add", "value": 6500 }, { "target": "defense", "op": "add", "value": 3 }],
+        "signOrg": "bk-madrid",
+        "setFlags": { "drafte": true }
+      }
+    ]
+  },
+  {
+    "id": "bk-match-pro-saison",
+    "weight": 5,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "combat",
+    "overline": "MATCH DE SAISON PRO",
+    "text": "Match de saison régulière en pro. Le rythme est plus dur, les adversaires plus grands, plus forts, plus malins. Ton plan ?",
+    "fight": {},
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 }],
+    "choices": [
+      { "label": "Assumer le scoring", "hint": "Ton tir décide", "tactic": "tir" },
+      { "label": "Casser la défense balle en main", "hint": "Ton dribble décide", "tactic": "dribble" },
+      { "label": "Élever le niveau des tiens", "hint": "Ta passe décide", "tactic": "passe" },
+      { "label": "Tenir ton joueur toute la nuit", "hint": "Ta défense décide", "tactic": "defense" }
+    ]
+  },
+  {
+    "id": "bk-callup",
+    "weight": 12,
+    "repeatable": false,
+    "category": "career",
+    "overline": "APPELÉ EN GRANDE LIGUE",
+    "text": "Une franchise de la grande ligue veut te signer. Les projecteurs, les salles combles, les contrats en or : le très haut niveau frappe à ta porte. Où signes-tu ?",
+    "conditions": [
+      { "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 },
+      { "kind": "stat", "on": "reputation", "cmp": "gte", "value": 55 },
+      { "kind": "flag", "flag": "grande_ligue", "eq": false }
+    ],
+    "choices": [
+      {
+        "label": "Metropolis Kings (États-Unis)",
+        "hint": "La franchise phare, prestige maximal",
+        "effects": [{ "target": "money", "op": "add", "value": 60000 }, { "target": "reputation", "op": "add", "value": 10 }],
+        "signOrg": "bk-metropolis",
+        "setFlags": { "grande_ligue": true }
+      },
+      {
+        "label": "Coastal Waves (États-Unis)",
+        "hint": "Le glamour de la côte ouest",
+        "effects": [{ "target": "money", "op": "add", "value": 55000 }, { "target": "followers", "op": "add", "value": 5000 }],
+        "signOrg": "bk-coastal",
+        "setFlags": { "grande_ligue": true }
+      },
+      {
+        "label": "Shanghai Dragons (Chine)",
+        "hint": "Des moyens colossaux, un public immense",
+        "effects": [{ "target": "money", "op": "add", "value": 70000 }, { "target": "followers", "op": "add", "value": 4000 }],
+        "signOrg": "bk-dragons",
+        "setFlags": { "grande_ligue": true }
+      }
+    ]
+  },
+  {
+    "id": "bk-match-primetime",
+    "weight": 5,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "combat",
+    "overline": "PRIME TIME",
+    "text": "Match diffusé en prime time sur toute la planète. Les caméras te cherchent, les légendes te regardent. Le monde regarde. Ta manière ?",
+    "fight": {},
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 2 }],
+    "choices": [
+      { "label": "Signer le highlight au tir", "hint": "Ton tir décide", "tactic": "tir" },
+      { "label": "Poster-dunker sur la tête", "hint": "Ton dribble décide", "tactic": "dribble" },
+      { "label": "Distribuer un festival de passes", "hint": "Ta passe décide", "tactic": "passe" },
+      { "label": "Signer le contre décisif", "hint": "Ta défense décide", "tactic": "defense" }
+    ]
+  },
+  {
+    "id": "bk-match-champ",
+    "weight": 8,
+    "repeatable": true,
+    "cooldown": 2,
+    "category": "combat",
+    "overline": "FINALES DE LA GRANDE LIGUE",
+    "text": "Les Finales. Le titre suprême, la bague au bout, ton nom gravé dans l'histoire si tu l'emportes. Toute une vie de travail tient dans cette série.",
+    "fight": { "titleFight": true },
+    "conditions": [
+      { "kind": "stat", "on": "tier", "cmp": "gte", "value": 2 },
+      { "kind": "stat", "on": "reputation", "cmp": "gte", "value": 60 },
+      { "kind": "flag", "flag": "serie_negative", "eq": false }
+    ],
+    "choices": [
+      { "label": "Prendre le trophée à bras-le-corps au tir", "hint": "Ton tir décide", "tactic": "tir" },
+      { "label": "Aller chercher la bague au dribble", "hint": "Ton dribble décide", "tactic": "dribble" },
+      { "label": "Sacrer les tiens par le collectif", "hint": "Ta passe décide", "tactic": "passe" },
+      { "label": "Verrouiller le titre en défense", "hint": "Ta défense décide", "tactic": "defense" }
     ]
   },
   {
