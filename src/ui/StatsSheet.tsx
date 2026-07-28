@@ -1,7 +1,16 @@
 import { useEffect } from 'react'
 import type { GameState } from '../engine'
+import { fighterOverall } from '../engine'
 import { StatBar } from './StatBar'
 import { STYLE_LABEL, careerStatus, amateurTitles } from './labels'
+
+function ovrTier(o: number): string {
+  if (o >= 85) return 'elite'
+  if (o >= 75) return 'gold'
+  if (o >= 65) return 'silver'
+  if (o >= 50) return 'bronze'
+  return 'rookie'
+}
 
 export function StatsSheet({
   game,
@@ -34,6 +43,13 @@ export function StatsSheet({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="sheet-grabber" aria-hidden="true" />
+        <div className="sheet-ovr">
+          <span className={`ovr ovr-${ovrTier(fighterOverall(game))}`}>
+            <span className="ovr-value">{fighterOverall(game)}</span>
+            <span className="ovr-label">OVR</span>
+          </span>
+          <span className="sheet-ovr-name">{game.fighter.name}</span>
+        </div>
         <p className="fighter-meta" style={{ marginTop: 0 }}>
           {game.fighter.age} ans · {STYLE_LABEL[game.style]} · {careerStatus(game)}
           {game.belt ? ' · 🏆 Champion' : ''}

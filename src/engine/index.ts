@@ -29,7 +29,7 @@ export {
   markEventConsumed,
 } from './events'
 export { applyEffect, applyChoice } from './effects'
-export { computeScore, allTimeRank } from './score'
+export { computeScore, allTimeRank, fighterOverall } from './score'
 export type { Achievement, TitleTone } from './awards'
 export { careerTitle, careerAchievements, nationOf } from './awards'
 export { beltOrgsWon, wasChampion } from './belts'

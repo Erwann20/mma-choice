@@ -1507,3 +1507,94 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+/* --- Note générale (OVR, façon carte FIFA) --- */
+.ovr-card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--color-text);
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}
+.ovr-card:disabled {
+  cursor: default;
+}
+.ovr-card:active:not(:disabled) {
+  transform: scale(0.99);
+}
+.ovr {
+  flex-shrink: 0;
+  width: 58px;
+  height: 58px;
+  border-radius: var(--radius-md);
+  display: grid;
+  place-content: center;
+  line-height: 1;
+  border: 1.5px solid var(--ovr-color, var(--color-border-strong));
+  background: var(--color-surface);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ovr-color, transparent) 10%, transparent);
+}
+.ovr-value {
+  display: block;
+  text-align: center;
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--ovr-color, var(--color-text));
+  animation: pop-in 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.ovr-label {
+  display: block;
+  text-align: center;
+  margin-top: 1px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--color-text-secondary);
+}
+.ovr-rookie {
+  --ovr-color: var(--color-text-muted);
+}
+.ovr-bronze {
+  --ovr-color: #cd7f45;
+}
+.ovr-silver {
+  --ovr-color: #b9c2cc;
+}
+.ovr-gold {
+  --ovr-color: #e5c15a;
+}
+.ovr-elite {
+  --ovr-color: var(--color-accent);
+}
+.ovr-id {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+.ovr-id .fighter-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ovr-chevron {
+  flex-shrink: 0;
+  font-size: 24px;
+  color: var(--color-text-muted);
+}
+.sheet-ovr {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+.sheet-ovr-name {
+  font-size: var(--fs-title);
+  font-weight: 800;
+}
