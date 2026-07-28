@@ -209,7 +209,8 @@
     "conditions": [
       { "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 },
       { "kind": "stat", "on": "tier", "cmp": "lte", "value": 1 },
-      { "kind": "stat", "on": "reputation", "cmp": "gte", "value": 35 }
+      { "kind": "stat", "on": "reputation", "cmp": "gte", "value": 35 },
+      { "kind": "flag", "flag": "serie_negative", "eq": false }
     ],
     "choices": [
       { "label": "Tout miser sur ta frappe", "hint": "Ta frappe décide", "tactic": "striking" },
@@ -311,7 +312,8 @@
     "fight": { "titleFight": true },
     "conditions": [
       { "kind": "stat", "on": "tier", "cmp": "gte", "value": 2 },
-      { "kind": "stat", "on": "reputation", "cmp": "gte", "value": 60 }
+      { "kind": "stat", "on": "reputation", "cmp": "gte", "value": 60 },
+      { "kind": "flag", "flag": "serie_negative", "eq": false }
     ],
     "choices": [
       { "label": "Aller chercher le titre debout", "hint": "Ta frappe décide", "tactic": "striking" },

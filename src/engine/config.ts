@@ -50,16 +50,22 @@ export const TIER_PROMOTION: Record<Exclude<Tier, 'immaf'>, { reputation: number
 }
 
 // --- Calibrage des adversaires (FR-16) ---
-// Niveau de base moyen d'un adversaire par palier ; la réputation le relève.
-export const TIER_OPPONENT_BASE: Record<Tier, number> = {
-  immaf: 28,
-  regional: 48,
-  major: 68,
+// L'adversaire est calibré sur le NIVEAU DE COMBAT du joueur (moyenne des stats)
+// pour rester JOUABLE, plus un léger surcroît de difficulté selon le palier et la
+// notoriété. On borne l'écart de niveau (voir OPPONENT_LEVEL_GAP) : jamais un mur
+// infranchissable — un combattant niveau 72 ne doit pas tomber sur du 95+.
+/** Surcroît (ou remise) de difficulté selon le palier, ajouté au niveau du joueur. */
+export const TIER_DIFFICULTY: Record<Tier, number> = {
+  immaf: -4,
+  regional: 2,
+  major: 6,
 }
-/** Poids de la réputation courante dans le niveau adverse (0–100 → +0..30). */
-export const OPPONENT_REP_FACTOR = 0.3
+/** Poids de la réputation courante dans le niveau adverse (0–100 → +0..10). */
+export const OPPONENT_REP_FACTOR = 0.1
 /** Amplitude de la variance aléatoire à graine sur le niveau adverse (±). */
 export const OPPONENT_VARIANCE = 8
+/** Écart de niveau maximal (±) autorisé entre l'adversaire et le joueur. */
+export const OPPONENT_LEVEL_GAP = 16
 
 // --- Économie du combat (FR-11) : bourse indicative par palier (€). ---
 export const PURSE_BY_TIER: Record<Tier, number> = {

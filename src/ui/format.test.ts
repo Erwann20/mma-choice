@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
-import { formatCompact, formatMoney } from './labels'
+import { formatCompact, formatMoney, clubCity } from './labels'
+import { createInitialState } from '../engine'
 
 describe('formatage compact des nombres', () => {
   it('laisse les petits nombres tels quels', () => {
@@ -25,5 +26,16 @@ describe('formatage compact des nombres', () => {
     expect(formatMoney(850)).toBe('850 €')
     expect(formatMoney(50000)).toBe('50 k €')
     expect(formatMoney(1200000)).toBe('1,2 M €')
+  })
+})
+
+describe('ville du club', () => {
+  it('renvoie null tant qu’aucun club n’est choisi', () => {
+    expect(clubCity(createInitialState(1))).toBeNull()
+  })
+
+  it('renvoie la ville du drapeau de club posé', () => {
+    const base = createInitialState(1)
+    expect(clubCity({ ...base, flags: { club_angers: true } })).toBe('Angers')
   })
 })

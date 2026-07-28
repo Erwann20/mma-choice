@@ -59,6 +59,28 @@ export function organizationCountry(id: string | null): string | null {
   return id ? (ORG_COUNTRY[id] ?? null) : null
 }
 
+/** Ville du club, par drapeau posé au choix du club (clubs.json). */
+const CLUB_CITY: Record<string, string> = {
+  club_paris: 'Paris',
+  club_angers: 'Angers',
+  club_nantes: 'Nantes',
+  club_marseille: 'Marseille',
+  club_lyon: 'Lyon',
+  club_toulouse: 'Toulouse',
+  club_lille: 'Lille',
+  club_bordeaux: 'Bordeaux',
+}
+
+/** Ville du club choisi par le combattant (dernier drapeau posé), ou null. */
+export function clubCity(game: GameState): string | null {
+  // Le dernier flag de ville posé prime (un changement de club écrase le décor).
+  let city: string | null = null
+  for (const [flag, name] of Object.entries(CLUB_CITY)) {
+    if (game.flags[flag] === true) city = name
+  }
+  return city
+}
+
 /** Statut : « Amateur », « Pro · Hexagone MMA (régionale) · France ✈️ »… */
 export function careerStatus(game: GameState): string {
   const org = organizationLabel(game.organization)
