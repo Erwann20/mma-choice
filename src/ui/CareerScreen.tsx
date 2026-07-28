@@ -11,6 +11,7 @@ import { ChoiceReveal } from './ChoiceReveal'
 import { YearReviewScreen } from './YearReviewScreen'
 import { BracketView } from './BracketView'
 import { TournamentEndScreen } from './TournamentEndScreen'
+import { ConfirmDialog } from './ConfirmDialog'
 import { describeStatChanges } from './a11y'
 import { eventCategory } from './labels'
 import { Skeleton } from './Skeleton'
@@ -20,9 +21,26 @@ export function CareerScreen() {
   const session = useGameStore((s) => s.session)
   const choose = useGameStore((s) => s.choose)
   const advance = useGameStore((s) => s.advance)
+  const retire = useGameStore((s) => s.retire)
   const [statsOpen, setStatsOpen] = useState(false)
+  const [confirmRetire, setConfirmRetire] = useState(false)
   const [announce, setAnnounce] = useState('')
   const prevGame = useRef<GameState | null>(null)
+
+  // Dialogue de retraite volontaire (FR-14), partagé par tous les écrans.
+  const retireDialog = confirmRetire ? (
+    <ConfirmDialog
+      title="Raccrocher les gants ?"
+      body="Ta carrière s'arrête ici et tu passes directement au bilan final. Ce choix est définitif."
+      confirmLabel="Prendre ma retraite"
+      onConfirm={() => {
+        setConfirmRetire(false)
+        setStatsOpen(false)
+        retire()
+      }}
+      onCancel={() => setConfirmRetire(false)}
+    />
+  ) : null
 
   const gameForEffect = session?.game ?? null
   // Annonce les variations de stats aux lecteurs d'écran après chaque changement (UX-DR17).
@@ -71,7 +89,14 @@ export function CareerScreen() {
         <button className="btn-primary" type="button" onClick={advance}>
           Continuer
         </button>
-        {statsOpen ? <StatsSheet game={game} onClose={() => setStatsOpen(false)} /> : null}
+        {statsOpen ? (
+          <StatsSheet
+            game={game}
+            onClose={() => setStatsOpen(false)}
+            onRetire={() => setConfirmRetire(true)}
+          />
+        ) : null}
+        {retireDialog}
       </main>
     )
   }
@@ -87,7 +112,14 @@ export function CareerScreen() {
         <button className="btn-primary" type="button" onClick={advance}>
           Continuer
         </button>
-        {statsOpen ? <StatsSheet game={game} onClose={() => setStatsOpen(false)} /> : null}
+        {statsOpen ? (
+          <StatsSheet
+            game={game}
+            onClose={() => setStatsOpen(false)}
+            onRetire={() => setConfirmRetire(true)}
+          />
+        ) : null}
+        {retireDialog}
       </main>
     )
   }

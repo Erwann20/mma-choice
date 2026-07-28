@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import type { EventDef } from '../schema'
-import { startCareer, chooseInSession, continueSession, type Session } from './session'
+import { startCareer, chooseInSession, continueSession, retireCareer, type Session } from './session'
 import { START_AGE } from '../engine'
 
 /** Un « tour » complet : choisir, passer l'écran de conséquences ET le bilan annuel. */
@@ -74,6 +74,15 @@ describe('session', () => {
     expect(afterChoice.current).toBe(s0.current)
     const resumed = continueSession(afterChoice)
     expect(resumed.lastReveal).toBeNull()
+  })
+
+  it('retraite volontaire : raccroche les gants immédiatement', () => {
+    const s = startCareer(EVENTS, 1)
+    expect(s.game.phase).toBe('career')
+    const retired = retireCareer(s)
+    expect(retired.game.phase).toBe('retired')
+    expect(retired.current).toBeNull()
+    expect(retired.tournament).toBeNull()
   })
 
   it('une carrière se termine à la retraite (current = null, phase retired)', () => {

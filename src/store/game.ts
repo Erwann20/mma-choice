@@ -8,6 +8,7 @@ import {
   startCareerFromCreation,
   chooseInSession,
   continueSession,
+  retireCareer,
   serializeSession,
   deserializeSession,
   type CreationChoices,
@@ -22,6 +23,8 @@ interface GameStore {
   choose: (choiceIndex: number) => void
   /** Reprend après un écran de conséquences (combat ou choix narratif). */
   advance: () => void
+  /** Retraite volontaire : raccroche les gants et bascule sur le récap final. */
+  retire: () => void
   reset: () => void
 }
 
@@ -46,6 +49,10 @@ export const useGameStore = create<GameStore>()(
       advance: () => {
         const s = get().session
         if (s) set({ session: continueSession(s) })
+      },
+      retire: () => {
+        const s = get().session
+        if (s) set({ session: retireCareer(s) })
       },
       reset: () => set({ session: null }),
     }),
