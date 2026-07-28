@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import type { GameState } from '../engine'
 import { fighterOverall } from '../engine'
 import { StatBar } from './StatBar'
-import { STYLE_LABEL, careerStatus, amateurTitles } from './labels'
+import { STYLE_LABEL, careerStatus, amateurTitles, formatCompact, formatMoney } from './labels'
 
 function ovrTier(o: number): string {
   if (o >= 85) return 'elite'
@@ -81,10 +81,10 @@ export function StatsSheet({
 
         <div className="sheet-numbers">
           <span>
-            <b>{game.meta.followers}</b> followers
+            <b>{formatCompact(game.meta.followers)}</b> abonnés
           </span>
           <span>
-            <b>{game.meta.money}</b> €
+            <b>{formatMoney(game.meta.money)}</b>
           </span>
         </div>
 
