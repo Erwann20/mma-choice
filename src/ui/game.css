@@ -418,6 +418,12 @@
 .home-head h1 {
   margin: 0 0 var(--space-2);
 }
+.career-topbar {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--space-2);
+}
+
 .text-input {
   width: 100%;
   box-sizing: border-box;
