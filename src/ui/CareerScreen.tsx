@@ -70,6 +70,28 @@ export function CareerScreen({
     </>
   )
 
+  // Barre du haut : retour à l'accueil (la carrière reste reprenable). Toujours
+  // visible pour ne jamais se sentir « bloqué » dans une carrière.
+  const topBar = onExitToHome ? (
+    <div className="career-topbar">
+      <button type="button" className="home-back" onClick={onExitToHome}>
+        ← Accueil
+      </button>
+    </div>
+  ) : null
+
+  // Feuille de stats avec le menu complet (accueil / retraite / abandon).
+  const statsSheet = (game: GameState) =>
+    statsOpen ? (
+      <StatsSheet
+        game={game}
+        onClose={() => setStatsOpen(false)}
+        onHome={onExitToHome ? () => { setStatsOpen(false); onExitToHome() } : undefined}
+        onRetire={() => setConfirmRetire(true)}
+        onAbandon={onAbandon ? () => setConfirmAbandon(true) : undefined}
+      />
+    ) : null
+
   const gameForEffect = session?.game ?? null
   // Annonce les variations de stats aux lecteurs d'écran après chaque changement (UX-DR17).
   useEffect(() => {
@@ -111,6 +133,7 @@ export function CareerScreen({
   if (lastResult) {
     return (
       <main className="screen">
+        {topBar}
         <FighterHeader game={game} onOpen={() => setStatsOpen(true)} />
         <ResultBanner result={lastResult} beltNoun={game.sport === 'basket' ? 'bague' : 'ceinture'} />
         {tournament ? <BracketView tournament={tournament} /> : null}
@@ -135,6 +158,7 @@ export function CareerScreen({
   if (lastReveal) {
     return (
       <main className={`screen cat-${eventCategory(current)}`}>
+        {topBar}
         <FighterHeader game={game} onOpen={() => setStatsOpen(true)} />
         <EventCard event={current} game={game} />
         <ChoiceReveal changes={lastReveal.changes} />
@@ -158,6 +182,7 @@ export function CareerScreen({
   const isFight = !!current.fight && !!opponent
   return (
     <main className={`screen cat-${eventCategory(current)}`}>
+      {topBar}
       <FighterHeader game={game} onOpen={() => setStatsOpen(true)} />
       {daily ? <DailyObjectiveBanner game={game} /> : null}
       {isFight && opponent ? <OpponentCard key={`opp-${current.id}`} opponent={opponent} /> : null}
@@ -171,7 +196,8 @@ export function CareerScreen({
       <p className="sr-only" role="status" aria-live="polite">
         {announce}
       </p>
-      {statsOpen ? <StatsSheet game={game} onClose={() => setStatsOpen(false)} /> : null}
+      {statsSheet(game)}
+      {menuDialogs}
     </main>
   )
 }
