@@ -25,7 +25,7 @@ export function IconSelectScreen({
   return (
     <main className="screen">
       <h2 className="step-title">Revivre la carrière</h2>
-      <p className="event-text" style={{ marginTop: 0 }}>
+      <p className="text-lead" style={{ marginTop: 0 }}>
         Incarne une légende et réécris son histoire, à ta façon.
       </p>
 

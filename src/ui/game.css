@@ -762,6 +762,15 @@
   flex-direction: column;
   gap: var(--space-3);
 }
+
+/* Texte de corps sur fond SOMBRE (dialogues, intros d'écran) — contraste OK.
+   NB : `.event-text` est volontairement foncé car réservé à la carte blanche. */
+.text-lead {
+  margin: 0;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  font-size: var(--fs-body);
+}
 /* Récap de fin de carrière — vue palmarès (Story 1.11 + refonte récompense) */
 .recap {
   gap: var(--space-3);
