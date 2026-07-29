@@ -15,6 +15,7 @@ import { DailyObjectiveBanner } from './DailyObjectiveBanner'
 import { describeStatChanges } from './a11y'
 import { eventCategory } from './labels'
 import { Skeleton } from './Skeleton'
+import { sportDef } from '../engine'
 import type { GameState } from '../engine'
 
 export function CareerScreen({
@@ -36,12 +37,15 @@ export function CareerScreen({
   const [announce, setAnnounce] = useState('')
   const prevGame = useRef<GameState | null>(null)
 
+  const sport = session?.game.sport ?? 'mma'
+  const retireLabel = sportDef(sport).retireLabel
+
   // Dialogues (retraite / abandon), partagés par tous les écrans.
   const retireDialog = confirmRetire ? (
     <ConfirmDialog
-      title="Raccrocher les gants ?"
+      title={`${retireLabel} ?`}
       body="Ta carrière s'arrête ici et tu passes directement au bilan final. Ce choix est définitif."
-      confirmLabel="Prendre ma retraite"
+      confirmLabel={retireLabel}
       onConfirm={() => {
         setConfirmRetire(false)
         setStatsOpen(false)
@@ -135,7 +139,11 @@ export function CareerScreen({
       <main className="screen">
         {topBar}
         <FighterHeader game={game} onOpen={() => setStatsOpen(true)} />
-        <ResultBanner result={lastResult} beltNoun={game.sport === 'basket' ? 'bague' : 'ceinture'} />
+        <ResultBanner
+          result={lastResult}
+          beltNoun={game.sport === 'basket' ? 'bague' : 'ceinture'}
+          matchNoun={sportDef(game.sport).matchNoun}
+        />
         {tournament ? <BracketView tournament={tournament} /> : null}
         <button className="btn-primary" type="button" onClick={advance}>
           Continuer

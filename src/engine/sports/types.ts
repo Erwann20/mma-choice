@@ -25,6 +25,14 @@ export interface SportDef {
   icon: string
   /** Nom du sportif (« combattant », « joueur »…). */
   athleteNoun: string
+  /** Nom d'un affrontement (« combat », « match »…). */
+  matchNoun: string
+  /** Icône de la catégorie « affrontement » (🥊 / 🏀). */
+  categoryIcon: string
+  /** Libellé du bouton/titre de retraite (« Raccrocher les gants »…). */
+  retireLabel: string
+  /** Formulation passée de la retraite (« a raccroché les gants »…). */
+  retiredVerb: string
   /** Clés d'attributs sportifs (canaux d'effet propres au sport). */
   statKeys: string[]
   /** Libellés d'affichage des attributs. */

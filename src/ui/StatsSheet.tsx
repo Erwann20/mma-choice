@@ -39,7 +39,7 @@ export function StatsSheet({
         className="sheet"
         role="dialog"
         aria-modal="true"
-        aria-label="Statistiques du combattant"
+        aria-label={`Statistiques du ${sportDef(game.sport).athleteNoun}`}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="sheet-grabber" aria-hidden="true" />
@@ -119,7 +119,7 @@ export function StatsSheet({
             onClick={onRetire}
             style={{ marginTop: 'var(--space-2)' }}
           >
-            🥊 Raccrocher les gants
+            🏁 {sportDef(game.sport).retireLabel}
           </button>
         ) : null}
         {onAbandon ? (

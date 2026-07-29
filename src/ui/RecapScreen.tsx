@@ -9,6 +9,7 @@ import {
   wasChampion,
   dailyObjective,
   dailyScore,
+  sportDef,
 } from '../engine'
 import type { Achievement } from '../engine'
 import { loadDivisions } from '../schema'
@@ -97,7 +98,7 @@ export function RecapScreen({
           </span>
           {title.label}
         </p>
-        <p className="rank-line">{rank}ᵉ meilleur combattant de tous les temps</p>
+        <p className="rank-line">{rank}ᵉ meilleur {sportDef(game.sport).athleteNoun} de tous les temps</p>
       </section>
 
       {objective ? (
@@ -146,7 +147,7 @@ export function RecapScreen({
       )}
 
       <p className="recap-outro">
-        {game.fighter.name} a raccroché les gants à {game.fighter.age} ans.
+        {game.fighter.name} {sportDef(game.sport).retiredVerb} à {game.fighter.age} ans.
       </p>
 
       <div className="recap-actions">
