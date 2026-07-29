@@ -21,7 +21,7 @@ export function ConfirmDialog({
         onClick={(e) => e.stopPropagation()}
       >
         <h2 className="step-title">{title}</h2>
-        {body ? <p className="event-text">{body}</p> : null}
+        {body ? <p className="text-lead">{body}</p> : null}
         <div className="step-actions">
           <button type="button" className="btn-secondary" onClick={onCancel}>
             Annuler
