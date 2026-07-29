@@ -1,5 +1,6 @@
-// Création d'un basketteur (FR-1/2) : nom, pays, poste, profil. Simple et
-// direct — pas d'origine/entourage (spécifiques au MMA). Démarre via newCareer.
+// Création d'un basketteur (FR-1/2) : pays, poste, profil — RIEN n'est
+// présélectionné. Le nom est toujours aléatoire (généré par le moteur). Tout
+// champ laissé libre est tiré au hasard au lancement.
 import { useState } from 'react'
 import { sportDef } from '../engine'
 import type { FighterSetup } from '../engine'
@@ -14,6 +15,11 @@ const COUNTRIES: { name: string; flag: string }[] = [
   { name: 'Royaume-Uni', flag: '🇬🇧' },
 ]
 
+/** Tirage aléatoire (shell : Math.random autorisé hors moteur). */
+function pick<T>(arr: T[]): T {
+  return arr[Math.floor(Math.random() * arr.length)]
+}
+
 export function BasketCreationScreen({
   onCreate,
   onCancel,
@@ -22,10 +28,19 @@ export function BasketCreationScreen({
   onCancel: () => void
 }) {
   const def = sportDef('basket')
-  const [name, setName] = useState('')
-  const [country, setCountry] = useState(COUNTRIES[0].name)
-  const [division, setDivision] = useState(def.defaultDivision)
-  const [style, setStyle] = useState(def.defaultStyle)
+  // null = non choisi (rien de présélectionné) ⇒ tiré au hasard au lancement.
+  const [country, setCountry] = useState<string | null>(null)
+  const [division, setDivision] = useState<string | null>(null)
+  const [style, setStyle] = useState<string | null>(null)
+
+  const launch = () =>
+    onCreate({
+      sport: 'basket',
+      // Nom omis ⇒ généré aléatoirement par le moteur (FR-1).
+      country: country ?? pick(COUNTRIES).name,
+      division: division ?? pick(def.positions).id,
+      style: style ?? pick(def.styles),
+    })
 
   return (
     <main className="screen">
@@ -34,20 +49,10 @@ export function BasketCreationScreen({
       </button>
       <div className="home-head">
         <h1>🏀 Nouveau joueur</h1>
-        <p style={{ color: 'var(--color-text-muted)', margin: 0 }}>Façonne ton basketteur, puis écris ta légende.</p>
+        <p className="text-lead">Choisis ce que tu veux — le reste (nom compris) est tiré au hasard.</p>
       </div>
 
-      <label className="overline" htmlFor="bk-name">Nom (facultatif)</label>
-      <input
-        id="bk-name"
-        className="text-input"
-        type="text"
-        value={name}
-        placeholder="Laisser vide = nom aléatoire"
-        onChange={(e) => setName(e.target.value)}
-      />
-
-      <div className="overline" style={{ marginTop: 'var(--space-4)' }}>Pays</div>
+      <div className="overline">Pays</div>
       <div className="flag-grid">
         {COUNTRIES.map((c) => (
           <button
@@ -92,12 +97,7 @@ export function BasketCreationScreen({
         ))}
       </div>
 
-      <button
-        type="button"
-        className="btn-primary"
-        style={{ marginTop: 'var(--space-6)' }}
-        onClick={() => onCreate({ sport: 'basket', name: name.trim() || undefined, country, division, style })}
-      >
+      <button type="button" className="btn-primary" style={{ marginTop: 'var(--space-6)' }} onClick={launch}>
         Lancer ma carrière
       </button>
     </main>

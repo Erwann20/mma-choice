@@ -11,12 +11,20 @@ const OUTCOME: Record<FightOutcome, { title: string; tone: string }> = {
   loss: { title: 'Défaite', tone: 'loss' },
 }
 
-export function ResultBanner({ result, beltNoun = 'titre' }: { result: FightResult; beltNoun?: string }) {
+export function ResultBanner({
+  result,
+  beltNoun = 'titre',
+  matchNoun = 'combat',
+}: {
+  result: FightResult
+  beltNoun?: string
+  matchNoun?: string
+}) {
   const meta = OUTCOME[result.outcome]
   return (
     <section className={`result-banner tone-${meta.tone}`} role="status" aria-live="polite">
       <p className="overline">
-        {result.nemesis ? '⚔️ Rivalité' : result.titleFight ? 'Combat de titre' : 'Résultat du combat'}
+        {result.nemesis ? '⚔️ Rivalité' : result.titleFight ? `${matchNoun} de titre` : `Résultat du ${matchNoun}`}
       </p>
       <h2 className="result-title">{meta.title}</h2>
       <p className="result-method">
