@@ -15,13 +15,11 @@ function ovrTier(o: number): string {
 export function StatsSheet({
   game,
   onClose,
-  onHome,
   onRetire,
   onAbandon,
 }: {
   game: GameState
   onClose: () => void
-  onHome?: () => void
   onRetire?: () => void
   onAbandon?: () => void
 }) {
@@ -104,34 +102,21 @@ export function StatsSheet({
           </span>
         </div>
 
-        <button className="btn-secondary" type="button" onClick={onClose} style={{ marginTop: 'var(--space-4)' }}>
-          Fermer
-        </button>
-        {onHome ? (
-          <button className="btn-ghost" type="button" onClick={onHome} style={{ marginTop: 'var(--space-2)' }}>
-            🏠 Revenir à l'accueil
+        <div className="sheet-actions">
+          <button className="btn-secondary" type="button" onClick={onClose}>
+            Fermer
           </button>
-        ) : null}
-        {onRetire ? (
-          <button
-            className="btn-ghost btn-retire"
-            type="button"
-            onClick={onRetire}
-            style={{ marginTop: 'var(--space-2)' }}
-          >
-            🏁 {sportDef(game.sport).retireLabel}
-          </button>
-        ) : null}
-        {onAbandon ? (
-          <button
-            className="btn-ghost btn-retire"
-            type="button"
-            onClick={onAbandon}
-            style={{ marginTop: 'var(--space-2)' }}
-          >
-            🗑️ Abandonner la carrière
-          </button>
-        ) : null}
+          {onRetire ? (
+            <button className="btn-ghost btn-retire" type="button" onClick={onRetire}>
+              🏁 {sportDef(game.sport).retireLabel}
+            </button>
+          ) : null}
+          {onAbandon ? (
+            <button className="btn-ghost btn-retire" type="button" onClick={onAbandon}>
+              🗑️ Abandonner la carrière
+            </button>
+          ) : null}
+        </div>
       </div>
     </div>
   )

@@ -90,7 +90,6 @@ export function CareerScreen({
       <StatsSheet
         game={game}
         onClose={() => setStatsOpen(false)}
-        onHome={onExitToHome ? () => { setStatsOpen(false); onExitToHome() } : undefined}
         onRetire={() => setConfirmRetire(true)}
         onAbandon={onAbandon ? () => setConfirmAbandon(true) : undefined}
       />
@@ -148,15 +147,7 @@ export function CareerScreen({
         <button className="btn-primary" type="button" onClick={advance}>
           Continuer
         </button>
-        {statsOpen ? (
-          <StatsSheet
-            game={game}
-            onClose={() => setStatsOpen(false)}
-            onHome={onExitToHome ? () => { setStatsOpen(false); onExitToHome() } : undefined}
-            onRetire={() => setConfirmRetire(true)}
-            onAbandon={onAbandon ? () => setConfirmAbandon(true) : undefined}
-          />
-        ) : null}
+        {statsSheet(game)}
         {menuDialogs}
       </main>
     )
@@ -173,15 +164,7 @@ export function CareerScreen({
         <button className="btn-primary" type="button" onClick={advance}>
           Continuer
         </button>
-        {statsOpen ? (
-          <StatsSheet
-            game={game}
-            onClose={() => setStatsOpen(false)}
-            onHome={onExitToHome ? () => { setStatsOpen(false); onExitToHome() } : undefined}
-            onRetire={() => setConfirmRetire(true)}
-            onAbandon={onAbandon ? () => setConfirmAbandon(true) : undefined}
-          />
-        ) : null}
+        {statsSheet(game)}
         {menuDialogs}
       </main>
     )
