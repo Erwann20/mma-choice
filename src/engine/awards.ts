@@ -12,8 +12,8 @@ export function careerTitle(score: number): { label: string; icon: string; tone:
   if (score >= 90) return { label: 'GOAT — le plus grand de tous les temps', icon: '🐐', tone: 'goat' }
   if (score >= 75) return { label: 'Légende du sport', icon: '👑', tone: 'legend' }
   if (score >= 60) return { label: 'Star confirmée', icon: '⭐', tone: 'star' }
-  if (score >= 45) return { label: 'Combattant solide', icon: '🥊', tone: 'solid' }
-  if (score >= 28) return { label: 'Combattant honnête', icon: '🧤', tone: 'plain' }
+  if (score >= 45) return { label: 'Athlète solide', icon: '💪', tone: 'solid' }
+  if (score >= 28) return { label: 'Compétiteur honnête', icon: '🧢', tone: 'plain' }
   return { label: 'Un passage discret', icon: '🌫️', tone: 'plain' }
 }
 

@@ -382,5 +382,157 @@
       { "label": "Gainage et kiné au quotidien", "hint": "Prévenir plutôt que guérir", "effects": [{ "target": "health", "op": "add", "value": 5 }, { "target": "mental", "op": "add", "value": 2 }] },
       { "label": "Infiltrations et on continue", "hint": "Tenir coûte que coûte", "effects": [{ "target": "passe", "op": "add", "value": 3 }, { "target": "health", "op": "sub", "value": 4 }] }
     ]
+  },
+  {
+    "id": "bk-match-clutch",
+    "weight": 4,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "combat",
+    "overline": "MATCH SERRÉ",
+    "text": "Trois secondes au chrono, un point d'écart, ballon en main. Le genre de moment qui définit une carrière. Que fais-tu ?",
+    "fight": {},
+    "conditions": [{ "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 }],
+    "choices": [
+      { "label": "Prendre le shoot de la gagne", "hint": "Ton tir décide", "tactic": "tir" },
+      { "label": "Percer et provoquer la faute", "hint": "Ton dribble décide", "tactic": "dribble" },
+      { "label": "Trouver le coéquipier démarqué", "hint": "Ta passe décide", "tactic": "passe" }
+    ]
+  },
+  {
+    "id": "bk-match-national",
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 2,
+    "category": "combat",
+    "overline": "SÉLECTION NATIONALE",
+    "text": "Tu portes le maillot national pour un grand tournoi international. La fierté {nation} sur les épaules. Comment tu joues ce match ?",
+    "fight": { "winFlag": "titre_national" },
+    "conditions": [
+      { "kind": "stat", "on": "reputation", "cmp": "gte", "value": 40 },
+      { "kind": "flag", "flag": "titre_national", "eq": false }
+    ],
+    "choices": [
+      { "label": "Porter la sélection au scoring", "hint": "Ton tir décide", "tactic": "tir" },
+      { "label": "Diriger le jeu", "hint": "Ta passe décide", "tactic": "passe" },
+      { "label": "Verrouiller la raquette", "hint": "Ta défense décide", "tactic": "defense" }
+    ]
+  },
+  {
+    "id": "bk-life-famille",
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 2,
+    "category": "general",
+    "overline": "LA FAMILLE",
+    "text": "Ta mère te rappelle d'où tu viens et tout ce qu'elle a sacrifié. Un coup de fil qui recentre. Comment tu réagis ?",
+    "conditions": [],
+    "choices": [
+      { "label": "Lui offrir une maison avec ta prime", "hint": "Rendre ce qu'on t'a donné", "effects": [{ "target": "money", "op": "sub", "value": 3000 }, { "target": "mental", "op": "add", "value": 8 }] },
+      { "label": "Lui promettre le titre", "hint": "La motivation au ventre", "effects": [{ "target": "mental", "op": "add", "value": 4 }] }
+    ]
+  },
+  {
+    "id": "bk-life-repos",
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "health",
+    "overline": "GESTION DE LA CHARGE",
+    "text": "Le staff médical te conseille de lever le pied. La saison est longue et ton corps encaisse. Tu écoutes ?",
+    "conditions": [],
+    "choices": [
+      { "label": "Se reposer intelligemment", "hint": "Préserver le corps", "effects": [{ "target": "health", "op": "add", "value": 8 }] },
+      { "label": "Enchaîner, tu te sens invincible", "hint": "Risqué mais ambitieux", "effects": [{ "target": "athletisme", "op": "add", "value": 3 }, { "target": "health", "op": "sub", "value": 4 }] }
+    ]
+  },
+  {
+    "id": "bk-train-video",
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 1,
+    "category": "training",
+    "overline": "SÉANCE VIDÉO",
+    "text": "Des heures à décortiquer les matchs adverses. Fastidieux, mais c'est là que se gagnent les duels. Tu t'y mets ?",
+    "conditions": [],
+    "choices": [
+      { "label": "Étudier les systèmes adverses", "hint": "Lecture du jeu", "effects": [{ "target": "passe", "op": "add", "value": 3 }, { "target": "mental", "op": "add", "value": 3 }] },
+      { "label": "Travailler tes lectures défensives", "hint": "Anticiper", "effects": [{ "target": "defense", "op": "add", "value": 4 }] }
+    ]
+  },
+  {
+    "id": "bk-biz-sneaker",
+    "weight": 2,
+    "repeatable": true,
+    "cooldown": 3,
+    "category": "money",
+    "overline": "CONTRAT SIGNATURE",
+    "text": "Un équipementier mondial veut te donner TA chaussure signature. Le genre de deal qui change une vie — et qui met la pression.",
+    "conditions": [{ "kind": "stat", "on": "reputation", "cmp": "gte", "value": 50 }],
+    "choices": [
+      { "label": "Signer le méga-contrat", "hint": "Le jackpot", "effects": [{ "target": "money", "op": "add", "value": 80000 }, { "target": "followers", "op": "add", "value": 8000 }] },
+      { "label": "Négocier des royalties plus tard", "hint": "Jouer la montre", "effects": [{ "target": "mental", "op": "add", "value": 3 }, { "target": "reputation", "op": "add", "value": 3 }] }
+    ]
+  },
+  {
+    "id": "bk-social-clash",
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 2,
+    "category": "social",
+    "overline": "CLASH SUR LES RÉSEAUX",
+    "text": "Un analyste te descend en direct : « surcoté, jamais clutch ». Les réseaux s'enflamment. Ta réponse ?",
+    "conditions": [],
+    "choices": [
+      { "label": "Répondre sur le terrain", "hint": "Le silence des forts", "effects": [{ "target": "mental", "op": "add", "value": 5 }] },
+      { "label": "Clapback cinglant", "hint": "Le buzz garanti", "effects": [{ "target": "followers", "op": "add", "value": 2500 }, { "target": "mental", "op": "sub", "value": 2 }] }
+    ]
+  },
+  {
+    "id": "bk-mental-slump",
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 2,
+    "category": "general",
+    "overline": "PASSAGE À VIDE",
+    "text": "Tes shoots ne rentrent plus, le doute s'installe. Chaque match devient un calvaire mental. Comment tu remontes la pente ?",
+    "conditions": [{ "kind": "stat", "on": "mental", "cmp": "lte", "value": 45 }],
+    "choices": [
+      { "label": "Bosser en solo au gymnase, la nuit", "hint": "Retrouver ses gammes", "effects": [{ "target": "tir", "op": "add", "value": 3 }, { "target": "mental", "op": "add", "value": 4 }, { "target": "health", "op": "sub", "value": 2 }] },
+      { "label": "Consulter un préparateur mental", "hint": "La tête d'abord", "effects": [{ "target": "mental", "op": "add", "value": 7 }, { "target": "money", "op": "sub", "value": 1500 }] }
+    ]
+  },
+  {
+    "id": "bk-rookie-hazing",
+    "weight": 2,
+    "repeatable": false,
+    "category": "general",
+    "overline": "BIZUTAGE DE ROOKIE",
+    "text": "Les vétérans te font porter les sacs et chanter devant l'équipe. Le rite de passage du débutant. Tu le prends comment ?",
+    "conditions": [
+      { "kind": "stat", "on": "tier", "cmp": "gte", "value": 1 },
+      { "kind": "stat", "on": "age", "cmp": "lte", "value": 22 }
+    ],
+    "choices": [
+      { "label": "Jouer le jeu avec le sourire", "hint": "Se faire adopter", "effects": [{ "target": "mental", "op": "add", "value": 5 }] },
+      { "label": "Bosser deux fois plus pour les faire taire", "hint": "Répondre par le travail", "effects": [{ "target": "athletisme", "op": "add", "value": 3 }, { "target": "defense", "op": "add", "value": 2 }] }
+    ]
+  },
+  {
+    "id": "bk-allstar",
+    "weight": 3,
+    "repeatable": true,
+    "cooldown": 2,
+    "category": "career",
+    "overline": "WEEK-END DES ÉTOILES",
+    "text": "Sélectionné pour le All-Star Game ! Le gratin du basket réuni, les projecteurs braqués sur toi. Comment tu vis ce week-end ?",
+    "conditions": [
+      { "kind": "stat", "on": "tier", "cmp": "gte", "value": 2 },
+      { "kind": "stat", "on": "reputation", "cmp": "gte", "value": 60 }
+    ],
+    "choices": [
+      { "label": "Régaler le public au concours de dunks", "hint": "Le show", "effects": [{ "target": "followers", "op": "add", "value": 6000 }, { "target": "reputation", "op": "add", "value": 5 }] },
+      { "label": "Rester pro et te reposer", "hint": "Garder le cap", "effects": [{ "target": "health", "op": "add", "value": 5 }, { "target": "mental", "op": "add", "value": 3 }] }
+    ]
   }
 ]

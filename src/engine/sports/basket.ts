@@ -102,6 +102,7 @@ function basketAchievements(game: GameState): Achievement[] {
     if (cond) out.push(a)
   }
   add(game.belt, { id: 'bague', icon: '💍', label: 'Champion (bague)', desc: 'A soulevé le trophée le plus convoité.' })
+  add(game.flags['titre_national'] === true, { id: 'international', icon: '🌍', label: 'Gloire internationale', desc: 'A brillé sous le maillot national.' })
   add(game.titleDefenses >= 2, { id: 'dynastie', icon: '🏆', label: 'Dynastie', desc: `${game.titleDefenses} titres en plus.` })
   add(game.tier === 'major' && meta.reputation >= 80, { id: 'franchise', icon: '⭐', label: 'Franchise player', desc: 'Le visage de la ligue.' })
   add(record.wins >= 30, { id: 'gagnant', icon: '🔥', label: 'Machine à gagner', desc: `${record.wins} victoires.` })
@@ -253,6 +254,12 @@ function resolveMatch(
   const prevStreak = typeof g.flags['defaites_daffilee'] === 'number' ? g.flags['defaites_daffilee'] : 0
   const lossStreak = win ? 0 : prevStreak + 1
   g = { ...g, flags: { ...g.flags, defaites_daffilee: lossStreak, serie_negative: lossStreak >= 2 } }
+
+  // Titre remporté (ex. sélection nationale) : pose le drapeau correspondant.
+  const winFlag = event.fight?.winFlag
+  if (winFlag && win) {
+    g = { ...g, flags: { ...g.flags, [winFlag]: true } }
+  }
 
   // Enjeu de la bague (titre) : conquête / défense / perte.
   let wonBelt = false
